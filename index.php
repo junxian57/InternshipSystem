@@ -11,18 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $ages = array("peter" => 22, "Clark" => 32, "John" => 28);
-        print_r($ages);
-        echo"<br>";
-        
-        $cities = array("London","Paris","New York");
-        
-        print_r($cities);
-        echo"<br>";
-        
-        $cities = array("London","Paris","New York");
-        
-        var_dump($cities);
+        // put your code here
         ?>
     </body>
 </html>
