@@ -57,6 +57,10 @@ if (strlen($_SESSION['bpmsaid']==0)) {
 	<script src="js/custom.js"></script>
 	<link href="css/custom.css" rel="stylesheet">
 	<!--//Metis Menu -->
+	<!--Notification-->
+	<link href="css/toastr.min.css" rel="stylesheet" type="text/css" media="all">
+	<script src="js/toastr.min.js"></script>
+	<!--//Notification-->
 </head>
 
 <body class="cbp-spmenu-push">
