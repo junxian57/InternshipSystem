@@ -3,16 +3,18 @@
 /**
  * Class for database interaction
  */
-class StudentDAL {
+include_once('../../includes/db_connection.php');
+class StudentDAL
+{
 
     private $db;
     private $databaseConnectionObj;
-
     /**
      * Connect to the database. Create an instance of database object.
      */
-    public function StudentDAL() {
-        //$this->databaseConnectionObj = new DatabaseConnection();
+    public function StudentDAL()
+    {
+        $this->databaseConnectionObj = new connectDB();
         $this->db = $this->databaseConnectionObj->GetDB();
     }
 
@@ -21,21 +23,22 @@ class StudentDAL {
      *
      * @return array
      */
-    public function GetAllStudents() {
+    public function GetAllStudents()
+    {
 
         $listOfStudentDto = array();
         $sql = "SELECT * FROM Student";
         $raw_result = $this->db->get_results($sql, ARRAY_A);
 
-        if(count($raw_result) > 0){
-            for($i=0; $i<count($raw_result); $i++) {
+        if (count($raw_result) > 0) {
+            for ($i = 0; $i < count($raw_result); $i++) {
 
                 $id = $raw_result[$i]['Id'];
                 $roll = $raw_result[$i]['Roll'];
                 $name = $raw_result[$i]['Name'];
                 $email = $raw_result[$i]['Email'];
                 $dateOfBirth = $raw_result[$i]['DateOfBirth'];
-                
+
                 $listOfStudentDto[] = new StudentDTO($id, $roll, $name, $email, $dateOfBirth);
             }
         }
@@ -49,12 +52,13 @@ class StudentDAL {
      * @param int $studentId
      * @return bool|\StudentDTO
      */
-    public function GetStudent($studentId) {
+    public function GetStudent($studentId)
+    {
 
-        $sql = "SELECT * FROM Student WHERE Id=". $studentId;
+        $sql = "SELECT * FROM Student WHERE Id=" . $studentId;
         $aStudent = $this->db->get_row($sql, ARRAY_A);
 
-        if(is_array($aStudent) && count($aStudent) > 0) {
+        if (is_array($aStudent) && count($aStudent) > 0) {
             $studentDtoObj = new StudentDTO($aStudent['Id'], $aStudent['Roll'], $aStudent['Name'], $aStudent['Email'], $aStudent['DateOfBirth']);
             return $studentDtoObj;
         }
@@ -68,14 +72,15 @@ class StudentDAL {
      * @param object $studentDto
      * @return int
      */
-    public function AddStudent($studentDto) {
+    public function AddStudent($studentDto)
+    {
 
         $sql = "INSERT INTO Student (`Roll`, `Name`, `Email`, `DateOfBirth`)
                 VALUES (
-                  '". $studentDto->GetRoll() ."',
-                  '". $studentDto->GetName() ."',
-                  '". $studentDto->GetEmail() ."',
-                  '". $studentDto->GetDateOfBirth() ."'
+                  '" . $studentDto->GetRoll() . "',
+                  '" . $studentDto->GetName() . "',
+                  '" . $studentDto->GetEmail() . "',
+                  '" . $studentDto->GetDateOfBirth() . "'
                 )";
         $this->db->query($sql);
 
@@ -88,15 +93,16 @@ class StudentDAL {
      * @param object $studentDto
      * @return bool|int
      */
-    public function UpdateStudent($studentDto) {
+    public function UpdateStudent($studentDto)
+    {
 
         $sql = "UPDATE Student
                 SET
-                    Roll='". $studentDto->GetRoll() ."',
-                    Name='". $studentDto->GetName() ."',
-                    Email='". $studentDto->GetEmail() ."',
-                    DateOfBirth='". $studentDto->GetDateOfBirth() ."'
-                WHERE Id=". $studentDto->GetId();
+                    Roll='" . $studentDto->GetRoll() . "',
+                    Name='" . $studentDto->GetName() . "',
+                    Email='" . $studentDto->GetEmail() . "',
+                    DateOfBirth='" . $studentDto->GetDateOfBirth() . "'
+                WHERE Id=" . $studentDto->GetId();
 
         return $this->db->query($sql);
     }
@@ -107,15 +113,16 @@ class StudentDAL {
      * @param string $studentName
      * @return array
      */
-    public function SearchStudentByName($studentName) {
+    public function SearchStudentByName($studentName)
+    {
 
-        $sql = "SELECT * FROM student WHERE Name LIKE '%". $studentName ."%'";
+        $sql = "SELECT * FROM student WHERE Name LIKE '%" . $studentName . "%'";
 
         $searchStudent = $this->db->get_results($sql, ARRAY_A);
         $listOfStudentDto = array();
 
-        if(count($searchStudent) > 0){
-            for($i=0; $i<count($searchStudent); $i++) {
+        if (count($searchStudent) > 0) {
+            for ($i = 0; $i < count($searchStudent); $i++) {
 
                 $id = $searchStudent[$i]['Id'];
                 $roll = $searchStudent[$i]['Roll'];
@@ -136,9 +143,10 @@ class StudentDAL {
      * @param $studentId
      * @return int|void
      */
-    public function DeleteStudent($studentId) {
+    public function DeleteStudent($studentId)
+    {
 
-        $sql = "DELETE FROM Student WHERE Id=". $studentId;
+        $sql = "DELETE FROM Student WHERE Id=" . $studentId;
 
         return $this->db->query($sql);
     }
@@ -150,12 +158,13 @@ class StudentDAL {
      * @param int $id
      * @return bool
      */
-    public function IsRollExists($roll, $id=0) {
+    public function IsRollExists($roll, $id = 0)
+    {
 
-        $sql = "SELECT * FROM Student WHERE Roll='". $roll ."' AND Id != $id";
+        $sql = "SELECT * FROM Student WHERE Roll='" . $roll . "' AND Id != $id";
         $raw_result = $this->db->get_row($sql, ARRAY_A);
 
-        if( count($raw_result) > 0 ) {
+        if (count($raw_result) > 0) {
             return true;
         } else {
             return false;
@@ -168,12 +177,13 @@ class StudentDAL {
      * @param int $id
      * @return bool
      */
-    public function IsIdExists($id) {
+    public function IsIdExists($id)
+    {
 
         $sql = "SELECT * FROM Student WHERE Id = $id";
         $raw_result = $this->db->get_row($sql, ARRAY_A);
 
-        if( count($raw_result) > 0 ) {
+        if (count($raw_result) > 0) {
             return true;
         } else {
             return false;
@@ -187,12 +197,13 @@ class StudentDAL {
      * @param int $id
      * @return bool
      */
-    public function IsEmailExists($email, $id=0) {
+    public function IsEmailExists($email, $id = 0)
+    {
 
-        $sql = "SELECT * FROM Student WHERE Email='". $email ."' AND Id != $id";
+        $sql = "SELECT * FROM Student WHERE Email='" . $email . "' AND Id != $id";
         $raw_result = $this->db->get_row($sql, ARRAY_A);
 
-        if( count($raw_result) > 0 ) {
+        if (count($raw_result) > 0) {
             return true;
         } else {
             return false;
