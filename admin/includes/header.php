@@ -20,8 +20,8 @@
       <!--notifications of menu start -->
       <ul class="nofitications-dropdown">
         <?php
-        $ret1 = mysqli_query($con, "select ID,Name from  tblappointment where Status=''");
-        $num = mysqli_num_rows($ret1);
+        //$ret1 = mysqli_query($con, "select ID,Name from  tblappointment where Status=''");
+        //$num = mysqli_num_rows($ret1);
 
         ?>
         <li class="dropdown head-dpdn">
@@ -65,10 +65,10 @@
     <!--notification menu end -->
     <div class="profile_details">
       <?php
-      $adid = $_SESSION['bpmsaid'];
-      $ret = mysqli_query($con, "select AdminName from tbladmin where ID='$adid'");
-      $row = mysqli_fetch_array($ret);
-      $name = $row['AdminName'];
+      //$adid = $_SESSION['bpmsaid'];
+      //$ret = mysqli_query($con, "select AdminName from tbladmin where ID='$adid'");
+      //$row = mysqli_fetch_array($ret);
+      //$name = $row['AdminName'];
 
       ?>
       <ul>
