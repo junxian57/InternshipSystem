@@ -81,7 +81,7 @@ if (strlen($_SESSION['bpmsaid']==0)) {
 							$totalcust = mysqli_num_rows($query1);
 							?>
 							<div class="stats-left ">
-								<h5>Total</h5>
+								<h5>123</h5>
 								<h4>Customer</h4>
 							</div>
 							<div class="stats-right">
