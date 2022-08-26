@@ -1702,7 +1702,6 @@ section#tables p {
     border: none;
     outline: none;
     border-radius: inherit;
-    float: right;
 }
 
 .inline-form.widget-shadow {

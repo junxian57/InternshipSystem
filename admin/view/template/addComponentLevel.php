@@ -91,7 +91,7 @@ include('includes/db_connection.php');
                                 <div class="form-group"> <label for="exampleInputEmail1">Component Name</label> <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </div>
                                 <div class="form-group"> <label for="exampleInputPassword1">Component Level</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
 
-                                <button type="submit" name="submit" class="btn btn-default">Add</button>
+                                <button type="submit" name="submit" class="btn btn-default ">Add</button>
                             </form>
                         </div>
 
