@@ -75,11 +75,11 @@ include('includes/db_connection.php');
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <div class="forms">
-                    <h3 class="title1">Add Assessment Component Level</h3>
+                <div class="forms ">
+                    <h3 class="title1">Add Rubric Assessment Criteria</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
-                            <h4>Component Level:</h4>
+                            <h4>Rubric Assessment Criteria</h4>
                         </div>
                         <div class="form-body">
                             <form method="post">
@@ -88,10 +88,18 @@ include('includes/db_connection.php');
                                                                                         }  ?> </p>
 
 
-                                <div class="form-group"> <label for="exampleInputEmail1">Component Name</label> <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </div>
-                                <div class="form-group"> <label for="exampleInputPassword1">Component Level</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
+                                <div class="form-group col-md-6"> <label for="exampleInputPassword1">Assessment Criteria Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputState">Role for Mark</label>
+                                    <select id="inputState" class="form-control">
+                                        <option selected>Choose...</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Description</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
+                                <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
+                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
 
-                                <button type="submit" name="submit" class="btn btn-default ">Add</button>
                             </form>
                         </div>
                     </div>
