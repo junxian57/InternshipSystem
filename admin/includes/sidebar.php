@@ -67,7 +67,7 @@
         </li>
 
         <li>
-          <a href="work-progress.php"><i class="fa-calendar-check-o nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="work-progress.php"><i class="fa-calendar nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
               <a href="work-progress.php">All Work Progress</a>
@@ -76,7 +76,6 @@
               <a href="print-work-progress.php">Print Reports</a>
             </li>
           </ul>
-          <!-- //nav-second-level -->
         </li>
 
         <li>
