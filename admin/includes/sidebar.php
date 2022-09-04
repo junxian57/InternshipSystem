@@ -67,8 +67,18 @@
         </li>
 
         <li>
-          <a href="invoices.php" class="chart-nav"><i class="fa fa-file-text-o nav_icon"></i>Invoices</a>
+          <a href="work-progress.php"><i class="fa-calendar-check-o nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="work-progress.php">All Work Progress</a>
+            </li>
+            <li>
+              <a href="print-work-progress.php">Print Reports</a>
+            </li>
+          </ul>
+          <!-- //nav-second-level -->
         </li>
+
         <li>
           <a href="search-appointment.php" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Appointment</a>
         </li>
