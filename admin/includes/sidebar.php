@@ -27,11 +27,14 @@
             <li>
               <a href="#">Manage Companies</a>
             </li>
+            <li>
+              <a href="#">Companies Application</a>
+            </li>
           </ul>
         </li>
 
         <li class="">
-          <a href="about-us.php"><i class="fa fa-book nav_icon"></i>Pages <span class="fa arrow"></span></a>
+          <a href="about-us.php"><i class="fa fa-book nav_icon"></i>About <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
               <a href="about-us.php">About Us</a>
