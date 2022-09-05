@@ -120,8 +120,8 @@
         <li>
           <a href="index.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
         </li>
-        <hr>
-        <hr>
+        <hr style="background-color:transparent; border:none;">
+        <hr style="background-color:transparent; border:none;">
         <div class="clearfix"> </div>
       </ul>
     </nav>
