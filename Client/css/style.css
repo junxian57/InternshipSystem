@@ -185,7 +185,7 @@ button#showLeftPush:hover {
 .nav > li > a:focus {
   text-decoration: none;
   background-color: transparent;
-  color: #f2b33f;
+  color: #f75445;
 }
 
 .sidebar .arrow {
@@ -475,11 +475,11 @@ ul.dropdown-menu li {
 }
 .sidebar .nav-second-level li a.active,
 .sidebar ul li a.active {
-  color: #f2b33f;
+  color: #f75445;
 }
 li.active a i,
 .act a i {
-  color: #f2b33f;
+  color: #f75445;
 }
 .custom-nav > li.act > a,
 .custom-nav > li.act > a:hover,
