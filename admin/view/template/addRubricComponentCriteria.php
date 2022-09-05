@@ -92,12 +92,17 @@ include('includes/db_connection.php');
                                 <div class="form-group col-md-6">
                                     <label for="inputState">Role for Mark</label>
                                     <select id="inputState" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
+                                        <option selected>Company</option>
+                                        <option>Supervisor</option>
                                     </select>
                                 </div>
+                                <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Session</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Section A. Progress Reports" value="" required="true"> </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Description</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
+                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 1</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
+                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 2</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
+                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 3</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
+                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 4</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
+
                                 <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
 
                             </form>
