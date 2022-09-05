@@ -11,8 +11,6 @@
       </a>
     </div>
     <!--//logo-->
-
-
     <div class="clearfix"> </div>
   </div>
   <div class="header-right">

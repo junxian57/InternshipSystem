@@ -90,7 +90,7 @@ body a:hover {
 button#showLeftPush {
   font-size: 1.5em;
   width: 80px;
-  padding: 0.87em 0;
+  padding: 0.9em 0;
   text-align: center;
   cursor: pointer;
   float: left;
@@ -3166,7 +3166,7 @@ i.fa.fa-facebook.profile-icon {
 }
 @media (max-width: 900px) {
   .logo a {
-    padding: 0.95em 1.95em 0.7em;
+    padding: 0.90em 1.75em 0.7em;
   }
   .logo a span {
     letter-spacing: 5px;
@@ -3282,7 +3282,7 @@ i.fa.fa-facebook.profile-icon {
     padding: 1em 1.4em;
   }
   button#showLeftPush {
-    padding: 0.73em 0;
+    padding: 0.77em 0;
   }
   .sb-search-input {
     font-size: 0.8em;
