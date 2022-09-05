@@ -87,7 +87,6 @@ include('includes/db_connection.php');
                     </div>
                 </div>
             </div>
-            <?php include_once('../../includes/footer.php'); ?>
         </div>
 
         <script src="../../js/classie.js"></script>
@@ -111,5 +110,7 @@ include('includes/db_connection.php');
         </script>
         <script src="../../js/bootstrap.js"> </script>
 </body>
+
+<footer><?php include_once('../../includes/footer.php'); ?></footer>
 
 </html>

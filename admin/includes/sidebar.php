@@ -37,10 +37,10 @@
           <a href="about-us.php"><i class="fa fa-book nav_icon"></i>About <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="about-us.php">About Us</a>
+              <a href="#">About Us</a>
             </li>
             <li>
-              <a href="contact-us.php">Contact Us</a>
+              <a href="#">Contact Us</a>
             </li>
           </ul>
           <!-- /nav-second-level -->
@@ -77,13 +77,13 @@
         </li>
 
         <li>
-          <a href="work-progress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="work-progress.php">All Work Progress</a>
+              <a href="viewWorkProgress.php">All Work Progress</a>
             </li>
             <li>
-              <a href="print-work-progress.php">Print Reports</a>
+              <a href="printWorkProgress.php">Print Reports</a>
             </li>
           </ul>
         </li>
