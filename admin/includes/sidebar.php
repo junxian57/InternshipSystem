@@ -19,18 +19,6 @@
         </li>
 
         <li>
-          <a href="#"><i class="fa fa-building-o nav_icon"></i>Master Data<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">All Master Data</a>
-            </li>
-            <li>
-              <a href="#">Manage Companies</a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
           <a href="#"><i class="fa fa-building-o nav_icon"></i>Companies<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>
