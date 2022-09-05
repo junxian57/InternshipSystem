@@ -121,10 +121,8 @@
         <li>
           <a href="search-appointment.php" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Appointment</a>
         </li>
-
         <hr>
         <hr>
-
         <div class="clearfix"> </div>
       </ul>
     </nav>
