@@ -95,7 +95,6 @@ include('includes/dbconnection.php');
 								<button type="submit" name="submit" class="btn btn-default">Add</button>
 							</form>
 						</div>
-
 					</div>
 
 
