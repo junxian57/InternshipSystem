@@ -94,17 +94,17 @@ button#showLeftPush {
   text-align: center;
   cursor: pointer;
   float: left;
-  color: #fff;
+  color: #000;
   -moz-transition: all 0.2s ease-out 0s;
   -webkit-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   border: none;
-  background-color: #272c4a;
+  background-color: #fff3a6c9;
   outline: none;
 }
 
 button#showLeftPush:hover {
-  color: #f2b33f;
+  color: #fff3a6c9;
 }
 
 /*--push-menu-css--*/
@@ -118,8 +118,9 @@ button#showLeftPush:hover {
   height: 100%;
   top: 76px;
   z-index: 1000;
-  background-color: #272c4a;
+  background-color: #fff3a6c9;
   padding: 2em 0;
+  color: #000;
 }
 
 .cbp-spmenu-left {
@@ -159,6 +160,7 @@ button#showLeftPush:hover {
   transition: all 0.3s ease;
 }
 .cbp-spmenu-push div#page-wrapper {
+  background: #fff;
   margin: 0 0 0 19.3em;
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
@@ -175,7 +177,7 @@ button#showLeftPush:hover {
 }
 
 .sidebar ul li a {
-  color: #ffffff;
+  color: #000;
   font-size: 1em;
 }
 
@@ -260,16 +262,16 @@ ul.dropdown-menu {
 
 /* ----Logo----*/
 .logo {
-  background: #272c4a;
+  background: #fff3a6c9;
   text-align: center;
   float: left;
   display: flex;
-  padding:1.8em 2.8em;
+  padding: 1.8em 2.8em;
 }
 .logo a {
   text-decoration: none;
   text-align: center;
-  color: #fff;
+  color: #000;
   font-size: 1.2em;
   line-height: 1.2em;
   font-weight: 700;

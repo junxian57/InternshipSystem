@@ -13,6 +13,7 @@
     <!--//logo-->
     <div class="clearfix"> </div>
   </div>
+  <h3 style="float: left; margin-top: 25px;">Tunku Abdul Rahman University College</h3>
   <div class="header-right">
     <div class="profile_details_left">
       <!--notifications of menu start -->
