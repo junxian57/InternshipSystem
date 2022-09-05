@@ -30,19 +30,6 @@
           </ul>
         </li>
 
-        <li class="">
-          <a href="about-us.php"><i class="fa fa-book nav_icon"></i>Pages <span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="about-us.php">About Us</a>
-            </li>
-            <li>
-              <a href="contact-us.php">Contact Us</a>
-            </li>
-          </ul>
-          <!-- /nav-second-level -->
-        </li>
-
         <li>
           <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
