@@ -63,15 +63,16 @@ include('includes/db_connection.php');
     <link href="../../css/custom.css" rel="stylesheet">
     <!--//Metis Menu -->
 </head>
+<!--left-fixed -navigation-->
+<?php include_once('../../includes/sidebar.php'); ?>
+<!--left-fixed -navigation-->
+<!-- header-starts -->
+<?php include_once('../../includes/header.php'); ?>
+<!-- //header-ends -->
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-        <!--left-fixed -navigation-->
-        <?php include_once('../../includes/sidebar.php'); ?>
-        <!--left-fixed -navigation-->
-        <!-- header-starts -->
-        <?php include_once('../../includes/header.php'); ?>
-        <!-- //header-ends -->
+
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
@@ -188,6 +189,10 @@ include('includes/db_connection.php');
                 }
             }
         </script>
+        <!--scrolling js-->
+		<script src="../../js/jquery.nicescroll.js"></script>
+		<script src="../../js/scripts.js"></script>
+		<!--//scrolling js-->
         <!-- Bootstrap Core JavaScript -->
         <script src="../../js/bootstrap.js"> </script>
 </body>
