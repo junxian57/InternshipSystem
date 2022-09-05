@@ -5,7 +5,7 @@
     <!--toggle button end-->
     <!--logo -->
     <div class="logo">
-      <a href="index.html">
+      <a href="dashboard.php">
         <h1>ITP System</h1>
         <span>AdminPanel</span>
       </a>
@@ -88,7 +88,6 @@
           <ul class="dropdown-menu drp-mnu">
             <li> <a href="change-password.php"><i class="fa fa-cog"></i> Settings</a> </li>
             <li> <a href="admin-profile.php"><i class="fa fa-user"></i> Profile</a> </li>
-            <li> <a href="index.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
           </ul>
         </li>
       </ul>

@@ -7,13 +7,13 @@
         </li>
 
         <li>
-          <a href="add-services.php"><i class="fa fa-cogs nav_icon"></i>Services<span class="fa arrow"></span> </a>
+          <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="add-services.php">Add Services</a>
+              <a href="#">Add Users</a>
             </li>
             <li>
-              <a href="manage-services.php">Manage Services</a>
+              <a href="#">Manage Users</a>
             </li>
           </ul>
         </li>
@@ -62,7 +62,7 @@
         </li>
 
         <li>
-          <a href="#"><i class="fa fa-users nav_icon"></i>Internship Batch<span class="fa arrow"></span></a>
+          <a href="#"><i class="fa fa-sitemap nav_icon"></i>Internship Batch<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
               <a href="#">Add New Internship Batch</a>
@@ -86,6 +86,30 @@
         </li>
 
         <li>
+          <a href="#"><i class="fa fa-users nav_icon"></i>Company Visitation<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="#">A</a>
+            </li>
+            <li>
+              <a href="#">B</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="#">A</a>
+            </li>
+            <li>
+              <a href="#">B</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>
@@ -98,16 +122,16 @@
         </li>
 
         <li>
-          <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Reports<span class="fa arrow"></span></a>
+          <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
-            <li><a href="bwdates-reports-ds.php"> B/w dates</a></li>
+            <li><a href="#">A</a></li>
 
-            <li><a href="sales-reports.php">Sales Reports</a></li>
+            <li><a href="#">B</a></li>
           </ul>
         </li>
 
         <li>
-          <a href="search-appointment.php" class="chart-nav"><i class="fa fa-search nav_icon"></i>Search Appointment</a>
+          <a href="index.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
         </li>
         <hr>
         <hr>
