@@ -71,14 +71,14 @@ include('includes/db_connection.php');
                                                                                         }  ?> </p>
 
 
-                                <div class="form-group"> 
-                                    <label for="exampleInputEmail1">Component Name</label> 
-                                    <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> 
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Component Name</label>
+                                    <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true">
                                 </div>
-                                
-                                <div class="form-group"> 
-                                    <label for="exampleInputPassword1">Component Level</label> 
-                                    <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> 
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Component Level</label>
+                                    <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true">
                                 </div>
 
                                 <button type="submit" name="submit" class="btn btn-default ">Add</button>
@@ -88,29 +88,28 @@ include('includes/db_connection.php');
                 </div>
             </div>
         </div>
-
-        <script src="../../js/classie.js"></script>
-        <script>
-            var menuLeft = document.getElementById('cbp-spmenu-s1'),
-                showLeftPush = document.getElementById('showLeftPush'),
-                body = document.body;
-
-            showLeftPush.onclick = function() {
-                classie.toggle(this, 'active');
-                classie.toggle(body, 'cbp-spmenu-push-toright');
-                classie.toggle(menuLeft, 'cbp-spmenu-open');
-                disableOther('showLeftPush');
-            };
-
-            function disableOther(button) {
-                if (button !== 'showLeftPush') {
-                    classie.toggle(showLeftPush, 'disabled');
-                }
-            }
-        </script>
-        <script src="../../js/bootstrap.js"> </script>
+        <footer><?php include_once('../../includes/footer.php'); ?></footer>
 </body>
 
-<footer><?php include_once('../../includes/footer.php'); ?></footer>
+<script src="../../js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById('cbp-spmenu-s1'),
+        showLeftPush = document.getElementById('showLeftPush'),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle(this, 'active');
+        classie.toggle(body, 'cbp-spmenu-push-toright');
+        classie.toggle(menuLeft, 'cbp-spmenu-open');
+        disableOther('showLeftPush');
+    };
+
+    function disableOther(button) {
+        if (button !== 'showLeftPush') {
+            classie.toggle(showLeftPush, 'disabled');
+        }
+    }
+</script>
+<script src="../../js/bootstrap.js"> </script>
 
 </html>
