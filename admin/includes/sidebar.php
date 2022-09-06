@@ -77,10 +77,10 @@
         </li>
 
         <li>
-          <a href="viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="../admin/view/page/viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="viewWorkProgress.php">All Work Progress</a>
+              <a href="../admin/view/page/viewWorkProgress.php">All Work Progress</a>
             </li>
             <li>
               <a href="printWorkProgress.php">Print Reports</a>
