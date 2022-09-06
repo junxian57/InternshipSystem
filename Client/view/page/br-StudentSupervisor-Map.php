@@ -50,95 +50,10 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="../../scss/studentSupervisorMap.css">
     <style>
-        .tab .tablinks {
-            border-left: 1px solid black;
-        }
+        
 
-        .tab .tablinks:last-child {
-            border-right: 1px solid black;
-        }
-
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 9px 10px;
-            transition: 0.3s;
-            /* font-size:1.2em; */
-            font-size: calc(1vw);
-        }
-
-        .tab button>span {
-            font-size: calc(1vw);
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
-
-        .tabcontent {
-            animation: fadeEffect 1s;
-            /* Fading effect takes 1 second */
-        }
-
-        /* Go from zero to full opacity */
-        @keyframes fadeEffect {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .arrow-icon {
-            color: #f2891f;
-        }
-
-        .form-group {
-            min-width: 43%;
-        }
-
-        .search-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-group .arrow-icon {
-            font-size: calc(2vw);
-        }
-
-        .required-star {
-            color: red;
-        }
     </style>
 </head>
 
@@ -149,28 +64,37 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="title1">Student & Supervisor Mapping</h3>
+                    <h3 class="page-title">Student & Supervisor Mapping</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                        <!-- Tab links -->
+                        <!-- Tab Button -->
                         <div class="tab">
                             <button class="tablinks" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
                             <button class="tablinks" onclick="changeTab(event, 'SupervisorToStudent')">Assign Supervisors <span class="arrow-icon">&#129050</span> Students</button>
                             <button class="tablinks" onclick="changeTab(event, 'AutomatedMap')">Automated Mapping</button>
                         </div>
 
-                        <!-- Tab content -->
+                        <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
                             <div class="search-group">
-                                //TODO: Require AJAX method to retrieve student group
+                                <!--                                    
+                                //TODO: Require AJAX method to display searched supervisor         
+                                -->
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="text" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <input type="search" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <div class="form-control result-box">
+                                        <!--                                    
+                                        //TODO: Javascript need to fix         
+                                        -->
+                                    </div>
                                 </div>
 
                                 <span class="arrow-icon">&#129050</span>
 
-                                //TODO: Require AJAX method to retrieve student group
+                                <!--                                    
+                                //TODO: Require AJAX method to retrieve student group         
+                                -->
                                 <div class="form-group">
                                     <label for="student-group">Student Group <span class="required-star">*</span></label>
                                     <select name="student-group" id="student-group" class="form-control" required="true">
@@ -180,6 +104,130 @@ include('includes/db_connection.php');
                                         <option value="21WMR00000">21WMR00000: Student 4</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="search-group">
+                                <!--                                    
+                                //TODO: onclick -> start retrieve student list and proceed mapping
+                                -->
+                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</a>
+                            </div>
+                            <hr>
+                            <div class="table-title">
+                                <h4>Preview Table</h4>
+                            </div>
+                            <div class="table-responsive  orange-border">
+                                <table class="">
+                                    <thead>
+                                        
+                                            <th>#</th>
+                                            <th>Student ID</th>
+                                            <th>Student Name</th>
+                                            <th>Supervisor</th>
+                                            <th>Action</th>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
