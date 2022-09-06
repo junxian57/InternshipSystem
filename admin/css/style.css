@@ -2351,6 +2351,17 @@ h4.title3 {
   background-color: rgb(79, 82, 186);
   color: rgba(206, 207, 243, 0.9);
 }
+
+.uni_details {
+  float: left;
+  margin-top: 25px;
+  font-size: calc(0.5em + 1vw);
+}
+
+.uni_details h3 {
+  font-size: calc(0.4em + 1vw);
+}
+
 .profile-text {
   padding: 1.5em 3em;
 }
@@ -3166,7 +3177,7 @@ i.fa.fa-facebook.profile-icon {
 }
 @media (max-width: 900px) {
   .logo a {
-    padding: 0.90em 1.75em 0.7em;
+    padding: 0.9em 1.75em 0.7em;
   }
   .logo a span {
     letter-spacing: 5px;
