@@ -53,9 +53,8 @@ include('includes/dbconnection.php');
 									<tr>
 										<th>Weekly Report ID</th>
 										<th>Submit Date Time</th>
-										<th>Mobile Number</th>
-										<th>Appointment Date</th>
-										<th>Appointment Time</th>
+										<th>Report</th>
+										<th>Submit On Time</th>
 										<th>Action</th>
 									</tr>
 								</thead>
