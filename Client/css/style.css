@@ -382,6 +382,15 @@ ul.dropdown-menu {
   display: none;
 }
 
+.uni_details {
+  float: left;
+  margin-top: 25px;
+}
+
+.uni_details h3 {
+  font-size: calc(0.4em + 1vw);
+}
+
 @-webkit-keyframes move {
   0% {
     background-position: 0 0;
@@ -2977,6 +2986,13 @@ i.fa.fa-facebook.profile-icon {
   .row {
     margin: 1.5em 0 0;
   }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 400px;
+    position: absolute;
+    float: right;
+  }
 }
 @media (max-width: 1024px) {
   .panel_2 {
@@ -3151,6 +3167,13 @@ i.fa.fa-facebook.profile-icon {
     width: 60%;
     margin: 1.5em auto 0;
   }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 350px;
+    position: absolute;
+    float: right;
+  }
 }
 @media (max-width: 900px) {
   .logo {
@@ -3246,11 +3269,25 @@ i.fa.fa-facebook.profile-icon {
   .pie-grid {
     width: 55%;
   }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 300px;
+    position: absolute;
+    float: right;
+  }
 }
 @media (max-width: 800px) {
   .search-box {
     width: 38%;
     margin: 1.2em 0 0 1em;
+  }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 280px;
+    position: absolute;
+    float: right;
   }
 }
 @media (max-width: 768px) {
@@ -3304,10 +3341,24 @@ i.fa.fa-facebook.profile-icon {
   .activity-desc-sub1:after {
     right: -3.1%;
   }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 260px;
+    position: absolute;
+    float: right;
+  }
 }
 @media (max-width: 767px) {
   .sidebar .navbar-collapse.collapse {
     display: block;
+  }
+
+  .uni_details {
+    margin-top: 30px;
+    left: 210px;
+    position: absolute;
+    float: right;
   }
 }
 @media (max-width: 640px) {

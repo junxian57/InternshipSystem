@@ -2355,7 +2355,6 @@ h4.title3 {
 .uni_details {
   float: left;
   margin-top: 25px;
-  font-size: calc(0.5em + 1vw);
 }
 
 .uni_details h3 {
