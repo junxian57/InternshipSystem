@@ -50,6 +50,97 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+
+    <style>
+        .tab .tablinks {
+            border-left: 1px solid black;
+        }
+
+        .tab .tablinks:last-child {
+            border-right: 1px solid black;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 9px 10px;
+            transition: 0.3s;
+            /* font-size:1.2em; */
+            font-size: calc(1vw);
+        }
+
+        .tab button>span {
+            font-size: calc(1vw);
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .tabcontent {
+            animation: fadeEffect 1s;
+            /* Fading effect takes 1 second */
+        }
+
+        /* Go from zero to full opacity */
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .arrow-icon{
+            color:#f2891f;
+        }
+
+        .form-group {
+            min-width: 43%;
+        }
+
+        .search-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-group .arrow-icon {
+            font-size: calc(2vw);
+        }
+
+        .required-star{
+            color:red;
+        }
+
+    </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -59,17 +150,54 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="title1">Add Assessment Component Level</h3>
+                    <h3 class="title1">Student & Supervisor Mapping</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Component Level:</h4>
-                        </div>
-                        <div class="form-body">
-                            <form method="post">
-                                <p style="font-size:16px; color:red" align="center"> <?php if ($msg) {
-                                                                                            echo $msg;
-                                                                                        }  ?> </p>
 
+                        <!-- Tab links -->
+                        <div class="tab">
+                            <button class="tablinks" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
+                            <button class="tablinks" onclick="changeTab(event, 'SupervisorToStudent')">Assign Supervisors <span class="arrow-icon">&#129050</span> Students</button>
+                            <button class="tablinks" onclick="changeTab(event, 'AutomatedMap')">Automated Mapping</button>
+                        </div>
+
+                        <!-- Tab content -->
+                        <div id="StudentToSupervisor" class="tabcontent">
+                            <div class="search-group">
+
+                                <div class="form-group">
+                                    <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
+                                    <input type="text" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
+                                </div>
+                                
+                                <span class="arrow-icon">&#129050</span>
+                                
+                                <div class="form-group">
+                                    <label for="student-group">Student Group <span class="required-star">*</span></label>
+                                    <select name="student-group" id="student-group" class="form-control" required="true">
+                                        <option value="21WMR00000">21WMR00000: Student 1</option>
+                                        <option value="21WMR00000">21WMR00000: Student 2</option>
+                                        <option value="21WMR00000">21WMR00000: Student 3</option>
+                                        <option value="21WMR00000">21WMR00000: Student 4</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                        <div id="SupervisorToStudent" class="tabcontent">
+                            <h3>Paris</h3>
+                            <p>Paris is the capital of France.</p>
+                        </div>
+
+                        <div id="AutomatedMap" class="tabcontent">
+                            <h3>Tokyo</h3>
+                            <p>Tokyo is the capital of Japan.</p>
+                        </div>
+
+                        <!-- <div class="form-body">
+                            <form method="post">
+                                <p style="font-size:16px; color:red" align="center"></p>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Component Name</label>
@@ -83,7 +211,8 @@ include('includes/db_connection.php');
 
                                 <button type="submit" name="submit" class="btn btn-default ">Add</button>
                             </form>
-                        </div>
+                        </div> -->
+
                     </div>
                 </div>
             </div>
@@ -92,6 +221,30 @@ include('includes/db_connection.php');
 </body>
 
 <script src="../../js/classie.js"></script>
+<script>
+    function changeTab(evt, tabName) {
+        // Declare all variables
+        let i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultOpen").click();
+</script>
 <script>
     var menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
