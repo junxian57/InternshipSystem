@@ -118,8 +118,8 @@ include('includes/db_connection.php');
             }
         }
 
-        .arrow-icon{
-            color:#f2891f;
+        .arrow-icon {
+            color: #f2891f;
         }
 
         .form-group {
@@ -136,10 +136,9 @@ include('includes/db_connection.php');
             font-size: calc(2vw);
         }
 
-        .required-star{
-            color:red;
+        .required-star {
+            color: red;
         }
-
     </style>
 </head>
 
@@ -163,14 +162,15 @@ include('includes/db_connection.php');
                         <!-- Tab content -->
                         <div id="StudentToSupervisor" class="tabcontent">
                             <div class="search-group">
-
+                                //TODO: Require AJAX method to retrieve student group
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
                                     <input type="text" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
                                 </div>
-                                
+
                                 <span class="arrow-icon">&#129050</span>
-                                
+
+                                //TODO: Require AJAX method to retrieve student group
                                 <div class="form-group">
                                     <label for="student-group">Student Group <span class="required-star">*</span></label>
                                     <select name="student-group" id="student-group" class="form-control" required="true">
@@ -180,7 +180,6 @@ include('includes/db_connection.php');
                                         <option value="21WMR00000">21WMR00000: Student 4</option>
                                     </select>
                                 </div>
-                                
                             </div>
 
                         </div>
@@ -221,7 +220,28 @@ include('includes/db_connection.php');
 </body>
 
 <script src="../../js/classie.js"></script>
+<script src="../../js/bootstrap.js"> </script>
 <script>
+    let menuLeft = document.getElementById('cbp-spmenu-s1'),
+        showLeftPush = document.getElementById('showLeftPush'),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle(this, 'active');
+        classie.toggle(body, 'cbp-spmenu-push-toright');
+        classie.toggle(menuLeft, 'cbp-spmenu-open');
+        disableOther('showLeftPush');
+    };
+
+    function disableOther(button) {
+        if (button !== 'showLeftPush') {
+            classie.toggle(showLeftPush, 'disabled');
+        }
+    }
+</script>
+<script>
+    document.getElementById("defaultOpen").click();
+
     function changeTab(evt, tabName) {
         // Declare all variables
         let i, tabcontent, tablinks;
@@ -243,26 +263,77 @@ include('includes/db_connection.php');
         evt.currentTarget.className += " active";
     }
 
-    document.getElementById("defaultOpen").click();
-</script>
-<script>
-    var menuLeft = document.getElementById('cbp-spmenu-s1'),
-        showLeftPush = document.getElementById('showLeftPush'),
-        body = document.body;
+    //Search Result on Search Bar
+    function inputSearchResult() {
+        const getSearchResultArr = document.getElementsByClassName('search-result');
+        const getSearchBar = document.getElementById('searchBar');
+        const getResultBox = document.querySelector('.result-box');
 
-    showLeftPush.onclick = function() {
-        classie.toggle(this, 'active');
-        classie.toggle(body, 'cbp-spmenu-push-toright');
-        classie.toggle(menuLeft, 'cbp-spmenu-open');
-        disableOther('showLeftPush');
-    };
+        if (getSearchResultArr.length > 0) {
+            for (let i = 0; i < getSearchResultArr.length; i++) {
+                getSearchResultArr[i].addEventListener('click', (btn) => {
+                    getSearchBar.value = btn.target.innerText;
+                    getResultBox.style.display = 'none';
+                });
+            }
+        } else {
+            return;
+        }
+    }
 
-    function disableOther(button) {
-        if (button !== 'showLeftPush') {
-            classie.toggle(showLeftPush, 'disabled');
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+
+    async function displaySearchResult() {
+        const getResultBox = document.querySelector('.result-box');
+        const respondResult = await searchBarData();
+        let resultArr = [];
+
+        if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
+            getResultBox.style.display = 'none';
+            return;
+        }
+        //Clear the existing box
+        removeAllChildNodes(getResultBox);
+
+        if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
+            for (let i = 0; i < Object.keys(respondResult).length; i++) {
+                resultArr[i] =
+                    `<li class='search-result'>${respondResult[i].employeeID}: ${respondResult[i].fullName}</li>`;
+            }
+        } else {
+            getResultBox.style.display = 'none';
+            return;
+        }
+
+        getResultBox.style.display = 'block';
+        getResultBox.innerHTML = resultArr.join('');
+        inputSearchResult();
+    }
+
+    async function searchBarData() {
+        const getSearchInput = document.getElementById('searchBar').value;
+        const getResultBox = document.querySelector('.result-box');
+        let url;
+
+        if (getSearchInput == '') {
+            getResultBox.style.display = 'none';
+            return;
+        } else {
+            if (Number.isInteger(parseInt(getSearchInput))) {
+                url = '../php-inc/ajaxSearchEmployee.php?icNo=' + getSearchInput;
+            } else {
+                url = '../php-inc/ajaxSearchEmployee.php?fullName=' + getSearchInput;
+            }
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
         }
     }
 </script>
-<script src="../../js/bootstrap.js"> </script>
+
 
 </html>
