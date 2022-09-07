@@ -1,6 +1,6 @@
 .page-title {
   color: #f2891f;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
 }
 
@@ -88,22 +88,57 @@
   background-color: #d8d7d6;
   cursor: pointer;
 }
-.tabcontent .clickable-btn {
+.tabcontent .button-group {
+  padding: 1.2em 0;
+}
+.tabcontent .button-group .clickable-btn {
   cursor: pointer;
   background-color: #f2891f;
-  padding: 0.4em 1.5em;
+  padding: 10px 15px;
   color: #fff;
   outline: none;
   border: 1px solid #f2891f;
   letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
 }
-.tabcontent .clickable-btn:hover {
-  background-color: #fff;
-  color: #f2891f;
-  transition: all 0.2s ease-in-out;
+.tabcontent .button-group .clickable-btn:hover {
+  background-color: #f5ae67;
+  color: #fff;
+  border: 1px solid #f5ae67;
+}
+.tabcontent .button-group .clickable-btn:nth-child(2) {
+  margin-left: 20px;
+  background-color: #35bdf3;
+  color: #fff;
+  border: 1px solid #35bdf3;
+  transition: all 0.1s ease-in-out;
+}
+.tabcontent .button-group .clickable-btn:nth-child(2):hover {
+  background-color: #81ceec;
+  color: #fff;
+  border: 1px solid #81ceec;
 }
 .tabcontent a.remove {
   color: red;
+}
+.tabcontent .update-group {
+  display: flex;
+  justify-content: flex-end;
+}
+.tabcontent .update-group .clickable-btn {
+  cursor: pointer;
+  background-color: #f2891f;
+  padding: 10px 15px;
+  color: #fff;
+  outline: none;
+  border: 1px solid #f2891f;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
+.tabcontent .update-group .clickable-btn:hover {
+  background-color: #f5ae67;
+  color: #fff;
+  border: 1px solid #f5ae67;
 }
 .tabcontent .table-title {
   margin-top: 10px;
