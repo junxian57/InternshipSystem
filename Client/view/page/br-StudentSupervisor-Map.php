@@ -50,9 +50,9 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../scss/studentSupervisorMap.css">
+    <link rel="stylesheet" href="../../scss/studentSupervisorMap.css">
     <style>
-        
+
 
     </style>
 </head>
@@ -105,11 +105,12 @@ include('includes/db_connection.php');
                                     </select>
                                 </div>
                             </div>
-                            <div class="search-group">
+                            <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</a>
+                                <a class="clickable-btn" href="#">Reset All</a>
                             </div>
                             <hr>
                             <div class="table-title">
@@ -118,13 +119,11 @@ include('includes/db_connection.php');
                             <div class="table-responsive  orange-border">
                                 <table class="">
                                     <thead>
-                                        
-                                            <th>#</th>
-                                            <th>Student ID</th>
-                                            <th>Student Name</th>
-                                            <th>Supervisor</th>
-                                            <th>Action</th>
-                                        
+                                        <th>#</th>
+                                        <th>Student ID</th>
+                                        <th>Student Name</th>
+                                        <th>Supervisor</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -225,11 +224,16 @@ include('includes/db_connection.php');
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
-
+                            <hr>
+                            <div class="update-group">
+                                <!--                                    
+                                //TODO: get all data from above and input into database
+                                -->
+                                <button class="clickable-btn" href="#">Update Mapping</button>
+                            </div>
                         </div>
 
                         <div id="SupervisorToStudent" class="tabcontent">
