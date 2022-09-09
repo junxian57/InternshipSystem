@@ -65,25 +65,23 @@ include('includes/db_connection.php');
             <div class="main-page">
                 
                 <div class="forms">
-                    <h3 class="page-title">Student & Supervisor Mapping</h3>
+                    <h3 class="page-title">Student Registration</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                        <!-- Tab Button -->
+                        <!-- Tab Button 
                         <div class="tab">
                             <button class="tablinks" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
                             <button class="tablinks" onclick="changeTab(event, 'SupervisorToStudent')">Assign Supervisors <span class="arrow-icon">&#129050</span> Students</button>
                             <button class="tablinks" onclick="changeTab(event, 'AutomatedMap')">Automated Mapping</button>
-                        </div>
+                        </div>-->
+                        
 
-                        <!-- Tab Content 1-->
-                        <div id="StudentToSupervisor" class="tabcontent">
-                            <div class="search-group">
-                                <!--                                    
-                                //TODO: Require AJAX method to display searched supervisor         
-                                -->
+                        <!-- Tab Content 1
+                        <div id="StudentToSupervisor" class="tabcontent"></div>-->
+                           
                                 <div class="form-group">
-                                    <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <label for="username">User name <span class="required-star">*</span></label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter user name" required minlength="3" maxlength="11">
                                     <div class="form-control result-box">
                                         <!--                                    
                                         //TODO: Javascript need to fix         
@@ -91,162 +89,72 @@ include('includes/db_connection.php');
                                     </div>
                                 </div>
 
-                                <span class="arrow-icon">&#129050</span>
-
                                 <!--                                    
                                 //TODO: Require AJAX method to retrieve student group         
                                 -->
-                                <div class="form-group">
-                                    <label for="student-group">Student Group <span class="required-star">*</span></label>
-                                    <select name="student-group" id="student-group" class="form-control" required="true">
-                                        <option value="21WMR00000">21WMR00000: Student 1</option>
-                                        <option value="21WMR00000">21WMR00000: Student 2</option>
-                                        <option value="21WMR00000">21WMR00000: Student 3</option>
-                                        <option value="21WMR00000">21WMR00000: Student 4</option>
-                                    </select>
+                            
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                    <b><label for="firstName">First Name:</label></b>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                    <b><label for="lastName">Last name:</label></b>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" required>
+                                    </div>
                                 </div>
-                            </div>
+
+                                </div>
+                                    <div class="form-group">
+                                        <b><label>Gender:</label></b><br>
+                                        <input style="margin-left: 80px" type="radio" id="male" name="gender" value="Male" class = "radio"/>Male
+                                        <input style="margin-left: 90px" type="radio" id="female" name="gender" value="Female" class = "radio"/>Female
+                                    </div>
+                                <div class="form-group">
+                                    <b><label for="email">Email:</label></b>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <b><label for="phone">Phone No:</label></b>
+                                    <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon">+60</span>
+                                    </div>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Your Phone Number" required pattern="[0-9]{10}" maxlength="10">
+                                    </div>
+                                </div>
+                                    <div class="text-left my-2">
+                                    <b><label for="address">Address:</label></b>
+                                    <input class="form-control" id="address" name="address" placeholder="Enter Address" type="text" required>
+                                </div>
+                                <div class="text-left my-2">
+                                    <b><label for="password">Password:</label></b>
+                                    <input class="form-control" id="password" name="password" placeholder="Enter Password" type="password" required data-toggle="password" minlength="4" maxlength="21">
+                                </div>
+                                <div class="text-left my-2">
+                                    <b><label for="password1">Renter Password:</label></b>
+                                    <input class="form-control" id="cpassword" name="cpassword" placeholder="Renter Password" type="password" required data-toggle="password" minlength="4" maxlength="21">
+                                </div>
+                        
                             <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</a>
+                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Register</a>
                                 <a class="clickable-btn" href="#">Reset All</a>
                             </div>
                             <hr>
-                            <div class="table-title">
-                                <h4>Preview Table</h4>
-                            </div>
-                            <div class="table-responsive  orange-border">
-                                <table class="">
-                                    <thead>
-                                        <th>#</th>
-                                        <th>Student ID</th>
-                                        <th>Student Name</th>
-                                        <th>Supervisor</th>
-                                        <th>Action</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
+                           
+                            
                             <div class="update-group">
                                 <!--                                    
                                 //TODO: get all data from above and input into database
                                 -->
                                 <button class="clickable-btn" href="#">Update Mapping</button>
                             </div>
-                        </div>
+                        
 
-                        <div id="SupervisorToStudent" class="tabcontent">
-                            <h3>Paris</h3>
-                            <p>Paris is the capital of France.</p>
-                        </div>
-
-                        <div id="AutomatedMap" class="tabcontent">
-                            <h3>Tokyo</h3>
-                            <p>Tokyo is the capital of Japan.</p>
-                        </div>
-
+                    
                         <!-- <div class="form-body">
                             <form method="post">
                                 <p style="font-size:16px; color:red" align="center"></p>
