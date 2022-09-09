@@ -35,7 +35,7 @@ include('includes/db_connection.php');
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-    </script>
+        </script>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -53,7 +53,6 @@ include('includes/db_connection.php');
     <link rel="stylesheet" href="../../scss/studentRegister.css">
     <style>
 
-
     </style>
 </head>
 
@@ -63,91 +62,94 @@ include('includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-                
-                <div class="forms">
-                    <h3 class="page-title">Student Registration</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+            <div class="forms">
+                    <h3 class="page-title">Student Maintenance</h3>
 
-                    
-                        <div class="content">
-                        <form action="#">
-                            <div class="user-details">
-                            <div class="input-box">
-                                <span class="details">Full Name</span>
-                                <input type="text" placeholder="Enter your name" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Username</span>
-                                <input type="text" placeholder="Enter your username" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Email</span>
-                                <input type="text" placeholder="Enter your email" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Address</span>
-                                <input type="text" placeholder="Enter your email" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Phone Number</span>
-                                <input type="text" placeholder="Enter your number" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Faculty </span>
-                                <select name="student-group" id="student-group" required="true">
-                                    <option value="21WMR00000">FOCS</option>
-                                    <option value="21WMR00000">FAFB</option>
-                                    <option value="21WMR00000">FOET</option>
-                                    <option value="21WMR00000">FOAS</option>
-                                </select>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Programme </span>
-                                <select name="student-group" id="student-group" required="true">
-                                    <option value="21WMR00000">REI</option>
-                                    <option value="21WMR00000">RIS</option>
-                                    <option value="21WMR00000">RIT</option>
-                                    <option value="21WMR00000">RDS</option>
-                                </select>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Password</span>
-                                <input type="text" placeholder="Enter your password" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="details">Confirm Password</span>
-                                <input type="text" placeholder="Confirm your password" required>
-                            </div>
-                            </div>
-                            <div class="gender-details">
-                            <input type="radio" name="gender" id="dot-1">
-                            <input type="radio" name="gender" id="dot-2">
-                            <input type="radio" name="gender" id="dot-3">
-                            <span class="gender-title">Gender</span>
-                            <div class="category">
-                                <label for="dot-1">
-                                <span class="dot one"></span>
-                                <span class="gender">Male</span>
-                            </label>
-                            <label for="dot-2">
-                                <span class="dot two"></span>
-                                <span class="gender">Female</span>
-                            </label>
-                            <label for="dot-3">
-                                <span class="dot three"></span>
-                                <span class="gender">Prefer not to say</span>
-                                </label>
-                            </div>
-                            </div>
-                            <div class="button">
-                            <input type="submit" value="Register">
-                            </div>
-                        </form>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Faculty</th>
+                    <th>Programme</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Kang Yi</td>
+                    <td>KY001</td>
+                    <td>KL</td>
+                    <td>017-59797976</td>
+                    <td>FOCS</td>
+                    <td>REI</td>
+                    <td><div class="button-group">
+                            <!--                                    
+                            //TODO: onclick -> start retrieve student list and proceed mapping
+                            -->
+                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
+                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
                         </div>
-                    
-
-                    </div>
-                </div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>2</td>
+                    <td>Jame</td>
+                    <td>JM007</td>
+                    <td>JB</td>
+                    <td>012-56444448</td>
+                    <td>FOCS</td>
+                    <td>RIS</td>
+                    <td><div class="button-group">
+                            <!--                                    
+                            //TODO: onclick -> start retrieve student list and proceed mapping
+                            -->
+                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
+                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>3</td>
+                    <td>Lily</td>
+                    <td>llily</td>
+                    <td>Perlis</td>
+                    <td>018-56228899</td>
+                    <td>FAFB</td>
+                    <td>RRD</td>
+                    <td><div class="button-group">
+                            <!--                                    
+                            //TODO: onclick -> start retrieve student list and proceed mapping
+                            -->
+                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
+                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>4</td>
+                    <td>Steve</td>
+                    <td>sstts</td>
+                    <td>Kedah</td>
+                    <td>013-38299494</td>
+                    <td>FAFB</td>
+                    <td>RRD</td>
+                    <td><div class="button-group">
+                            <!--                                    
+                            //TODO: onclick -> start retrieve student list and proceed mapping
+                            -->
+                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
+                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
             </div>
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>

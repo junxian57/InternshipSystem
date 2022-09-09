@@ -1,123 +1,125 @@
-.page-title {
-    color: #f2891f;
-    font-size: 2rem;
-    font-weight: 600;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
   
-  /* Style the tab */
-  .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-  .tab .tablinks {
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-  }
-  .tab .tablinks:last-child {
-    border-right: 1px solid black;
-  }
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 9px 10px;
-    transition: 0.3s;
-    font-size: 1vw;
-  }
-  .tab button span {
-    font-size: 1vw;
-  }
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  .tabcontent {
-    display: none;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-top: none;
-    -webkit-animation: fadeEffect 1s;
-            animation: fadeEffect 1s;
-    /*For Table*/
-  }
-  .tabcontent .form-group {
-    min-width: 43%;
-  }
-  .tabcontent .form-group .required-star {
-    color: red;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
 
-  .content form .user-details{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 20px 0 12px 0;
+.page-title {
+  color: #f2891f;
+  font-size: 2rem;
+  font-weight: 600;
+}
+form{
+  padding: 20px;
+}
+form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+form .input-box span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box select{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #9b59b6;
+   border-color: #d9d9d9;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+ form .button{
+   height: 45px;
+   margin: 35px 0
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
   }
-  form .user-details .input-box{
-    margin-bottom: 15px;
-    width: calc(100% / 2 - 20px);
-  }
-  form .input-box span.details{
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-  }
-  .user-details .input-box input{
-    height: 45px;
-    width: 100%;
-    outline: none;
-    font-size: 16px;
-    border-radius: 5px;
-    padding-left: 15px;
-    border: 1px solid #ccc;
-    border-bottom-width: 2px;
-    transition: all 0.3s ease;
-  }
-  .user-details .input-box input:focus,
-  .user-details .input-box input:valid{
-    border-color: #9b59b6;
-  }
-   form .gender-details .gender-title{
-    font-size: 20px;
-    font-weight: 500;
-   }
-   form .category{
-     display: flex;
-     width: 80%;
-     margin: 14px 0 ;
-     justify-content: space-between;
-   }
-   form .category label{
-     display: flex;
-     align-items: center;
-     cursor: pointer;
-   }
-   form .category label .dot{
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background: #d9d9d9;
-    border: 5px solid transparent;
-    transition: all 0.3s ease;
-  }
-   #dot-1:checked ~ .category label .one,
-   #dot-2:checked ~ .category label .two,
-   #dot-3:checked ~ .category label .three{
-     background: #9b59b6;
-     border-color: #d9d9d9;
-   }
-   form input[type="radio"]{
-     display: none;
-   }
-   form .user-details .input-box{
+ @media(max-width: 584px){
+ .container{
+  max-width: 100%;
+}
+form .user-details .input-box{
     margin-bottom: 15px;
     width: 100%;
   }
@@ -131,209 +133,80 @@
   .user-details::-webkit-scrollbar{
     width: 5px;
   }
-  
+  }
   @media(max-width: 459px){
-  .container .content .category{
+  .content .category{
     flex-direction: column;
   }
-  }
+}
 
-  .tabcontent .form-control {
-    font-size: 16px;
-  }
-  
-  .tabcontent .result-box {
-    min-height: 200px;
-    max-height: 130px;
-    max-width: 43%;
-    background-color: #ffffff;
-    margin-top: 3px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 5px 10px;
-    outline: none;
-    display: none;
-    position: absolute;
-  }
-  .tabcontent .result-box li {
-    padding: 5px;
-    list-style-type: none;
-    text-align: left;
-  }
-  .tabcontent .result-box li:hover {
-    background-color: #d8d7d6;
-    cursor: pointer;
-  }
-  .tabcontent .button-group {
-    padding: 1.2em 0;
-  }
-  .tabcontent .button-group .clickable-btn {
-    cursor: pointer;
-    background-color: #f2891f;
-    padding: 10px 15px;
-    color: #fff;
-    outline: none;
-    border: 1px solid #f2891f;
-    letter-spacing: 1px;
-    transition: all 0.1s ease-in-out;
-  }
-  .tabcontent .button-group .clickable-btn:hover {
-    background-color: #f5ae67;
-    color: #fff;
-    border: 1px solid #f5ae67;
-  }
-  .tabcontent .button-group .clickable-btn:nth-child(2) {
-    margin-left: 20px;
-    background-color: #35bdf3;
-    color: #fff;
-    border: 1px solid #35bdf3;
-    transition: all 0.1s ease-in-out;
-  }
-  .tabcontent .button-group .clickable-btn:nth-child(2):hover {
-    background-color: #81ceec;
-    color: #fff;
-    border: 1px solid #81ceec;
-  }
-  .tabcontent a.remove {
-    color: red;
-  }
-  .tabcontent .update-group {
-    display: flex;
-    justify-content: flex-end;
-  }
-  .tabcontent .update-group .clickable-btn {
-    cursor: pointer;
-    background-color: #f2891f;
-    padding: 10px 15px;
-    color: #fff;
-    outline: none;
-    border: 1px solid #f2891f;
-    letter-spacing: 1px;
-    transition: all 0.1s ease-in-out;
-  }
-  .tabcontent .update-group .clickable-btn:hover {
-    background-color: #f5ae67;
-    color: #fff;
-    border: 1px solid #f5ae67;
-  }
-  .tabcontent .table-title {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 1.1em;
-  }
-  .tabcontent .bs-example {
-    margin-top: 1em;
-  }
-  .tabcontent .orange-border {
-    border: 1px solid #f2891f;
-    margin-top: 1em;
-  }
-  .tabcontent table {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-  }
-  .tabcontent table thead {
-    font-size: 1.1em;
-  }
-  .tabcontent table thead, .tabcontent table tbody, .tabcontent table tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  .tabcontent table th:first-child {
-    width: 10%;
-  }
-  .tabcontent table th:nth-child(5) {
-    width: 10%;
-  }
-  .tabcontent table th, .tabcontent table td {
-    text-align: center;
-    padding: 12px;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    border-collapse: collapse;
-  }
-  .tabcontent table tbody {
-    display: block;
-    max-height: 420px;
-    overflow-y: auto;
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-    /* Hide scrollbar for Chrome, Safari and Opera */
-  }
-  .tabcontent table tbody::-webkit-scrollbar {
-    display: none;
-  }
-  .tabcontent table tbody td:first-child {
-    width: 10%;
-  }
-  .tabcontent table tbody td:nth-child(5) {
-    width: 10%;
-  }
-  .tabcontent table tbody tr {
-    transition: all 0.5s;
-  }
-  .tabcontent table tbody tr:hover {
-    background-color: rgb(235, 235, 235);
-  }
-  .tabcontent table tbody .column-max-width {
-    max-width: 80px;
-    line-height: 1.2em;
-  }
-  .tabcontent table tbody .description {
-    max-width: 150px;
-    line-height: 1.2em;
-    padding: 5px;
-  }
-  .tabcontent table .table-btn-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .tabcontent table .table-btn-group button {
-    width: 100%;
-    padding: 5px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    background-color: #f2891f;
-    color: #ffffff;
-    border-radius: 3px;
-    border: 1px solid white;
-    outline: none;
-    cursor: pointer;
-    transition: ease-in-out 0.2s;
-  }
-  .tabcontent table .table-btn-group .table-delete-btn {
-    background-color: #ff4500;
-    margin-top: 3px;
-  }
-  .tabcontent table .table-btn-group .table-delete-btn:hover {
-    background-color: #f95f27;
-  }
-  .tabcontent table .table-btn-group .table-edit-btn:hover {
-    background-color: #6c2de9;
-  }
-  
-  @-webkit-keyframes fadeEffect {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeEffect {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }/*# sourceMappingURL=studentRegister.css.map */
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+.button-group {
+  padding: 1.2em 0;
+}
+.button-group .clickable-btn {
+  cursor: pointer;
+  background-color: #f2891f;
+  padding: 10px 15px;
+  color: #fff;
+  outline: none;
+  border: 1px solid #f2891f;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
+.button-group .clickable-btn:hover {
+  background-color: #f5ae67;
+  color: #fff;
+  border: 1px solid #f5ae67;
+}
+.button-group .clickable-btn:nth-child(2) {
+  margin-left: 20px;
+  background-color: #35bdf3;
+  color: #fff;
+  border: 1px solid #35bdf3;
+  transition: all 0.1s ease-in-out;
+}
+.button-group .clickable-btn:nth-child(2):hover {
+  background-color: #81ceec;
+  color: #fff;
+  border: 1px solid #81ceec;
+}
