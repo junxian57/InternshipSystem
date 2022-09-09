@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/studentSupervisorMap.css">
+    <link rel="stylesheet" href="../../scss/studentRegister.css">
     <style>
 
 
@@ -94,11 +94,11 @@ include('includes/db_connection.php');
                                 -->
                             
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group">
                                     <b><label for="firstName">First Name:</label></b>
                                     <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group">
                                     <b><label for="lastName">Last name:</label></b>
                                     <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" required>
                                     </div>
