@@ -99,3 +99,5 @@ include('includes/db_connection.php');
 		<!-- Bootstrap Core JavaScript -->
 		<script src="js/bootstrap.js"> </script>
 </body>
+
+</html>
