@@ -68,6 +68,63 @@ include('includes/db_connection.php');
                     <h3 class="page-title">Student Registration</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
+                    
+                        <div class="content">
+                        <form action="#">
+                            <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Full Name</span>
+                                <input type="text" placeholder="Enter your name" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Username</span>
+                                <input type="text" placeholder="Enter your username" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Email</span>
+                                <input type="text" placeholder="Enter your email" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Phone Number</span>
+                                <input type="text" placeholder="Enter your number" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Password</span>
+                                <input type="text" placeholder="Enter your password" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Confirm Password</span>
+                                <input type="text" placeholder="Confirm your password" required>
+                            </div>
+                            </div>
+                            <div class="gender-details">
+                            <input type="radio" name="gender" id="dot-1">
+                            <input type="radio" name="gender" id="dot-2">
+                            <input type="radio" name="gender" id="dot-3">
+                            <span class="gender-title">Gender</span>
+                            <div class="category">
+                                <label for="dot-1">
+                                <span class="dot one"></span>
+                                <span class="gender">Male</span>
+                            </label>
+                            <label for="dot-2">
+                                <span class="dot two"></span>
+                                <span class="gender">Female</span>
+                            </label>
+                            <label for="dot-3">
+                                <span class="dot three"></span>
+                                <span class="gender">Prefer not to say</span>
+                                </label>
+                            </div>
+                            </div>
+                            <div class="button">
+                            <input type="submit" value="Register">
+                            </div>
+                        </form>
+                        </div>
+                    
+
+
                         <!-- Tab Button 
                         <div class="tab">
                             <button class="tablinks" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
@@ -79,19 +136,19 @@ include('includes/db_connection.php');
                         <!-- Tab Content 1
                         <div id="StudentToSupervisor" class="tabcontent"></div>-->
                            
-                                <div class="form-group">
+                               <!-- <div class="form-group">
                                     <label for="username">User name <span class="required-star">*</span></label>
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Enter user name" required minlength="3" maxlength="11">
                                     <div class="form-control result-box">
-                                        <!--                                    
+                                                                            
                                         //TODO: Javascript need to fix         
-                                        -->
+                                        
                                     </div>
                                 </div>
-
+                                -->
                                 <!--                                    
                                 //TODO: Require AJAX method to retrieve student group         
-                                -->
+                               
                             
                                 <div class="form-row">
                                     <div class="form-group">
@@ -136,23 +193,23 @@ include('includes/db_connection.php');
                                     <input class="form-control" id="cpassword" name="cpassword" placeholder="Renter Password" type="password" required data-toggle="password" minlength="4" maxlength="21">
                                 </div>
                         
-                            <div class="button-group">
+                            <div class="button-group"> -->
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
+                                
                                 <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Register</a>
                                 <a class="clickable-btn" href="#">Reset All</a>
                             </div>
                             <hr>
                            
                             
-                            <div class="update-group">
+                            <div class="update-group">-->
                                 <!--                                    
                                 //TODO: get all data from above and input into database
-                                -->
+                                
                                 <button class="clickable-btn" href="#">Update Mapping</button>
                             </div>
-                        
+                        -->
 
                     
                         <!-- <div class="form-body">
