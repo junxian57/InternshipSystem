@@ -118,6 +118,19 @@
   color: #fff;
   border: 1px solid #81ceec;
 }
+.tabcontent .info-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tabcontent .info-group p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  max-width: 40%;
+  min-width: 25%;
+  text-align: center;
+}
 .tabcontent a.remove {
   color: red;
 }
@@ -168,7 +181,7 @@
 .tabcontent table th:first-child {
   width: 10%;
 }
-.tabcontent table th:nth-child(5) {
+.tabcontent table th:nth-child(6) {
   width: 10%;
 }
 .tabcontent table th, .tabcontent table td {
@@ -195,7 +208,7 @@
 .tabcontent table tbody td:first-child {
   width: 10%;
 }
-.tabcontent table tbody td:nth-child(5) {
+.tabcontent table tbody td:nth-child(6) {
   width: 10%;
 }
 .tabcontent table tbody tr {
