@@ -50,10 +50,10 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/studentRegister.css">
+    <link rel="stylesheet" href="../../scss/companyLoginAndRegister.css">
      <!-- ===== Iconscout CSS ===== -->
-     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
     <style>
 
 
@@ -66,98 +66,56 @@ include('includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-                
+                <div class="container">
                 <div class="forms">
-                    <h3 class="page-title">Student Registration</h3>
+                    <h3 class="page-title">Company Registration</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     
                         <div class="content">
                         <form action="#">
                             <div class="user-details">
-                                <div class="input-box">
-                                    <input type="text" placeholder="Enter user name" required>
-                                    <i class="uil uil-user icon"></i>
-                                </div>
-
-                                <div class="input-box">
-                                    <input type="text" placeholder="Enter your name" required>
-                                    <i class="uil uil-user-circle icon"></i>
-                                </div>
-
-                                <div class="input-box">
-                                    <input type="text" placeholder="Enter your email" required>
-                                    <i class="uil uil-envelope icon"></i>
-                                </div>
-
-                                <div class="input-box">
-                                    <input type="text" placeholder="Enter your address" required>
-                                    <i class="uil uil-estate icon"></i>
-                                    
-                                </div>
-                                <div class="input-box">
-                                    <input type="text" placeholder="Enter contact number" required>
-                                    <i class="uil uil-phone icon"></i>
-                                </div>
-                                
-                            
-                                <div class="input-box">
-                                    <input type="password" class="password" placeholder="Create a password" required>
-                                    <i class="uil uil-lock icon"></i>
-                                </div>
-                                <div class="input-box">
-                                    <input type="password" class="password" placeholder="Confirm a password" required>
-                                    <i class="uil uil-lock icon"></i>
-                                    <i class="uil uil-eye-slash showHidePw"></i>
-                                </div>
-                                
-                                <div class="input-box">
-                                    <select name="student-group" id="student-group" required="true">
-                                        <option selected disabled>Choose Faculty</option>
-                                        <option>FOCS</option>
-                                        <option>FAFB</option>
-                                        <option>FOET</option>
-                                        <option>FOAS</option>
-                                    </select>
-                                    <i class="uil uil-graduation-cap icon"></i>
-                                </div>
-
-                                <div class="input-box">
-                                    <select name="student-group" id="student-group" required="true">                             
-                                        <option selected disabled>Choose Programme</option>    
-                                        <option>REI</option>
-                                        <option>RIS</option>
-                                        <option>RIT</option>
-                                        <option>RDS</option>
-                                    </select>
-                                    <i class="uil uil-book-open icon"></i>
-                                </div>
-                                
-                                <div class="input-box">
-                                    <input type="radio" name="gender" id="dot-1">
-                                    <input type="radio" name="gender" id="dot-2">
-                                    <input type="radio" name="gender" id="dot-3">
-                                    
-                                    <div class="category">
-                                        <label>Gender</label>
-                                        <i class="fa fa-venus-mars icon"></i>
-                                        <label for="dot-1">
-                                        <span class="dot one"></span>
-                                        <span class="gender">Male</span>
-                                        </label>
-                                        <label for="dot-2">
-                                            <span class="dot two"></span>
-                                            <span class="gender">Female</span>
-                                        </label>
-                                        <label for="dot-3">
-                                            <span class="dot three"></span>
-                                            <span class="gender">Prefer not to say</span>
-                                        </label>
-                                        
-                                    </div>
-                                </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter company name" required>
+                                <i class="uil uil-user icon"></i>
                             </div>
 
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter company email" required>
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter company address" required>
+                                <i class="uil uil-estate icon"></i>
+                                
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter company contact number" required>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
                             
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter company field area" required>
+                                <i class="uil uil-suitcase-alt icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter internship placement number" required>
+                                <i class="uil uil-book-reader icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="password" class="password" placeholder="Create a password" required>
+                                <i class="uil uil-lock icon"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="password" class="password" placeholder="Confirm a password" required>
+                                <i class="uil uil-lock icon"></i>
+                                <i class="uil uil-eye-slash showHidePw"></i>
+                            </div>
+                            </div>
+                            
+                        
                             <div class="checkbox-text">
                                 <div class="checkbox-content">
                                     <input type="checkbox" id="termCon">
@@ -169,13 +127,14 @@ include('includes/db_connection.php');
                             </div>
                         </form>
                         </div>
-                    
+                    </div>
 
                     </div>
                 </div>
             </div>
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>
+        <script src="../../js/companyLogin.js"></script>
 </body>
 
 <script src="../../js/classie.js"></script>
@@ -293,6 +252,5 @@ include('includes/db_connection.php');
         }
     }
 </script>
-
 
 </html>

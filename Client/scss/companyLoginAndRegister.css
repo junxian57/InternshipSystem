@@ -57,7 +57,7 @@ form .input-box span.details{
   font-weight: 500;
   margin-bottom: 5px;
 }
-.user-details .input-box input, select{
+.user-details .input-box input{
   height: 50px;
   width: 100%;
   border: 1px solid #ccc;
@@ -97,17 +97,13 @@ form .input-box span.details{
 
  form .gender-details .gender-title{
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 500;
  }
  form .category{
-  border: 1px solid #ccc;
-  border-bottom-width: 2px;
-  outline: none;
    display: flex;
-   width: 100%;
-   border-radius: 5px;
-   justify-content: space-evenly;
-   height: 50px;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
  }
  form .category label{
    display: flex;
