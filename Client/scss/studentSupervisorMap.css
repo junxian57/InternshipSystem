@@ -47,14 +47,36 @@
           animation: fadeEffect 1s;
   /*For Table*/
 }
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.tabcontent .hint {
+  color: #ff4500;
+  font-size: 1.1rem;
+  text-align: center;
+}
 .tabcontent .form-group {
   min-width: 43%;
 }
 .tabcontent .form-group .required-star {
   color: red;
 }
-.tabcontent .form-control {
+.tabcontent .form-group .form-control {
   font-size: 16px;
+  margin-top: 5px;
 }
 .tabcontent .search-group {
   display: flex;
@@ -118,6 +140,70 @@
   color: #fff;
   border: 1px solid #81ceec;
 }
+.tabcontent .checkbox-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tabcontent .checkbox-group .arrow-icon {
+  font-size: 2.5vw;
+  color: #f2891f;
+}
+.tabcontent .checkbox-group form {
+  max-width: 43%;
+}
+.tabcontent .checkbox-group fieldset {
+  border: 1px solid gray;
+  padding: 15px;
+  margin: 10px 0;
+  min-height: 350px;
+  max-height: 350px;
+}
+.tabcontent .checkbox-group fieldset legend {
+  font-size: 1.2em;
+  font-weight: 600;
+  border: none;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 0 4px;
+  margin: 0;
+}
+.tabcontent .checkbox-group fieldset legend span {
+  color: #f2891f;
+}
+.tabcontent .checkbox-group table th, .tabcontent .checkbox-group table td {
+  font-size: 1.1em;
+}
+.tabcontent .checkbox-group table td {
+  padding: 7px;
+  word-wrap: break-word;
+}
+.tabcontent .checkbox-group table th {
+  padding: 4px;
+  background-color: #eeeded;
+}
+.tabcontent .checkbox-group table th:first-child,
+.tabcontent .checkbox-group table td:first-child {
+  width: 55%;
+}
+.tabcontent .checkbox-group table th:last-child,
+.tabcontent .checkbox-group table td:last-child {
+  width: 20%;
+}
+.tabcontent .checkbox-group table tbody {
+  display: block;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.tabcontent .checkbox-group #student-field table th:first-child,
+.tabcontent .checkbox-group #student-field table td:first-child {
+  width: 40%;
+}
+.tabcontent .checkbox-group #student-field table th:last-child,
+.tabcontent .checkbox-group #student-field table td:last-child {
+  width: 20%;
+}
 .tabcontent .info-group {
   display: flex;
   justify-content: center;
@@ -155,8 +241,16 @@
 }
 .tabcontent .table-title {
   margin-top: 10px;
-  text-align: center;
   font-size: 1.1em;
+  text-align: center;
+  position: relative;
+}
+.tabcontent .table-title p {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 0.8em;
+  color: #ff4500;
 }
 .tabcontent .bs-example {
   margin-top: 1em;
@@ -178,10 +272,12 @@
   width: 100%;
   table-layout: fixed;
 }
-.tabcontent table th:first-child {
+.tabcontent table th:first-child,
+.tabcontent table td:first-child {
   width: 10%;
 }
-.tabcontent table th:nth-child(6) {
+.tabcontent table th:nth-child(6),
+.tabcontent table td:nth-child(6) {
   width: 10%;
 }
 .tabcontent table th, .tabcontent table td {
@@ -190,26 +286,15 @@
   vertical-align: middle;
   border: 1px solid #ddd;
   border-collapse: collapse;
+  word-wrap: break-word;
+}
+.tabcontent table th {
+  background-color: #eeeded;
 }
 .tabcontent table tbody {
   display: block;
   max-height: 420px;
-  overflow-y: auto;
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-  /* Hide scrollbar for Chrome, Safari and Opera */
-}
-.tabcontent table tbody::-webkit-scrollbar {
-  display: none;
-}
-.tabcontent table tbody td:first-child {
-  width: 10%;
-}
-.tabcontent table tbody td:nth-child(6) {
-  width: 10%;
+  overflow-y: scroll;
 }
 .tabcontent table tbody tr {
   transition: all 0.5s;
@@ -255,22 +340,4 @@
 }
 .tabcontent table .table-btn-group .table-edit-btn:hover {
   background-color: #6c2de9;
-}
-
-@-webkit-keyframes fadeEffect {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeEffect {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }/*# sourceMappingURL=studentSupervisorMap.css.map */

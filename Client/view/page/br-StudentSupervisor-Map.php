@@ -106,12 +106,23 @@ include('includes/db_connection.php');
                                     </select>
                                 </div>
                             </div>
+                            <div class="search-group">                             
+                                <div class="form-group">
+                                    <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
+                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
-                                <a class="clickable-btn" href="#">Reset All</a>
+                                <a class="clickable-btn" href="#">Reset Field</a>
                             </div>
                             <hr>
                             <div class="info-group">
@@ -121,6 +132,7 @@ include('includes/db_connection.php');
                             <hr>
                             <div class="table-title">
                                 <h4>Preview Table</h4>
+                                <p>Hint: Table Below Is Scrollable</p>
                             </div>
                             <div class="table-responsive  orange-border">
                                 <table>
@@ -279,12 +291,23 @@ include('includes/db_connection.php');
                                 //TODO: Require AJAX method to retrieve student group         
                                 -->
                                 <div class="form-group">
-                                    <label for="supervisor-group">Supervisor Group <span class="required-star">*</span></label>
-                                    <select name="supervisor-group" id="supervisor-group" class="form-control" required="true">
+                                    <label for="supervisor-select">Supervisor <span class="required-star">*</span></label>
+                                    <select name="supervisor-select" id="supervisor-select" class="form-control" required="true">
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-group">                             
+                                <div class="form-group">
+                                    <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
+                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
                                     </select>
                                 </div>
                             </div>
@@ -296,11 +319,12 @@ include('includes/db_connection.php');
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <a class="clickable-btn" href="#">Reset All</a>
+                                <a class="clickable-btn" href="#">Reset Field</a>
                             </div>
                             <hr>
-                            <div class="table-title">
+                            <div class="table-title">                             
                                 <h4>Preview Table</h4>
+                                <p>Hint: Table Below Is Scrollable</p>
                             </div>
                             <div class="table-responsive  orange-border">
                                 <table>
@@ -444,29 +468,144 @@ include('includes/db_connection.php');
                                 //TODO: Require AJAX method to display searched student
                                 -->
                                 <div class="form-group">
-                                    <label for="student">Search Student <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="student" name="student" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <label for="programme">Search Programme <span class="required-star">*</span></label>
+                                    <input type="search" class="form-control" id="programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true">
                                     <div class="form-control result-box">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
                                     </div>
                                 </div>
+                                                          
+                                <div class="form-group">
+                                    <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
+                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="hint">
+                                <p>Hint: All Tables Below Are Scrollable </p>
+                            </div>
+                            <div class="checkbox-group">
+                                <form id="supervisor-field">
+                                    <fieldset>
+                                        <legend>Supervisor Field - <span>FOCS</span></legend>
+                                        <!--Create a table with 3 column-->
+                                        <div class="table-responsive">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Slot Available</th>
+                                                        <th>Checkbox</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Pong Suk Fun</td>
+                                                        <td>10 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-1" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lai Joo Choi</td>
+                                                        <td>20 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-2" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sarah</td>
+                                                        <td>15 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </form>
 
                                 <span class="arrow-icon">&#129050</span>
 
-                                <!--                                    
-                                //TODO: Require AJAX method to retrieve student group         
-                                -->
-                                <div class="form-group">
-                                    <label for="supervisor-group">Supervisor Group <span class="required-star">*</span></label>
-                                    <select name="supervisor-group" id="supervisor-group" class="form-control" required="true">
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                    </select>
-                                </div>
+                                <form id="student-field">
+                                    <fieldset>
+                                        <!--
+                                           //!!!!! Query need to match internship batch
+                                           //TODO: Remember the batch of internship
+                                        -->
+                                        <legend>Student Group Field - <span>FOCS</span></legend>
+                                        <!--Create a table with 3 column-->
+                                        <div class="table-responsive">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Year / Tutorial Group</th>
+                                                        <th>Available Student</th>
+                                                        <th>Checkbox</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>3 / 1</td>
+                                                        <td>24 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-1" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3 / 1</td>
+                                                        <td>24 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-2" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3 / 1</td>
+                                                        <td>24 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3 / 1</td>
+                                                        <td>24 / 24</td>
+                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
+                                                    </tr>                                                 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
                             </div>
                             <div class="button-group">
                                 <!--                                    
@@ -476,7 +615,7 @@ include('includes/db_connection.php');
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <a class="clickable-btn" href="#">Reset All</a>
+                                <a class="clickable-btn" href="#">Reset Field</a>
                             </div>
                             <hr>
                             <div class="table-title">
@@ -648,20 +787,21 @@ include('includes/db_connection.php');
     document.getElementById("defaultOpen").click();
 
     function changeTab(evt, tabName) {
-        // Declare all variables
         let i, tabcontent, tablinks;
 
         // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
+        tabcontent = document.querySelectorAll(".tabcontent");
+        tabcontent.forEach(i => {
+            console.log(i)
+            i.style.display = "none";
+        });
 
         // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
+        tablinks = document.querySelectorAll(".tablinks");
+        tablinks.forEach(i => {
+            console.log(i)
+            i.classList.remove("active");
+        });
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(tabName).style.display = "block";
