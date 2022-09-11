@@ -326,7 +326,7 @@ include('includes/db_connection.php');
                                 <h4>Preview Table</h4>
                                 <p>Hint: Table Below Is Scrollable</p>
                             </div>
-                            <div class="table-responsive  orange-border">
+                            <div class="table-responsive orange-border">
                                 <table>
                                     <thead>
                                         <th>#</th>
@@ -495,8 +495,7 @@ include('includes/db_connection.php');
                             <div class="checkbox-group">
                                 <form id="supervisor-field">
                                     <fieldset>
-                                        <legend>Supervisor Field - <span>FOCS</span></legend>
-                                        <!--Create a table with 3 column-->
+                                        <legend>Supervisor Field - <span>FOCS</span></legend>                                   
                                         <div class="table-responsive">
                                             <table>
                                                 <thead>
