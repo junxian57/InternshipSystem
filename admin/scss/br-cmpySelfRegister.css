@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  margin: 0;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+header {
+  position: fixed;
+  background-color: #313e85;
+  width: 100%;
+  z-index: 10;
+}
+header .page-title {
+  color: #ffffff;
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+header .page-title * {
+  max-width: 25%;
+  font-size: calc(1vw + 0.3rem);
+}
+@media only screen and (max-width: 912px) {
+  header .page-title * {
+    font-size: calc(1vw + 0.5rem);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px 0;
+  width: 60%;
+  margin: 100px auto;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.wrapper form {
+  width: 80%;
+  padding: 20px 0;
+}
+.wrapper .title {
+  text-align: left;
+}
+.wrapper .title h2 {
+  font-size: calc(1vw + 0.5em);
+  color: #313e85;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.wrapper .title h2::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 0;
+  height: 1px;
+  background-color: #f2891f;
+}
+.wrapper .title h2.title-1::after {
+  width: 60%;
+}
+.wrapper .title h2.title-2::after {
+  width: 72%;
+}
+.wrapper .title h2.title-3::after {
+  width: 74%;
+}
+.wrapper .input-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+.wrapper .input-box input, .wrapper .input-box select {
+  text-indent: 5px;
+  width: calc(1vw + 18em);
+  min-width: 200px;
+  padding: 10px;
+  outline: none;
+  transition: 0.1s ease-in;
+}
+.wrapper .input-box input:focus, .wrapper .input-box select:focus {
+  box-shadow: 0 0 10px 0 #313e85;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .input-box input:nth-child(2), .wrapper .input-box select:nth-child(2) {
+    margin-top: 30px;
+  }
+}
+.wrapper .input-box p {
+  color: forestgreen;
+  font-size: calc(1vw + 0.15em);
+  letter-spacing: 1px;
+  margin: 0;
+  margin-top: 10px;
+  width: calc(1vw + 18em);
+  min-width: 200px;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .input-box p {
+    font-size: 16px;
+  }
+}
+.wrapper .input-box textarea {
+  min-width: 100%;
+  width: 670px;
+  text-indent: 10px;
+  resize: none;
+  outline: none;
+  padding-top: 10px;
+}
+.wrapper .input-box textarea:focus {
+  box-shadow: 0 0 10px 0 #313e85;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .input-box {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+.wrapper .button-group {
+  padding: 1.2em 0;
+}
+.wrapper .button-group .clickable-btn {
+  cursor: pointer;
+  background-color: #f2891f;
+  padding: 10px 25px;
+  color: #fff;
+  outline: none;
+  border: 1px solid #f2891f;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
+.wrapper .button-group .clickable-btn:hover {
+  background-color: #f5ae67;
+  color: #fff;
+}
+.wrapper .button-group .clickable-btn:nth-child(2) {
+  margin-left: 20px;
+  background-color: #313e85;
+  color: #fff;
+  border: 1px solid #313e85;
+  transition: all 0.1s ease-in-out;
+}
+.wrapper .button-group .clickable-btn:nth-child(2):hover {
+  background-color: #535ea6;
+  color: #fff;
+  border: 1px solid #535ea6;
+}
+@media only screen and (max-width: 912px) {
+  .wrapper {
+    width: 80%;
+  }
+}/*# sourceMappingURL=br-cmpySelfRegister.css.map */

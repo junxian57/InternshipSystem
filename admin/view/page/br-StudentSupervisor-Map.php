@@ -50,11 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/studentSupervisorMap.css">
-    <style>
-
-
-    </style>
+    <link rel="stylesheet" href="../../scss/br-studentSupervisorMap.css">
 </head>
 
 <body class="cbp-spmenu-push">

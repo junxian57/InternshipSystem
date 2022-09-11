@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Self Registration</title>
+    <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/style.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/modernizr.custom.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="../../js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script src="../../js/metisMenu.min.js"></script>
+    <script src="../../js/custom.js"></script>
+    <link href="../../css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../scss/br-cmpySelfRegister.css">
+</head>
+<body>
+    <header>
+        <div class="page-title">
+            <h3>Internship System</h3>
+            <h3>Company Self Registration</h3>
+            <h4>Tunku Abdul Rahman <br> University College</h4>           
+        </div>
+    </header>
+    
+    <div class="content">
+        <div class="wrapper">
+            <form action="#">
+                <div class="title">
+                    <h2 class="title-1">Company Name & Contact</h2>
+                </div>
+                <div class="input-box">
+                    <input type="text" style="width: 100%;" placeholder="Company Name" name="cmpName" required>                  
+                </div>
+
+                <div class="input-box">
+                    <input type="text" placeholder="Contact No." name="cmpContact" required>   
+                    <input type="email" placeholder="Company Email" name="cmpEmail" required>             
+                </div>
+
+                <div class="title">
+                    <h2 class="title-2">Company Address</h2>
+                </div>
+                <div class="input-box">
+                    <textarea type="text" name="cmpAddress" placeholder="Address" cols="30" rows="5" required></textarea>
+                </div>
+
+                <div class="input-box">
+                    <select name="cmpState" id="state">
+                        <option value="0">State</option>
+                        <option value="Johor">Johor</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="Kedah">Kedah</option>
+                        <option value="Kelantan">Kelantan</option>
+                        <option value="Melaka">Melaka</option>
+                        <option value="Negeri Sembilan">Negeri Sembilan</option>
+                        <option value="Pahang">Pahang</option>
+                        <option value="Penang">Penang</option>
+                        <option value="Perak">Perak</option>
+                        <option value="Perlis">Perlis</option>
+                        <option value="Sabah">Sabah</option>
+                        <option value="Sarawak">Sarawak</option>
+                        <option value="Selangor">Selangor</option>
+                        <option value="Terengganu">Terengganu</option>
+                    </select>
+
+                    <input type="text" placeholder="Postcode" name="cmpPostCode" required>                  
+                </div>
+
+                <div class="input-box">
+                    <input type="text" placeholder="City" name="cmpCity" required>                   
+                </div>
+
+                <div class="title">
+                    <h2 class="title-3">Company Details</h2>
+                </div>
+
+                <div class="input-box">  
+                    <select name="cmpSize" id="cmpSize">
+                        <option value="0">Company Size</option>
+                        <option value="Micro">Mirco: 1 - 4</option>
+                        <option value="Small">Small: 5 - 74</option>
+                        <option value="Medium">Medium: 75 - 200</option>
+                        <option value="Large">Large: > 200</option>               
+                    </select> 
+                    <p>Selection Based On Number of Employee</p>                  
+                </div>
+                
+                <div class="input-box">
+                    <input type="text" placeholder="Company Field Area" name="cmpFieldArea" required> 
+                    <p>
+                        Spread Multiple Fields with Comma(,)
+                        E.g: IT,Accounting,Financing,Insurance
+                    </p>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="clickable-btn">Submit</button>
+                    <button type="reset" class="clickable-btn">Reset All</button>
+                </div>
+            </form>
+        </div>     
+    </div>
+</body>
+
+<script>
+
+</script>
+</html>

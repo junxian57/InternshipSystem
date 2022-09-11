@@ -141,7 +141,6 @@
 .tabcontent .button-group .clickable-btn:nth-child(2):hover {
   background-color: #535ea6;
   color: #fff;
-  border: 1px solid #535ea6;
 }
 .tabcontent .checkbox-group {
   display: flex;
@@ -358,4 +357,4 @@
 }
 .tabcontent table .table-btn-group .table-edit-btn:hover {
   background-color: #6c2de9;
-}/*# sourceMappingURL=studentSupervisorMap.css.map */
+}/*# sourceMappingURL=br-studentSupervisorMap.css.map */
