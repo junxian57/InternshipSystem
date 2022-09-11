@@ -123,7 +123,7 @@ include('includes/db_connection.php');
                                 </div>
                             </div>
                             <div class="button">
-                            <input type="submit" value="Register">
+                            <input type="submit" onclick="confirm('Confirm For Register?')" value="Register">
                             </div>
                         </form>
                         </div>
