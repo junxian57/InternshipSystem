@@ -79,12 +79,10 @@ header .page-title * {
 .wrapper .title h2.title-3::after {
   width: 74%;
 }
-.wrapper .input-box {
-  display: flex;
-  justify-content: space-between;
+.wrapper .input-style {
   margin: 30px 0;
 }
-.wrapper .input-box input, .wrapper .input-box select {
+.wrapper .input-style input, .wrapper .input-style select {
   text-indent: 5px;
   width: calc(1vw + 18em);
   min-width: 200px;
@@ -92,29 +90,40 @@ header .page-title * {
   outline: none;
   transition: 0.1s ease-in;
 }
-.wrapper .input-box input:focus, .wrapper .input-box select:focus {
+.wrapper .input-style input:focus, .wrapper .input-style select:focus {
   box-shadow: 0 0 10px 0 #313e85;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-box input:nth-child(2), .wrapper .input-box select:nth-child(2) {
+  .wrapper .input-style input:nth-child(2), .wrapper .input-style select:nth-child(2) {
     margin-top: 30px;
   }
 }
-.wrapper .input-box p {
+@media only screen and (max-width: 1260px) {
+  .wrapper .input-style input, .wrapper .input-style select {
+    width: 100%;
+  }
+}
+.wrapper .input-style p {
   color: forestgreen;
   font-size: calc(1vw + 0.15em);
   letter-spacing: 1px;
   margin: 0;
   margin-top: 10px;
-  width: calc(1vw + 18em);
-  min-width: 200px;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-box p {
+  .wrapper .input-style p {
     font-size: 16px;
   }
 }
-.wrapper .input-box textarea {
+.wrapper .name-address-group {
+  display: flex;
+  justify-content: space-between;
+}
+.wrapper .name-address-group p {
+  width: calc(1vw + 18em);
+  min-width: 200px;
+}
+.wrapper .name-address-group textarea {
   min-width: 100%;
   width: 670px;
   text-indent: 10px;
@@ -122,14 +131,17 @@ header .page-title * {
   outline: none;
   padding-top: 10px;
 }
-.wrapper .input-box textarea:focus {
+.wrapper .name-address-group textarea:focus {
   box-shadow: 0 0 10px 0 #313e85;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-box {
+  .wrapper .name-address-group {
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+.wrapper .company-details-group p {
+  text-align: left;
 }
 .wrapper .button-group {
   padding: 1.2em 0;
