@@ -17,10 +17,22 @@ header {
 }
 header .page-title {
   color: #ffffff;
-  font-size: calc(1vw + 1rem);
   letter-spacing: 3px;
   text-align: center;
   padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+header .page-title * {
+  max-width: 25%;
+  font-size: calc(1vw + 0.3rem);
+}
+@media only screen and (max-width: 912px) {
+  header .page-title * {
+    font-size: calc(1vw + 0.5rem);
+  }
 }
 
 .wrapper {
