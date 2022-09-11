@@ -127,6 +127,27 @@ include('includes/db_connection.php');
                                     </div>
                                 </form>
                             </div>
+<<<<<<< HEAD
+                            <div class="input-box">
+                                <input type="password" class="password" placeholder="Confirm a password" required>
+                                <i class="uil uil-lock icon"></i>
+                                <i class="uil uil-eye-slash showHidePw"></i>
+                            </div>
+                            </div>
+                            
+                        
+                            <div class="checkbox-text">
+                                <div class="checkbox-content">
+                                    <input type="checkbox" id="termCon">
+                                    <label for="termCon" class="text">I accepted all terms and conditions</label>
+                                </div>
+                            </div>
+                            <div class="button">
+                            <input type="submit" onclick="confirm('Confirm For Register?')" value="Register">
+                            </div>
+                        </form>
+=======
+>>>>>>> ca61670d02e83408ed9bcdbcd20e2e7079438705
                         </div>
 
                     </div>
