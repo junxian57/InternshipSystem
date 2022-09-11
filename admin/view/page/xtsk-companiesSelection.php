@@ -5,15 +5,11 @@ include('includes/dbconnection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
-
-
-
 ?>
 <!DOCTYPE HTML>
 <html>
-
 <head>
-	<title>ITP System | Companies Table</title>
+	<title>ITP System | Companies Selection</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
@@ -40,6 +36,18 @@ include('includes/dbconnection.php');
 			window.scrollTo(0, 1);
 		}
 	</script>
+	<style>
+		table {
+  		border-collapse: collapse;
+  		width: 100%;
+		}
+		
+		table tbody td, th {
+  		border: 1px solid #797d7a;
+  		text-align: left;
+  		padding: 8px;
+		}
+</style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -48,33 +56,17 @@ include('includes/dbconnection.php');
 		<?php include_once('../../includes/header.php'); ?>
 		<div id="page-wrapper">
 			<div class="main-page">
-
 				<div class="tables">
 					<h3 class="title1">Companies Table</h3>
-					<div class="table-responsive bs-example widget-shadow">
-						<!-- <h4>Companies List:</h4>
-						 -->
 						<div class="search-companiesGroup">
-
 							<div class="form-group">
 								<label for="companies">Search Companies <span class="required-star">*</span></label>
 								<input type="search" class="form-control" id="companies" name="companies" placeholder="Please Enter Information...." required="true">
-								<!-- <div class="form-control result-box">
-
-                                    </div> -->
 							</div>
 						</div>
 
-						<div class="button-group">
-							<a class="clickable-btn" onclick="confirm('Confirm For Searching?')" href="index.php">Assign</a>
-							<a class="clickable-btn" href="#">Reset All</a>
-						</div>
-
 						<hr>
-						<div class="table-title">
-							<h4>Companies List</h4>
-						</div>
-						<table class="table table-bordered">
+						<table>
 							<thead>
 								<tr>
 									<th>Companies Name</th>
@@ -185,7 +177,6 @@ include('includes/dbconnection.php');
 								</tr>
 							</tbody>
 						</table>
-					</div>
 				</div>
 			</div>
 		</div>

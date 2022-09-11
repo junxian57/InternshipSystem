@@ -1340,7 +1340,8 @@ h4.title {
 /*-- media --*/
 h3.title1 {
   font-size: 2em;
-  color: #e94e02;
+  font-weight: 600;
+  color: #272c4a;
   margin-bottom: 0.8em;
 }
 
@@ -1687,10 +1688,14 @@ section#tables p {
 
 .tables .panel-body,
 .tables .bs-example {
+<<<<<<< Updated upstream
   padding: 2em 2em 0.5em;
   display: block;
   max-height: 700px;
   overflow-y: auto;
+=======
+  //padding: 2em 2em 0.5em;
+>>>>>>> Stashed changes
 }
 
 .tables .table>thead>tr>th,
