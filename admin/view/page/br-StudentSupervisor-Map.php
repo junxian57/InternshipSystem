@@ -123,7 +123,8 @@ include('includes/db_connection.php');
                             </div>
                             <hr>
                             <div class="info-group">
-                                <p style="border-right:1px solid grey;">Supervisor Available Slot: <span>24 / 24</span></p>
+                                <p>Supervisor Available Slot: <span>24 / 24</span></p>
+                                <span>|</span>
                                 <p>Student Group Left Slot: <span>24 / 24</span></p>
                             </div>
                             <hr>
@@ -273,14 +274,14 @@ include('includes/db_connection.php');
                                 //TODO: Select intern batch first only allow to select students group        
                                 -->
                                 <div class="form-group">
-                                <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
+                                    <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                     </select>
-<!--                                    
+                                    <!--                                    
                                 //TODO: Require AJAX method to display searched student
                                 -->
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
@@ -307,7 +308,7 @@ include('includes/db_connection.php');
                                     </select>
                                 </div>
                             </div>
-                           
+
                             <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
@@ -788,14 +789,12 @@ include('includes/db_connection.php');
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.querySelectorAll(".tabcontent");
         tabcontent.forEach(i => {
-            console.log(i)
             i.style.display = "none";
         });
 
         // Get all elements with class="tablinks" and remove the class "active"
         tablinks = document.querySelectorAll(".tablinks");
         tablinks.forEach(i => {
-            console.log(i)
             i.classList.remove("active");
         });
 

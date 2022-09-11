@@ -70,8 +70,32 @@ header .page-title * {
   height: 1px;
   background-color: #f2891f;
 }
+@media only screen and (max-width: 912px) {
+  .wrapper .title h2::after {
+    top: 10px;
+    max-width: 40%;
+  }
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .title h2::after {
+    top: 10px;
+    max-width: 60%;
+  }
+}
 .wrapper .title h2.title-1::after {
   width: 60%;
+}
+@media only screen and (max-width: 912px) {
+  .wrapper .title h2.title-1::after {
+    top: 10px;
+    max-width: 40%;
+  }
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .title h2.title-1::after {
+    top: 10px;
+    max-width: 50%;
+  }
 }
 .wrapper .title h2.title-2::after {
   width: 72%;
@@ -171,6 +195,22 @@ header .page-title * {
   background-color: #535ea6;
   color: #fff;
   border: 1px solid #535ea6;
+}
+.wrapper .button-group .approve {
+  background-color: green;
+  border: 1px solid green;
+}
+.wrapper .button-group .approve:hover {
+  background-color: #348f5a;
+  border: 1px solid #348f5a;
+}
+.wrapper .button-group .reject {
+  background-color: red !important;
+  border: 1px solid red !important;
+}
+.wrapper .button-group .reject:hover {
+  background-color: #e74c3c !important;
+  border: 1px solid #e74c3c !important;
 }
 @media only screen and (max-width: 912px) {
   .wrapper {
