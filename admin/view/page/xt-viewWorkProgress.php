@@ -91,7 +91,7 @@ include('includes/dbconnection.php');
 								<td>WRPT000002</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
-								<td>YES</td>
+								<td>NO</td>
 								<td>
 									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
 								</td>
@@ -277,7 +277,7 @@ include('includes/dbconnection.php');
 					<div id="Final" class="tabcontent">
 					<div class="panel-body">
             <div class="input-group">
-							<input type="text" class="form-control" id="dev-table-filter" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+							<input type="text" class="form-control" id="finalTable-filter" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 							<a class="input-group-addon" style="border: 1px solid #797d7a;">
 								<i class="fa fa-search"></i>
 							</a>
@@ -532,6 +532,46 @@ include('includes/dbconnection.php');
   		evt.currentTarget.className += " active";
 		}
 		document.getElementById("activeTab").click();
+	</script>
+
+	<script>
+		function filterMonthlyTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#monthlyTable tbody").rows;
+    
+    	for (var i = 1; i < rows.length; i++) {
+				var firstCol = rows[i].cells[1].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[2].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[4].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#dev-table-filter').addEventListener('keyup', filterMonthlyTable, false);
+	</script>
+
+<script>
+		function filterFinalTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#finalTable tbody").rows;
+    
+    	for (var i = 1; i < rows.length; i++) {
+				var firstCol = rows[i].cells[1].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[2].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[4].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#finalTable-filter').addEventListener('keyup', filterFinalTable, false);
 	</script>
 	
 	<script src="../../js/classie.js"></script>
