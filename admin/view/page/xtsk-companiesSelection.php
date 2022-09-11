@@ -5,15 +5,11 @@ include('includes/dbconnection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
-
-
-
 ?>
 <!DOCTYPE HTML>
 <html>
-
 <head>
-	<title>ITP System | Companies Table</title>
+	<title>ITP System | Companies Selection</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">

@@ -283,10 +283,10 @@ include('includes/dbconnection.php');
 							</a>
 						</div>
 					</div>
-						<table id="monthlyTable">
+						<table id="finalTable">
 							<tr>
 								<th>#</th>
-								<th>Monthly Report ID</th>
+								<th>Final Report ID</th>
     						<th>Submit Date Time</th>
 								<th>Report</th>
     						<th>Submit On Time</th>
@@ -296,7 +296,7 @@ include('includes/dbconnection.php');
 						
 							<tr>
 								<td>1</td>
-								<td>WRPT000001</td>
+								<td>FRPT000001</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -310,7 +310,7 @@ include('includes/dbconnection.php');
 
 							<tr>
 								<td>2</td>
-								<td>WRPT000002</td>
+								<td>FRPT000002</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -324,7 +324,7 @@ include('includes/dbconnection.php');
 
 							<tr>
 								<td>3</td>
-								<td>WRPT000003</td>
+								<td>FRPT000003</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -338,7 +338,7 @@ include('includes/dbconnection.php');
 
 							<tr>
 								<td>4</td>
-								<td>WRPT000004</td>
+								<td>FRPT000004</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -352,7 +352,7 @@ include('includes/dbconnection.php');
 
 							<tr>
 								<td>5</td>
-								<td>WRPT000005</td>
+								<td>FRPT000005</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -365,7 +365,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>6</td>
-								<td>WRPT000006</td>
+								<td>FRPT000006</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -378,7 +378,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>7</td>
-								<td>WRPT000007</td>
+								<td>FRPT000007</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -391,7 +391,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>8</td>
-								<td>WRPT000008</td>
+								<td>FRPT000008</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -404,7 +404,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>9</td>
-								<td>WRPT000009</td>
+								<td>FRPT000009</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -417,7 +417,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>10</td>
-								<td>WRPT000010</td>
+								<td>FRPT000010</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -430,7 +430,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>11</td>
-								<td>WRPT000011</td>
+								<td>FRPT000011</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -443,7 +443,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>12</td>
-								<td>WRPT000012</td>
+								<td>FRPT000012</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -456,7 +456,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>13</td>
-								<td>WRPT000013</td>
+								<td>FRPT000013</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -469,7 +469,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>14</td>
-								<td>WRPT000014</td>
+								<td>FRPT000014</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
@@ -482,7 +482,7 @@ include('includes/dbconnection.php');
 							</tr>
 
 							<td>15</td>
-								<td>WRPT000015</td>
+								<td>FRPT000015</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
 								<td>YES</td>
