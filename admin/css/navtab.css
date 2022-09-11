@@ -65,3 +65,49 @@ th {
     text-align: left;
     padding: 8px;
 }
+
+.tabcontent .form-group {
+    min-width: 43%;
+}
+
+.tabcontent .form-group .required-star {
+    color: red;
+}
+
+.tabcontent .form-group .form-control {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.tabcontent table tbody tr:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.tabcontent table thead,
+.tabcontent table tbody,
+.tabcontent table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tabcontent .table-title {
+    margin-top: 10px;
+    font-size: 1.1em;
+    text-align: center;
+    position: relative;
+}
+
+.tabcontent .table-title p {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 0.8em;
+    color: #ff4500;
+}
+
+.tabcontent table tbody {
+    display: block;
+    max-height: 500px;
+    overflow-y: scroll;
+}
