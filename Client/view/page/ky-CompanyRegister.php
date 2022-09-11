@@ -51,7 +51,7 @@ include('includes/db_connection.php');
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="../../scss/companyLoginAndRegister.css">
-     <!-- ===== Iconscout CSS ===== -->
+    <!-- ===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <style>
@@ -67,67 +67,67 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="container">
-                <div class="forms">
-                    <h3 class="page-title">Company Registration</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                    
-                        <div class="content">
-                        <form action="#">
-                            <div class="user-details">
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter company name" required>
-                                <i class="uil uil-user icon"></i>
-                            </div>
+                    <div class="forms">
+                        <h3 class="page-title">Company Registration</h3>
+                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter company email" required>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
+                            <div class="content">
+                                <form action="#">
+                                    <div class="user-details">
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company name" required>
+                                            <i class="uil uil-user icon"></i>
+                                        </div>
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter company address" required>
-                                <i class="uil uil-estate icon"></i>
-                                
-                            </div>
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter company contact number" required>
-                                <i class="uil uil-phone icon"></i>
-                            </div>
-                            
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter company field area" required>
-                                <i class="uil uil-suitcase-alt icon"></i>
-                            </div>
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company email" required>
+                                            <i class="uil uil-envelope icon"></i>
+                                        </div>
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter internship placement number" required>
-                                <i class="uil uil-book-reader icon"></i>
-                            </div>
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company address" required>
+                                            <i class="uil uil-estate icon"></i>
 
-                            <div class="input-box">
-                                <input type="password" class="password" placeholder="Create a password" required>
-                                <i class="uil uil-lock icon"></i>
+                                        </div>
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company contact number" required>
+                                            <i class="uil uil-phone icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company field area" required>
+                                            <i class="uil uil-suitcase-alt icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter internship placement number" required>
+                                            <i class="uil uil-book-reader icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="password" class="password" placeholder="Create a password" required>
+                                            <i class="uil uil-lock icon"></i>
+                                        </div>
+                                        <div class="input-box">
+                                            <input type="password" class="password" placeholder="Confirm a password" required>
+                                            <i class="uil uil-lock icon"></i>
+                                            <i class="uil uil-eye-slash showHidePw"></i>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="checkbox-text">
+                                        <div class="checkbox-content">
+                                            <input type="checkbox" id="termCon">
+                                            <label for="termCon" class="text">I accepted all terms and conditions</label>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <input type="submit" value="Register">
+                                    </div>
+                                </form>
                             </div>
-                            <div class="input-box">
-                                <input type="password" class="password" placeholder="Confirm a password" required>
-                                <i class="uil uil-lock icon"></i>
-                                <i class="uil uil-eye-slash showHidePw"></i>
-                            </div>
-                            </div>
-                            
-                        
-                            <div class="checkbox-text">
-                                <div class="checkbox-content">
-                                    <input type="checkbox" id="termCon">
-                                    <label for="termCon" class="text">I accepted all terms and conditions</label>
-                                </div>
-                            </div>
-                            <div class="button">
-                            <input type="submit" value="Register">
-                            </div>
-                        </form>
                         </div>
-                    </div>
 
                     </div>
                 </div>
