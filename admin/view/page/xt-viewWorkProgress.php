@@ -91,7 +91,7 @@ include('includes/dbconnection.php');
 								<td>WRPT000002</td>
 								<td>2023-07-30 12:00:00</td>
 								<td>Maria Anders</td>
-								<td>YES</td>
+								<td>NO</td>
 								<td>
 									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
 								</td>
@@ -532,6 +532,26 @@ include('includes/dbconnection.php');
   		evt.currentTarget.className += " active";
 		}
 		document.getElementById("activeTab").click();
+	</script>
+
+	<script>
+		function filterTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#monthlyTable tbody").rows;
+    
+    	for (var i = 1; i < rows.length; i++) {
+				var firstCol = rows[i].cells[1].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[2].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[4].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#dev-table-filter').addEventListener('keyup', filterTable, false);
 	</script>
 	
 	<script src="../../js/classie.js"></script>

@@ -57,123 +57,174 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">Companies Table</h3>
-						<div class="search-companiesGroup">
-							<div class="form-group">
-								<label for="companies">Search Companies <span class="required-star">*</span></label>
-								<input type="search" class="form-control" id="companies" name="companies" placeholder="Please Enter Information...." required="true">
-							</div>
-						</div>
-
-						<hr>
+					<h3 class="title1">Companies Selection</h3>
 						<table>
 							<thead>
 								<tr>
-									<th>Companies Name</th>
-									<th>Hiring Position</th>
+									<th>#</th>
+									<th>Company Name</th>
+									<th>Industry</th>
+									<th>Location</th>
+									<th>Company Size</th>
 									<th>Rating</th>
 									<th>Allowance</th>
-									<th>Open For</th>
+									<th>Action</th>
 								</tr>
 							</thead>
+
 							<tbody>
 								<tr>
+									<td>1</td>
 									<td>Unilifesity SDN BHD</td>
-									<td>Internship for IT</td>
-									<td>1 Star</td>
-									<td>RM800</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>3</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>2</td>
 									<td>Samsung Malaysia</td>
-									<td>Internship for HR</td>
-									<td>5 Star</td>
-									<td>RM1000.00 - RM1500.00</td>
-									<td>Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>3</td>
 									<td>Hap Seng SDN BHD</td>
-									<td>Internship for IT</td>
-									<td>4 Star</td>
-									<td>RM900.00 - RM1400.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>4</td>
 									<td>Smazh Premium SDN BHD</td>
-									<td>Technical Support</td>
-									<td>2 Star</td>
-									<td>RM800.00</td>
-									<td>Diploma</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>5</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>5</td>
 									<td>SkyWorld Development SDN BHD</td>
-									<td>Internship for IT</td>
-									<td>4 Star</td>
-									<td>RM1000.00 - RM1700.00</td>
-									<td>Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>5</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>6</td>
 									<td>Unilifesity SDN BHD</td>
-									<td>Internship for IT</td>
-									<td>3 Star</td>
-									<td>RM500.00 - RM1000.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>2</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>7</td>
 									<td>BMW Coding SDN BHD</td>
-									<td>Internship for IT</td>
-									<td>5 Star</td>
-									<td>RM1100.00 - RM1800.00</td>
-									<td>Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>3</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>8</td>
 									<td>KK Supermart & Superstore Sdn Bhd</td>
-									<td>Internship for Accounting/ Auditing/ Finance</td>
-									<td>3 Star</td>
-									<td>RM700.00 - RM800.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>3</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>9</td>
 									<td>Arissto (Malaysia) Sdn Bhd</td>
-									<td>Dealership Senior Executive / Executive</td>
-									<td>2 Star</td>
-									<td>RM2800.00 - RM3500.00</td>
-									<td>Diploma</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>10</td>
 									<td>Prosains (M) Sdn Bhd</td>
-									<td>Internship in Graphic Design</td>
-									<td>3 Star</td>
-									<td>RM500.00 - RM1000.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>11</td>
 									<td>Origin Integrated Studios Sdn Bhd</td>
-									<td>Mass Communication / Marketing (Intern)</td>
-									<td>5 Star</td>
-									<td>RM600.00 - RM1000.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>2</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>12</td>
 									<td>Dommal Food Services Sdb Bhd</td>
-									<td>Application Support - Intern</td>
-									<td>3 Star</td>
-									<td>RM500.00 - RM800.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>13</td>
 									<td>Sunway Money Sdn Bhd</td>
-									<td>Internship for IT</td>
-									<td>5 Star</td>
-									<td>RM800.00 - RM1000.00</td>
-									<td>Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
+
 								<tr>
+									<td>14</td>
 									<td>Fire Pos Sdn Bhd</td>
-									<td>Internship - Mobile Apps Developer</td>
-									<td>4 Star</td>
-									<td>RM500.00 - RM800.00</td>
-									<td>Diploma & Degree</td>
+									<td>Finance and Accounting</td>
+									<td>Kampus Utama, Jalan Genting Kelang, 53300 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+									<td>50 - 100</td>
+									<td>4</td>
+									<td>RM 800 - RM 1000</td>
+									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -181,7 +232,7 @@ include('includes/dbconnection.php');
 			</div>
 		</div>
 	</div>
-	<script src="js/classie.js"></script>
+	<script src="../../js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
 			showLeftPush = document.getElementById('showLeftPush'),
