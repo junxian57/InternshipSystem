@@ -36,23 +36,27 @@
                 <div class="title">
                     <h2 class="title-1">Company Name & Contact</h2>
                 </div>
-                <div class="input-box">
+                <div class="input-style name-address-group">
                     <input type="text" style="width: 100%;" placeholder="Company Name" name="cmpName" required>                  
                 </div>
 
-                <div class="input-box">
-                    <input type="text" placeholder="Contact No." name="cmpContact" required>   
-                    <input type="email" placeholder="Company Email" name="cmpEmail" required>             
+                <div class="input-style name-address-group">
+                    <input type="text" placeholder="Contact No." name="cmpContactNo" required readonly>   
+                    <input type="email" placeholder="Email" name="cmpEmail" required readonly>             
+                </div>
+
+                <div class="input-style name-address-group">
+                    <input type="text" placeholder="Contact Person" name="cmpContactPerson" required readonly>                
                 </div>
 
                 <div class="title">
                     <h2 class="title-2">Company Address</h2>
                 </div>
-                <div class="input-box">
+                <div class="input-style name-address-group">
                     <textarea type="text" name="cmpAddress" placeholder="Address" cols="30" rows="5" required></textarea>
                 </div>
 
-                <div class="input-box">
+                <div class="input-style name-address-group">
                     <select name="cmpState" id="state">
                         <option value="0">State</option>
                         <option value="Johor">Johor</option>
@@ -74,7 +78,7 @@
                     <input type="text" placeholder="Postcode" name="cmpPostCode" required>                  
                 </div>
 
-                <div class="input-box">
+                <div class="input-style name-address-group">
                     <input type="text" placeholder="City" name="cmpCity" required>                   
                 </div>
 
@@ -82,8 +86,8 @@
                     <h2 class="title-3">Company Details</h2>
                 </div>
 
-                <div class="input-box">  
-                    <select name="cmpSize" id="cmpSize">
+                <div class="company-details-group input-style">  
+                    <select name="cmpSize" id="cmpSize"  style="width: 100%;" >
                         <option value="0">Company Size</option>
                         <option value="Micro">Mirco: 1 - 4</option>
                         <option value="Small">Small: 5 - 74</option>
@@ -93,11 +97,9 @@
                     <p>Selection Based On Number of Employee</p>                  
                 </div>
                 
-                <div class="input-box">
-                    <input type="text" placeholder="Company Field Area" name="cmpFieldArea" required> 
-                    <p>
-                        Spread Multiple Fields with Comma(,)
-                        E.g: IT,Accounting,Financing,Insurance
+                <div class="company-details-group input-style">
+                    <input type="text" style="width: 100%;" placeholder="Company Field Area" name="cmpFieldArea" required> 
+                    <p>Spread Multiple Fields with Comma(,). E.g: IT, Accounting, Financing, Insurance
                     </p>
                 </div>
 
