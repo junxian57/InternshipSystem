@@ -94,19 +94,8 @@ include('includes/db_connection.php');
                                 <span class="arrow-icon">&#129050</span>
 
                                 <!--                                    
-                                //TODO: Require AJAX method to retrieve student group from the same faculty as lecturer        
+                                //TODO: Select intern batch first only allow to select students group        
                                 -->
-                                <div class="form-group">
-                                    <label for="student-group">Student Group <span class="required-star">*</span></label>
-                                    <select name="student-group" id="student-group" class="form-control" required="true">
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="search-group">                             
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
@@ -115,8 +104,20 @@ include('includes/db_connection.php');
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                     </select>
+
+                                    <!--                                    
+                                    //TODO: Require AJAX method to retrieve student group from the same faculty as lecturer        
+                                    -->
+                                    <label for="student-group" class="margin-top-20">Student Group <span class="required-star">*</span></label>
+                                    <select name="student-group" id="student-group" class="form-control" required="true">
+                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
+                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
+                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
+                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
+                                    </select>
                                 </div>
                             </div>
+
                             <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
@@ -273,10 +274,20 @@ include('includes/db_connection.php');
                         <div id="SupervisorToStudent" class="tabcontent">
                             <div class="search-group">
                                 <!--                                    
-                                //TODO: Require AJAX method to display searched student
+                                //TODO: Select intern batch first only allow to select students group        
                                 -->
                                 <div class="form-group">
-                                    <label for="student">Search Student <span class="required-star">*</span></label>
+                                <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
+                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                        <option value="INT2000123">INT2000123</option>
+                                    </select>
+<!--                                    
+                                //TODO: Require AJAX method to display searched student
+                                -->
+                                    <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="student" name="student" placeholder="Enter Any Relevant Keyword...." required="true">
                                     <div class="form-control result-box">
                                         <!--                                    
@@ -300,17 +311,7 @@ include('includes/db_connection.php');
                                     </select>
                                 </div>
                             </div>
-                            <div class="search-group">                             
-                                <div class="form-group">
-                                    <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                    </select>
-                                </div>
-                            </div>
+                           
                             <div class="button-group">
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
@@ -322,7 +323,7 @@ include('includes/db_connection.php');
                                 <a class="clickable-btn" href="#">Reset Field</a>
                             </div>
                             <hr>
-                            <div class="table-title">                             
+                            <div class="table-title">
                                 <h4>Preview Table</h4>
                                 <p>Hint: Table Below Is Scrollable</p>
                             </div>
@@ -476,7 +477,7 @@ include('includes/db_connection.php');
                                         -->
                                     </div>
                                 </div>
-                                                          
+
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
@@ -495,7 +496,7 @@ include('includes/db_connection.php');
                             <div class="checkbox-group">
                                 <form id="supervisor-field">
                                     <fieldset>
-                                        <legend>Supervisor Field - <span>FOCS</span></legend>                                   
+                                        <legend>Supervisor Field - <span>FOCS</span></legend>
                                         <div class="table-responsive">
                                             <table>
                                                 <thead>
@@ -598,7 +599,7 @@ include('includes/db_connection.php');
                                                         <td>3 / 1</td>
                                                         <td>24 / 24</td>
                                                         <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>                                                 
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
