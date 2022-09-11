@@ -80,6 +80,14 @@ include('includes/dbconnection.php');
   		font-size: 100%;
   		top: 0;
 		}
+
+		.tables .panel-body{
+			padding: 30px 0;
+		}
+
+		.tables .bs-example{
+			padding-bottom: 50px;
+		}
 </style>
 </head>
 
@@ -91,6 +99,7 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tables">
 					<h3 class="title1">Companies Selection</h3>
+					<div class="table-responsive bs-example widget-shadow" style="background: transparent; border: 1px solid #797d7a;">
 					<div class="panel-body">
             <div class="input-group">
 							<input type="text" class="form-control" id="filterCmp" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
@@ -293,6 +302,7 @@ include('includes/dbconnection.php');
 								</tr>
 							</tbody>
 						</table>
+					</div>
 				</div>
 			</div>
 		</div>
