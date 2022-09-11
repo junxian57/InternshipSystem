@@ -13,55 +13,10 @@ include('includes/dbconnection.php');
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
+	<link href="../../css/workProgress.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
-
-	<style>
-		.tab {
-  		overflow: hidden;
-  		border: 1px solid #797d7a;
-  		background-color: #e5e2ff;
-		}
-	
-		.tab button {
-  		background-color: inherit;
-  		float: left;
-  		border: 1px solid #797d7a;
-  		outline: none;
-  		cursor: pointer;
-  		padding: 14px 16px;
-  		transition: 0.3s;
-  		font-size: 17px;
-		}
-
-		.tab button:hover {
-  		background-color: #ddd;
-		}
-
-		.tab button.active {
-  		background-color: #ccc;
-		}
-
-		.tabcontent {
-  		display: none;
-  		padding: 50px 25px;
-  		border: 1px solid #797d7a;
-  		border-top: none;
-			width: 100%;
-		}
-
-		.tabcontent table {
-			border-collapse: collapse;
-			width: 100%;
-		}
-		
-		.tabcontent table tbody td, th {
-			border: 1px solid #797d7a;
-			text-align: left;
-			padding: 8px;
-		}
-	</style>
 
 	<script src="../../js/jquery-1.11.1.min.js"></script>
 	<script src="../../js/modernizr.custom.js"></script>>
@@ -320,7 +275,225 @@ include('includes/dbconnection.php');
 					</div>
 
 					<div id="Final" class="tabcontent">
+					<div class="panel-body">
+            <div class="input-group">
+							<input type="text" class="form-control" id="dev-table-filter" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+							<a class="input-group-addon" style="border: 1px solid #797d7a;">
+								<i class="fa fa-search"></i>
+							</a>
+						</div>
+					</div>
+						<table id="monthlyTable">
+							<tr>
+								<th>#</th>
+								<th>Monthly Report ID</th>
+    						<th>Submit Date Time</th>
+								<th>Report</th>
+    						<th>Submit On Time</th>
+								<th style="border-right: 0;">Action</th>
+								<th style="border-left: 0;"></th>
+  						</tr>
+						
+							<tr>
+								<td>1</td>
+								<td>WRPT000001</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
 
+							<tr>
+								<td>2</td>
+								<td>WRPT000002</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>3</td>
+								<td>WRPT000003</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>4</td>
+								<td>WRPT000004</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>5</td>
+								<td>WRPT000005</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>6</td>
+								<td>WRPT000006</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>7</td>
+								<td>WRPT000007</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>8</td>
+								<td>WRPT000008</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>9</td>
+								<td>WRPT000009</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>10</td>
+								<td>WRPT000010</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>11</td>
+								<td>WRPT000011</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>12</td>
+								<td>WRPT000012</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>13</td>
+								<td>WRPT000013</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>14</td>
+								<td>WRPT000014</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+
+							<td>15</td>
+								<td>WRPT000015</td>
+								<td>2023-07-30 12:00:00</td>
+								<td>Maria Anders</td>
+								<td>YES</td>
+								<td>
+									<a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
+								</td>
+								<td>
+									<a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
+								</td>
+							</tr>
+						</table>
 					</div>
 			</div>
 		</div>
