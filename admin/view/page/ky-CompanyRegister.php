@@ -35,7 +35,7 @@ include('includes/db_connection.php');
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-        </script>
+    </script>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -50,8 +50,12 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/studentRegister.css">
+    <link rel="stylesheet" href="../../scss/ky-companyRegister.css">
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
     <style>
+
 
     </style>
 </head>
@@ -62,97 +66,77 @@ include('includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-            <div class="forms">
-                    <h3 class="page-title">Student Maintenance</h3>
+                <div class="container">
+                    <div class="forms">
+                        <h3 class="page-title">Company Registration</h3>
+                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-            <table class="content-table">
-                <thead>
-                    <tr>
-                    <th>User Id</th>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Faculty</th>
-                    <th>Programme</th>
-                    <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Kang Yi</td>
-                    <td>KY001</td>
-                    <td>KL</td>
-                    <td>017-59797976</td>
-                    <td>FOCS</td>
-                    <td>REI</td>
-                    <td><div class="button-group">
-                            <!--                                    
-                            //TODO: onclick -> start retrieve student list and proceed mapping
-                            -->
-                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
-                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
+                            <div class="content">
+                                <form action="#">
+                                    <div class="user-details">
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company name" required>
+                                            <i class="uil uil-user icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company email" required>
+                                            <i class="uil uil-envelope icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company address" required>
+                                            <i class="uil uil-estate icon"></i>
+
+                                        </div>
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company contact number" required>
+                                            <i class="uil uil-phone icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter company field area" required>
+                                            <i class="uil uil-suitcase-alt icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="text" placeholder="Enter internship placement number" required>
+                                            <i class="uil uil-book-reader icon"></i>
+                                        </div>
+
+                                        <div class="input-box">
+                                            <input type="password" class="password" placeholder="Create a password" required>
+                                            <i class="uil uil-lock icon"></i>
+                                        </div>
+                                        <div class="input-box">
+                                            <input type="password" class="password" placeholder="Confirm a password" required>
+                                            <i class="uil uil-lock icon"></i>
+                                            <i class="uil uil-eye-slash showHidePw"></i>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="checkbox-text">
+                                        <div class="checkbox-content">
+                                            <input type="checkbox" id="termCon">
+                                            <label for="termCon" class="text">I accepted all terms and conditions</label>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <input type="submit" onclick="confirm('Confirm For Register?')" value="Register">
+                                    </div>
+                                </form>
+                            </div>
+                         
+                           
                         </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Jame</td>
-                    <td>JM007</td>
-                    <td>JB</td>
-                    <td>012-56444448</td>
-                    <td>FOCS</td>
-                    <td>RIS</td>
-                    <td><div class="button-group">
-                            <!--                                    
-                            //TODO: onclick -> start retrieve student list and proceed mapping
-                            -->
-                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
-                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td>Lily</td>
-                    <td>llily</td>
-                    <td>Perlis</td>
-                    <td>018-56228899</td>
-                    <td>FAFB</td>
-                    <td>RRD</td>
-                    <td><div class="button-group">
-                            <!--                                    
-                            //TODO: onclick -> start retrieve student list and proceed mapping
-                            -->
-                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
-                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>4</td>
-                    <td>Steve</td>
-                    <td>sstts</td>
-                    <td>Kedah</td>
-                    <td>013-38299494</td>
-                    <td>FAFB</td>
-                    <td>RRD</td>
-                    <td><div class="button-group">
-                            <!--                                    
-                            //TODO: onclick -> start retrieve student list and proceed mapping
-                            -->
-                            <button class="clickable-btn" onclick="confirm('Confirm For Mapping?')" href="index.php">Assign</button>
-                            <buyyon class="clickable-btn" href="#">Reset All</buyyon>
-                        </div>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-    </div>
+
+                    </div>
+                </div>
             </div>
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>
+        <script src="../../js/companyLogin.js"></script>
 </body>
 
 <script src="../../js/classie.js"></script>
@@ -270,6 +254,5 @@ include('includes/db_connection.php');
         }
     }
 </script>
-
 
 </html>
