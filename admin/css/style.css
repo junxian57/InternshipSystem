@@ -197,8 +197,8 @@ button#showLeftPush:hover {
   font-size: 1em;
 }
 
-.nav>li>a:hover,
-.nav>li>a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus {
   text-decoration: none;
   background-color: transparent;
   color: #f2b33f;
@@ -254,8 +254,8 @@ span.nav-badge-btm {
   padding: 0em 1em;
 }
 
-.dropdown-menu>li>a:hover,
-.dropdown-menu>li>a:focus {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
   background: none;
   color: #e94e02;
 }
@@ -384,18 +384,18 @@ ul.dropdown-menu {
   outline: none;
 }
 
-.input__field--madoka:focus+.input__label,
+.input__field--madoka:focus + .input__label,
 .input--filled .input__label {
   cursor: default;
   pointer-events: none;
 }
 
-.input__field--madoka:focus+.input__label .graphic,
+.input__field--madoka:focus + .input__label .graphic,
 .input--filled .graphic {
   stroke-dashoffset: 0;
 }
 
-.input__field--madoka:focus+.input__label .input__label-content {
+.input__field--madoka:focus + .input__label .input__label-content {
   -webkit-transform: scale3d(0.81, 0.81, 1) translate3d(0, 4em, 0);
   transform: scale3d(0.81, 0.81, 1) translate3d(0, 4em, 0);
 }
@@ -406,7 +406,7 @@ ul.dropdown-menu {
   position: relative;
 }
 
-.meter>span {
+.meter > span {
   display: block;
   height: 100%;
 
@@ -414,8 +414,8 @@ ul.dropdown-menu {
   overflow: hidden;
 }
 
-.meter>span:after,
-.animate>span>span {
+.meter > span:after,
+.animate > span > span {
   content: "";
   position: absolute;
   top: 0;
@@ -426,7 +426,7 @@ ul.dropdown-menu {
   overflow: hidden;
 }
 
-.animate>span:after {
+.animate > span:after {
   display: none;
 }
 
@@ -450,12 +450,12 @@ ul.dropdown-menu {
   }
 }
 
-.red>span {
+.red > span {
   background-color: #65cea7;
 }
 
-.nostripes>span>span,
-.nostripes>span:after {
+.nostripes > span > span,
+.nostripes > span:after {
   -webkit-animation: none;
   -moz-animation: none;
   background-image: none;
@@ -538,9 +538,9 @@ li.active a i,
   color: #f2b33f;
 }
 
-.custom-nav>li.act>a,
-.custom-nav>li.act>a:hover,
-.custom-nav>li.act>a:focus {
+.custom-nav > li.act > a,
+.custom-nav > li.act > a:hover,
+.custom-nav > li.act > a:focus {
   background-color: #353f4f;
   color: #8bc34a;
 }
@@ -829,48 +829,58 @@ i.icon_6 {
 }
 
 .progress-striped .bar {
-  background-image: -webkit-gradient(linear,
-      0 100%,
-      100% 0,
-      color-stop(0.25, rgba(255, 255, 255, 0.15)),
-      color-stop(0.25, transparent),
-      color-stop(0.5, transparent),
-      color-stop(0.5, rgba(255, 255, 255, 0.15)),
-      color-stop(0.75, rgba(255, 255, 255, 0.15)),
-      color-stop(0.75, transparent),
-      to(transparent));
-  background-image: -webkit-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: -moz-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: -o-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
+  background-image: -webkit-gradient(
+    linear,
+    0 100%,
+    100% 0,
+    color-stop(0.25, rgba(255, 255, 255, 0.15)),
+    color-stop(0.25, transparent),
+    color-stop(0.5, transparent),
+    color-stop(0.5, rgba(255, 255, 255, 0.15)),
+    color-stop(0.75, rgba(255, 255, 255, 0.15)),
+    color-stop(0.75, transparent),
+    to(transparent)
+  );
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: -moz-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
   -webkit-background-size: 40px 40px;
   -moz-background-size: 40px 40px;
   -o-background-size: 40px 40px;
@@ -947,7 +957,7 @@ ul.dropdown-menu {
   top: 101%;
 }
 
-.dropdown-menu>li>a {
+.dropdown-menu > li > a {
   padding: 3px 15px;
   font-size: 1em;
 }
@@ -1512,12 +1522,12 @@ h3.hdg {
   color: #4f52ba;
 }
 
-.pagination>.active>a,
-.pagination>.active>span,
-.pagination>.active>a:hover,
-.pagination>.active>span:hover,
-.pagination>.active>a:focus,
-.pagination>.active>span:focus {
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
   z-index: 0;
 }
 
@@ -1537,12 +1547,12 @@ h3.hdg {
   background-color: #e51c23;
 }
 
-.table>thead>tr>th,
-.table>tbody>tr>th,
-.table>tfoot>tr>th,
-.table>thead>tr>td,
-.table>tbody>tr>td,
-.table>tfoot>tr>td {
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
   border-top: none;
 }
 
@@ -1569,7 +1579,6 @@ section#tables p {
 }
 
 @media (max-width: 640px) {
-
   h1,
   .h1,
   h2,
@@ -1688,21 +1697,17 @@ section#tables p {
 
 .tables .panel-body,
 .tables .bs-example {
-  padding: 2em 2em 0.5em;
   display: block;
   max-height: 700px;
   overflow-y: auto;
-
-  padding: 2em 2em 0.5em;
-
 }
 
-.tables .table>thead>tr>th,
-.tables .table>tbody>tr>th,
-.tables .table>tfoot>tr>th,
-.tables .table>thead>tr>td,
-.tables .table>tbody>tr>td,
-.tables .table>tfoot>tr>td {
+.tables .table > thead > tr > th,
+.tables .table > tbody > tr > th,
+.tables .table > tfoot > tr > th,
+.tables .table > thead > tr > td,
+.tables .table > tbody > tr > td,
+.tables .table > tfoot > tr > td {
   padding: 13px;
   border-top: 1px solid #e0e0e0;
 }
@@ -1711,7 +1716,7 @@ section#tables p {
   margin-top: 2em;
 }
 
-.table-hover>tbody>tr:hover {
+.table-hover > tbody > tr:hover {
   background-color: #e8e6e6;
 }
 
@@ -1868,13 +1873,13 @@ button.note-color-btn {
   font-weight: 300;
 }
 
-.input-icon.right>i,
+.input-icon.right > i,
 .input-icon.right .icon {
   right: 12px;
   float: right;
 }
 
-.input-icon>i,
+.input-icon > i,
 .input-icon .icon {
   position: absolute;
   display: block;
@@ -2386,9 +2391,9 @@ h4.modal-title {
   border-bottom: 1px solid #797979;
 }
 
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:hover,
-.nav-tabs>li.active>a:focus {
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
   border: 1px solid #797979;
   border-bottom-color: transparent;
 }
@@ -2482,13 +2487,13 @@ h4.modal-title {
   left: -110px;
 }
 
-.inbox-page .dropdown-menu>li>a {
+.inbox-page .dropdown-menu > li > a {
   padding: 4px 15px;
   font-size: 0.9em;
 }
 
-.inbox-page .dropdown-menu>li>a:hover,
-.inbox-page .dropdown-menu>li>a:focus {
+.inbox-page .dropdown-menu > li > a:hover,
+.inbox-page .dropdown-menu > li > a:focus {
   color: #e94e02;
 }
 
@@ -2704,7 +2709,7 @@ h4.modal-title {
   border-radius: inherit;
 }
 
-.compose-right .btn.btn-file>input[type="file"] {
+.compose-right .btn.btn-file > input[type="file"] {
   position: absolute;
   top: 0;
   right: 0;
@@ -2964,7 +2969,7 @@ i.fa.fa-facebook.profile-icon {
   display: none;
 }
 
-.single-bottom ul li input[type="checkbox"]+label {
+.single-bottom ul li input[type="checkbox"] + label {
   position: relative;
   padding-left: 2em;
   border: none;
@@ -2975,7 +2980,7 @@ i.fa.fa-facebook.profile-icon {
   cursor: pointer;
 }
 
-.single-bottom ul li input[type="checkbox"]+label span:first-child {
+.single-bottom ul li input[type="checkbox"] + label span:first-child {
   width: 17px;
   height: 17px;
   display: inline-block;
@@ -2985,7 +2990,12 @@ i.fa.fa-facebook.profile-icon {
   top: 2px;
 }
 
-.single-bottom ul li input[type="checkbox"]:checked+label span:first-child:before {
+.single-bottom
+  ul
+  li
+  input[type="checkbox"]:checked
+  + label
+  span:first-child:before {
   content: "";
   background: url(../images/tick.png) no-repeat;
   position: absolute;
@@ -3182,48 +3192,58 @@ i.fa.fa-facebook.profile-icon {
 }
 
 .widget_1_box .progress-striped .bar {
-  background-image: -webkit-gradient(linear,
-      0 100%,
-      100% 0,
-      color-stop(0.25, rgba(255, 255, 255, 0.15)),
-      color-stop(0.25, transparent),
-      color-stop(0.5, transparent),
-      color-stop(0.5, rgba(255, 255, 255, 0.15)),
-      color-stop(0.75, rgba(255, 255, 255, 0.15)),
-      color-stop(0.75, transparent),
-      to(transparent));
-  background-image: -webkit-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: -moz-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: -o-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-image: linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
+  background-image: -webkit-gradient(
+    linear,
+    0 100%,
+    100% 0,
+    color-stop(0.25, rgba(255, 255, 255, 0.15)),
+    color-stop(0.25, transparent),
+    color-stop(0.5, transparent),
+    color-stop(0.5, rgba(255, 255, 255, 0.15)),
+    color-stop(0.75, rgba(255, 255, 255, 0.15)),
+    color-stop(0.75, transparent),
+    to(transparent)
+  );
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: -moz-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
   -webkit-background-size: 40px 40px;
   -moz-background-size: 40px 40px;
   -o-background-size: 40px 40px;
@@ -3266,7 +3286,7 @@ i.fa.fa-facebook.profile-icon {
     padding: 0;
   }
 
-  .navbar-collapse.bs-example-js-navbar-scrollspy .nav>li>a {
+  .navbar-collapse.bs-example-js-navbar-scrollspy .nav > li > a {
     padding: 15px 13px;
   }
 
@@ -3281,7 +3301,7 @@ i.fa.fa-facebook.profile-icon {
 }
 
 @media (max-width: 1366px) {
-  .navbar-collapse.bs-example-js-navbar-scrollspy .nav>li>a {
+  .navbar-collapse.bs-example-js-navbar-scrollspy .nav > li > a {
     padding: 15px 11px;
   }
 
@@ -3317,7 +3337,7 @@ i.fa.fa-facebook.profile-icon {
     font-size: 16px;
   }
 
-  .navbar-collapse.bs-example-js-navbar-scrollspy .nav>li>a {
+  .navbar-collapse.bs-example-js-navbar-scrollspy .nav > li > a {
     padding: 15px 8px;
     font-size: 0.9em;
   }
@@ -3435,7 +3455,7 @@ i.fa.fa-facebook.profile-icon {
     font-size: 18px;
   }
 
-  .navbar-collapse.bs-example-js-navbar-scrollspy .nav>li>a {
+  .navbar-collapse.bs-example-js-navbar-scrollspy .nav > li > a {
     padding: 15px 20px;
     font-size: 1em;
   }
@@ -3859,12 +3879,12 @@ i.fa.fa-facebook.profile-icon {
     margin-bottom: 0.8em;
   }
 
-  .tables .table>thead>tr>th,
-  .tables .table>tbody>tr>th,
-  .tables .table>tfoot>tr>th,
-  .tables .table>thead>tr>td,
-  .tables .table>tbody>tr>td,
-  .tables .table>tfoot>tr>td {
+  .tables .table > thead > tr > th,
+  .tables .table > tbody > tr > th,
+  .tables .table > tfoot > tr > th,
+  .tables .table > thead > tr > td,
+  .tables .table > tbody > tr > td,
+  .tables .table > tfoot > tr > td {
     font-size: 0.9em;
   }
 
@@ -4083,7 +4103,7 @@ i.fa.fa-facebook.profile-icon {
     padding: 6px 0;
   }
 
-  .profile_details .dropdown-menu>li>a {
+  .profile_details .dropdown-menu > li > a {
     padding: 0;
     font-size: 0.9em;
   }
@@ -4176,7 +4196,7 @@ i.fa.fa-facebook.profile-icon {
     margin-top: 20px;
   }
 
-  .tab-content>.active {
+  .tab-content > .active {
     padding: 0.5em 0 0;
   }
 
@@ -4483,12 +4503,12 @@ i.fa.fa-facebook.profile-icon {
     padding: 1.5em 1.5em;
   }
 
-  .tables .table>thead>tr>th,
-  .tables .table>tbody>tr>th,
-  .tables .table>tfoot>tr>th,
-  .tables .table>thead>tr>td,
-  .tables .table>tbody>tr>td,
-  .tables .table>tfoot>tr>td {
+  .tables .table > thead > tr > th,
+  .tables .table > tbody > tr > th,
+  .tables .table > tfoot > tr > th,
+  .tables .table > thead > tr > td,
+  .tables .table > tbody > tr > td,
+  .tables .table > tfoot > tr > td {
     font-size: 0.8em;
   }
 
@@ -4857,12 +4877,12 @@ i.fa.fa-facebook.profile-icon {
     font-size: 1em !important;
   }
 
-  .table>thead>tr>th,
-  .table>tbody>tr>th,
-  .table>tfoot>tr>th,
-  .table>thead>tr>td,
-  .table>tbody>tr>td,
-  .table>tfoot>tr>td {
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > td {
     font-size: 0.7em;
     padding: 5px;
   }
@@ -4899,7 +4919,7 @@ i.fa.fa-facebook.profile-icon {
     font-size: 10px;
   }
 
-  .dropdown-menu>li>a {
+  .dropdown-menu > li > a {
     padding: 3px 8px;
   }
 
@@ -4952,7 +4972,7 @@ i.fa.fa-facebook.profile-icon {
     font-size: 0.8em;
   }
 
-  .grids-right .nav>li>a {
+  .grids-right .nav > li > a {
     padding: 10px 10px;
   }
 
@@ -5054,11 +5074,11 @@ i.fa.fa-facebook.profile-icon {
     padding: 0.6em 1em;
   }
 
-  .single-bottom ul li input[type="checkbox"]+label {
+  .single-bottom ul li input[type="checkbox"] + label {
     font-size: 0.8em;
   }
 
-  .single-bottom ul li input[type="checkbox"]+label span:first-child {
+  .single-bottom ul li input[type="checkbox"] + label span:first-child {
     width: 15px;
     height: 15px;
     top: 1px;

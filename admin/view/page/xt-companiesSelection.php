@@ -13,6 +13,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
+	<link href="../../css/xt-companiesSelection.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
@@ -36,59 +37,6 @@ include('includes/dbconnection.php');
 			window.scrollTo(0, 1);
 		}
 	</script>
-	<style>
-		table {
-  		border-collapse: collapse;
-  		width: 100%;
-		}
-
-		button{
-			border: none;
-		}
-		
-		table tbody td, th {
-  		border: 1px solid #797d7a;
-  		text-align: left;
-  		padding: 8px;
-		}
-		
-		table.sortable th.no-sort {
-  		padding-top: 0.35em;
-		}
-
-		table.sortable th[aria-sort="descending"] span::after {
-  		color: currentcolor;
-  		font-size: 100%;
-  		top: 0;
-		}
-
-		table.sortable th[aria-sort="ascending"] span::after {
-  		color: currentcolor;
-  		font-size: 100%;
-  		top: 0;
-		}
-
-		table.show-unsorted-icon th:not([aria-sort]) button span::after {
-  		color: currentcolor;
-  		font-size: 100%;
-  		position: relative;
-		}
-
-		table.sortable th:not([aria-sort]) button:focus span::after,
-		table.sortable th:not([aria-sort]) button:hover span::after {
-  		color: currentcolor;
-  		font-size: 100%;
-  		top: 0;
-		}
-
-		.tables .panel-body{
-			padding: 30px 0;
-		}
-
-		.tables .bs-example{
-			padding-bottom: 50px;
-		}
-</style>
 </head>
 
 <body class="cbp-spmenu-push">
