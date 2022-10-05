@@ -39,7 +39,6 @@
 }
 
 .tabcontent {
-  display: none;
   padding: 20px;
   border: 1px solid #ccc;
   border-top: none;
@@ -86,6 +85,7 @@
   position: relative;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 }
 .tabcontent .search-group .arrow-icon {
   font-size: 2vw;
@@ -262,18 +262,33 @@
   color: #fff;
   border: 1px solid #f5ae67;
 }
+.tabcontent .update-group .grey-btn {
+  background-color: grey;
+  padding: 10px 15px;
+  color: #fff;
+  outline: none;
+  border: 1px solid grey;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
 .tabcontent .table-title {
   margin-top: 10px;
   font-size: 1.1em;
   text-align: center;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .tabcontent .table-title p {
-  position: absolute;
-  right: 0;
-  bottom: 0;
   font-size: 0.8em;
   color: #ff4500;
+}
+.tabcontent .table-title input {
+  width: 25%;
+  padding: 5px;
+  border: 1px solid #f2891f;
+  outline: none;
+  font-size: 0.8em;
 }
 .tabcontent .bs-example {
   margin-top: 1em;
@@ -323,33 +338,12 @@
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table .table-btn-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.tabcontent table tbody .column-max-width {
+  max-width: 80px;
+  line-height: 1.2em;
 }
-.tabcontent table .table-btn-group button {
-  width: 100%;
+.tabcontent table tbody .description {
+  max-width: 150px;
+  line-height: 1.2em;
   padding: 5px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  background-color: #f2891f;
-  color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid white;
-  outline: none;
-  cursor: pointer;
-  transition: ease-in-out 0.2s;
-}
-.tabcontent table .table-btn-group .table-delete-btn {
-  background-color: #ff4500;
-  margin-top: 3px;
-}
-.tabcontent table .table-btn-group .table-delete-btn:hover {
-  background-color: #f95f27;
-}
-.tabcontent table .table-btn-group .table-edit-btn:hover {
-  background-color: #6c2de9;
-}/*# sourceMappingURL=br-studentSupervisorMap.css.map */
+}/*# sourceMappingURL=br-studentSupervisorMaintain.css.map */

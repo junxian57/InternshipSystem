@@ -59,7 +59,6 @@ include('includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-
                 <div class="forms">
                     <h3 class="page-title">Student & Supervisor Mapping</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
@@ -132,7 +131,7 @@ include('includes/db_connection.php');
                                 <h4>Preview Table</h4>
                                 <p>Hint: Table Below Is Scrollable</p>
                             </div>
-                            <div class="table-responsive  orange-border">
+                            <div class="orange-border">
                                 <table>
                                     <thead>
                                         <th>#</th>
