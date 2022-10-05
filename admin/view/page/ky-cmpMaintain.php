@@ -66,12 +66,12 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="page-title">Student Maintenance</h3>
+                    <h3 class="page-title">Company Maintenance</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
                             <div class="table-title">
-                                <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of User Name...">
+                                <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of Company Name...">
                                 <p>Hint: Table Below Is Scrollable</p>
                             </div>
                             <div class="table-responsive black-border">
@@ -79,25 +79,21 @@ include('includes/db_connection.php');
                     <table id="myTable">
                             <thead>
                                 <tr>
-                                <th>User Id</th>
+                                <th>Company Id</th>
                                 <th>Name</th>
-                                <th>Username</th>
+                                <th>Contact No</th>
                                 <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Faculty</th>
-                                <th>Programme</th>
+                                <th>Field Area</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                 <td>1</td>
-                                <td>Kang Yi</td>
-                                <td>KY001</td>
-                                <td>KY@gmail.com</td>
-                                <td>017-59797976</td>
-                                <td>FOCS</td>
-                                <td>REI</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -110,12 +106,10 @@ include('includes/db_connection.php');
                                 </tr>
                                 <tr>
                                 <td>2</td>
-                                <td>Jame</td>
-                                <td>JM007</td>
-                                <td>JB@gmail.com</td>
-                                <td>012-56444448</td>
-                                <td>FOCS</td>
-                                <td>RIS</td>
+                                <td>Intel</td>
+                                <td>01562344</td>
+                                <td>intel@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -128,12 +122,10 @@ include('includes/db_connection.php');
                                 </tr>
                                 <tr>
                                 <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>ll@gmail.com</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -146,12 +138,10 @@ include('includes/db_connection.php');
                                 </tr>
                                 <tr>
                                 <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -163,13 +153,11 @@ include('includes/db_connection.php');
                                 </td>
                                 </tr>
                                 <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>5</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -181,13 +169,11 @@ include('includes/db_connection.php');
                                 </td>
                                 </tr>
                                 <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>6</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -199,13 +185,11 @@ include('includes/db_connection.php');
                                 </td>
                                 </tr>
                                 <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>7</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -217,13 +201,29 @@ include('includes/db_connection.php');
                                 </td>
                                 </tr>
                                 <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>8</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
+                                <td>
+                                    <div class="button-group">
+                                        <!--                                    
+                                        //TODO: onclick -> start retrieve student list and proceed mapping
+                                        -->
+                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
+                                    </div>
+                                </td>
+                                </tr>
+                                
+                            
+                                <tr>
+                                <td>9</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
@@ -235,67 +235,11 @@ include('includes/db_connection.php');
                                 </td>
                                 </tr>
                                 <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
+                                <td>10</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
                                 <td>
                                     <div class="button-group">
                                         <!--                                    
