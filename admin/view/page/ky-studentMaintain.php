@@ -23,10 +23,10 @@ include('includes/db_connection.php');
 	}*/
 ?>
 <!DOCTYPE HTML>
-<html>
-
+<html lang="en" dir="ltr">
 <head>
-<title>ITP SYSTEM</title>
+    <meta charset="utf-8">
+    <title>ITP SYSTEM</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -50,11 +50,11 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/br-cmpAppReview.css">
+    <link rel="stylesheet" href="../../scss/ky-stdEdit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 </head>
@@ -103,211 +103,13 @@ include('includes/db_connection.php');
                                         <!--                                    
                                         //TODO: onclick -> start retrieve student list and proceed mapping
                                         -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                        <button id = "login-show"><i class="uil uil-pen" style="color:#0298cf"></i></button>
                                         <button><i class="fa fa-eye" style ="color:red"></i></button>
                                     </div>
                                 </td>
                                 </tr>
-                                <tr>
-                                <td>2</td>
-                                <td>Jame</td>
-                                <td>JM007</td>
-                                <td>JB@gmail.com</td>
-                                <td>012-56444448</td>
-                                <td>FOCS</td>
-                                <td>RIS</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>ll@gmail.com</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>st@gmail.com</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
+                               
                             
-                                
                             </tbody>
                         </table>
                     </div>
@@ -316,7 +118,38 @@ include('includes/db_connection.php');
             </div>
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>
+
+        
 </body>
+
+    <div id="login-modal">
+        <div class="model">
+            <div class="top-form">
+                <div class="close-modal">
+                    &#10006;
+                </div>
+            </div>
+            <div class="login-form">
+            <h2>Edit Students Details</h2>
+            <form action="">
+                <input type="text" class="form-control" placeholder="email">
+                <button type = "button" class="submit-btn">Login</button>
+            </form>
+            </div>
+        </div> 
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#login-show').click(function(){
+                $('#login-modal').fadeIn().css("display", "flex");
+            });
+        
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+        });
+    </script>
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
