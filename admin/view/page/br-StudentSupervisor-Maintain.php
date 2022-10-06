@@ -1,7 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
+include "includes/db_connection.php";
+
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
@@ -55,8 +56,8 @@ include('includes/db_connection.php');
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-        <?php include_once('../../includes/sidebar.php'); ?>
-        <?php include_once('../../includes/header.php'); ?>
+        <?php include_once "../../includes/sidebar.php"; ?>
+        <?php include_once "../../includes/header.php"; ?>
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
@@ -316,7 +317,11 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Poi Han</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                            <div>
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -324,7 +329,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Yan Ning</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -332,7 +339,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -340,7 +349,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Hui Xuan</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -348,7 +359,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -356,7 +369,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -364,7 +379,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -372,7 +389,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -380,7 +399,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -388,7 +409,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -396,7 +419,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -404,7 +429,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -412,7 +439,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -420,7 +449,9 @@ include('includes/db_connection.php');
                                             <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                           <td class="btn-td">
+                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -433,7 +464,7 @@ include('includes/db_connection.php');
             </div>
         </div>
     </div>
-    <footer><?php include_once('../../includes/footer.php'); ?></footer>
+    <footer><?php include_once "../../includes/footer.php"; ?></footer>
 </body>
 
 <script src="../../js/classie.js"></script>
