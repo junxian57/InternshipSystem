@@ -23,9 +23,9 @@ include('includes/db_connection.php');
 	}*/
 ?>
 <!DOCTYPE HTML>
-<html>
-
+<html lang="en" dir="ltr">
 <head>
+    <meta charset="utf-8">
     <title>ITP SYSTEM</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -35,7 +35,7 @@ include('includes/db_connection.php');
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-        </script>
+    </script>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -50,13 +50,13 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-studentMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-stdEdit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    </style>
+
 </head>
 
 <body class="cbp-spmenu-push">
@@ -65,22 +65,24 @@ include('includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-            <div class="forms">
+                <div class="forms">
                     <h3 class="page-title">Student Maintenance</h3>
-
-                    <div class="table">
-                    
-                        <input placeholder="User name"/>
-                        <button class="add_new">+ Add New</button>
-                    </div>
+                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                        <!-- Tab Content 1-->
+                        <div id="StudentToSupervisor" class="tabcontent">
+                            <div class="table-title">
+                                <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of User Name...">
+                                <p>Hint: Table Below Is Scrollable</p>
+                            </div>
+                            <div class="table-responsive black-border">
                     <div class="table_section">
-                         <table>
+                    <table id="myTable">
                             <thead>
                                 <tr>
                                 <th>User Id</th>
                                 <th>Name</th>
                                 <th>Username</th>
-                                <th>Address</th>
+                                <th>Email</th>
                                 <th>Phone Number</th>
                                 <th>Faculty</th>
                                 <th>Programme</th>
@@ -92,7 +94,7 @@ include('includes/db_connection.php');
                                 <td>1</td>
                                 <td>Kang Yi</td>
                                 <td>KY001</td>
-                                <td>KL</td>
+                                <td>KY@gmail.com</td>
                                 <td>017-59797976</td>
                                 <td>FOCS</td>
                                 <td>REI</td>
@@ -101,211 +103,13 @@ include('includes/db_connection.php');
                                         <!--                                    
                                         //TODO: onclick -> start retrieve student list and proceed mapping
                                         -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
+                                        <button id = "login-show"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
                                     </div>
                                 </td>
                                 </tr>
-                                <tr>
-                                <td>2</td>
-                                <td>Jame</td>
-                                <td>JM007</td>
-                                <td>JB</td>
-                                <td>012-56444448</td>
-                                <td>FOCS</td>
-                                <td>RIS</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>4</td>
-                                <td>Steve</td>
-                                <td>sstts</td>
-                                <td>Kedah</td>
-                                <td>013-38299494</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>Lily</td>
-                                <td>llily</td>
-                                <td>Perlis</td>
-                                <td>018-56228899</td>
-                                <td>FAFB</td>
-                                <td>RRD</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button><i class="uil uil-pen"></i></button>
-                                        <button><i class="uil uil-bullseye"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
+                               
                             
-                                
                             </tbody>
                         </table>
                     </div>
@@ -314,7 +118,38 @@ include('includes/db_connection.php');
             </div>
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>
+
+        
 </body>
+
+    <div id="login-modal">
+        <div class="model">
+            <div class="top-form">
+                <div class="close-modal">
+                    &#10006;
+                </div>
+            </div>
+            <div class="login-form">
+            <h2>Edit Students Details</h2>
+            <form action="">
+                <input type="text" class="form-control" placeholder="email">
+                <button type = "button" class="submit-btn">Login</button>
+            </form>
+            </div>
+        </div> 
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#login-show').click(function(){
+                $('#login-modal').fadeIn().css("display", "flex");
+            });
+        
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+        });
+    </script>
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
@@ -337,27 +172,24 @@ include('includes/db_connection.php');
     }
 </script>
 <script>
-    document.getElementById("defaultOpen").click();
+    function searchInTable() {
+        let input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("keyInput");
+        filter = input.value;
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
-    function changeTab(evt, tabName) {
-        // Declare all variables
-        let i, tabcontent, tablinks;
-
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
         }
-
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
     }
 
     //Search Result on Search Bar

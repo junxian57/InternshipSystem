@@ -1,0 +1,30 @@
+#login-modal{
+position: fixed;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+background: rgba(0,0,0,0.6);
+z-index: 100;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.modal{
+background: #e6ecf0;
+padding: 10px 0px 20px 0;
+border-radius: 10px;
+width: 450px;
+text-align: center;
+}
+
+.top-form{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-form .close-modal{
+    cursor: pointer;
+    padding: 0 20px;
+    font-size: 20px;
+}
