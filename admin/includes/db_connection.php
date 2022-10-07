@@ -4,7 +4,7 @@ class DBController
 {
     private $host = "sql444.main-hosting.eu";
     private $user = "u928796707_group34";
-    private $password = "u1VF3KYO1r";
+    private $password = "u1VF3KYO1r|";
     private $database = "u928796707_internshipWeb";
 
     function __construct()
@@ -14,7 +14,7 @@ class DBController
 
     function connectDB()
     {
-        $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
+        $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database) or die("Connect failed: %s\n" . $conn->error);
         return $conn;
     }
 
