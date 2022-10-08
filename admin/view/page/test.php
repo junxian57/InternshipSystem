@@ -104,7 +104,7 @@ include('includes/db_connection.php');
                                         //TODO: onclick -> start retrieve student list and proceed mapping
                                         -->
                                         <button id = "login-show"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
+                                        <button id="view-show"><i class="fa fa-eye" style ="color:red"></i></button>
                                     </div>
                                 </td>
                                 </tr>
@@ -228,7 +228,6 @@ include('includes/db_connection.php');
         </div>  
     </div>
 
-    
     <script type="text/javascript">
         $(function(){
             $('#login-show').click(function(){
@@ -237,6 +236,123 @@ include('includes/db_connection.php');
         
             $('.close-modal').click(function(){
                 $('#login-modal').fadeOut();
+            });
+        });
+    </script>
+
+    <div id="view-modal">
+        <div class="model">
+            <div class="top-form">
+                <h2>Students Details</h2>
+                <div class="close-modal">
+                    &#10006;
+                </div>  
+            </div>
+            <div class="view-form">
+                <div class="content">
+                    <form action="">
+                        <div class="user-details">
+                            
+                            <div class="input-box">
+                                <input type="text">
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text">
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text">
+                                <i class="uil uil-estate icon"></i>
+                                
+                            </div>
+                            <div class="input-box">
+                                <input type="text">
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <select name="student-group" id="student-group" required="true">
+                                    <option selected disabled>Choose Faculty</option>
+                                    <option>FOCS</option>
+                                    <option>FAFB</option>
+                                    <option>FOET</option>
+                                    <option>FOAS</option>
+                                </select>
+                                <i class="uil uil-graduation-cap icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <select name="student-group" id="student-group" required="true">                             
+                                    <option selected disabled>Choose Programme</option>    
+                                    <option>REI</option>
+                                    <option>RIS</option>
+                                    <option>RIT</option>
+                                    <option>RDS</option>
+                                </select>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+                            
+                            <div class="input-box">
+                                <input type="radio" name="gender" id="dot-1">
+                                <input type="radio" name="gender" id="dot-2">
+                                <input type="radio" name="gender" id="dot-3">
+                                
+                                <div class="category">
+                                    <label>Gender :</label>
+                                    <i class="fa fa-venus-mars icon"></i>
+                                    <label for="dot-1">
+                                    <span class="dot one"></span>
+                                    <span class="gender">Male</span>
+                                    </label>
+                                    <label for="dot-2">
+                                        <span class="dot two"></span>
+                                        <span class="gender">Female</span>
+                                    </label>
+                                    <label for="dot-3">
+                                        <span class="dot three"></span>
+                                        <span class="gender">Prefer not to say</span>
+                                    </label>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="radio" name="status" id="dot-4">
+                                <input type="radio" name="status" id="dot-5">
+                         
+                                <div class="category">
+                                    <label>Account Status :</label>
+                                    <i class="fa fa-venus-mars icon"></i>
+                                    <label for="dot-4">
+                                    <span class="dot four"></span>
+                                    <span class="status">Active</span>
+                                    </label>
+                                    <label for="dot-5">
+                                        <span class="dot five"></span>
+                                        <span class="status">Deactive</span>
+                                    </label>
+                                    
+                                </div>
+                            </div>
+
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#view-show').click(function(){
+                $('#view-modal').fadeIn().css("display", "flex");
+            });
+        
+            $('.close-modal').click(function(){
+                $('#view-modal').fadeOut();
             });
         });
     </script>

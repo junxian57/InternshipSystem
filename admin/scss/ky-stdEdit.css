@@ -168,24 +168,37 @@
     background-color: #6c2de9;
   }/*# sourceMappingURL=br-cmpAppReview.css.map */
 
-#login-modal{
-position: fixed;
-top: 0;
-bottom: 0;
-right: 0;
-left: 0;
-background: rgba(0,0,0,0.6);
-z-index: 100;
-display: none;
-justify-content: center;
-align-items: center;
+#login-moda{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 1px rgba(0,0,0,0.6);
+    visibility: hidden;
+    transition: .5s;
 }
+
+#login-modal{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .model{
-background: #e6ecf0;
-padding: 10px 0px 20px 0;
-border-radius: 10px;
-width: 450px;
-text-align: center;
+  background: #e6ecf0;
+  padding: 10px 0px 20px 0;
+  border-radius: 10px;
+  width: 450px;
+  text-align: center;
 }
 
 .top-form{
@@ -224,3 +237,8 @@ text-align: center;
     margin: 10px auto;
     cursor: pointer;
 }
+
+
+
+
+
