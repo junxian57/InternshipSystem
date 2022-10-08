@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Details | Name</title>
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/font-awesome.css" rel="stylesheet" />
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/modernizr.custom.js"></script>
+    <link
+      href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../css/animate.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <script src="../../js/wow.min.js"></script>
+    <script>
+      new WOW().init();
+    </script>
+    <script src="../../js/metisMenu.min.js"></script>
+    <script src="../../js/custom.js"></script>
+    <link href="../../css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../scss/br-companyEnterDetails.css" />
+  </head>
+  <body>
+    <header>
+      <div class="page-title">
+        <h4>Tunku Abdul Rahman University College</h4>
+        <h3>Internship System</h3>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="wrapper">
+        <form action="#">
+          <h3 class="form-title">Company Information</h3>
+          <div class="title">
+            <h2>Company Name & Contact</h2>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style name-address-group width-100">
+              <label for="cmpName">Name</label>
+              <input
+                class="grey-bg"
+                type="text"
+                name="cmpName"
+                readonly
+                value="sssssssssssssssssssssss"
+              />
+            </div>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpContactNo">Contact No.</label>
+              <input class="grey-bg" type="text" name="cmpContactNo" readonly/>
+            </div>
+
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpEmail">Email Address</label>
+              <input class="grey-bg" type="email" name="cmpEmail" readonly/>
+            </div>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpContactPerson">Contact Person</label>
+              <input class="grey-bg" type="text" name="cmpContactPerson" readonly/>
+            </div>
+
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpDateJoin">Date Join</label>
+              <input type="text" class="grey-bg" name="cmpDateJoin" readonly />
+            </div>
+          </div>
+
+          <hr />
+          <div class="title">
+            <h2 class="margin-top-20">Company Address</h2>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style name-address-group width-100">
+              <label for="cmpAddress">Company Address</label>
+              <input class="grey-bg" type="text" name="cmpAddress" style="word-wrap: break-word" readonly/>
+            </div>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpState">State</label>
+              <select type="text" name="cmpState" disabled>
+                <option value="Johor">Johor</option>
+                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                <option value="Kedah">Kedah</option>
+                <option value="Kelantan">Kelantan</option>
+                <option value="Melaka">Melaka</option>
+                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                <option value="Pahang">Pahang</option>
+                <option value="Penang">Penang</option>
+                <option value="Perak">Perak</option>
+                <option value="Perlis">Perlis</option>
+                <option value="Sabah">Sabah</option>
+                <option value="Sarawak">Sarawak</option>
+                <option value="Selangor">Selangor</option>
+                <option value="Terengganu">Terengganu</option>
+              </select>
+            </div>
+
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpPostcode">Postcode</label>
+              <input class="grey-bg" type="email" name="cmpPostcode" readonly/>
+            </div>
+          </div>
+
+          <div class="horizon-wrap">
+            <div class="input-style width-45 name-address-group">
+              <label for="cmpCity">City</label>
+              <input class="grey-bg" type="text" name="cmpCity" readonly/>
+            </div>
+          </div>
+
+          <hr />
+          <div class="title margin-btm-20">
+            <h2 class="margin-top-20">Company Details</h2>
+          </div>
+
+          <div class="name-address-group margin-top-20 select-style">
+            <label for="cmpFieldArea">Company Field Area</label>
+            <input
+              type="text"
+              class="grey-bg"
+              style="text-indent: 5px; border: none;"
+              name="cmpFieldArea"
+              readonly
+            />
+            <select name="fieldAreaSelection" id="fieldAreaSelection" disabled>
+              <option value="IT">IT</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Banking">Banking</option>
+            </select>
+            <button id="addNewField">Add New</button>
+          </div>
+
+          <div class="name-address-group margin-top-20 select-style width-45">
+            <label for="cmpSize">Company Size</label>
+            <select name="cmpSize" id="cmpSize" disabled>
+              <option value="Micro">Mirco: 1 - 4</option>
+              <option value="Small">Small: 5 - 74</option>
+              <option value="Medium">Medium: 75 - 200</option>
+              <option value="Large">Large: > 200</option>
+            </select>
+          </div>
+          <hr>
+          <div class="button-group">
+            <!-- 
+              TODO:Remove all disabled and readonly, don't remove name, and date join field 
+              TODO:Remove grey-bg class
+            -->
+            <input type="button" class="clickable-btn" value="Edit"/>
+
+            <!-- 
+              TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
+            -->
+            <a href="#" class="clickable-btn">Next</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script></script>
+</html>

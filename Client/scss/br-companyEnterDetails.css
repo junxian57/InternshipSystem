@@ -48,6 +48,18 @@ header .page-title * {
   border: 1px solid black;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
+.wrapper .margin-top-20 {
+  margin-top: 20px !important;
+}
+.wrapper .margin-btm-20 {
+  margin-bottom: 20px;
+}
+.wrapper .grey-bg {
+  background-color: rgb(236, 233, 233);
+}
+.wrapper .width-100 {
+  width: 100%;
+}
 .wrapper form {
   width: 80%;
   padding: 20px 0;
@@ -65,7 +77,7 @@ header .page-title * {
   text-align: left;
 }
 .wrapper .title h2 {
-  font-size: calc(1vw + 0.5em);
+  font-size: calc(1vw + 0.8em);
   color: #313e85;
   letter-spacing: 1px;
   margin-bottom: 10px;
@@ -73,156 +85,130 @@ header .page-title * {
 }
 @media only screen and (max-width: 912px) {
   .wrapper .title h2 {
-    font-size: calc(1vw + 0.8em);
+    font-size: calc(1vw + 1.1em);
   }
 }
-.wrapper .title h2::after {
-  content: "";
-  position: absolute;
-  top: 15px;
-  right: 0;
-  height: 1px;
-  background-color: #f2891f;
-}
-@media only screen and (max-width: 912px) {
-  .wrapper .title h2::after {
-    top: 10px;
-    max-width: 30%;
-  }
+.wrapper .input-style {
+  margin: 20px 0;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .title h2::after {
-    top: 10px;
-    max-width: 60%;
+  .wrapper .input-style {
+    width: 100%;
   }
 }
-.wrapper .title h2.title-1::after {
-  width: 60%;
-}
-@media only screen and (max-width: 912px) {
-  .wrapper .title h2.title-1::after {
-    top: 10px;
-    max-width: 20%;
-  }
+.wrapper .input-style label {
+  font-size: calc(1vw + 0.3rem);
+  letter-spacing: 1px;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .title h2.title-1::after {
-    top: 10px;
-    max-width: 20%;
+  .wrapper .input-style label {
+    font-size: calc(1vw + 0.7rem);
   }
 }
-.wrapper .title h2.title-2::after {
-  width: 72%;
+.wrapper .input-style input,
+.wrapper .input-style select {
+  width: 100%;
+  text-indent: 5px;
+  padding: 5px 0;
+  outline: none;
+  transition: 0.1s ease-in;
+  border: none;
+  border-bottom: 2px dashed #fbbb7b;
 }
-@media only screen and (max-width: 912px) {
-  .wrapper .title h2.title-2::after {
-    top: 10px;
-    max-width: 20%;
-  }
-}
-@media only screen and (max-width: 1260px) {
-  .wrapper .title h2.title-2::after {
-    top: 10px;
-    max-width: 30%;
-  }
-}
-.wrapper .title h2.title-3::after {
-  width: 74%;
-}
-@media only screen and (max-width: 912px) {
-  .wrapper .title h2.title-3::after {
-    top: 10px;
-    max-width: 20%;
-  }
-}
-@media only screen and (max-width: 1260px) {
-  .wrapper .title h2.title-3::after {
-    top: 10px;
-    max-width: 40%;
-  }
+.wrapper .input-style input:focus,
+.wrapper .input-style select:focus {
+  border-bottom: 2px solid #f2891f;
 }
 .wrapper .width-45 {
   width: 45%;
 }
-.wrapper .input-style {
-  margin: 30px 0;
+.wrapper .select-style {
+  margin: 5px 0;
+  border: 2px solid #fbbb7b;
+  padding: 2em 1em;
 }
-.wrapper .input-style input, .wrapper .input-style select {
+@media only screen and (max-width: 1260px) {
+  .wrapper .select-style {
+    width: 100% !important;
+  }
+}
+.wrapper .select-style label {
+  font-size: calc(1vw + 0.4rem);
+  color: #313e85;
+  letter-spacing: 1px;
+  position: relative;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .select-style label {
+    font-size: calc(1vw + 0.9rem);
+  }
+}
+.wrapper .select-style select,
+.wrapper .select-style input {
+  width: 100%;
+  padding: 10px 0;
   text-indent: 5px;
-  padding: 10px;
   outline: none;
   transition: 0.1s ease-in;
-}
-.wrapper .input-style input:focus, .wrapper .input-style select:focus {
-  box-shadow: 0 0 10px 0 #313e85;
-}
-@media only screen and (max-width: 1260px) {
-  .wrapper .input-style input:nth-child(2), .wrapper .input-style select:nth-child(2) {
-    margin-top: 30px;
-  }
-}
-@media only screen and (max-width: 1260px) {
-  .wrapper .input-style input, .wrapper .input-style select {
-    width: 100%;
-  }
-}
-.wrapper .input-style p {
-  color: forestgreen;
-  font-size: calc(1vw + 0.15em);
-  letter-spacing: 1px;
-  margin: 0;
+  border: none;
+  border: 2px dashed #fbbb7b;
   margin-top: 5px;
 }
+.wrapper .select-style select:focus,
+.wrapper .select-style input:focus {
+  border: 2px solid #f2891f;
+}
+.wrapper .select-style button {
+  margin-top: 15px;
+  font-size: 0.9em;
+  padding: 0.5em 1em;
+  outline: none;
+  transition: 0.1s ease-in;
+  background: #313e85;
+  color: #ffffff;
+  border: 1px solid #313e85;
+  letter-spacing: 1px;
+  border-radius: 10px;
+}
+.wrapper .select-style button:hover {
+  background: #535ea6;
+}
+.wrapper .horizon-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-style p {
-    font-size: 16px;
+  .wrapper .horizon-wrap {
+    flex-direction: column;
+  }
+}
+.wrapper .horizon-wrap .arrow-icon {
+  font-size: 2vw;
+  color: #313e85;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .horizon-wrap .arrow-icon {
+    display: none;
   }
 }
 .wrapper .name-address-group {
   display: flex;
-  justify-content: space-between;
-}
-.wrapper .name-address-group p {
-  width: calc(1vw + 18em);
-  min-width: 200px;
-}
-.wrapper .name-address-group textarea {
-  min-width: 100%;
-  width: 670px;
-  text-indent: 10px;
-  resize: none;
-  outline: none;
-  padding-top: 10px;
-}
-.wrapper .name-address-group textarea:focus {
-  box-shadow: 0 0 10px 0 #313e85;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 }
 @media only screen and (max-width: 1260px) {
   .wrapper .name-address-group {
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
   }
 }
-.wrapper .vertical-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-.wrapper .vertical-wrap p {
-  font-size: 0.8em;
-  width: 100%;
-  text-align: left;
-}
-.wrapper .vertical-wrap p span {
-  color: red;
-}
-.wrapper .company-details-group p {
-  text-align: left;
-  font-size: 0.8em;
-}
-.wrapper .company-details-group p span {
-  color: red;
+.wrapper .name-address-group p {
+  width: calc(1vw + 18em);
+  min-width: 200px;
 }
 .wrapper .button-group {
   display: flex;
@@ -237,7 +223,7 @@ header .page-title * {
 .wrapper .button-group .clickable-btn {
   cursor: pointer;
   background-color: #f2891f;
-  padding: 10px 25px;
+  padding: 10px 40px;
   color: #fff;
   outline: none;
   border: 1px solid #f2891f;
@@ -269,4 +255,4 @@ header .page-title * {
   .wrapper {
     width: 80%;
   }
-}/*# sourceMappingURL=br-cmpySelfRegister.css.map */
+}/*# sourceMappingURL=br-companyEnterDetails.css.map */

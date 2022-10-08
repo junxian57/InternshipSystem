@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Company Self Registration</title>
+    <title>Company Registration</title>
     <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <link href="../../css/font-awesome.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
           <div class="title">
             <h2 class="title-1">Company Name & Contact</h2>
           </div>
-          <div class="input-style name-address-group">
+          <div class="input-style name-address-group vertical-wrap">
             <input
               type="text"
               style="width: 100%"
@@ -53,22 +53,26 @@
               name="cmpName"
               required
             />
+            <p><span>** </span>Not Subject To Change Once Registered</p>
           </div>
+          
 
           <div class="input-style name-address-group">
             <input
               type="text"
+              class="width-45"
               placeholder="Contact No."
               name="cmpContactNo"
               required
             />
-            <input type="email" placeholder="Email" name="cmpEmail" required />
+            <input type="email" placeholder="Email" class="width-45" name="cmpEmail" required />
           </div>
 
           <div class="input-style name-address-group">
             <input
               type="text"
               placeholder="Contact Person"
+              class="width-45"
               name="cmpContactPerson"
               required
             />
@@ -89,7 +93,7 @@
           </div>
 
           <div class="input-style name-address-group">
-            <select name="cmpState" id="state">
+            <select name="cmpState" id="state" class="width-45">
               <option value="0">State</option>
               <option value="Johor">Johor</option>
               <option value="Kuala Lumpur">Kuala Lumpur</option>
@@ -109,6 +113,7 @@
 
             <input
               type="text"
+              class="width-45"
               placeholder="Postcode"
               name="cmpPostCode"
               required
@@ -116,7 +121,7 @@
           </div>
 
           <div class="input-style name-address-group">
-            <input type="text" placeholder="City" name="cmpCity" required />
+            <input type="text" class="width-45" placeholder="City" name="cmpCity" required />
           </div>
 
           <div class="title">
