@@ -617,7 +617,7 @@ include('includes/db_connection.php');
                             <div class="table-title">
                                 <h4>Preview Table</h4>
                             </div>
-                            <div class="table-responsive  orange-border">
+                            <div class="table-responsive orange-border">
                                 <table>
                                     <thead>
                                         <th>#</th>

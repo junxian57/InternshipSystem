@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  margin: 0;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+.page-title {
+  color: #f2891f;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  background-color: white;
+  /*For Table*/
+}
+.wrapper .table-title {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 1.1em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wrapper .table-title p {
+  font-size: 0.8em;
+  color: #313e85;
+}
+.wrapper .table-title input {
+  width: 25%;
+  padding: 5px;
+  border: 1px solid #f2891f;
+  outline: none;
+  font-size: 0.8em;
+}
+.wrapper .bs-example {
+  margin-top: 1em;
+}
+.wrapper .orange-border {
+  border: 1px solid #f2891f;
+  margin-top: 1em;
+}
+.wrapper table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.wrapper table thead {
+  font-size: 1.1em;
+}
+.wrapper table thead, .wrapper table tbody, .wrapper table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.wrapper table th:first-child,
+.wrapper table td:first-child {
+  width: 7%;
+}
+.wrapper table th:nth-child(6),
+.wrapper table td:nth-child(6) {
+  width: 15%;
+}
+.wrapper table th, .wrapper table td {
+  text-align: center;
+  padding: 12px;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  word-wrap: break-word;
+}
+.wrapper table th {
+  background-color: #eeeded;
+}
+.wrapper table tbody {
+  display: block;
+  max-height: 420px;
+  overflow-y: scroll;
+}
+.wrapper table tbody tr {
+  transition: all 0.5s;
+}
+.wrapper table tbody tr:hover {
+  background-color: rgb(235, 235, 235);
+}
+.wrapper table tbody .column-max-width {
+  max-width: 80px;
+  line-height: 1.2em;
+}
+.wrapper table tbody .description {
+  max-width: 150px;
+  line-height: 1.2em;
+  padding: 5px;
+}
+.wrapper table tbody .btn-td .button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.3em 1em;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 16px;
+  outline: none;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper table tbody .btn-td .button {
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+    max-width: 100%;
+    padding: 0.3em 0.5em;
+  }
+}
+.wrapper table tbody .btn-td .remove {
+  background-color: #313e85;
+}
+.wrapper table tbody .btn-td .remove:hover {
+  background-color: #f5ae67;
+  color: #fff;
+}
+@media only screen and (max-width: 912px) {
+  .wrapper {
+    width: 80%;
+  }
+}/*# sourceMappingURL=br-companyViewJob.css.map */
