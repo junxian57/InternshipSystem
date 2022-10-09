@@ -98,13 +98,24 @@ include('includes/db_connection.php');
                                 </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Session</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Section A. Progress Reports" value="" required="true"> </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Description</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 1</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 2</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 3</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Component Description 4</label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
 
-                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
-
+                                <?php
+                                for ($i = 1; $i <= 4; $i++) {
+                                    ?>
+                                    <div class="row">
+                                        <div class="form-group col-md-9"> <label for="exampleInputEmail1">Assessment Criteria Component Description <?php echo ($i); ?></label> <textarea type="text-area" class="form-control" id="cmpname" name="criteriaDesc[]" placeholder="Assessment Criteria Description " value="" required="true"> </textarea></div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputState">Component Level</label>
+                                            <select id="inputState" class="form-control">
+                                                <option selected>0-1</option>
+                                                <option>2-3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                <div class="text-right">
+                                    <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Save</button></div>
+                                </div>
                             </form>
                         </div>
                     </div>

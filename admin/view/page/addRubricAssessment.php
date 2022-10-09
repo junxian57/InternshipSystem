@@ -99,70 +99,13 @@ include('includes/db_connection.php');
                                 </div>
                                 <div class="form-group col-md-3"> <label for="exampleInputPassword1">Total Weight</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="60" value="" required="true"> </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Instruction</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
+                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Submit</button></div>
 
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="forms ">
-                    <h3 class="title1">Add Rubric Assessment</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Assessment</h4>
-                        </div>
-                        <div class="form-body">
-                            <form method="post">
-                                <p style="font-size:16px; color:red" align="center"> <?php if ($msg) {
-                                                                                            echo $msg;
-                                                                                        }  ?> </p>
 
-
-                                <div class="form-group col-md-6"> <label for="exampleInputPassword1">Assessment Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputState">Role for Mark</label>
-                                    <select id="inputState" class="form-control">
-                                        <option selected>Company</option>
-                                        <option>Supervisor</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3"> <label for="exampleInputPassword1">Total Weight</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="60" value="" required="true"> </div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Instruction</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="forms ">
-                    <h3 class="title1">Add Rubric Assessment</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Assessment</h4>
-                        </div>
-                        <div class="form-body">
-                            <form method="post">
-                                <p style="font-size:16px; color:red" align="center"> <?php if ($msg) {
-                                                                                            echo $msg;
-                                                                                        }  ?> </p>
-
-
-                                <div class="form-group col-md-6"> <label for="exampleInputPassword1">Assessment Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputState">Role for Mark</label>
-                                    <select id="inputState" class="form-control">
-                                        <option selected>Company</option>
-                                        <option>Supervisor</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3"> <label for="exampleInputPassword1">Total Weight</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="60" value="" required="true"> </div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Instruction</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Add</button></div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!--footer-->
             <?php include_once('../../includes/footer.php'); ?>
@@ -190,9 +133,9 @@ include('includes/db_connection.php');
             }
         </script>
         <!--scrolling js-->
-		<script src="../../js/jquery.nicescroll.js"></script>
-		<script src="../../js/scripts.js"></script>
-		<!--//scrolling js-->
+        <script src="../../js/jquery.nicescroll.js"></script>
+        <script src="../../js/scripts.js"></script>
+        <!--//scrolling js-->
         <!-- Bootstrap Core JavaScript -->
         <script src="../../js/bootstrap.js"> </script>
 </body>
