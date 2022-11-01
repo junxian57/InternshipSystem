@@ -13,7 +13,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-workProgress.css" rel="stylesheet">
+	<link href="../../css/xt-viewCompanyDetails.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
@@ -23,54 +23,6 @@ include('includes/dbconnection.php');
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
-
-  <style>
-    .container{
-      max-width: 65rem;
-      border-radius: .5rem;
-      box-shadow: 0 5px 5px #000;
-      border: .1rem solid #000;
-      background: #fff;
-      padding: 4.5rem;
-      margin: 0 auto;
-    }
-
-    .container .inputBox{
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .container .inputBox .viewInput{
-      width: 48%;
-    }
-
-    .container.inputBox .viewInput span{
-      display: block;
-      padding: .5rem 0;
-      font-size: 17px;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .container .inputBox .viewInput input,
-    .container .inputBox .viewInput textarea,
-    .container .inputBox .viewInput select{
-      background: #fff;
-      border-radius: .5rem;
-      padding: .5rem;
-      font-size: 15px;
-      color: #000;
-      text-transform: none;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-
-    .container .inputBox .viewInput textarea{
-      height: 10rem;
-      resize: none;
-    }
-  </style>
 		
 	<script>
 		new WOW().init();
@@ -137,7 +89,7 @@ include('includes/dbconnection.php');
                 <input type="text" name="cmpFieldsArea" readonly value="<?php echo$cmpFieldsArea; ?>">
               </div>
 
-              <div class="viewInput">
+              <div class="viewInput" style="width:100%;">
                 <span>Address</span>
                 <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
               </div>      
