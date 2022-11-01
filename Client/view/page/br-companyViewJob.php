@@ -43,140 +43,174 @@ include "includes/db_connection.php";
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                <h3 class="page-title">View Posted Job</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="wrapper">
-                            <div class="table-title">
-                                <p>Hint: Table Below Is Scrollable</p>
-                                <h4>Result Table</h4>
-                                <input type="search" id="keyInput-update" onkeyup="searchInTable(document.getElementById('update-table'), document.getElementById(this.id))" placeholder="Enter Student Name...">
+                <h3 class="page-title">Job View</h3>
+                <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+
+                <div class="wrapper">
+                    <form action="#">
+                        <div class="horizon-wrap">
+                            <div class="input-style width-45 name-address-group">
+                            <label for="jobTitle">Job Title</label>
+                            <input
+                                type="text"
+                                name="jobTitle"
+                                placeholder="e.g. Java Programmer Internship"
+                                required
+                            />
                             </div>
-                            <div class="orange-border">
-                                <table id="update-table">
-                                    <thead>
-                                        <th>#</th>
-                                        <th>Job ID</th>
-                                        <th>Faculty</th>
-                                        <th>Student Name</th>
-                                        <th>Supervisor</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Job ID</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Poi Han</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Yan Ning</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="input-style width-45 name-address-group">
+                            <!-- 
+                                TODO: Check maximum number job placement allowed
+                            -->
+                            <label for="jobNumberPlacement"
+                                >Number of Placement Needed (Max:
+                                <span id="maxNoOfQuota">2</span>
+                                )
+                            </label>
+                            <input
+                                type="number"
+                                name="jobNumberPlacement"
+                                placeholder="0"
+                                min="0"
+                                required
+                            />
                             </div>
                         </div>
+
+                        <div class="vertical-wrap">
+                            <div class="input-style width-100 name-address-group">
+                            <label for="jobDesc">Job Description</label>
+                            <input type="text" name="jobDesc" required />
+                            <p>
+                                <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc"
+                                >0</span
+                                >/250)
+                            </p>
+                            </div>
+
+                            <div class="input-style width-100 name-address-group">
+                            <label for="jobQualification">Job Qualification</label>
+                            <input
+                                type="text"
+                                name="jobQualification"
+                                placeholder="e.g. Degree in Computer Science or Relevant Qualification"
+                                required
+                            />
+                            <p>
+                                <span>* </span>Maximum 250 Characters (<span id="maxCharsQual"
+                                >0</span
+                                >/250)
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="horizon-wrap">
+                            <div class="input-style width-45 name-address-group">
+                            <label for="jobWorkLocation">Job Work Location</label>
+                            <input
+                                type="text"
+                                name="jobWorkLocation"
+                                placeholder="e.g. Setapak, Kuala Lumpur"
+                                required
+                            />
+                            </div>
+
+                            <div class="input-style width-45 name-address-group">
+                            <label for="jobAllowance">Job Allowance (RM)</label>
+                            <input
+                                type="number"
+                                name="jobAllowance"
+                                placeholder="1000"
+                                min="0"
+                                required
+                            />
+                            </div>
+                        </div>
+
+                        <div class="horizon-wrap">
+                            <div class="name-address-group input-style width-45">
+                            <label for="fieldAreaSelection">Job Field Area</label>
+                            <select name="fieldAreaSelection" id="fieldAreaSelection">
+                                <option value="IT">IT</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Accounting">Accounting</option>
+                                <option value="Banking">Banking</option>
+                            </select>
+                            </div>
+
+                            <div class="input-style width-45 name-address-group">
+                            <label for="jobTrainingPeriod">Training Period (In Week)</label>
+                            <input
+                                type="number"
+                                name="jobTrainingPeriod"
+                                placeholder="0"
+                                min="0"
+                                required
+                            />
+                            </div>
+                        </div>
+
+                        <hr />
+                        <div class="title">
+                            <h2 class="margin-top-20">
+                            Job Responsibilities & Skills Required
+                            </h2>
+                        </div>
+
+                        <div class="horizon-wrap"></div>
+
+                        <div class="selection-group margin-top-20 select-style">
+                            <label for="jobRespon">Job Responsibilities</label>
+                            <div id="respon-task-row" class="task-row">
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving</p>
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving</p>
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving</p>
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            </div>
+                            <input name="jobRespon" id="jobRespon" />
+                            <button id="addNewJobRespon">Add New</button>
+                        </div>
+
+                        <div class="selection-group margin-top-20 select-style width-100">
+                            <label for="jobSkills">Skills Required</label>
+                            <div id="skills-row" class="task-row">
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving Handle Daily Bug Resolving Handle Daily Bug Resolving</p>              
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving</p>
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            <div class="row">
+                                <p>Handle Daily Bug Resolving</p>
+                                <span class="deleteRow">❌</span>
+                            </div>
+                            </div>
+                            <input name="jobSkills" id="jobSkills" />
+                            <button id="addNewJobSkills">Add New</button>
+                        </div>
+                        <hr />
+                        <div class="button-group">
+                            <!-- 
+                            TODO:Remove all disabled and, don't remove name, and date join field 
+                            TODO:Remove grey-bg class
+                            -->
+                            <input type="button" class="clickable-btn" value="Update" />
+                        </div>
+                    </form>
+                </div>
+
                     </div>
                 </div>
             </div>
