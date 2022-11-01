@@ -2,25 +2,43 @@
 session_start();
 error_reporting(0);
 include('includes/db_connection.php');
+require_once('../../app/BLL/rubricAssessmentBLL.php');
+require_once("../../app/DTO/rubricAssessmentDTO.php");
+require_once("../../app/DAL/rubricAssessmentDAL.php");
+$rubricAssessmentDALObj  = new rubricAssessmentDAL();
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
 
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
 	}*/
+date_default_timezone_set("Asia/Kuala_Lumpur");
+$date = date('d-m-Y');
+$errorMessage = '';
+
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
+
+    $rubricAssmtBllObj = new rubricAssessmentBLL();
+    $assessmentID = $_POST['assessmentID'];
+    $internshipBatchID = $_POST['internshipBatchID'];
+    $Title = $_POST['Title'];
+    $Instructions = $_POST['Instructions'];
+    $TotalWeight = $_POST['TotalWeight'];
+    $RoleForMark = $_POST['RoleForMark'];
+    $CreateByID = $_POST['CreateByID'];
+    $CreateDate = $date;
+    $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+    $addRubricAssmtResult = $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
+    // toast message
+    if ($addRubricAssmtResult > 0) {
+        //header("Location: edit.php?id=" . $addStudentResult . '&action=add');
+    } else {
+        if ($rubricAssmtBllObj->errorMessage != '') {
+            $errorMessage = $rubricAssmtBllObj->errorMessage;
+        } else {
+            $errorMessage = 'Record can\'t be added. Operation failed.';
+        }
+    }
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -61,6 +79,9 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <!--//Metis Menu -->
 </head>
 <!--left-fixed -navigation-->
@@ -72,10 +93,12 @@ include('includes/db_connection.php');
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
+                <?php if ($errorMessage != '') : echo ("DIU"); ?>
+                <?php else : echo "<script> addSuccess(); </script>"; ?>
+                <?php endif; ?>
                 <div class="forms ">
                     <h3 class="title1">Add Rubric Assessment</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
@@ -84,22 +107,38 @@ include('includes/db_connection.php');
                         </div>
                         <div class="form-body">
                             <form method="post">
-                                <p style="font-size:16px; color:red" align="center"> <?php if ($msg) {
-                                                                                            echo $msg;
-                                                                                        }  ?> </p>
-
-
-                                <div class="form-group col-md-6"> <label for="exampleInputPassword1">Assessment Title</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="Component Level" value="" required="true"> </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo $rubricAssessmentDALObj->generateID(); ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" required="true"> </div>
+                                <div class="form-group col-md-2">
                                     <label for="inputState">Role for Mark</label>
-                                    <select id="inputState" class="form-control">
-                                        <option selected>Company</option>
+                                    <select id="inputState" name="RoleForMark" class="form-control" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <option>Company</option>
                                         <option>Supervisor</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-3"> <label for="exampleInputPassword1">Total Weight</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="60" value="" required="true"> </div>
-                                <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Instruction</label> <textarea type="text-area" class="form-control" id="cmpname" name="cmpname" placeholder="Component Name" value="" required="true"> </textarea></div>
-                                <div class="form-group col-md-12"> <button type="submit" name="submit" class="form-group btn btn-default">Submit</button></div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="number" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" required="true"> </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputState">Intern Start Day</label>
+                                    <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM InternshipBatch";
+                                        $results = $db_handle->runQuery($query);
+
+                                        for ($i = 0; $i < count($results); $i++) {
+                                            echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3"> <label>Intern End Day</label> <input type="text" id="InternEndDate" name="InternEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
+                                <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
+                                <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
+                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required></textarea></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add rubric assessment" class="form-group btn btn-default">Save</button></div>
 
                             </form>
                         </div>
@@ -107,13 +146,13 @@ include('includes/db_connection.php');
                 </div>
 
             </div>
-            <!--footer-->
-            <?php include_once('../../includes/footer.php'); ?>
-            <!--//footer-->
         </div>
-
+        <!--footer-->
+        <?php include_once('../../includes/footer.php'); ?>
+        <!--//footer-->
         <!-- Classie -->
         <script src="../../js/classie.js"></script>
+
         <script>
             var menuLeft = document.getElementById('cbp-spmenu-s1'),
                 showLeftPush = document.getElementById('showLeftPush'),
@@ -131,11 +170,24 @@ include('includes/db_connection.php');
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
+
+            async function fetchInternDate() {
+                const internBatchID = document.getElementById('InternStartDate').value;
+                const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
+
+                let getInternDateRespond = await fetch(getInternDatePhp);
+                let internObj = await getInternDateRespond.json();
+                return internObj;
+            }
+
+            //Calling async function need to be async as well
+            async function insertDate() {
+                const internObj = await fetchInternDate();
+                document.getElementById('InternEndDate').value = internObj[0].officialEndDate;
+                document.getElementById('EarliestStartDate').value = internObj[0].earliestStartDate;
+                document.getElementById('LatestEndDate').value = internObj[0].latestEndDate;
+            }
         </script>
-        <!--scrolling js-->
-        <script src="../../js/jquery.nicescroll.js"></script>
-        <script src="../../js/scripts.js"></script>
-        <!--//scrolling js-->
         <!-- Bootstrap Core JavaScript -->
         <script src="../../js/bootstrap.js"> </script>
 </body>

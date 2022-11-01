@@ -4,32 +4,36 @@ class rubricAssessmentDTO
 
 
     private $assmtId;
+    private $internshipBatchID;
     private $title;
     private $instructions;
     private $totalWeight;
     private $roleForMark;
     private $createByID;
     private $createDate;
-    private $internStartDate;
-    private $internEndDate;
 
-    public function __construct($assmtId, $title, $instructions, $totalWeight, $roleForMark, $createByID, $createDate, $internStartDate, $internEndDate)
+
+    public function __construct($assmtId, $internshipBatchID, $title, $instructions, $totalWeight, $roleForMark, $createByID, $createDate)
     {
         $this->assmtId = $assmtId;
+        $this->internshipBatchID = $internshipBatchID;
         $this->title = $title;
         $this->instructions = $instructions;
         $this->totalWeight = $totalWeight;
         $this->roleForMark = $roleForMark;
         $this->createByID = $createByID;
         $this->createDate = $createDate;
-        $this->internStartDate = $internStartDate;
-        $this->internEndDate = $internEndDate;
     }
 
 
     public function getAssmtId()
     {
         return $this->assmtId;
+    }
+
+    public function getInternshipBatchID()
+    {
+        return $this->internshipBatchID;
     }
 
     public function getTitle()
@@ -60,15 +64,5 @@ class rubricAssessmentDTO
     public function getCreateDate()
     {
         return $this->createDate;
-    }
-
-    public function getInternStartDate()
-    {
-        return $this->internStartDate;
-    }
-
-    public function getInternEndDate()
-    {
-        return $this->internEndDate;
     }
 }

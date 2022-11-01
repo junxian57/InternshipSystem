@@ -21,7 +21,7 @@ class rubricAssessmentBLL
         //$rubricAssessmentDal = new rubricAssessmentDAL();
 
         $all_rubricAssessment_html = '';
-        $all_rubricAssessment = $this->rubricAssessmentDal->GetAllRubricAssessment();
+        $all_rubricAssessment = $this->GetAllRubricAssessment();
         $i = 1;
         if (count($all_rubricAssessment) > 0) {
             $all_rubricAssessment_html .= '<table id="rubricCmpTbl" class="table table-striped table-bordered range-border" style="border:1px solid orange;">';
@@ -54,5 +54,37 @@ class rubricAssessmentBLL
         }
 
         return $all_rubricAssessment_html;
+    }
+
+    public function AddRubricAssmt($rubricAssmtDto)
+    {
+
+        $insertedId = 0;
+
+        if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
+            $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
+            return $insertedId;
+        }
+
+        if ($this->IsValidRubric($rubricAssmtDto)) {
+            $insertedId = (int) $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+        }
+        //change return result
+        return $insertedId;
+    }
+
+    public function IsValidRubric($rubricAssmtDto)
+    {
+        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID())) {
+            $this->errorMessage = 'Rubric ' . $rubricAssmtDto->getTitle() . ' already exists in this session. Try a different one.';
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function IsRubricExists($Title, $internshipBatchID)
+    {
+        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID);
     }
 }
