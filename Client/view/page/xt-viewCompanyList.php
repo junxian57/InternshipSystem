@@ -105,6 +105,37 @@ include('includes/dbconnection.php');
       font-size: 12px;
     }
 
+    .table{
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent
+    }
+
+    .table td{
+      text-align: left;
+    }
+
+    .table th{
+      text-align: right;
+      font-weight: 700;
+    }
+
+    p{
+      font-size: 14px;
+      margin: 0 0 10px;
+    }
+
+    .cmpLFooter{
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      padding-top: 0;
+      border: 0;
+      border-radius: 6px;
+      justify-content: space-between;
+    }
+
   </style>
 		
 	<script>
@@ -138,8 +169,31 @@ include('includes/dbconnection.php');
                 </div>
                 <div class='cmpLcontent'>
                   <h3>Tunku Abdul Rahman University College</h3>
-
-                  <a href='' class='cmpL-btn'>View</a>
+                  <p class="description"></p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Job Title</th>
+                        <td>Software Developer Intern (6 months)-Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Fields Area</th>
+                        <td>Finance & Accounting</td>
+                      </tr>
+                      <tr>
+                        <th>Allowance</th>
+                        <td>RM 1,500.00 - RM 1,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cmpLFooter">
+                    <p></p>
+                    <a href='' class='cmpL-btn'>View</a>
+                  </div>
                 </div>
               </div>
 
@@ -149,8 +203,31 @@ include('includes/dbconnection.php');
                 </div>
                 <div class='cmpLcontent'>
                   <h3>Guidewire Software Sdn. Bhd.</h3>
-
-                  <a href='' class='cmpL-btn'>View</a>
+                  <p class="description"></p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Job Title</th>
+                        <td>Software Developer Intern (6 months)-Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Fields Area</th>
+                        <td>Finance & Accounting</td>
+                      </tr>
+                      <tr>
+                        <th>Allowance</th>
+                        <td>RM 1,500.00 - RM 1,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cmpLFooter">
+                    <p></p>
+                    <a href='' class='cmpL-btn'>View</a>
+                  </div>
                 </div>
               </div>
 
@@ -160,8 +237,31 @@ include('includes/dbconnection.php');
                 </div>
                 <div class='cmpLcontent'>
                   <h3>Safeguards CS Sdn Bhd</h3>
-
-                  <a href='' class='cmpL-btn'>View</a>
+                  <p class="description"></p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Job Title</th>
+                        <td>Software Developer Intern (6 months)-Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Fields Area</th>
+                        <td>Finance & Accounting</td>
+                      </tr>
+                      <tr>
+                        <th>Allowance</th>
+                        <td>RM 1,500.00 - RM 1,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cmpLFooter">
+                    <p></p>
+                    <a href='' class='cmpL-btn'>View</a>
+                  </div>
                 </div>
               </div>
 
@@ -171,8 +271,31 @@ include('includes/dbconnection.php');
                 </div>
                 <div class='cmpLcontent'>
                   <h3>Safeguards CS Sdn Bhd</h3>
-                  
-                  <a href='' class='cmpL-btn'>View</a>
+                  <p class="description"></p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Job Title</th>
+                        <td>Software Developer Intern (6 months)-Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Fields Area</th>
+                        <td>Finance & Accounting</td>
+                      </tr>
+                      <tr>
+                        <th>Allowance</th>
+                        <td>RM 1,500.00 - RM 1,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cmpLFooter">
+                    <p></p>
+                    <a href='' class='cmpL-btn'>View</a>
+                  </div>
                 </div>
               </div>
 
@@ -182,8 +305,31 @@ include('includes/dbconnection.php');
                 </div>
                 <div class='cmpLcontent'>
                   <h3>Safeguards CS Sdn Bhd</h3>
-                  
-                  <a href='' class='cmpL-btn'>View</a>
+                  <p class="description"></p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Job Title</th>
+                        <td>Software Developer Intern (6 months)-Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Address</th>
+                        <td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
+                      </tr>
+                      <tr>
+                        <th>Fields Area</th>
+                        <td>Finance & Accounting</td>
+                      </tr>
+                      <tr>
+                        <th>Allowance</th>
+                        <td>RM 1,500.00 - RM 1,500.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cmpLFooter">
+                    <p></p>
+                    <a href='' class='cmpL-btn'>View</a>
+                  </div>
                 </div>
               </div>
             
