@@ -48,5 +48,5 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 }
 
 .tables .bs-example {
-  padding-bottom: 50px;
+  padding: 50px 25px;
 }
