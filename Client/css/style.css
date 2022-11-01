@@ -1165,8 +1165,8 @@ h4.title {
 /*-- media --*/
 h3.title1 {
   font-size: 2em;
-  color: #e94e02;
-  margin-bottom: 0.8em;
+  color: #f2891f;
+  font-weight: 600;
 }
 .bs-example5 {
   background: #fff;

@@ -103,7 +103,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>3</td>
 									<td>800 - 1000</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -114,7 +114,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -125,7 +125,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -136,7 +136,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>5</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -147,7 +147,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>5</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -158,7 +158,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>2</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -169,7 +169,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>3</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -180,7 +180,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>3</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -191,7 +191,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -202,7 +202,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1200 - 1500</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -213,7 +213,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>2</td>
 									<td>2000 - 2500</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -224,7 +224,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -235,7 +235,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 
 								<tr>
@@ -246,7 +246,7 @@ include('includes/dbconnection.php');
 									<td>50 - 100</td>
 									<td>4</td>
 									<td>1000 - 1200</td>
-									<td><a class="view" href="view-companies.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
 								</tr>
 							</tbody>
 						</table>

@@ -104,5 +104,4 @@ include('includes/dbconnection.php');
 	<script src="../../js/scripts.js"></script>
 	<script src="../../js/bootstrap.js"> </script>
 </body>
-<footer><?php include_once('includes/footer.php'); ?></footer>
 </html>
