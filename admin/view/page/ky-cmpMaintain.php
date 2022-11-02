@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/br-cmpAppReview.css">
+    <link rel="stylesheet" href="../../scss/ky-cmpMaintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -245,7 +245,7 @@ include('includes/db_connection.php');
                                         <!--                                    
                                         //TODO: onclick -> start retrieve student list and proceed mapping
                                         -->
-                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                        <button id = "login-show"><i class="uil uil-pen" style="color:#0298cf"></i></button>
                                         <button><i class="fa fa-eye" style ="color:red"></i></button>
                                     </div>
                                 </td>
@@ -262,6 +262,100 @@ include('includes/db_connection.php');
         <footer><?php include_once('../../includes/footer.php'); ?></footer>
 </body>
 
+<div id="login-modal">
+        <div class="model">
+            <div class="top-form">
+                <h2>Company Details</h2>
+                <div class="close-modal">
+                    &#10006;
+                </div>  
+            </div>
+            <div class="login-form">
+                <div class="content">
+                    <form action="">
+                        <div class="user-details">
+                            
+                            <div class="input-box">
+                                <input type="text" placeholder="Company name" required>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Email" required>
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Address" required>
+                                <i class="uil uil-estate icon"></i>
+                                
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Contact number" required>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <select name="Field Area" id="Field Area" required="true">
+                                    <option selected disabled>Choose Field Area</option>
+                                    <option>IT</option>
+                                    <option>Banking</option>
+                                    <option>Business</option>
+                                </select>
+                                <i class="uil uil-graduation-cap icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <select name="student-group" id="student-group" required="true">                             
+                                    <option selected disabled>Choose Company Size</option>    
+                                    <option>Big</option>
+                                    <option>Medium</option>
+                                    <option>Small</option>
+                                </select>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+                            
+                            <div class="input-box">
+                                <input type="radio" name="gender" id="dot-1">
+                                <input type="radio" name="gender" id="dot-2">
+                                <input type="radio" name="gender" id="dot-3">
+                                
+                                <div class="category">
+                                    <label>Gender :</label>
+                                    <i class="fa fa-venus-mars icon"></i>
+                                    <label for="dot-1">
+                                    <span class="dot one"></span>
+                                    <span class="gender">Active</span>
+                                    </label>
+                                    <label for="dot-2">
+                                        <span class="dot two"></span>
+                                        <span class="gender">Deactive</span>
+                                    </label>
+                                    
+                                </div>
+                            </div>
+
+                            <button type = "button" class="submit-btn">Update</button>
+                            <button type = "button" class="submit-btn">Cancel</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#login-show').click(function(){
+                $('#login-modal').fadeIn().css("display", "flex");
+            });
+        
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+        });
+    </script>
+    
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
 <script>

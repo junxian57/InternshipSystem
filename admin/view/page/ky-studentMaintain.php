@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-studentEdit.css">
+    <link rel="stylesheet" href="../../scss/ky-studEdit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -117,15 +117,13 @@ include('includes/db_connection.php');
                  </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>
-
-        
+        <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
 
     <div id="login-modal">
         <div class="model">
             <div class="top-form">
-                <h2>Edit Students Details</h2>
+                <h2>Student Details</h2>
                 <div class="close-modal">
                     &#10006;
                 </div>  
@@ -204,16 +202,20 @@ include('includes/db_connection.php');
                             <div class="input-box">
                                 <input type="radio" name="status" id="dot-4">
                                 <input type="radio" name="status" id="dot-5">
-                         
+                                <input type="radio" name="status" id="dot-6">
                                 <div class="category">
                                     <label>Account Status :</label>
                                     <i class="fa fa-venus-mars icon"></i>
                                     <label for="dot-4">
                                     <span class="dot four"></span>
-                                    <span class="status">Active</span>
+                                    <span class="status">Withdraw</span>
                                     </label>
                                     <label for="dot-5">
                                         <span class="dot five"></span>
+                                        <span class="status">Active</span>
+                                    </label>
+                                    <label for="dot-6">
+                                        <span class="dot six"></span>
                                         <span class="status">Deactive</span>
                                     </label>
                                     
@@ -221,6 +223,7 @@ include('includes/db_connection.php');
                             </div>
 
                             <button type = "button" class="submit-btn">Update</button>
+                            <button type = "button" class="submit-btn">Cancel</button>
                         </div> 
                     </form>
                 </div>

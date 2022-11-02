@@ -148,7 +148,7 @@ include('includes/db_connection.php');
         </script>
         <!-- Bootstrap Core JavaScript -->
         <script src="../../js/bootstrap.js"> </script>
-</body>
+        </body>
 
 </html>
 <?php //} 
