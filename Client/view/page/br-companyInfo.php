@@ -144,7 +144,8 @@ include "includes/db_connection.php";
                                 <input
                                 type="text"
                                 class="grey-bg"
-                                style="text-indent: 5px; border: none;"
+                                placeholder="Enter Company Field Area..."
+                                style="text-indent: 5px;"
                                 name="cmpFieldArea"
                                 readonly
                                 />
@@ -173,7 +174,7 @@ include "includes/db_connection.php";
                                 TODO:Remove all disabled and readonly, don't remove name, and date join field 
                                 TODO:Remove grey-bg class
                                 -->
-                                <input type="button" class="clickable-btn" value="Edit"/>
+                                <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()"/>
 
                                 <!-- 
                                 TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
@@ -227,6 +228,21 @@ include "includes/db_connection.php";
                 }
             }
         }
+    }
+
+    function removeDisable(){
+        let input = document.querySelectorAll("input");
+        let select = document.querySelectorAll("select");
+
+        input.forEach((item) => {
+            item.removeAttribute("readonly");
+            item.classList.remove("grey-bg");
+        });
+
+        select.forEach((item) => {
+            item.removeAttribute("disabled");
+            item.classList.remove("grey-bg");
+        });
     }
 
 </script>

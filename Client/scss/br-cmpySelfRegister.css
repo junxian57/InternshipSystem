@@ -147,22 +147,26 @@ header .page-title * {
 .wrapper .input-style {
   margin: 30px 0;
 }
-.wrapper .input-style input, .wrapper .input-style select {
+.wrapper .input-style input,
+.wrapper .input-style select {
   text-indent: 5px;
   padding: 10px;
   outline: none;
   transition: 0.1s ease-in;
 }
-.wrapper .input-style input:focus, .wrapper .input-style select:focus {
+.wrapper .input-style input:focus,
+.wrapper .input-style select:focus {
   box-shadow: 0 0 10px 0 #313e85;
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-style input:nth-child(2), .wrapper .input-style select:nth-child(2) {
+  .wrapper .input-style input:nth-child(2),
+.wrapper .input-style select:nth-child(2) {
     margin-top: 30px;
   }
 }
 @media only screen and (max-width: 1260px) {
-  .wrapper .input-style input, .wrapper .input-style select {
+  .wrapper .input-style input,
+.wrapper .input-style select {
     width: 100%;
   }
 }
@@ -176,6 +180,74 @@ header .page-title * {
 @media only screen and (max-width: 1260px) {
   .wrapper .input-style p {
     font-size: 16px;
+  }
+}
+.wrapper .input-style .task-row {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper .input-style .task-row .row {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin: 0px 7px 7px 0px;
+  text-align: left;
+  background-color: #707cc8;
+  border-radius: 15px;
+  transition: all 0.2s ease-in;
+}
+.wrapper .input-style .task-row .row:hover {
+  background-color: #828ac2;
+}
+.wrapper .input-style .task-row .deleteRow {
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: #fcd9bb;
+  padding: 4px;
+  margin-left: 8px;
+  border-radius: 50%;
+}
+.wrapper .input-style .task-row p {
+  word-wrap: break-word;
+  width: 90%;
+  color: #ffffff;
+  font-size: 16px;
+}
+.wrapper .input-style input[type=button] {
+  text-indent: 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 15px;
+  font-size: 0.9em;
+  padding: 0.5em 1em;
+  outline: none;
+  transition: 0.1s ease-in;
+  background: #313e85;
+  color: #ffffff;
+  border: 1px solid #313e85;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.wrapper .input-style input[type=button]:hover {
+  background: #535ea6;
+}
+.wrapper .fieldArea {
+  border: 1px solid #f2891f;
+  padding: 10px;
+  text-align: left;
+}
+@media only screen and (max-width: 1260px) {
+  .wrapper .fieldArea #cmpFieldArea {
+    margin-top: 0px !important;
   }
 }
 .wrapper .name-address-group {

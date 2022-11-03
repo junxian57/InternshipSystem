@@ -139,18 +139,30 @@
             <p><span>*</span> Selection Based On Number of Employee</p>
           </div>
 
-          <div class="company-details-group input-style">
+          <div class="company-details-group input-style fieldArea">
+            <div id="fields-row" class="task-row">
+              <div class="row">
+                  <p>IT</p>              
+                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+              </div>
+              <div class="row">
+                  <p>Accounting</p>
+                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+              </div>
+              <div class="row">
+                  <p>Business</p>
+                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+              </div>
+            </div>
             <input
               type="text"
               style="width: 100%"
               placeholder="Company Field Area"
               name="cmpFieldArea"
+              id="cmpFieldArea"
               required
             />
-            <p>
-              <span>*</span> Multiple Fields with Comma(,). E.g: IT, Accounting,
-              Financing, Insurance
-            </p>
+            <input type="button" id="addNewField" value="Add New">
           </div>
 
           <div class="button-group">
@@ -162,5 +174,30 @@
     </div>
   </body>
 
-  <script></script>
+  <script>
+  document.getElementById('addNewField').addEventListener('click',() => {
+        addNewRow('fields-row', document.getElementById('cmpFieldArea'))
+    });
+
+    function addNewRow(taskGroup, newTaskValue){
+        if (newTaskValue === ""){
+            alert("Please Enter A Task");
+            return;
+        }
+
+        let value = newTaskValue.value;
+
+        let taskRow = document.getElementById(taskGroup);
+        let newTask = document.createElement("div");
+        newTask.className = "row";
+        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>`;
+        taskRow.appendChild(newTask);
+        newTaskValue.value = "";
+    }
+
+    function deleteTaskRow(taskGroup){
+        taskGroup.parentElement.remove();
+    };
+
+  </script>
 </html>
