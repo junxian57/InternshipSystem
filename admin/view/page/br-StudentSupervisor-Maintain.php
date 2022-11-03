@@ -108,7 +108,7 @@ include "includes/db_connection.php";
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <button class="clickable-btn" onclick="">Search</button>
-                                <a class="clickable-btn" href="#">Reset Field</a>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('curr-supervisor'), document.getElementById('new-supervisor'))">
                             </div>
                             <hr>
                             <div class="info-group">
@@ -292,7 +292,7 @@ include "includes/db_connection.php";
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <button class="clickable-btn" onclick="">Search</button>
-                                <a class="clickable-btn" href="#">Reset Field</a>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('supervisor'), document.getElementById('faculty'))">
                             </div>
                             <hr>
                             <div class="table-title">
@@ -491,7 +491,7 @@ include "includes/db_connection.php";
     function searchInTable(tableID, inputID) {
         let input, filter, table, tr, td, i, txtValue;
         input = inputID;
-        filter = input.value;
+        filter = input.value.toUpperCase();
         table = tableID;
         tr = table.getElementsByTagName("tr");
 
@@ -499,7 +499,7 @@ include "includes/db_connection.php";
             td = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -507,10 +507,6 @@ include "includes/db_connection.php";
             }
         }
     }
-
-</script>
-<script>
-    document.getElementById("defaultOpen").click();
 
     function changeTab(evt, tabName) {
         let i, tabcontent, tablinks;
@@ -531,6 +527,15 @@ include "includes/db_connection.php";
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+
+    function resetInput(valueInput, selectionInput){
+        valueInput.value = "";
+        selectionInput.selectedIndex = "0";       
+    }
+
+</script>
+<script>
+    document.getElementById("defaultOpen").click();
 
     //Search Result on Search Bar
     function inputSearchResult() {

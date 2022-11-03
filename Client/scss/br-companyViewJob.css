@@ -130,7 +130,11 @@ body {
 .wrapper .select-style input:focus {
   border: 2px solid #f2891f;
 }
-.wrapper .select-style button {
+.wrapper .select-style input[type=button] {
+  text-indent: 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin-top: 15px;
   font-size: 0.9em;
   padding: 0.5em 1em;
@@ -142,7 +146,7 @@ body {
   letter-spacing: 1px;
   border-radius: 10px;
 }
-.wrapper .select-style button:hover {
+.wrapper .select-style input[type=button]:hover {
   background: #535ea6;
 }
 .wrapper .task-row {

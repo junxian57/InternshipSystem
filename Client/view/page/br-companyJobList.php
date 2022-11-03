@@ -59,7 +59,6 @@ include "includes/db_connection.php";
                                         <th>Job Title</th>
                                         <th>Post Date</th>
                                         <th>Slot Occupy</th>
-                                        <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -69,10 +68,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
 
@@ -82,10 +82,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                         <tr>
@@ -94,10 +95,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                         <tr>
@@ -106,10 +108,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                         <tr>
@@ -118,10 +121,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                         <tr>
@@ -130,10 +134,11 @@ include "includes/db_connection.php";
                                             <td>Software Engineer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,10 +147,11 @@ include "includes/db_connection.php";
                                             <td>Java Developer Intern</td>
                                             <td>1-11-2022</td>
                                             <td><span>3</span>/4</td>
-                                            <td>Leong Cheng Lok</td>
                                             <td class="btn-td">
-                                                <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                <div class="button-group">
+                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
+                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
+                                                </div>                                              
                                             </td>
                                         </tr>
                                     </tbody>

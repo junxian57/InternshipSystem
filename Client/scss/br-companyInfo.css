@@ -218,9 +218,4 @@ body {
   background-color: #535ea6;
   color: #fff;
   border: 1px solid #535ea6;
-}
-@media only screen and (max-width: 912px) {
-  .wrapper {
-    width: 80%;
-  }
 }/*# sourceMappingURL=br-companyInfo.css.map */

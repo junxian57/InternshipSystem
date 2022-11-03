@@ -163,22 +163,22 @@ include "includes/db_connection.php";
 
                         <div class="selection-group margin-top-20 select-style">
                             <label for="jobRespon">Job Responsibilities</label>
-                            <div id="respon-task-row" class="task-row">
+                            <div id="respon-row" class="task-row">
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             </div>
                             <input name="jobRespon" id="jobRespon" />
-                            <button id="addNewJobRespon">Add New</button>
+                            <input type="button" id="addNewJobRespon" value="Add New">
                         </div>
 
                         <div class="selection-group margin-top-20 select-style width-100">
@@ -186,19 +186,19 @@ include "includes/db_connection.php";
                             <div id="skills-row" class="task-row">
                             <div class="row">
                                 <p>Handle Daily Bug Resolving Handle Daily Bug Resolving Handle Daily Bug Resolving</p>              
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
                             </div>
                             </div>
                             <input name="jobSkills" id="jobSkills" />
-                            <button id="addNewJobSkills">Add New</button>
+                            <input type="button" id="addNewJobSkills" value="Add New">
                         </div>
                         <hr />
                         <div class="button-group">
@@ -258,6 +258,34 @@ include "includes/db_connection.php";
             }
         }
     }
+
+    document.getElementById('addNewJobRespon').addEventListener('click',() => {
+        addNewRow('respon-row', document.getElementById('jobRespon'))
+    });
+
+    document.getElementById('addNewJobSkills').addEventListener('click',() => {
+        addNewRow('skills-row', document.getElementById('jobSkills'))
+    });
+
+    function addNewRow(taskGroup, newTaskValue){
+        if (newTaskValue === ""){
+            alert("Please Enter A Task");
+            return;
+        }
+
+        let value = newTaskValue.value;
+
+        let taskRow = document.getElementById(taskGroup);
+        let newTask = document.createElement("div");
+        newTask.className = "row";
+        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>`;
+        taskRow.appendChild(newTask);
+        newTaskValue.value = "";
+    }
+
+    function deleteTaskRow(taskGroup){
+        taskGroup.parentElement.remove();
+    };
 
 </script>
 <script>

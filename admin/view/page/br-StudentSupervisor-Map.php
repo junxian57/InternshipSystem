@@ -118,7 +118,7 @@ include('includes/db_connection.php');
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
-                                <a class="clickable-btn" href="#">Reset Field</a>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
                             </div>
                             <hr>
                             <div class="info-group">
@@ -274,7 +274,7 @@ include('includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                    <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true">
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
@@ -284,7 +284,7 @@ include('includes/db_connection.php');
                                 //TODO: Require AJAX method to display searched student
                                 -->
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="student" name="student" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <input type="search" class="form-control" id="tab2-student" name="student" placeholder="Enter Any Relevant Keyword...." required="true">
                                     <div class="form-control result-box">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
@@ -299,7 +299,7 @@ include('includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="supervisor-select">Supervisor <span class="required-star">*</span></label>
-                                    <select name="supervisor-select" id="supervisor-select" class="form-control" required="true">
+                                    <select name="supervisor-select" id="tab2-supervisor-group" class="form-control" required="true">
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
                                         <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
@@ -316,7 +316,7 @@ include('includes/db_connection.php');
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <a class="clickable-btn" href="#">Reset Field</a>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab2-student'), document.getElementById('tab2-internBatch-group'), document.getElementById('tab2-supervisor-group'))">
                             </div>
                             <hr>
                             <div class="table-title">
@@ -466,7 +466,7 @@ include('includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="programme">Search Programme <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true">
+                                    <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true">
                                     <div class="form-control result-box">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
@@ -476,7 +476,7 @@ include('includes/db_connection.php');
 
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                    <select name="internBatch-group" id="tab3-internBatch-group" class="form-control" required="true">
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
                                         <option value="INT2000123">INT2000123</option>
@@ -502,7 +502,7 @@ include('includes/db_connection.php');
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="tab3-small-table">
                                                     <tr>
                                                         <td>Pong Suk Fun</td>
                                                         <td>10 / 24</td>
@@ -575,7 +575,7 @@ include('includes/db_connection.php');
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="tab3-small-table">
                                                     <tr>
                                                         <td>3 / 1</td>
                                                         <td>24 / 24</td>
@@ -611,7 +611,7 @@ include('includes/db_connection.php');
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <a class="clickable-btn" href="#">Reset Field</a>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab3-programme'), document.getElementById('tab3-internBatch-group'), null, true)">
                             </div>
                             <hr>
                             <div class="table-title">
@@ -781,6 +781,22 @@ include('includes/db_connection.php');
 </script>
 <script>
     document.getElementById("defaultOpen").click();
+
+    function resetInput(valueInput, selectionInput1, selectionInput2 = null, deleteTable = false){
+        valueInput.value = "";
+        selectionInput1.selectedIndex = "0";
+        
+        if(selectionInput2 != null){
+            selectionInput2.selectedIndex = "0";
+        }
+
+        if(deleteTable){
+           const tableArr = document.getElementsByClassName("tab3-small-table");
+              for(let i = 0; i < tableArr.length; i++){
+                removeAllChildNodes(tableArr[i]);
+              }
+        }
+    }
 
     function changeTab(evt, tabName) {
         let i, tabcontent, tablinks;

@@ -190,7 +190,7 @@ include "includes/db_connection.php";
     function searchInTable(tableID, inputID) {
         let input, filter, table, tr, td, i, txtValue;
         input = inputID;
-        filter = input.value;
+        filter = input.value.toUpperCase();
         table = tableID;
         tr = table.getElementsByTagName("tr");
 
@@ -198,7 +198,7 @@ include "includes/db_connection.php";
             td = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";

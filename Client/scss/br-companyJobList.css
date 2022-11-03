@@ -61,7 +61,9 @@ body {
 .wrapper table thead {
   font-size: 1.1em;
 }
-.wrapper table thead, .wrapper table tbody, .wrapper table tr {
+.wrapper table thead,
+.wrapper table tbody,
+.wrapper table tr {
   display: table;
   width: 100%;
   table-layout: fixed;
@@ -74,7 +76,8 @@ body {
 .wrapper table td:nth-child(6) {
   width: 15%;
 }
-.wrapper table th, .wrapper table td {
+.wrapper table th,
+.wrapper table td {
   text-align: center;
   padding: 12px;
   vertical-align: middle;
@@ -140,16 +143,14 @@ body {
   background-color: #535ea6;
   color: #fff;
 }
-@media only screen and (max-width: 1260px) {
-  .wrapper table tbody .btn-td {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
+.wrapper table tbody .btn-td .button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
-@media only screen and (max-width: 912px) {
-  .wrapper {
-    width: 80%;
+@media only screen and (max-width: 1260px) {
+  .wrapper table tbody .btn-td .button-group {
+    flex-direction: column;
   }
 }/*# sourceMappingURL=br-companyJobList.css.map */
