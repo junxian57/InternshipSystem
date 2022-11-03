@@ -160,7 +160,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding: 8px 15px;
   margin: 7px 0;
   text-align: left;
   background-color: #707cc8;

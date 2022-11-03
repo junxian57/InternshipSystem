@@ -160,6 +160,35 @@ header .page-title * {
     width: 100%;
   }
 }
+.wrapper .input-style .task-row {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper .input-style .task-row .row {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+  margin: 0px 7px 7px 0px;
+  text-align: left;
+  background-color: #f2891f;
+  border-radius: 15px;
+  transition: all 0.2s ease-in;
+}
+.wrapper .input-style .task-row .row:hover {
+  background-color: #f49f4b;
+}
+.wrapper .input-style .task-row p {
+  word-wrap: break-word;
+  width: 100%;
+  color: #ffffff;
+  font-size: 1.2em;
+  margin-top: 0px;
+}
 .wrapper .input-style p {
   color: forestgreen;
   font-size: calc(1vw + 0.15em);
@@ -253,4 +282,4 @@ header .page-title * {
   .wrapper {
     width: 80%;
   }
-}/*# sourceMappingURL=br-cmpySelfRegister.css.map */
+}/*# sourceMappingURL=br-cmpDetailsPreview.css.map */

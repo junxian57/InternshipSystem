@@ -219,6 +219,7 @@ header .page-title * {
   width: 90%;
   color: #ffffff;
   font-size: 16px;
+  margin-top: 0;
 }
 .wrapper .input-style input[type=button] {
   text-indent: 0;

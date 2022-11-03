@@ -268,12 +268,12 @@ include "includes/db_connection.php";
     });
 
     function addNewRow(taskGroup, newTaskValue){
-        if (newTaskValue === ""){
+        let value = newTaskValue.value;
+
+        if (value === ""){
             alert("Please Enter A Task");
             return;
         }
-
-        let value = newTaskValue.value;
 
         let taskRow = document.getElementById(taskGroup);
         let newTask = document.createElement("div");

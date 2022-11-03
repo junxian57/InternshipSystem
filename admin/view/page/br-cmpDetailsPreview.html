@@ -19,7 +19,7 @@
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/br-cmpySelfRegister.css">
+    <link rel="stylesheet" href="../../scss/br-cmpDetailsPreview.css">
 </head>
 <body>
     <header>
@@ -72,10 +72,25 @@
                 <div class="company-details-group input-style">  
                     <input type="text" style="width: 100%;" placeholder="Company Size" name="cmpFieldArea" required readonly>              
                 </div>
+
+                <div class="title">
+                    <h2 class="title-3">Company Fields</h2>
+                </div>
                 
                 <div class="company-details-group input-style">
-                    <input type="text" style="width: 100%;" placeholder="Company Field Area" name="cmpFieldArea" required readonly> 
+                    <div id="fields-row" class="task-row">
+                        <div class="row">
+                            <p>IT</p>              
+                        </div>
+                        <div class="row">
+                            <p>Accounting</p>
+                        </div>
+                        <div class="row">
+                            <p>Business</p>
+                        </div>
+                      </div>
                 </div>
+                <hr>
 
                 <div class="button-group">
                     <a class="clickable-btn approve" href="cmpApproval.php?action=approve">Approve</a>
