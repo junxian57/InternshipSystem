@@ -98,7 +98,7 @@
   background-color: #ffffff;
   margin-top: 3px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   padding: 5px 10px;
   outline: none;
   display: none;

@@ -12,7 +12,7 @@ class DBController
         $this->conn = $this->connectDB();
     }
 
-    function connectDB()
+    private function connectDB()
     {
         $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database) or die("Connect failed: %s\n" . $conn->error);
         return $conn;

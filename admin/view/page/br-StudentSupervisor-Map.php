@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
+include('../../includes/db_connection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
@@ -21,6 +21,13 @@ include('includes/db_connection.php');
 			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
 		}
 	}*/
+
+    try{
+        $db = new DBController();
+        $getInternBatch = $db->runQuery("SELECT * FROM InternshipBatch");
+    }catch(Exception $e){
+        echo '<script>alert("Database Connection Error")</script>';
+    }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -78,11 +85,12 @@ include('includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true">
-                                    <div class="form-control result-box">
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
+                                    <div class="form-control result-box" id="result-box-1">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
+                                        <li>SSSS</li>
                                     </div>
                                 </div>
 
@@ -94,10 +102,11 @@ include('includes/db_connection.php');
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
+                                        <?php
+                                            foreach($getInternBatch as $batch){
+                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
+                                            }
+                                        ?>
                                     </select>
 
                                     <!--                                    
@@ -275,17 +284,18 @@ include('includes/db_connection.php');
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true">
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
+                                    <?php
+                                            foreach($getInternBatch as $batch){
+                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
+                                            }
+                                        ?>
                                     </select>
                                     <!--                                    
                                 //TODO: Require AJAX method to display searched student
                                 -->
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab2-student" name="student" placeholder="Enter Any Relevant Keyword...." required="true">
-                                    <div class="form-control result-box">
+                                    <input type="search" class="form-control" id="tab2-student" name="student" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
+                                    <div class="form-control result-box" id="result-box-2">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
@@ -466,8 +476,8 @@ include('includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="programme">Search Programme <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true">
-                                    <div class="form-control result-box">
+                                    <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
+                                    <div class="form-control result-box" id="result-box-3">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
@@ -477,10 +487,11 @@ include('includes/db_connection.php');
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="tab3-internBatch-group" class="form-control" required="true">
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
-                                        <option value="INT2000123">INT2000123</option>
+                                    <?php
+                                            foreach($getInternBatch as $batch){
+                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
+                                            }
+                                        ?>
                                     </select>
 
                                 </div>
@@ -817,17 +828,27 @@ include('includes/db_connection.php');
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+</script>
+<script>
 
-    //Search Result on Search Bar
-    function inputSearchResult() {
-        const getSearchResultArr = document.getElementsByClassName('search-result');
-        const getSearchBar = document.getElementById('searchBar');
-        const getResultBox = document.querySelector('.result-box');
+    //Hide the Search Box
+    document.querySelector('body').addEventListener('click', () => {
+        const getResultBox = document.querySelectorAll('.result-box');
+        getResultBox.forEach(i => {
+            i.style.display = "none";          
+        });
+    });
+
+      //Search Result on Search Bar
+      function inputSearchResult(tabID, resultBox) {
+        const getSearchResultArr = document.getElementById(resultBox).childNodes;
+        const getSearchBar = document.getElementById(tabID);
+        const getResultBox = document.getElementById(resultBox);
 
         if (getSearchResultArr.length > 0) {
             for (let i = 0; i < getSearchResultArr.length; i++) {
-                getSearchResultArr[i].addEventListener('click', (btn) => {
-                    getSearchBar.value = btn.target.innerText;
+                getSearchResultArr[i].addEventListener('click', (list) => {
+                    getSearchBar.value = list.target.innerText;
                     getResultBox.style.display = 'none';
                 });
             }
@@ -842,49 +863,89 @@ include('includes/db_connection.php');
         }
     }
 
-    async function displaySearchResult() {
-        const getResultBox = document.querySelector('.result-box');
-        const respondResult = await searchBarData();
+    async function displaySearchResult(searchBarTab, tabID) {
+        
+        if(tabID == 'tab1-supervisor'){
+            resultBoxNo = "result-box-1";
+        }else if(tabID == 'tab2-student'){
+            resultBoxNo = "result-box-2";
+        }else if(tabID == 'tab3-programme'){
+            resultBoxNo = "result-box-3";
+        }
+
+        const getResultBox = document.getElementById(resultBoxNo);
+        const respondResult = await searchBarData(searchBarTab, tabID);
         let resultArr = [];
 
         if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
             getResultBox.style.display = 'none';
             return;
         }
-        //Clear the existing box
-        removeAllChildNodes(getResultBox);
+
+        if(getResultBox.hasChildNodes()){
+            removeAllChildNodes(getResultBox);
+        }
 
         if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
-            for (let i = 0; i < Object.keys(respondResult).length; i++) {
-                resultArr[i] =
-                    `<li class='search-result'>${respondResult[i].employeeID}: ${respondResult[i].fullName}</li>`;
+            if(tabID == 'tab1-supervisor'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                       `<li>${respondResult[i].lecturerID} : ${respondResult[i].lecName}</li>` 
+                    );
+                }
+            }else if(tabID == 'tab2-student'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                        `<li>${respondResult[i].studentID} : ${respondResult[i].studName}</li>` 
+                    );
+                }
+            }else if(tabID == 'tab3-programme'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                        `<li>${respondResult[i].programmeID} : ${respondResult[i].programmeName.substr(12)}</li>` 
+                        );
+                }
             }
         } else {
-            getResultBox.style.display = 'none';
-            return;
+           getResultBox.style.display = 'none';
+           return;
         }
 
         getResultBox.style.display = 'block';
         getResultBox.innerHTML = resultArr.join('');
-        inputSearchResult();
+       inputSearchResult(tabID, resultBoxNo);
     }
 
-    async function searchBarData() {
-        const getSearchInput = document.getElementById('searchBar').value;
-        const getResultBox = document.querySelector('.result-box');
-        let url;
+    async function searchBarData(searchBarTab, tabID) {
+        const getSearchInput = searchBarTab.value;
+        let resultBoxNo, url, internBatch;
 
+        if(tabID == 'tab1-supervisor'){
+            resultBoxNo = "result-box-1";
+        }else if(tabID == 'tab2-student'){
+            resultBoxNo = "result-box-2";
+            internBatch = document.getElementById('tab2-internBatch-group').value;
+        }else if(tabID == 'tab3-programme'){
+            resultBoxNo = "result-box-3";
+        }
+
+        const getResultBox = document.getElementById(resultBoxNo);
+        
         if (getSearchInput == '') {
             getResultBox.style.display = 'none';
             return;
         } else {
-            if (Number.isInteger(parseInt(getSearchInput))) {
-                url = '../php-inc/ajaxSearchEmployee.php?icNo=' + getSearchInput;
-            } else {
-                url = '../php-inc/ajaxSearchEmployee.php?fullName=' + getSearchInput;
-            }
+            if (tabID == 'tab1-supervisor') {
+                url = '../../app/DAL/ajaxMapSearchBar.php?supervisor=' + getSearchInput;
+            } else if (tabID == 'tab2-student') {
+                url = `../../app/DAL/ajaxMapSearchBar.php?student=${getSearchInput}&internBatch=${internBatch}`;
+            } else if (tabID == 'tab3-programme') {
+                url = '../../app/DAL/ajaxMapSearchBar.php?programme=' + getSearchInput;
+            } 
+
             const response = await fetch(url);
             const data = await response.json();
+
             return data;
         }
     }
