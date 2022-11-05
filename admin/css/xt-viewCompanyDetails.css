@@ -43,3 +43,17 @@
   height: 10rem;
   resize: none;
 }
+
+.approveBtn {
+  font-weight: 600;
+  color: white;
+  background: #39d441 !important;
+  width: 85px;
+}
+
+.rejectBtn {
+  font-weight: 600;
+  color: white;
+  background: tomato !important;
+  width: 85px;
+}
