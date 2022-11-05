@@ -19,7 +19,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/custom.css" rel="stylesheet">
 
 	<script src="../../js/jquery-1.11.1.min.js"></script>
-	<script src="../../js/modernizr.custom.js"></script>>
+	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>

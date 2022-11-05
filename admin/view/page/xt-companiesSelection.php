@@ -19,7 +19,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/custom.css" rel="stylesheet">
 
 	<script src="../../js/jquery-1.11.1.min.js"></script>
-	<script src="../../js/modernizr.custom.js"></script>>
+	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
@@ -49,212 +49,212 @@ include('includes/dbconnection.php');
 					<h3 class="title1">Companies Selection</h3>
 					<div class="table-responsive bs-example widget-shadow" style="background: transparent; border: 1px solid #797d7a;">
 					<div class="panel-body">
-            <div class="input-group">
+						<div class="input-group">
 							<input type="text" class="form-control" id="filterCmp" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 							<a class="input-group-addon" style="border: 1px solid #797d7a;">
 								<i class="fa fa-search"></i>
 							</a>
 						</div>
 					</div>
-						<table id="cmpTable" class="sortable">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>
-										<button>
-											<span aria-hidden="true">Company Name ▼</span>
-										</button>
-									</th>
-									<th>
-										<button>
-											<span aria-hidden="true">Industry ▼</span>
-										</button>
-									</th>
-									<th>
-										<button>
-											<span aria-hidden="true">Location ▼</span>
-										</button>
-									</th>
-									<th>
-										<button>
-											<span aria-hidden="true">Company Size ▼</span>
-										</button>
-									</th>
-									<th>
-										<button>
-											<span aria-hidden="true">Rating ▼</span>
-										</button>
-									</th>
-									<th class="num">
-										<button>
-											<span aria-hidden="true">Allowance (RM) ▼</span>
-										</button>
-									</th>
-									<th>Action</th>
-								</tr>
-							</thead>
+					<table id="cmpTable" class="sortable">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>
+									<button>
+										<span aria-hidden="true">Company Name ▼</span>
+									</button>
+								</th>
+								<th>
+									<button>
+										<span aria-hidden="true">Industry ▼</span>
+									</button>
+								</th>
+								<th>
+									<button>
+										<span aria-hidden="true">Location ▼</span>
+									</button>
+								</th>
+								<th>
+									<button>
+										<span aria-hidden="true">Company Size ▼</span>
+									</button>
+								</th>
+								<th>
+									<button>
+										<span aria-hidden="true">Rating ▼</span>
+									</button>
+								</th>
+								<th class="num">
+									<button>
+										<span aria-hidden="true">Allowance (RM) ▼</span>
+									</button>
+								</th>
+								<th>Action</th>
+							</tr>
+						</thead>
 
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Unilifesity SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Selangor</td>
-									<td>50 - 100</td>
-									<td>3</td>
-									<td>800 - 1000</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Unilifesity SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Selangor</td>
+								<td>50 - 100</td>
+								<td>3</td>
+								<td>800 - 1000</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>2</td>
-									<td>Samsung Malaysia</td>
-									<td>Finance and Accounting</td>
-									<td>Kuala Lumpur</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>2</td>
+								<td>Samsung Malaysia</td>
+								<td>Finance and Accounting</td>
+								<td>Kuala Lumpur</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>3</td>
-									<td>Hap Seng SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Pulau Pinang</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>3</td>
+								<td>Hap Seng SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Pulau Pinang</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>4</td>
-									<td>Smazh Premium SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Selangor</td>
-									<td>50 - 100</td>
-									<td>5</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>4</td>
+								<td>Smazh Premium SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Selangor</td>
+								<td>50 - 100</td>
+								<td>5</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>5</td>
-									<td>SkyWorld Development SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Kedah</td>
-									<td>50 - 100</td>
-									<td>5</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>5</td>
+								<td>SkyWorld Development SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Kedah</td>
+								<td>50 - 100</td>
+								<td>5</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>6</td>
-									<td>Unilifesity SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Kelantan</td>
-									<td>50 - 100</td>
-									<td>2</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>6</td>
+								<td>Unilifesity SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Kelantan</td>
+								<td>50 - 100</td>
+								<td>2</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>								
+							</tr>
 
-								<tr>
-									<td>7</td>
-									<td>BMW Coding SDN BHD</td>
-									<td>Finance and Accounting</td>
-									<td>Kuala Lumpur</td>
-									<td>50 - 100</td>
-									<td>3</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>7</td>
+								<td>BMW Coding SDN BHD</td>
+								<td>Finance and Accounting</td>
+								<td>Kuala Lumpur</td>
+								<td>50 - 100</td>
+								<td>3</td>									
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>8</td>
-									<td>KK Supermart & Superstore Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Kuala Lumpur</td>
-									<td>50 - 100</td>
-									<td>3</td>
-									<td>1000 - 1200</td>
-									<<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>8</td>
+								<td>KK Supermart & Superstore Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Kuala Lumpur</td>
+								<td>50 - 100</td>
+								<td>3</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>9</td>
-									<td>Arissto (Malaysia) Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Johor</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>9</td>
+								<td>Arissto (Malaysia) Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Johor</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
+							
+							<tr>
+								<td>10</td>
+								<td>Prosains (M) Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Selangor</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1200 - 1500</td>									
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>10</td>
-									<td>Prosains (M) Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Selangor</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1200 - 1500</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>11</td>
+								<td>Origin Integrated Studios Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Sarawak</td>
+								<td>50 - 100</td>
+								<td>2</td>
+								<td>2000 - 2500</td>									
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>11</td>
-									<td>Origin Integrated Studios Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Sarawak</td>
-									<td>50 - 100</td>
-									<td>2</td>
-									<td>2000 - 2500</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>12</td>
+								<td>Dommal Food Services Sdb Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Sabah</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>12</td>
-									<td>Dommal Food Services Sdb Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Sabah</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
+							<tr>
+								<td>13</td>
+								<td>Sunway Money Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Melaka</td>
+								<td>50 - 100</td>
+								<td>4</td>									
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
 
-								<tr>
-									<td>13</td>
-									<td>Sunway Money Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Melaka</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
-
-								<tr>
-									<td>14</td>
-									<td>Fire Pos Sdn Bhd</td>
-									<td>Finance and Accounting</td>
-									<td>Pulau Pinang</td>
-									<td>50 - 100</td>
-									<td>4</td>
-									<td>1000 - 1200</td>
-									<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+							<tr>
+								<td>14</td>
+								<td>Fire Pos Sdn Bhd</td>
+								<td>Finance and Accounting</td>
+								<td>Pulau Pinang</td>
+								<td>50 - 100</td>
+								<td>4</td>
+								<td>1000 - 1200</td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 	<script src="../../js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -276,7 +276,7 @@ include('includes/dbconnection.php');
 	</script>
 
 <script>
-		function filterFinalTable(event) {
+		function filterCmpTable(event) {
     	var filter = event.target.value.toUpperCase();
     	var rows = document.querySelector("#cmpTable tbody").rows;
     
@@ -294,7 +294,7 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterCmp').addEventListener('keyup', filterFinalTable, false);
+		document.querySelector('#filterCmp').addEventListener('keyup', filterCmpTable, false);
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>

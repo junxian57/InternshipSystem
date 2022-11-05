@@ -106,7 +106,7 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 					<div class="table-responsive bs-example widget-shadow" style="background: transparent; border: 1px solid #797d7a;">
 					<div class="panel-body">
             <div class="input-group">
-							<input type="text" class="form-control" id="filterCmp" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+							<input type="text" class="form-control" id="filterCmpList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 							<a class="input-group-addon" style="border: 1px solid #797d7a;">
 								<i class="fa fa-search"></i>
 							</a>
@@ -279,7 +279,7 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 	</script>
 
 <script>
-		function filterFinalTable(event) {
+		function filterCmpListTable(event) {
     	var filter = event.target.value.toUpperCase();
     	var rows = document.querySelector("#cmpListTable tbody").rows;
     
@@ -288,14 +288,14 @@ table.sortable th:not([aria-sort]) button:hover span::after {
       	var secondCol = rows[i].cells[2].textContent.toUpperCase();
 				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
       	var forthCol = rows[i].cells[4].textContent.toUpperCase();
-      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1) {
 					rows[i].style.display = "";
 				} else {
         	rows[i].style.display = "none";
       	}      
 			}
 		}
-		document.querySelector('#filterCmp').addEventListener('keyup', filterFinalTable, false);
+		document.querySelector('#filterCmpList').addEventListener('keyup', filterCmpListTable, false);
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>
