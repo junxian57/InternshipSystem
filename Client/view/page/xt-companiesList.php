@@ -32,6 +32,7 @@ include('includes/dbconnection.php');
 
 button {
   border: none;
+  background: transparent;
 }
 
 table tbody td,
@@ -111,7 +112,7 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 							</a>
 						</div>
 					</div>
-						<table id="cmpTable" class="sortable">
+						<table id="cmpListTable" class="sortable">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -280,15 +281,13 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 <script>
 		function filterFinalTable(event) {
     	var filter = event.target.value.toUpperCase();
-    	var rows = document.querySelector("#cmpTable tbody").rows;
+    	var rows = document.querySelector("#cmpListTable tbody").rows;
     
     	for (var i = 0; i < rows.length; i++) {
 				var firstCol = rows[i].cells[1].textContent.toUpperCase();
       	var secondCol = rows[i].cells[2].textContent.toUpperCase();
 				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
       	var forthCol = rows[i].cells[4].textContent.toUpperCase();
-				var fifthCol = rows[i].cells[5].textContent.toUpperCase();
-      	var sixthCol = rows[i].cells[6].textContent.toUpperCase();
       	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
 					rows[i].style.display = "";
 				} else {
@@ -302,5 +301,157 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 	<script src="../../js/jquery.nicescroll.js"></script>
 	<script src="../../js/scripts.js"></script>
 	<script src="../../js/bootstrap.js"> </script>
+
+	<script>
+		class SortableTable {
+  	constructor(tableNode) {
+    	this.tableNode = tableNode;
+    	this.columnHeaders = tableNode.querySelectorAll('thead th');
+    	this.sortColumns = [];
+
+    	for (var i = 0; i < this.columnHeaders.length; i++) {
+      	var ch = this.columnHeaders[i];
+      	var buttonNode = ch.querySelector('button');
+      	if (buttonNode) {
+        	this.sortColumns.push(i);
+        	buttonNode.setAttribute('data-column-index', i);
+        	buttonNode.addEventListener('click', this.handleClick.bind(this));
+      	}
+    	}
+			
+			this.optionCheckbox = document.querySelector(
+      	'input[type="checkbox"][value="show-unsorted-icon"]'
+    	);
+
+    	if (this.optionCheckbox) {
+      	this.optionCheckbox.addEventListener(
+        	'change',
+        this.handleOptionChange.bind(this)
+      );
+			
+				if (this.optionCheckbox.checked) {
+        	this.tableNode.classList.add('show-unsorted-icon');
+      	}
+    	}
+		}
+
+  	setColumnHeaderSort(columnIndex) {
+    	if (typeof columnIndex === 'string') {
+      	columnIndex = parseInt(columnIndex);
+    	}
+
+    	for (var i = 0; i < this.columnHeaders.length; i++) {
+      	var ch = this.columnHeaders[i];
+      	var buttonNode = ch.querySelector('button');
+      	if (i === columnIndex) {
+        	var value = ch.getAttribute('aria-sort');
+        	if (value === 'descending') {
+          	ch.setAttribute('aria-sort', 'ascending');
+          	this.sortColumn(
+            	columnIndex,
+            	'ascending',
+            	ch.classList.contains('num')
+          	);
+        	} else {
+          	ch.setAttribute('aria-sort', 'descending');
+          	this.sortColumn(
+            	columnIndex,
+            	'descending',
+            	ch.classList.contains('num')
+          	);
+        	}
+      	} else {
+        	if (ch.hasAttribute('aria-sort') && buttonNode) {
+          	ch.removeAttribute('aria-sort');
+        	}
+      	}
+			}
+		}
+
+  	sortColumn(columnIndex, sortValue, isNumber) {
+    	function compareValues(a, b) {
+      	if (sortValue === 'ascending') {
+        	if (a.value === b.value) {
+          	return 0;
+        	} else {
+          	if (isNumber) {
+            	return a.value - b.value;
+          	} else {
+            	return a.value < b.value ? -1 : 1;
+          	}
+        	}
+      	} else {
+        	if (a.value === b.value) {
+          	return 0;
+        	} else {
+          	if (isNumber) {
+            	return b.value - a.value;
+          	} else {
+            	return a.value > b.value ? -1 : 1;
+          	}
+        	}
+      	}
+    	}
+
+    	if (typeof isNumber !== 'boolean') {
+      	isNumber = false;
+    	}
+
+    	var tbodyNode = this.tableNode.querySelector('tbody');
+    	var rowNodes = [];
+    	var dataCells = [];
+    	var rowNode = tbodyNode.firstElementChild;
+    	var index = 0;
+
+    	while (rowNode) {
+      	rowNodes.push(rowNode);
+      	var rowCells = rowNode.querySelectorAll('th, td');
+      	var dataCell = rowCells[columnIndex];
+				var data = {};
+      	data.index = index;
+      	data.value = dataCell.textContent.toLowerCase().trim();
+      
+				if (isNumber) {
+        	data.value = parseFloat(data.value);
+      	}
+      	dataCells.push(data);
+      	rowNode = rowNode.nextElementSibling;
+      	index += 1;
+    	}
+
+    	dataCells.sort(compareValues);
+
+    	while (tbodyNode.firstChild) {
+      	tbodyNode.removeChild(tbodyNode.lastChild);
+    	}
+
+    	for (var i = 0; i < dataCells.length; i += 1) {
+      	tbodyNode.appendChild(rowNodes[dataCells[i].index]);
+    	}
+  	}
+
+  	handleClick(event) {
+    	var tgt = event.currentTarget;
+    	this.setColumnHeaderSort(tgt.getAttribute('data-column-index'));
+  	}
+
+  	handleOptionChange(event) {
+    	var tgt = event.currentTarget;
+
+    	if (tgt.checked) {
+      	this.tableNode.classList.add('show-unsorted-icon');
+    	} else {
+      	this.tableNode.classList.remove('show-unsorted-icon');
+    	}
+  	}
+	}
+
+	window.addEventListener('load', function () {
+  	var sortableTables = document.querySelectorAll('table.sortable');
+  	for (var i = 0; i < sortableTables.length; i++) {
+    	new SortableTable(sortableTables[i]);
+  	}
+	});
+</script>
 </body>
 </html>
