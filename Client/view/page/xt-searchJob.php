@@ -13,7 +13,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-viewCompanyList.css" rel="stylesheet">
+	<link href="../../css/xt-searchJob.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
