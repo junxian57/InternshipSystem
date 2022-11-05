@@ -23,8 +23,8 @@ include('includes/dbconnection.php');
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
-		
-	<script>
+
+  <script>
 		new WOW().init();
 	</script>
 		
@@ -93,6 +93,10 @@ include('includes/dbconnection.php');
                 <span>Address</span>
                 <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
               </div>      
+            </div>
+            <div class="button-group">
+              <button type="submit" class="approveBtn"><i class="fa fa-check" aria-hidden="true"></i>  Accept</button>
+              <button type="submit" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Reject</button>
             </div>
           </div>
         </div>

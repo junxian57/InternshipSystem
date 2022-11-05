@@ -9,11 +9,11 @@ include('includes/dbconnection.php');
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>ITP System | Companies Selection</title>
+	<title>ITP System | Companies List</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-companiesSelection.css" rel="stylesheet">
+	<link href="../../css/xt-companiesList.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
@@ -46,215 +46,162 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">Companies Selection</h3>
+					<h3 class="title1">Company List</h3>
 					<div class="table-responsive bs-example widget-shadow" style="background: transparent; border: 1px solid #797d7a;">
 					<div class="panel-body">
-						<div class="input-group">
-							<input type="text" class="form-control" id="filterCmp" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+            <div class="input-group">
+							<input type="text" class="form-control" id="filterCmpList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 							<a class="input-group-addon" style="border: 1px solid #797d7a;">
 								<i class="fa fa-search"></i>
 							</a>
 						</div>
 					</div>
-					<table id="cmpTable" class="sortable">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>
-									<button>
-										<span aria-hidden="true">Company Name ▼</span>
-									</button>
-								</th>
-								<th>
-									<button>
-										<span aria-hidden="true">Industry ▼</span>
-									</button>
-								</th>
-								<th>
-									<button>
-										<span aria-hidden="true">Location ▼</span>
-									</button>
-								</th>
-								<th>
-									<button>
-										<span aria-hidden="true">Company Size ▼</span>
-									</button>
-								</th>
-								<th>
-									<button>
-										<span aria-hidden="true">Rating ▼</span>
-									</button>
-								</th>
-								<th class="num">
-									<button>
-										<span aria-hidden="true">Allowance (RM) ▼</span>
-									</button>
-								</th>
-								<th>Action</th>
-							</tr>
-						</thead>
+						<table id="cmpListTable" class="sortable">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Company Name ▼</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Address ▼</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Email ▼</span>
+										</button>
+									</th>
+									<th class="num" style=" width: 150px;">
+										<button>
+											<span aria-hidden="true">Allowance (RM) ▼</span>
+										</button>
+									</th>
+								</tr>
+							</thead>
 
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Unilifesity SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>3</td>
-								<td>800 - 1000</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Unilifesity SDN BHD</td>
+									<td>Level 29, Menara Olympia, No 8, Jalan Raja Chulan, 50200 Kuala Lumpur, 50200, Kuala Lumpur</td>
+									<td>unilifesity@gmail.com</td>
+									<td>550 - 800</td>
+								</tr>
 
-							<tr>
-								<td>2</td>
-								<td>Samsung Malaysia</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>2</td>
+									<td>Samsung Malaysia</td>
+									<td>Phase 3, Bayan Lepas Free Industrial Zone, 11900 Penang, 11900, Johor</td>
+									<td>info@samsung.com</td>
+									<td>1500 - 1500</td>
+								</tr>
 
-							<tr>
-								<td>3</td>
-								<td>Hap Seng SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Pulau Pinang</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>3</td>
+									<td>Hap Seng SDN BHD</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@hapseng.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>4</td>
-								<td>Smazh Premium SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>5</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>4</td>
+									<td>Smazh Premium SDN BHD</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>5</td>
-								<td>SkyWorld Development SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kedah</td>
-								<td>50 - 100</td>
-								<td>5</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>5</td>
+									<td>SkyWorld Development SDN BHD</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>6</td>
-								<td>Unilifesity SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kelantan</td>
-								<td>50 - 100</td>
-								<td>2</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>								
-							</tr>
+								<tr>
+									<td>6</td>
+									<td>Unilifesity SDN BHD</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>7</td>
-								<td>BMW Coding SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>3</td>									
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>7</td>
+									<td>BMW Coding SDN BHD</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>8</td>
-								<td>KK Supermart & Superstore Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>3</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>8</td>
+									<td>KK Supermart & Superstore Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>9</td>
-								<td>Arissto (Malaysia) Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Johor</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-							
-							<tr>
-								<td>10</td>
-								<td>Prosains (M) Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1200 - 1500</td>									
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>9</td>
+									<td>Arissto (Malaysia) Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>500 - 1000</td>
+								</tr>
 
-							<tr>
-								<td>11</td>
-								<td>Origin Integrated Studios Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Sarawak</td>
-								<td>50 - 100</td>
-								<td>2</td>
-								<td>2000 - 2500</td>									
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>10</td>
+									<td>Prosains (M) Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>2000 - 2000</td>
+								</tr>
 
-							<tr>
-								<td>12</td>
-								<td>Dommal Food Services Sdb Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Sabah</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>11</td>
+									<td>Origin Integrated Studios Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>200 - 500</td>
+								</tr>
 
-							<tr>
-								<td>13</td>
-								<td>Sunway Money Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Melaka</td>
-								<td>50 - 100</td>
-								<td>4</td>									
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+								<tr>
+									<td>12</td>
+									<td>Dommal Food Services Sdb Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>200 - 500</td>
+								</tr>
 
-							<tr>
-								<td>14</td>
-								<td>Fire Pos Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Pulau Pinang</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-						</tbody>
-					</table>
+								<tr>
+									<td>13</td>
+									<td>Sunway Money Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>200 - 500</td>
+								</tr>
+
+								<tr>
+									<td>14</td>
+									<td>Fire Pos Sdn Bhd</td>
+									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
+									<td>jasmineyy@gmail.com</td>
+									<td>200 - 500</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 	<script src="../../js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -276,25 +223,23 @@ include('includes/dbconnection.php');
 	</script>
 
 <script>
-		function filterCmpTable(event) {
+		function filterCmpListTable(event) {
     	var filter = event.target.value.toUpperCase();
-    	var rows = document.querySelector("#cmpTable tbody").rows;
+    	var rows = document.querySelector("#cmpListTable tbody").rows;
     
     	for (var i = 0; i < rows.length; i++) {
 				var firstCol = rows[i].cells[1].textContent.toUpperCase();
       	var secondCol = rows[i].cells[2].textContent.toUpperCase();
 				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
       	var forthCol = rows[i].cells[4].textContent.toUpperCase();
-				var fifthCol = rows[i].cells[5].textContent.toUpperCase();
-      	var sixthCol = rows[i].cells[6].textContent.toUpperCase();
-      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1) {
 					rows[i].style.display = "";
 				} else {
         	rows[i].style.display = "none";
       	}      
 			}
 		}
-		document.querySelector('#filterCmp').addEventListener('keyup', filterCmpTable, false);
+		document.querySelector('#filterCmpList').addEventListener('keyup', filterCmpListTable, false);
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>
