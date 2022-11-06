@@ -29,8 +29,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
     $addRubricAssmtResult = $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
     // toast message
-    if ($addRubricAssmtResult > 0) {
-        //header("Location: edit.php?id=" . $addStudentResult . '&action=add');
+    if ($addRubricAssmtResult) {
+        header("Location: addRubricAssessment.php?addRubricAssessment=success");
     } else {
         if ($rubricAssmtBllObj->errorMessage != '') {
             $errorMessage = $rubricAssmtBllObj->errorMessage;
@@ -97,7 +97,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         <div id="page-wrapper">
             <div class="main-page">
                 <?php if ($errorMessage != '') : echo ("DIU"); ?>
-                <?php else : echo "<script> addSuccess(); </script>"; ?>
+                <?php elseif ($_GET['addRubricAssessment'] == 'success') : echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
+                    ?>
                 <?php endif; ?>
                 <div class="forms ">
                     <h3 class="title1">Add Rubric Assessment</h3>

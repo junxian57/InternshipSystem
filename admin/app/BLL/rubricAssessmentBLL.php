@@ -59,18 +59,16 @@ class rubricAssessmentBLL
     public function AddRubricAssmt($rubricAssmtDto)
     {
 
-        $insertedId = 0;
-
         if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
             $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
-            return $insertedId;
+            return false;
         }
 
         if ($this->IsValidRubric($rubricAssmtDto)) {
-            $insertedId = (int) $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+            return true;
         }
-        //change return result
-        return $insertedId;
+        return false;
     }
 
     public function IsValidRubric($rubricAssmtDto)
