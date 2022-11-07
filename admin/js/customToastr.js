@@ -21,3 +21,9 @@ function addSuccess(message) {
     option()
     toastr["success"](message, "Scuccess!");
 }
+
+function warning(message){
+    option()
+    toastr["warning"](message);
+
+}
