@@ -93,6 +93,9 @@ body {
 .wrapper .width-45 {
   width: 45%;
 }
+.wrapper .width-45-Imp {
+  width: 45% !important;
+}
 .wrapper .select-style {
   margin: 5px 0;
   border: 2px solid #fbbb7b;
@@ -217,6 +220,12 @@ body {
   .wrapper .horizon-wrap .arrow-icon {
     display: none;
   }
+}
+.wrapper .horizon-wrap-maintain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .wrapper .vertical-wrap {
   display: flex;
