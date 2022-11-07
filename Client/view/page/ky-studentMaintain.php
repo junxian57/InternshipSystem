@@ -67,30 +67,35 @@ include('includes/db_connection.php');
             <div class="main-page">
                 <div class="container">
                     <div class="forms">
-                        <h3 class="page-title">Company Details Maintenance</h3>
+                        <h3 class="page-title">Student Details</h3>
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                             <div class="content">
                                 <form action="#">
                                     <div class="user-details">
                                     <div class="title">
-                                        <h2 class="title-1">Company Name & Contact</h2>
+                                        <h2 class="title-1">Student Name & Contact</h2>
                                     </div>
                                     <div class="input-style name-address-group">
-                                        <input type="text" style="width: 100%;" placeholder="Company Name" name="cmpName" required readonly>                  
+                                        <input type="text" style="width: 100%;" placeholder="Student Name" name="cmpName" required readonly>                  
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Contact No." name="cmpContactNo" required readonly>   
-                                        <input type="email" placeholder="Email" name="cmpEmail" required readonly>             
+                                        <input type="text" placeholder="Contact No." name="stdContactNo" required readonly>   
+                                        <input type="email" placeholder="Email" name="stdEmail" required readonly>             
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Contact Person" name="cmpContactPerson" required readonly>                
+                                        <select name="student-group" id="student-group" required="true">
+                                        <option selected disabled>Gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        </select>
                                     </div>
+                                    
 
                                     <div class="title">
-                                        <h2 class="title-2">Company Address</h2>
+                                        <h2 class="title-4">Address</h2>
                                     </div>
                                     <div class="input-style name-address-group">
                                         <textarea type="text" name="cmpAddress" placeholder="Address" cols="30" rows="5" required readonly></textarea>
@@ -106,45 +111,52 @@ include('includes/db_connection.php');
                                     </div>
 
                                     <div class="title">
-                                        <h2 class="title-3">Company Details</h2>
-                                    </div>
-
-                                    <div class="company-details-group input-style">  
-                                        <input type="text" style="width: 100%;" placeholder="Company Size" name="cmpFieldArea" required readonly>              
-                                    </div>
-
-                                    <div class="title">
-                                        <h2 class="title-3">Company Fields</h2>
-                                    </div>
-                                    
-                                    <div class="company-details-group input-style">
-                                        <div id="fields-row" class="task-row">
-                                            <div class="row">
-                                                <p>IT</p>              
-                                            </div>
-                                            <div class="row">
-                                                <p>Accounting</p>
-                                            </div>
-                                            <div class="row">
-                                                <p>Business</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="title">
-                                        <h2 class="title-3">Internship Details</h2>
+                                        <h2 class="title-3">Academic Details</h2>
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Number of Internship Placements ." name="cmpInternNo" required readonly>   
-                                        <input type="email" placeholder="Internship Areas" name="cmpInternAreas" required readonly>             
+                                        <select name="student-group" id="student-group" required="true">
+                                        <option selected disabled>Faculty</option>
+                                        <option>FOCS</option>
+                                        <option>FAFB</option>
+                                        <option>FOET</option>
+                                        <option>FOES</option>
+                                        </select>
+
+                                        <select name="student-group" id="student-group" required="true">
+                                        <option selected disabled>Programme</option>
+                                        <option>REI</option>
+                                        <option>RIT</option>
+                                        <option>RIT</option>
+                                        <option>RDS</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="title">
+                                        <h2 class="title-3">CV Details</h2>
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="Work Experience" name="workExperience" required readonly>         
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <textarea type="text" name="skill" placeholder="Skills" cols="30" rows="4" required readonly></textarea>
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <textarea type="text" name="Language" placeholder="Languages" cols="30" rows="4" required readonly></textarea>
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="School or University" name="school" required readonly>         
                                     </div>
 
                                     <hr>
 
                                     <div class="button-group">
                                         <a class="clickable-btn Update" href="">Update</a>
-                                        <a class="clickable-btn Export" href="">Export</a>
+                                        <a class="clickable-btn Export" href="">Cancel</a>
                                     </div>
 
 
