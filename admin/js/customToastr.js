@@ -17,7 +17,13 @@ function option() {
         "hideMethod": "fadeOut"
     }
 }
-function addSuccess() {
+function addSuccess(message) {
     option()
-    toastr["success"]("Yess", "Scuccess!")
+    toastr["success"](message, "Scuccess!");
+}
+
+function warning(message){
+    option()
+    toastr["warning"](message);
+
 }

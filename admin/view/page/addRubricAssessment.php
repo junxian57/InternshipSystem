@@ -14,7 +14,6 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $date = date('d-m-Y');
 $errorMessage = '';
-
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
 
     $rubricAssmtBllObj = new rubricAssessmentBLL();
@@ -29,9 +28,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
     $addRubricAssmtResult = $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
     // toast message
-    if ($addRubricAssmtResult > 0) {
-        //header("Location: edit.php?id=" . $addStudentResult . '&action=add');
+    if ($addRubricAssmtResult) {
+        header("Location: addRubricAssessment.php?addRubricAssessment=success");
     } else {
+        header("Location: addRubricAssessment.php?addRubricAssessment=failed");
         if ($rubricAssmtBllObj->errorMessage != '') {
             $errorMessage = $rubricAssmtBllObj->errorMessage;
         } else {
@@ -96,8 +96,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <?php if ($errorMessage != '') : echo ("DIU"); ?>
-                <?php else : echo "<script> addSuccess(); </script>"; ?>
+                <?php if ($_GET['addRubricAssessment'] == 'failed') : echo "<script> 
+                    warning('$errorMessage')</script>";
+                    ?>
+                <?php elseif ($_GET['addRubricAssessment'] == 'success') : echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
+                    ?>
                 <?php endif; ?>
                 <div class="forms ">
                     <h3 class="title1">Add Rubric Assessment</h3>
@@ -117,7 +120,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                         <option>Supervisor</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="number" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" onchange="changeHandler(this)" required="true"> </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -171,6 +174,16 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 }
             }
 
+            function changeHandler(val) {
+                if (Number(val.value) > 100) {
+                    warning("Total Weight not more than 100!");
+                    val.value = "";
+                } else if (isNaN(val.value)) {
+                    warning("Please input a Number!");
+                    val.value = "";
+                }
+
+            }
             async function fetchInternDate() {
                 const internBatchID = document.getElementById('InternStartDate').value;
                 const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
