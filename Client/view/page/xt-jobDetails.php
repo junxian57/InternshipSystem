@@ -70,6 +70,7 @@ include('includes/dbconnection.php');
     	max-width: 95%;
     	width:1200px;
 			background: #f2f2f2;
+			box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
 		}
 
 		.jobdetails .jobdetails-row{
@@ -81,6 +82,50 @@ include('includes/dbconnection.php');
     	max-width: 95%;
     	width:1200px;
 			background: #f2f2f2;
+			box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+		}
+
+		.jobdetails .jobdetails-row .jobdetails-content{
+    	flex: 1 1 30rem;
+    	padding: 2rem;
+		}
+
+		.button-group{
+			width: 100%;
+			text-align: center;
+			margin-bottom: 25px;
+			font-family: Calibri;
+		}
+
+		.applyBtn {
+  		font-weight: 600;
+  		color: white;
+  		background: #39d441;
+  		width: 85px;
+			height: 35px;
+		}
+
+		.backBtn {
+  		font-weight: 600;
+  		color: white;
+  		background: #999;
+  		width: 85px;
+			height: 35px;
+		}
+
+		.jobdetails .jobdetails-row .jobdetails-content h3{
+    	font-family: Calibri;
+    	font-size: 20px;
+    	color: #000;
+			font-weight: 600;
+		}
+
+		.jobdetails .jobdetails-row .jobdetails-content p{
+    	font-family: Calibri;
+    	font-size: 18px;
+    	color: #000;
+    	padding: 1rem 0;
+    	line-height: 1.0;
 		}
 
 		.cmpdetails .cmpdetails-row .cmpdetails-image{
@@ -101,6 +146,7 @@ include('includes/dbconnection.php');
     	font-family: Calibri;
     	font-size: 20px;
     	color: #000;
+			font-weight: 600;
 		}
 
 		.cmpdetails .cmpdetails-row .cmpdetails-content p{
@@ -146,7 +192,6 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">Job Details</h3>
 					<section class="details" id="details">
 						<div class="details-row">
 							<div class="detailsimage">
@@ -164,6 +209,38 @@ include('includes/dbconnection.php');
 					<section class="jobdetails" id="jobdetails">
 						<h1 class="heading"> <span>Job</span> Description </h1>
 						<div class="jobdetails-row">
+							<div class="jobdetails-content" style="border-right: 1px solid #CCCCCC;">
+							<h3>Job Details</h3>
+								<p>• Support the IT team in maintaining hardware, software, and IT resources<br>
+								• Assist with troubleshooting issues and provide technical support<br>
+								• Assist in any duties assigned by the immediate superior.<br>
+								• Assist in create and update documentations.<br>
+								• Working closely with an IT team and immediate superior.<br>
+								• Get hands-on experience in building a website from scratch (wordpress or non wordpress)<br>
+								• Learn to communicate with clients and help to solve their issue.</p><br>
+            		<h3>Responsibilities</h3>
+            		<p>• Candidate must be currently pursuing Bachelor's Degree in Information Technology or equivalent.<br>
+								• Good hands-on skills, excellent analytical and problem-solving capabilities.<br>
+								• Able to work collaboratively with others.<br>
+								• Good personality, positive mindset and independent.<br>
+								• Experiences in Wordpress or PHP Laravel framework is a plus.</p><br>
+							</div>
+							<div class="jobdetails-content">
+								<h3>Job Title</h3>
+								<p>Software Developer Intern (6 months)-Kuala Lumpur</p><br>
+            		<h3>Working Day</h3>
+            		<p>Monday - Friday</p><br>
+            		<h3>Working Hour</h3>
+            		<p>8:00 AM - 6:00 PM</p><br>
+								<h3>Allowance</h3>
+            		<p>RM 1,500 - RM 1,500</p><br>
+								<h3>Training Period</h3>
+            		<p>February 2023 - July 2023</p><br>
+        			</div>   
+							<div class="button-group">
+								<button type="submit" class="backBtn">Back</button>
+              	<button type="submit" class="applyBtn">Apply</button>
+            	</div>
 						</div>
 					</section>
 
@@ -181,7 +258,7 @@ include('includes/dbconnection.php');
             		<p>011-27322988</p><br>
             		<h3><i class="fa-regular fa-building"></i>&nbsp Company Size</h3>
             		<p>50 - 100</p><br>
-            		<h3><i class="fa-solid fa-signs-post"></i>&nbsp &nbsp Location</h3>
+            		<h3><i class="fa-solid fa-signs-post"></i>&nbsp Location</h3>
             		<p>1, Jalan Sin Chew Kee, Bukit Bintang, 50150 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</p><br>
 								<h3><i class="fa-solid fa-calendar-days"></i>&nbsp Date Joined</h3>
             		<p>30/07/2009</p>
