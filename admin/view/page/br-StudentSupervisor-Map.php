@@ -80,28 +80,18 @@ include('../../includes/db_connection.php');
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
                             <div class="search-group">
-                                <!--                                    
-                                //TODO: Require AJAX method to display searched supervisor         
-                                -->
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
-                                    <div class="form-control result-box" id="result-box-1">
-                                        <!--                                    
-                                        //TODO: Javascript to display result box need to fix         
-                                        -->
-                                        <li>SSSS</li>
-                                    </div>
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="1234" disabled>
+                                    <div class="form-control result-box" id="result-box-1">                                   </div>
                                 </div>
 
                                 <span class="arrow-icon">&#129050</span>
 
-                                <!--                                    
-                                //TODO: Select intern batch first only allow to select students group        
-                                -->
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true">
+                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab1-supervisor'), document.getElementById(this.id))">
+                                        <option value="" selected disabled>Select Internship Batch</option>
                                         <?php
                                             foreach($getInternBatch as $batch){
                                                 echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
@@ -109,15 +99,8 @@ include('../../includes/db_connection.php');
                                         ?>
                                     </select>
 
-                                    <!--                                    
-                                    //TODO: Require AJAX method to retrieve student group from the same faculty as lecturer        
-                                    -->
-                                    <label for="student-group" class="margin-top-20">Student Group <span class="required-star">*</span></label>
-                                    <select name="student-group" id="student-group" class="form-control" required="true">
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
-                                        <option value="21WMR00000">Course: Year 3 Sem 1 Group 1</option>
+                                    <label for="student-group" class="margin-top-20">Tutorial Group <span class="required-star">*</span></label>
+                                    <select name="student-group" id="student-group" class="form-control" required="true" disabled onchange="changeStudentSlotNo()">
                                     </select>
                                 </div>
                             </div>
@@ -127,13 +110,13 @@ include('../../includes/db_connection.php');
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
+                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
                             </div>
                             <hr>
                             <div class="info-group">
-                                <p>Supervisor Available Slot: <span>24 / 24</span></p>
+                                <p>Supervisor Current Slot: <span id="tab1-supervisor-slot">0 / 0</span></p>
                                 <span>|</span>
-                                <p>Student Group Left Slot: <span>24 / 24</span></p>
+                                <p>Student Group Left Slot: <span id="tab1-student-slot">0 / 0</span></p>
                             </div>
                             <hr>
                             <div class="table-title">
@@ -283,37 +266,27 @@ include('../../includes/db_connection.php');
                                 -->
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true">
+                                    <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab2-student'), document.getElementById(this.id))">
+                                    <option value="" selected disabled>Select Internship Batch</option>
                                     <?php
                                             foreach($getInternBatch as $batch){
                                                 echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
                                             }
                                         ?>
                                     </select>
-                                    <!--                                    
-                                //TODO: Require AJAX method to display searched student
-                                -->
+                                    
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab2-student" name="student" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
+                                    <input type="search" class="form-control" id="tab2-student" name="student" disabled placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
                                     <div class="form-control result-box" id="result-box-2">
-                                        <!--                                    
-                                        //TODO: Javascript to display result box need to fix         
-                                        -->
+
                                     </div>
                                 </div>
 
                                 <span class="arrow-icon">&#129050</span>
-
-                                <!--                                    
-                                //TODO: Require AJAX method to retrieve student group         
-                                -->
                                 <div class="form-group">
                                     <label for="supervisor-select">Supervisor <span class="required-star">*</span></label>
-                                    <select name="supervisor-select" id="tab2-supervisor-group" class="form-control" required="true">
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
-                                        <option value="21WMR00000">Supervisor ID: Supervisor 1 - 24 / 24</option>
+                                    <select name="supervisor-select" id="tab2-supervisor-group" class="form-control" required="true" disabled>
+                                      
                                     </select>
                                 </div>
                             </div>
@@ -326,7 +299,7 @@ include('../../includes/db_connection.php');
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab2-student'), document.getElementById('tab2-internBatch-group'), document.getElementById('tab2-supervisor-group'))">
+                                <input type="reset" class="clickable-btn" value="Reset Field" onclick="resetInput(document.getElementById('tab2-student'), document.getElementById('tab2-internBatch-group'), document.getElementById('tab2-supervisor-group'))">
                             </div>
                             <hr>
                             <div class="table-title">
@@ -471,22 +444,10 @@ include('../../includes/db_connection.php');
                         <!-- Tab Content 3-->
                         <div id="AutomatedMap" class="tabcontent">
                             <div class="search-group">
-                                <!--                                    
-                                //TODO: Require AJAX method to display searched student
-                                -->
-                                <div class="form-group">
-                                    <label for="programme">Search Programme <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
-                                    <div class="form-control result-box" id="result-box-3">
-                                        <!--                                    
-                                        //TODO: Javascript to display result box need to fix         
-                                        -->
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="tab3-internBatch-group" class="form-control" required="true">
+                                    <select name="internBatch-group" id="tab3-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab3-programme'), document.getElementById(this.id))">
+                                    <option value="" selected disabled>Select Internship Batch</option>
                                     <?php
                                             foreach($getInternBatch as $batch){
                                                 echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
@@ -495,6 +456,14 @@ include('../../includes/db_connection.php');
                                     </select>
 
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="programme">Search Programme <span class="required-star">*</span></label>
+                                    <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled>
+                                    <div class="form-control result-box" id="result-box-3">
+                                    </div>
+                                </div>
+
                             </div>
                             <hr>
                             <div class="hint">
@@ -503,63 +472,18 @@ include('../../includes/db_connection.php');
                             <div class="checkbox-group">
                                 <form id="supervisor-field">
                                     <fieldset>
-                                        <legend>Supervisor Field - <span>FOCS</span></legend>
+                                        <legend>Supervisor Field - <span class="facAcronym-span">FOCS</span></legend>
                                         <div class="table-responsive">
                                             <table>
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
-                                                        <th>Slot Available</th>
+                                                        <th>Curr / Max</th>
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="tab3-small-table">
-                                                    <tr>
-                                                        <td>Pong Suk Fun</td>
-                                                        <td>10 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-1" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lai Joo Choi</td>
-                                                        <td>20 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-2" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sarah</td>
-                                                        <td>15 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-
+                                                <tbody class="tab3-small-table" id="tab3-supervisor-table">
+                                                  
                                                 </tbody>
 
                                             </table>
@@ -575,38 +499,19 @@ include('../../includes/db_connection.php');
                                            //!!!!! Query need to match internship batch
                                            //TODO: Remember the batch of internship
                                         -->
-                                        <legend>Student Group Field - <span>FOCS</span></legend>
+                                        <legend>Student Group Field - <span class="facAcronym-span">FOCS</span></legend>
                                         <!--Create a table with 3 column-->
                                         <div class="table-responsive">
                                             <table>
                                                 <thead>
                                                     <tr>
-                                                        <th>Year / Tutorial Group</th>
-                                                        <th>Available Student</th>
+                                                        <th>Prog / Year / Tutorial</th>
+                                                        <th>Left / Total</th>
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="tab3-small-table">
-                                                    <tr>
-                                                        <td>3 / 1</td>
-                                                        <td>24 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-1" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3 / 1</td>
-                                                        <td>24 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-2" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3 / 1</td>
-                                                        <td>24 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3 / 1</td>
-                                                        <td>24 / 24</td>
-                                                        <td><input type="checkbox" name="supervisorID-3" class="tab-3-checkbox"></td>
-                                                    </tr>
+                                                <tbody class="tab3-small-table" id="tab3-student-table2">
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -796,6 +701,25 @@ include('../../includes/db_connection.php');
     function resetInput(valueInput, selectionInput1, selectionInput2 = null, deleteTable = false){
         valueInput.value = "";
         selectionInput1.selectedIndex = "0";
+        const supervisorSlot = document.getElementById("tab1-supervisor-slot");
+        const getStudentSlot = document.getElementById("tab1-student-slot");
+
+        if(valueInput.id == "tab1-supervisor"){
+            valueInput.disabled = true;
+            selectionInput1.disabled = false;
+            selectionInput2.disabled = true;
+            removeAllChildNodes(selectionInput2);
+            supervisorSlot.textContent = "0 / 0";
+            getStudentSlot.textContent = "0 / 0";
+        }else if(valueInput.id == "tab2-student"){
+            valueInput.disabled = true;
+            selectionInput1.disabled = false;
+            selectionInput2.disabled = true;
+            removeAllChildNodes(selectionInput2);
+        }else if(valueInput.id == "tab3-programme"){
+            valueInput.disabled = true;
+            selectionInput1.disabled = false;
+        }
         
         if(selectionInput2 != null){
             selectionInput2.selectedIndex = "0";
@@ -839,22 +763,207 @@ include('../../includes/db_connection.php');
         });
     });
 
-      //Search Result on Search Bar
-      function inputSearchResult(tabID, resultBox) {
+    function enableOther(inputBox, typeBox){
+        inputBox.disabled = false;
+        typeBox.disabled = true;
+    }
+
+    //Search Result on Search Bar
+    function inputSearchResult(tabID, resultBox) {
         const getSearchResultArr = document.getElementById(resultBox).childNodes;
         const getSearchBar = document.getElementById(tabID);
         const getResultBox = document.getElementById(resultBox);
-
+        const supervisorSlot = document.getElementById("tab1-supervisor-slot");
+        
         if (getSearchResultArr.length > 0) {
             for (let i = 0; i < getSearchResultArr.length; i++) {
                 getSearchResultArr[i].addEventListener('click', (list) => {
                     getSearchBar.value = list.target.innerText;
                     getResultBox.style.display = 'none';
+
+                    if(tabID == "tab1-supervisor"){
+                        supervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
+                        console.log(list.target.dataset)
+                        tutorialGroupData(list.target.dataset.facultyid);
+                    }else if(tabID == "tab2-student"){
+                        tab2SupervisorGroupData(list.target.dataset.facultyid);
+                    }else if(tabID == "tab3-programme"){
+                        tab3InsertTable(list.target.dataset.facultyid, list.target.dataset.programmeid);
+                    }
+                    
                 });
             }
         } else {
             return;
         }
+    }
+
+    //Tab 1 - Change Student Slot Number
+    function changeStudentSlotNo(){
+        let getStudent = document.getElementById("student-group");
+        let getStudentSlot = document.getElementById("tab1-student-slot");
+        let tutorialGroupArr = getStudent.childNodes;
+
+        getStudentSlot.textContent = `${getStudent[getStudent.selectedIndex].dataset.noselectstudent} / ${getStudent[getStudent.selectedIndex].dataset.studentcount}`;
+    }
+
+    //Tab 1 Selection
+    async function tutorialGroupData(facultyID) {
+        const respondResult = await getTutorialGroupData(facultyID);
+        const studentSelect = document.getElementById("student-group");
+        const studentSlot = document.getElementById("tab1-student-slot");
+        const defaultOption = document.createElement("option");
+
+        if(studentSelect.hasChildNodes()){
+            removeAllChildNodes(studentSelect);
+        }
+
+        if(respondResult !== "No Data Found"){
+            studentSelect.disabled = false;
+            for(let i = 0; i < respondResult.length; i++){
+                const option = document.createElement("option");
+                option.value = respondResult[i].tutorialGroupNo;
+                option.setAttribute("data-noSelectStudent", respondResult[i].noSelectStudent);
+                option.setAttribute("data-studentCount", respondResult[i].studentCount);
+
+                option.innerText = `${respondResult[i].programmeAcronym} : Year ${respondResult[i].studentYear} Sem ${respondResult[i].studentSemester} Group ${respondResult[i].tutorialGroupNo}`;
+
+                studentSelect.appendChild(option);
+            }
+            changeStudentSlotNo();
+        }else{
+            const option = document.createElement("option");
+            option.value = "No Data";
+            option.innerText = "No Data";
+            studentSelect.appendChild(option);
+            studentSelect.disabled = true;
+
+            studentSlot.textContent = "0 / 0";
+
+        }
+    }
+
+    //Tab 1 Selection - Fetch Tutorial Group Data
+    async function getTutorialGroupData(facultyID){
+        let internNo = document.getElementById("internBatch-group").value;
+        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&internNo=${internNo}`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        return data;
+    }
+
+    //Tab 2 Selection
+    async function tab2SupervisorGroupData(facultyID){
+        const respondResult = await getTab2SupervisorGroupData(facultyID);
+        const supervisorSelect = document.getElementById("tab2-supervisor-group");
+
+        if(supervisorSelect.hasChildNodes()){
+            removeAllChildNodes(supervisorSelect);
+        }
+
+        if(respondResult !== "No Data Found"){
+            supervisorSelect.disabled = false;
+            for(let i = 0; i < respondResult.length; i++){
+                const option = document.createElement("option");
+                option.value = respondResult[i].lecturerID;
+
+                option.innerText = `${respondResult[i].facAcronym} : ${respondResult[i].lecName} - ${respondResult[i].currNoOfStudents} / ${respondResult[i].maxNoOfStudents}`;
+
+                supervisorSelect.appendChild(option);
+            }
+        }else{
+            const option = document.createElement("option");
+            option.value = "No Data";
+            option.innerText = "No Data";
+            supervisorSelect.appendChild(option);
+            supervisorSelect.disabled = true;
+        }
+    }
+
+    //Tab 2 Selection - Fetch Supervisor Data
+    async function getTab2SupervisorGroupData(facultyID){
+        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&tab2=true`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        return data;
+    }
+
+    //Tab 3 Programme
+    async function tab3InsertTable(facultyID, programmeID){
+        const supervisorResult = await getTab3SupervisorTable(facultyID);
+        const studentResult = await getTab3StudentTable(programmeID);
+        const supervisorTable = document.getElementById("tab3-supervisor-table");
+        const studentTable = document.getElementById("tab3-student-table2");
+        const getSpan = document.getElementsByClassName("facAcronym-span");
+
+        if(supervisorTable.hasChildNodes()){
+            removeAllChildNodes(supervisorTable);
+        }
+
+        if(studentTable.hasChildNodes()){
+            removeAllChildNodes(studentTable);
+        }
+
+        if(supervisorResult !== "No Data Found" && studentResult !== "No Data Found"){  
+            //Change Faculty Acronym
+            for(let k = 0; k < getSpan.length; k++){
+                getSpan[k].innerText = supervisorResult[0].facAcronym;
+            }
+
+            //Insert Supervisor Table Row
+            for(let i = 0; i < supervisorResult.length; i++){
+                let trLeft = document.createElement("tr");
+                trLeft.innerHTML = `
+                    <td>${supervisorResult[i].lecName}</td>
+                    <td>${supervisorResult[i].currNoOfStudents} / ${supervisorResult[i].maxNoOfStudents}</td>
+                    <td>
+                        <input type="checkbox" name="${supervisorResult[i].lecturerID}" class="tab-3-checkbox">
+                    </td>
+                `;
+                supervisorTable.appendChild(trLeft);
+            }
+
+            //Insert Student Table Row
+            for(let j = 0; j < studentResult.length; j++){
+                let trRight = document.createElement("tr");
+                trRight.innerHTML = `
+                    <td>${studentResult[j].programmeAcronym} / ${studentResult[j].studentYear} / ${studentResult[j].tutorialGroupNo}</td>
+                    <td>${studentResult[j].noSelectStudent} / ${studentResult[j].studentCount}</td>
+                    <td>
+                        <input type="checkbox" data-progAcronym="${studentResult[j].programmeAcronym}" data-tutorialGroup="${studentResult[j].tutorialGroupNo}" class="tab-3-checkbox">
+                    </td>
+                `;
+                studentTable.appendChild(trRight);
+            }
+            
+        }else{
+            alert("No Data Found");
+        }
+    }
+
+    //Tab 3 - Fetch Supervisor Data
+    async function getTab3SupervisorTable(facultyID){
+        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&tab3-supervisor=true`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        return data;
+    }
+
+    //Tab 3 - Fetch Student Data
+    async function getTab3StudentTable(programmeID){
+        let batchID = document.getElementById("tab3-internBatch-group").value;
+        let url = `../../app/DAL/ajaxSelectionGroup.php?programmeID=${programmeID}&batchID=${batchID}&tab3-student=true`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        return data;
     }
 
     function removeAllChildNodes(parent) {
@@ -890,20 +999,20 @@ include('../../includes/db_connection.php');
             if(tabID == 'tab1-supervisor'){
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                       `<li>${respondResult[i].lecturerID} : ${respondResult[i].lecName}</li>` 
+                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>` 
                     );
                 }
             }else if(tabID == 'tab2-student'){
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                        `<li>${respondResult[i].studentID} : ${respondResult[i].studName}</li>` 
+                        `<li data-facultyID=${respondResult[i].facultyID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
                     );
                 }
             }else if(tabID == 'tab3-programme'){
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                        `<li>${respondResult[i].programmeID} : ${respondResult[i].programmeName.substr(12)}</li>` 
-                        );
+                        `<li data-programmeID=${respondResult[i].programmeID} data-facultyID=${respondResult[i].facultyID}> ${respondResult[i].facAcronym} : ${respondResult[i].programmeName.substr(12)}</li>` 
+                    );
                 }
             }
         } else {
