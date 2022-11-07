@@ -7,7 +7,7 @@ $db = new DBController();
 if(isset($_GET['supervisor'])){
     $supervisor = $_GET['supervisor'];
 
-    $sql = "SELECT L.lecName, L.lecturerID, L.departmentID, F.facultyID
+    $sql = "SELECT L.lecName, L.lecturerID, L.departmentID, F.facultyID, F.facAcronym, L.currNoOfStudents, L.maxNoOfStudents
             FROM Lecturer L, Faculty F, Department D
             WHERE L.lecName LIKE '%$supervisor%' AND L.supervisorQualification = 1 AND
             L.currNoOfStudents < L.maxNoOfStudents AND
@@ -23,7 +23,10 @@ if(isset($_GET['supervisor'])){
                 "lecName" => $result[$i]['lecName'], 
                 "lecturerID" => $result[$i]['lecturerID'],
                 "departmentID" => $result[$i]['departmentID'],
-                "facultyID" => $result[$i]['facultyID']
+                "facultyID" => $result[$i]['facultyID'],
+                "facAcronym" => $result[$i]['facAcronym'],
+                "currNoOfStudents" => $result[$i]['currNoOfStudents'],
+                "maxNoOfStudents" => $result[$i]['maxNoOfStudents']
             );
         }
     }
@@ -36,7 +39,7 @@ if(isset($_GET['supervisor'])){
     $student = $_GET['student'];
     $intern = $_GET['internBatch'];
 
-    $sql = "SELECT S.studentID, S.studName, F.facultyID
+    $sql = "SELECT S.studentID, S.studName, F.facultyID, P.programmeID
             FROM Student S, Faculty F, Programme P, Department D
             WHERE S.studName LIKE '%$student%' AND 
             S.internshipBatchID = $intern AND
@@ -63,9 +66,11 @@ if(isset($_GET['supervisor'])){
 }elseif(isset($_GET['programme'])){
     $programme = $_GET['programme'];
 
-    $sql = "SELECT P.programmeID, P.programmeName
-            FROM Programme P
-            WHERE P.programmeName LIKE '%$programme%';";
+    $sql = "SELECT P.programmeID, P.programmeName, F.facAcronym, F.facultyID
+            FROM Programme P, Faculty F, Department D
+            WHERE P.departmentID = D.departmentID AND
+            F.facultyID = D.facultyID AND
+            P.programmeName LIKE '%$programme%';";
 
     $result = $db->runQuery($sql);
 
@@ -73,7 +78,9 @@ if(isset($_GET['supervisor'])){
         for($i=0; $i < count($result); $i++){
             $tempArray[] = array(
                 "programmeID" => $result[$i]['programmeID'], 
-                "programmeName" => $result[$i]['programmeName']
+                "programmeName" => $result[$i]['programmeName'],
+                "facAcronym" => $result[$i]['facAcronym'],
+                "facultyID" => $result[$i]['facultyID']
             );
         }
     }
