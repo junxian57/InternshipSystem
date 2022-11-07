@@ -42,6 +42,22 @@ include('includes/dbconnection.php');
 	</script>
 </head>
 
+<?php
+function  confirmationMsgBox(){
+  echo '<script type="text/javascript"> ';
+  echo 'function openulr(newurl) {';
+  echo 'if (confirm("Are you sure you want to apply for this job?")) {';
+  echo '    document.location = newurl;';
+  echo '  	}';
+  echo '		}';
+  echo '</script>';
+}
+?>
+
+<?php
+	confirmationMsgBox();
+?>
+
 <body class="cbp-spmenu-push">
 	<div class="main-content">
 		<?php include_once('../../includes/sidebar.php'); ?>
@@ -96,7 +112,7 @@ include('includes/dbconnection.php');
         			</div>   
 							<div class="button-group">
 								<button type="submit" class="backBtn">Back</button>
-              	<button type="submit" class="applyBtn">Apply</button>
+              	<button type="submit" class="applyBtn"><a href="javascript:openulr('xt-studentJobApp.php');">Apply</button>
             	</div>
 						</div>
 					</section>
