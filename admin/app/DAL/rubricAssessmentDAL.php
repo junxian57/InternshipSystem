@@ -40,7 +40,7 @@ class rubricAssessmentDAL
         return $listOfRubricAssessmentDto;
     }
 
-    //generate employee ID
+    //generate ID
     public function generateID()
     {
         $db = new DBController();
@@ -87,9 +87,15 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getCreateByID() . "',
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";
-        $this->databaseConnectionObj->runQuery($sql);
-        // change return result
-        return $this->databaseConnectionObj->insert_id;
+        $result = $this->databaseConnectionObj->executeQuery($sql);
+
+        if ($result) {
+            header("Location: addRubricAssessment.php?addRubricAssessment=success");
+            exit();
+        } else {
+            header("Location: addRubricAssessment.php?addRubricAssessment=failed");
+            exit();
+        }
     }
 
 
