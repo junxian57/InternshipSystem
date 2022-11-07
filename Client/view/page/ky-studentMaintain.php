@@ -50,11 +50,12 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-cmpMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-maintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 
 
 </head>
@@ -133,7 +134,7 @@ include('includes/db_connection.php');
                                     </div>
 
                                     <div class="title">
-                                        <h2 class="title-3">CV Details</h2>
+                                        <h2 class="title-4">CV Details</h2>
                                     </div>
 
                                     <div class="input-style name-address-group">
@@ -152,8 +153,18 @@ include('includes/db_connection.php');
                                         <input type="text" style="width: 100%;" placeholder="School or University" name="school" required readonly>         
                                     </div>
 
-                                    <hr>
-
+                                    <div class="wrapper">
+                                        <p>Upload CV</p>
+                                            <form action="ky-CVupload.php" method="post" enctype="multipart/form-data">
+                                            
+                                            <Input type="file" name="fuResume" id="fuResume" hidden>
+                                            <Input type="submit" value="Upload File">
+                                            </form>
+                                            <section class="progress-area"></section>
+                                        <section class="uploaded-area"></section>
+                                        </div>
+                                            
+                                   
                                     <div class="button-group">
                                         <a class="clickable-btn Update" href="">Update</a>
                                         <a class="clickable-btn Export" href="">Cancel</a>
@@ -170,8 +181,7 @@ include('includes/db_connection.php');
                 </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>
-        <script src="../../js/companyLogin.js"></script>
+        
 </body>
     
 <script src="../../js/classie.js"></script>
