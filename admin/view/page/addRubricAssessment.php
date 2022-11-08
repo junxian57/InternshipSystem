@@ -11,12 +11,11 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 } else {
 
 	}*/
-date_default_timezone_set("Asia/Kuala_Lumpur");
-$date = date('d-m-Y');
-$errorMessage = '';
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
 
     $rubricAssmtBllObj = new rubricAssessmentBLL();
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    $date = date('Y-m-d');
     $assessmentID = $_POST['assessmentID'];
     $internshipBatchID = $_POST['internshipBatchID'];
     $Title = $_POST['Title'];
@@ -26,18 +25,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $CreateByID = $_POST['CreateByID'];
     $CreateDate = $date;
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
-    $addRubricAssmtResult = $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
-    // toast message
-    if ($addRubricAssmtResult) {
-        header("Location: addRubricAssessment.php?addRubricAssessment=success");
-    } else {
-        header("Location: addRubricAssessment.php?addRubricAssessment=failed");
-        if ($rubricAssmtBllObj->errorMessage != '') {
-            $errorMessage = $rubricAssmtBllObj->errorMessage;
-        } else {
-            $errorMessage = 'Record can\'t be added. Operation failed.';
-        }
-    }
+    $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
 }
 ?>
 <!DOCTYPE HTML>
@@ -96,11 +84,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <?php if ($_GET['addRubricAssessment'] == 'failed') : echo "<script> 
-                    warning('$errorMessage')</script>";
-                    ?>
-                <?php elseif ($_GET['addRubricAssessment'] == 'success') : echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
-                    ?>
+                <?php if ($_GET['addRubricAssessment'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
+                <?php elseif ($_GET['addRubricAssessment'] == 'success') : echo "<script> addSuccess('Add Rubric Assessment successful'); </script>"; ?>
+                <?php elseif ($rubricAssmtBllObj->errorMessage != '') : echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>"; ?>
                 <?php endif; ?>
                 <div class="forms ">
                     <h3 class="title1">Add Rubric Assessment</h3>

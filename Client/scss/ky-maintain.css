@@ -274,8 +274,7 @@ form {
     flex-direction: column;
     border-radius: 5px;
     border: 2px dashed #6990F2;
-    font-size: 18px;
-    
+    font-size: 10px;
   }
 
   .progress-area .row .content{

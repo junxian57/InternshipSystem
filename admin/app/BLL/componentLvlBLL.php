@@ -1,21 +1,21 @@
 <?php
-class rubricAssessmentBLL
+class componentLvlBLL
 {
 
-    protected $rubricAssessmentDal;
+    protected $ComponentLvlDAL;
     public $errorMessage;
 
     public function __construct()
     {
-        $this->rubricAssessmentDal = new rubricAssessmentDAL();
+        $this->ComponentLvlDAL = new ComponentLvlDAL();
     }
 
-    public function GetAllRubricAssessment()
+    /*public function GetAllRubricAssessment()
     {
-        return $this->rubricAssessmentDal->GetAllRubricAssessment();
-    }
+        return $this->ComponentLvlDAL->GetAllRubricAssessment();
+    }*/
 
-    public function GenerateHtmlForAllRubricAssessment()
+    /*public function GenerateHtmlForAllRubricAssessment()
     {
 
         //$rubricAssessmentDal = new rubricAssessmentDAL();
@@ -63,35 +63,35 @@ class rubricAssessmentBLL
         }
 
         return $all_rubricAssessment_html;
-    }
+    }*/
 
-    public function AddRubricAssmt($rubricAssmtDto)
+    public function AddRubricCmpLvl($cmpLvlDto)
     {
 
-        if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
-            $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
+        if ($cmpLvlDto->getcmpTitle() == '' || $cmpLvlDto->getValue() == '') {
+            $this->errorMessage = 'Component Level Title, Component Level Weight is required.';
             return false;
         }
 
-        if ($this->IsValidRubric($rubricAssmtDto)) {
-            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+        if ($this->IsValidCmpLvl($cmpLvlDto)) {
+            $this->ComponentLvlDAL->AddRubricCmpLvl($cmpLvlDto);
             return true;
         }
         return false;
     }
 
-    public function IsValidRubric($rubricAssmtDto)
+    public function IsValidCmpLvl($cmpLvlDto)
     {
-        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID())) {
-            $this->errorMessage = 'Rubric ' . $rubricAssmtDto->getTitle() . ' already exists in this session. Try a different one.';
+        if ($this->IsCmpLvlExists($cmpLvlDto->getcmpTitle(), $cmpLvlDto->getValue())) {
+            $this->errorMessage = 'Component Level ' . $cmpLvlDto->getcmpTitle() . ' and ' . $cmpLvlDto->getValue() . ' already exists. Try a different one.';
             return false;
         } else {
             return true;
         }
     }
 
-    public function IsRubricExists($Title, $internshipBatchID)
+    public function IsCmpLvlExists($Title, $value)
     {
-        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID);
+        return $this->ComponentLvlDAL->IsCmpLvlExists($Title, $value);
     }
 }

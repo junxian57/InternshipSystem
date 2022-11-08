@@ -3,7 +3,7 @@
 /**
  * Class for database interaction
  */
-include_once("../../includes/db_connection.php");
+require("../../includes/db_connection.php");
 class rubricAssessmentDAL
 {
 
@@ -40,7 +40,7 @@ class rubricAssessmentDAL
         return $listOfRubricAssessmentDto;
     }
 
-    //generate employee ID
+    //generate ID
     public function generateID()
     {
         $db = new DBController();
@@ -87,9 +87,15 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getCreateByID() . "',
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";
-        $this->databaseConnectionObj->runQuery($sql);
-        // change return result
-        return $this->databaseConnectionObj->insert_id;
+        $result = $this->databaseConnectionObj->executeQuery($sql);
+
+        if ($result) {
+            header("Location: ../../view/page/addComponentLevel.php?status=success");
+            exit();
+        } else {
+            header("Location: ../../view/page/addComponentLevel.php?status=failed");
+            exit();
+        }
     }
 
 
