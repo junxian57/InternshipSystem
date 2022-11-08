@@ -153,16 +153,16 @@ include('includes/db_connection.php');
                                         <input type="text" style="width: 100%;" placeholder="School or University" name="school" required readonly>         
                                     </div>
 
+                                    <div class="title">
+                                        <h2 class="title-4">Upload CV</h2>
+                                    </div>
+
                                     <div class="wrapper">
-                                        <p>Upload CV</p>
-                                            <form action="ky-CVupload.php" method="post" enctype="multipart/form-data">
-                                            
+                                        <form action="ky-CVupload.php" method="post" enctype="multipart/form-data">
                                             <Input type="file" name="fuResume" id="fuResume" hidden>
                                             <Input type="submit" value="Upload File">
-                                            </form>
-                                            <section class="progress-area"></section>
-                                        <section class="uploaded-area"></section>
-                                        </div>
+                                        </form>
+                                    </div>
                                             
                                    
                                     <div class="button-group">
