@@ -9,15 +9,6 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
     $facultyID = $_GET['facultyID'];
     $internNo = $_GET['internNo'];
 
-    // $sql = "SELECT P.programmeAcronym, S.tutorialGroupNo, IB.studentYear, IB.studentSemester
-    //         FROM Programme P, Student S, Faculty F, Department D, InternshipBatch IB
-    //         WHERE S.programmeID = P.programmeID AND
-    //         S.internshipBatchID = IB.internshipBatchID AND
-    //         P.departmentID = D.departmentID AND
-    //         D.facultyID = F.facultyID AND
-    //         S.internshipBatchID LIKE '$internNo' AND
-    //         F.facultyID LIKE '$facultyID';";
-
     $sql = "SELECT COUNT(S.studentID) AS noSelectStudent, S.tutorialGroupNo, IB.studentYear, IB.studentSemester, A.studentCount, P.programmeAcronym
             FROM InternshipBatch IB 
             LEFT JOIN Student S ON S.internshipBatchID = IB.internshipBatchID

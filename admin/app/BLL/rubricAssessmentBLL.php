@@ -43,7 +43,16 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
-                $all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
+                //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
+
+                $all_rubricAssessment_html .= '<td>
+				<button type="button" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '"></span>
+				</button>
+				<button type="button" class="btn btn-danger btn-xs dt-delete">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+			    </td>';
                 //$all_rubricAssessment_html .= '<td class="center"><a onclick="return confirm(\'Do you really want to delete this record?\')" href="index.php?id=' . $rubricAssessment->getAssmtId() . '&delete=yes">Delete</a></td>';
                 $all_rubricAssessment_html .= '</tr>';
             }

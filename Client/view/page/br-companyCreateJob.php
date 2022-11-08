@@ -131,30 +131,33 @@ include "includes/db_connection.php";
                         <div class="horizon-wrap">
                             <div class="input-style width-45 name-address-group">
                             <label for="jobWorkingDay">Job Working Day</label>
-                            <select name="workingDaySelection" id="workingDaySelection">
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
-
-                            <select name="workingDaySelection" id="workingDaySelection">
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
+                            <div class="horizon-wrap-maintain">
+                                <select name="workingDaySelection" id="workingDaySelection" class="width-45-Imp">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+    
+                                <select name="workingDaySelection" id="workingDaySelection" class="width-45-Imp">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                            </div>
                             </div>
 
                             <div class="input-style width-45 name-address-group">
                             <label for="jobWorkingHour">Job Working Hour</label>
-                            <select>
+                            <div class="horizon-wrap-maintain">
+                            <select class="width-45-Imp">
                                 <?php 
                                 for($hours=0; $hours<24; $hours++) {
                                     for($mins=0; $mins<60; $mins+=30) { 
@@ -165,7 +168,7 @@ include "includes/db_connection.php";
                                 ?>
                             </select>
 
-                            <select>
+                            <select class="width-45-Imp">
                                 <?php 
                                 for($hours=0; $hours<24; $hours++) {
                                     for($mins=0; $mins<60; $mins+=30) { 
@@ -175,6 +178,8 @@ include "includes/db_connection.php";
                                 }
                                 ?>
                             </select>
+                            </div>
+                            
                             </div>
                         </div>
 

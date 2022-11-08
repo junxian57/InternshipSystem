@@ -846,7 +846,7 @@ include('../../includes/db_connection.php');
     //Tab 1 Selection - Fetch Tutorial Group Data
     async function getTutorialGroupData(facultyID){
         let internNo = document.getElementById("internBatch-group").value;
-        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&internNo=${internNo}`;
+        let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&internNo=${internNo}`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -884,7 +884,7 @@ include('../../includes/db_connection.php');
 
     //Tab 2 Selection - Fetch Supervisor Data
     async function getTab2SupervisorGroupData(facultyID){
-        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&tab2=true`;
+        let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&tab2=true`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -947,7 +947,7 @@ include('../../includes/db_connection.php');
 
     //Tab 3 - Fetch Supervisor Data
     async function getTab3SupervisorTable(facultyID){
-        let url = `../../app/DAL/ajaxSelectionGroup.php?facultyID=${facultyID}&tab3-supervisor=true`;
+        let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&tab3-supervisor=true`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -958,7 +958,7 @@ include('../../includes/db_connection.php');
     //Tab 3 - Fetch Student Data
     async function getTab3StudentTable(programmeID){
         let batchID = document.getElementById("tab3-internBatch-group").value;
-        let url = `../../app/DAL/ajaxSelectionGroup.php?programmeID=${programmeID}&batchID=${batchID}&tab3-student=true`;
+        let url = `../../app/DAL/ajaxMapSelectionGroup.php?programmeID=${programmeID}&batchID=${batchID}&tab3-student=true`;
 
         const response = await fetch(url);
         const data = await response.json();
