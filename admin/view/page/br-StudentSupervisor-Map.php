@@ -43,6 +43,7 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -82,7 +83,7 @@ include('../../includes/db_connection.php');
                             <div class="search-group">
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="1234" disabled>
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="" disabled>
                                     <div class="form-control result-box" id="result-box-1">                                   </div>
                                 </div>
 
@@ -109,7 +110,7 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
+                                <a class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</a>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
                             </div>
                             <hr>
@@ -121,31 +122,36 @@ include('../../includes/db_connection.php');
                             <hr>
                             <div class="table-title">
                                 <h4>Preview Table</h4>
-                                <p>Hint: Table Below Is Scrollable</p>
                             </div>
-                            <div class="orange-border">
-                                <table>
+                            <div>
+                                <table class="table-view" id="tab1-top-table">
                                     <thead>
                                         <th>#</th>
                                         <th>Student ID</th>
-                                        <th>Faculty</th>
                                         <th>Student Name</th>
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="tab1-preview-table">
+                                         <tr>
                                             <td>1</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
+                                            <td>
+                                                <button class="remove" onclick="deleteRow('tab1-top-table', this)">Remove</button>
+                                            </td>
                                         </tr>
-                                        <tr>
+                                         <tr>
                                             <td>2</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
+                                            <td>Bryson</td>
+                                            <td>Pong Suk Fun</td>
+                                            <td><button class="remove">Remove</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>21WMR08523</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -153,7 +159,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -161,7 +166,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -169,7 +173,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -177,7 +180,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -185,7 +187,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -193,7 +194,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -201,7 +201,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -209,7 +208,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -217,7 +215,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -225,7 +222,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -233,15 +229,6 @@ include('../../includes/db_connection.php');
                                         <tr>
                                             <td>3</td>
                                             <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -254,7 +241,7 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: get all data from above and input into database
                                 -->
-                                <button class="clickable-btn" href="#">Update Mapping</button>
+                                <button class="grey-btn" id="tab1-update-btn" onclick="tab1UpdateMapDb()" disabled>Update Mapping</button>
                             </div>
                         </div>
 
@@ -304,10 +291,9 @@ include('../../includes/db_connection.php');
                             <hr>
                             <div class="table-title">
                                 <h4>Preview Table</h4>
-                                <p>Hint: Table Below Is Scrollable</p>
                             </div>
-                            <div class="table-responsive orange-border">
-                                <table>
+                            <div>
+                                <table class="table-view">
                                     <thead>
                                         <th>#</th>
                                         <th>Student ID</th>
@@ -467,13 +453,13 @@ include('../../includes/db_connection.php');
                             </div>
                             <hr>
                             <div class="hint">
-                                <p>Hint: All Tables Below Are Scrollable </p>
+                                <p>Hint: Both Tables Below Are Scrollable </p>
                             </div>
                             <div class="checkbox-group">
                                 <form id="supervisor-field">
                                     <fieldset>
                                         <legend>Supervisor Field - <span class="facAcronym-span">FOCS</span></legend>
-                                        <div class="table-responsive">
+                                        <div>
                                             <table>
                                                 <thead>
                                                     <tr>
@@ -483,7 +469,51 @@ include('../../includes/db_connection.php');
                                                     </tr>
                                                 </thead>
                                                 <tbody class="tab3-small-table" id="tab3-supervisor-table">
-                                                  
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Hello</td>
+                                                        <td>1 / 1</td>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                    </tr>
                                                 </tbody>
 
                                             </table>
@@ -533,15 +563,17 @@ include('../../includes/db_connection.php');
                             <div class="table-title">
                                 <h4>Preview Table</h4>
                             </div>
-                            <div class="table-responsive orange-border">
-                                <table>
+                            <div class="tables">
+                                <table class="table-view">
                                     <thead>
-                                        <th>#</th>
-                                        <th>Student ID</th>
-                                        <th>Faculty</th>
-                                        <th>Student Name</th>
-                                        <th>Supervisor</th>
-                                        <th>Action</th>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Student ID</th>
+                                            <th>Faculty</th>
+                                            <th>Student Name</th>
+                                            <th>Supervisor</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -677,6 +709,8 @@ include('../../includes/db_connection.php');
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -694,6 +728,15 @@ include('../../includes/db_connection.php');
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+        $('.table-view').DataTable({
+        "searching": false,
+        "bLengthChange": false,
+        "info": false
+        });         
+    });
+    
 </script>
 <script>
     document.getElementById("defaultOpen").click();
@@ -711,6 +754,19 @@ include('../../includes/db_connection.php');
             removeAllChildNodes(selectionInput2);
             supervisorSlot.textContent = "0 / 0";
             getStudentSlot.textContent = "0 / 0";
+            let assignBtn = document.getElementById("tab1-assign-btn");
+            assignBtn.disabled = false;
+            assignBtn.classList.remove("grey-btn");
+            assignBtn.classList.add("clickable-btn");
+
+            document.getElementById('tab1-supervisor').disabled = false;
+            document.getElementById('student-group').disabled = false;
+
+            let updateBtn = document.getElementById('tab1-update-btn');
+            updateBtn.disabled = true;
+            updateBtn.classList.remove('clickable-btn');
+            updateBtn.classList.add('grey-btn')
+
         }else if(valueInput.id == "tab2-student"){
             valueInput.disabled = true;
             selectionInput1.disabled = false;
@@ -754,7 +810,6 @@ include('../../includes/db_connection.php');
     }
 </script>
 <script>
-
     //Hide the Search Box
     document.querySelector('body').addEventListener('click', () => {
         const getResultBox = document.querySelectorAll('.result-box');
@@ -783,7 +838,7 @@ include('../../includes/db_connection.php');
 
                     if(tabID == "tab1-supervisor"){
                         supervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
-                        console.log(list.target.dataset)
+                        getSearchBar.setAttribute("data-lectureid", list.target.dataset.lectureid);
                         tutorialGroupData(list.target.dataset.facultyid);
                     }else if(tabID == "tab2-student"){
                         tab2SupervisorGroupData(list.target.dataset.facultyid);
@@ -825,6 +880,8 @@ include('../../includes/db_connection.php');
                 option.value = respondResult[i].tutorialGroupNo;
                 option.setAttribute("data-noSelectStudent", respondResult[i].noSelectStudent);
                 option.setAttribute("data-studentCount", respondResult[i].studentCount);
+                option.setAttribute("data-tutorialGroupNo", respondResult[i].tutorialGroupNo);
+                option.setAttribute("data-programmeID", respondResult[i].programmeID);
 
                 option.innerText = `${respondResult[i].programmeAcronym} : Year ${respondResult[i].studentYear} Sem ${respondResult[i].studentSemester} Group ${respondResult[i].tutorialGroupNo}`;
 
@@ -986,7 +1043,7 @@ include('../../includes/db_connection.php');
         const respondResult = await searchBarData(searchBarTab, tabID);
         let resultArr = [];
 
-        if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
+        if (respondResult == "No Data Found") {
             getResultBox.style.display = 'none';
             return;
         }
@@ -995,11 +1052,11 @@ include('../../includes/db_connection.php');
             removeAllChildNodes(getResultBox);
         }
 
-        if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
+        if(respondResult != "No Data Found" ){
             if(tabID == 'tab1-supervisor'){
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>` 
+                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents} data-lectureid=${respondResult[i].lecturerID}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>`
                     );
                 }
             }else if(tabID == 'tab2-student'){
@@ -1059,6 +1116,108 @@ include('../../includes/db_connection.php');
         }
     }
 </script>
+<script>
+    function deleteRow(table, row) {
+        let i = row.parentNode.parentNode.rowIndex;
+        document.getElementById(table).deleteRow(i);
+    }
 
+    async function tab1MapTable(){
+        let studentGroup = document.getElementById("student-group");
+        let lectureID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
+        let internshipBatch = document.getElementById("internBatch-group").value;
+        let tutorialGroupNo = studentGroup[studentGroup.selectedIndex].dataset.tutorialgroupno;
+        let programmeID = studentGroup[studentGroup.selectedIndex].dataset.programmeid;
+        let tab1previewBody = document.getElementById("tab1-preview-table");
+
+        if(!studentGroup.hasChildNodes()){
+            alert("No Tutorial Group Selected");
+        }
+
+        if(tab1previewBody.hasChildNodes()){
+            removeAllChildNodes(tab1previewBody);
+        }
+
+        const respondResult = await getStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID);
+
+        //create table row and insert
+        let resultArr = [];
+
+        if(respondResult != "No Data Found"){
+            for (let i = 0; i < respondResult.length; i++) {
+                resultArr.push(
+                    `<tr>
+                        <td>${i + 1}</td>
+                        <td>${respondResult[i].studentID}</td>
+                        <td>${respondResult[i].studName}</td>
+                        <td>${respondResult[i].lecName}</td>
+                        <td><button class="remove" onclick="deleteRow('tab1-top-table', this)">Remove</button></td>
+                    </tr>`
+                );
+            }
+            tab1previewBody.innerHTML = resultArr.join('');
+
+            let assignBtn = document.getElementById("tab1-assign-btn");
+            assignBtn.disabled = true;
+            assignBtn.classList.remove("clickable-btn");
+            assignBtn.classList.add("grey-btn");
+
+            document.getElementById('tab1-supervisor').disabled = true;
+            document.getElementById('student-group').disabled = true;
+
+            let updateBtn = document.getElementById('tab1-update-btn');
+            updateBtn.disabled = false;
+            updateBtn.classList.remove('grey-btn');
+            updateBtn.classList.add('clickable-btn')
+            
+        }else{
+            alert("No Data Found");
+        }
+        
+    }
+
+    async function getStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID){
+        let url = `../../app/DAL/ajaxMapTab1InsertTable.php?lectureID=${lectureID}&internshipBatch=${internshipBatch}&tutorialGroupNo=${tutorialGroupNo}&programmeID=${programmeID}&tab1-map=true`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        return data;
+    }
+
+    async function tab1UpdateMapDb(){
+        let confirm = window.confirm("Are you sure you want to update the map?");
+        if(confirm == true){
+            let lecturerID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
+            let studentIDArr = document.querySelectorAll("#tab1-preview-table tr td:nth-child(2)");
+            let studentIDTextArr = [];
+
+            //Get Student ID Text
+            studentIDArr.forEach((studentID) => {
+                studentIDTextArr.push(studentID.innerText);
+            });
+
+            let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
+            
+            if(responseResult == "Success"){
+                alert("Map Updated");
+            }else{
+                alert("Map Update Failed");
+            }
+        }else{
+            return;
+        }
+    }
+
+    async function tab1FetchUpdateMapDb(lecturerID, studentIDTextArr){
+        let url = `../../app/DAL/ajaxMapTab1UpdateMap.php?lectureID=${lecturerID}&studentIDArr=${JSON.stringify(studentIDTextArr)}`;
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        return data;
+    }
+
+</script>
 
 </html>

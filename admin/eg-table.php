@@ -18,7 +18,6 @@
     <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
     <!-- Custom CSS -->
     <link href="css/style.css" rel='stylesheet' type='text/css' />
-    <!-- font CSS -->
     <!-- font-awesome icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->

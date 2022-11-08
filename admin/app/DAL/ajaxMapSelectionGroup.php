@@ -9,7 +9,7 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
     $facultyID = $_GET['facultyID'];
     $internNo = $_GET['internNo'];
 
-    $sql = "SELECT COUNT(S.studentID) AS noSelectStudent, S.tutorialGroupNo, IB.studentYear, IB.studentSemester, A.studentCount, P.programmeAcronym
+    $sql = "SELECT COUNT(S.studentID) AS noSelectStudent, S.tutorialGroupNo, IB.studentYear, IB.studentSemester, A.studentCount, P.programmeAcronym, P.programmeID
             FROM InternshipBatch IB 
             LEFT JOIN Student S ON S.internshipBatchID = IB.internshipBatchID
             LEFT JOIN Programme P ON S.programmeID = P.programmeID
@@ -41,6 +41,7 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
                 "studentSemester" => $result[$i]['studentSemester'],
                 "studentCount" => $result[$i]['studentCount'],
                 "noSelectStudent" => $result[$i]['noSelectStudent'],
+                "programmeID" => $result[$i]['programmeID']
             );
         }
         echo json_encode($tempArray);

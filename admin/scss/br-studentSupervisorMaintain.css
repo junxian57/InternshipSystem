@@ -218,57 +218,11 @@
   border: 1px solid #f2891f;
   margin-top: 1em;
 }
-.tabcontent table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-.tabcontent table thead {
-  font-size: 1.1em;
-}
-.tabcontent table thead, .tabcontent table tbody, .tabcontent table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-.tabcontent table th:first-child,
-.tabcontent table td:first-child {
-  width: 7%;
-}
-.tabcontent table th:nth-child(6),
-.tabcontent table td:nth-child(6) {
-  width: 15%;
-}
-.tabcontent table th, .tabcontent table td {
-  text-align: center;
-  padding: 12px;
-  vertical-align: middle;
-  border: 1px solid #ddd;
-  border-collapse: collapse;
-  word-wrap: break-word;
-}
-.tabcontent table th {
-  background-color: #eeeded;
-}
-.tabcontent table tbody {
-  display: block;
-  max-height: 420px;
-  overflow-y: scroll;
-}
 .tabcontent table tbody tr {
   transition: all 0.5s;
 }
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
-}
-.tabcontent table tbody .column-max-width {
-  max-width: 80px;
-  line-height: 1.2em;
-}
-.tabcontent table tbody .description {
-  max-width: 150px;
-  line-height: 1.2em;
-  padding: 5px;
 }
 .tabcontent table tbody .btn-td .button {
   width: -webkit-fit-content;

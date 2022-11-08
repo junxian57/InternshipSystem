@@ -268,19 +268,27 @@
   text-align: center;
   position: relative;
 }
-.tabcontent .table-title p {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  font-size: 0.8em;
-  color: #ff4500;
-}
 .tabcontent .bs-example {
   margin-top: 1em;
 }
 .tabcontent .orange-border {
   border: 1px solid #f2891f;
   margin-top: 1em;
+}
+.tabcontent .grey-btn {
+  cursor: pointer;
+  background-color: #b9b7b4;
+  padding: 10px 15px;
+  color: #474747;
+  outline: none;
+  border: 1px solid #b9b7b4;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
+.tabcontent .grey-btn:hover {
+  background-color: #b9b7b4;
+  color: #474747;
+  border: 1px solid #b9b7b4;
 }
 .tabcontent table {
   width: 100%;
@@ -295,12 +303,6 @@
   width: 100%;
   table-layout: fixed;
 }
-.tabcontent table th:first-child,
-.tabcontent table td:first-child,
-.tabcontent table th:nth-child(6),
-.tabcontent table td:nth-child(6) {
-  width: 10%;
-}
 .tabcontent table th, .tabcontent table td {
   text-align: center;
   padding: 12px;
@@ -314,8 +316,6 @@
 }
 .tabcontent table tbody {
   display: block;
-  max-height: 420px;
-  overflow-y: scroll;
 }
 .tabcontent table tbody tr {
   transition: all 0.5s;
@@ -323,33 +323,18 @@
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table .table-btn-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.tabcontent table .table-btn-group button {
-  width: 100%;
+.tabcontent table tbody button {
   padding: 5px;
-  font-weight: 600;
   letter-spacing: 1px;
-  background-color: #f2891f;
-  color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid white;
+  font-size: 1.1em;
+  background-color: transparent;
+  color: #ff4500;
+  border: none;
   outline: none;
   cursor: pointer;
   transition: ease-in-out 0.2s;
 }
-.tabcontent table .table-btn-group .table-delete-btn {
-  background-color: #ff4500;
-  margin-top: 3px;
-}
-.tabcontent table .table-btn-group .table-delete-btn:hover {
-  background-color: #f95f27;
-}
-.tabcontent table .table-btn-group .table-edit-btn:hover {
-  background-color: #6c2de9;
+.tabcontent table tbody button:hover {
+  background-color: transparent;
+  color: #fe6932;
 }/*# sourceMappingURL=br-studentSupervisorMap.css.map */

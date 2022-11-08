@@ -29,9 +29,10 @@ if(isset($_GET['supervisor'])){
                 "maxNoOfStudents" => $result[$i]['maxNoOfStudents']
             );
         }
+        echo json_encode($tempArray);
+    }else{
+        echo json_encode("No Data Found");
     }
-
-    echo json_encode($tempArray);
     exit();
 
 }elseif(isset($_GET['student']) && isset($_GET['internBatch'])){
@@ -58,9 +59,11 @@ if(isset($_GET['supervisor'])){
                 "facultyID" => $result[$i]['facultyID']
             );
         }
+        echo json_encode($tempArray);
+    }else{
+        echo json_encode("No Data Found");
     }
 
-    echo json_encode($tempArray);
     exit();
 
 }elseif(isset($_GET['programme'])){
@@ -83,9 +86,11 @@ if(isset($_GET['supervisor'])){
                 "facultyID" => $result[$i]['facultyID']
             );
         }
+        echo json_encode($tempArray);
+    }else{
+        echo json_encode("No Data Found");
     }
-
-    echo json_encode($tempArray);
+    
     exit();
 }
 ?>
