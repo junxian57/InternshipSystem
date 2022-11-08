@@ -66,8 +66,7 @@ $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessm
                         <div id="RubricCmpTbl" class="tabcontent">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4 class="col-md-9 text-left">Preview Table</h4>
-                                    <p class="col-md-3 text-right">Hint: Table Below Is Scrollable</p>
+                                    <h4>Preview Table</h4>
                                 </div>
                                 <div class="text-right col-sm-12">
                                     <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>

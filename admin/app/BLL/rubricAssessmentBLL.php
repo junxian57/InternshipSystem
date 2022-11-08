@@ -24,7 +24,7 @@ class rubricAssessmentBLL
         $all_rubricAssessment = $this->GetAllRubricAssessment();
         $i = 1;
         if (count($all_rubricAssessment) > 0) {
-            $all_rubricAssessment_html .= '<table id="rubricCmpTbl" class="table table-striped table-bordered range-border" style="border:1px solid orange;">';
+            $all_rubricAssessment_html .= '<table id="rubricCmpTbl" class="table-view">';
             $all_rubricAssessment_html .= '<thead>';
             $all_rubricAssessment_html .= '<tr>';
             $all_rubricAssessment_html .= '<th id="test1">#</th>';
