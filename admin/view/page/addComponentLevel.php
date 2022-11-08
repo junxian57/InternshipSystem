@@ -2,25 +2,24 @@
 session_start();
 error_reporting(0);
 include('includes/db_connection.php');
+require_once('../../app/BLL/componentLvlBLL.php');
+require_once('../../app/DTO/componentLvlDTO.php');
+require_once('../../app/DAL/ComponentLvlDAL.php');
+
+$rubricCmpLvlDALObj  = new ComponentLvlDAL();
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
+}*/
 
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Component Level') {
+    $rubricCmpLvlBLLObj = new componentLvlBLL();
+    $cmpLvlID = $_POST['cmpLvlID'];
+    $title = $_POST['cmpname'];
+    $level = $_POST['cmplv'];
+    $newRubricCmpLvl = new componentLvlDTO($cmpLvlID, $title, $level);
+    $rubricCmpLvlBLLObj->AddRubricCmpLvl($newRubricCmpLvl);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -61,47 +60,50 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <!--//Metis Menu -->
 </head>
+<!--left-fixed -navigation-->
+<?php include_once('../../includes/sidebar.php'); ?>
+<!--left-fixed -navigation-->
+<!-- header-starts -->
+<?php include_once('../../includes/header.php'); ?>
+<!-- //header-ends -->
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-        <!--left-fixed -navigation-->
-        <?php include_once('../../includes/sidebar.php'); ?>
-        <!--left-fixed -navigation-->
-        <!-- header-starts -->
-        <?php include_once('../../includes/header.php'); ?>
-        <!-- //header-ends -->
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
+                <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
+                <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
+                <?php elseif ($rubricCmpLvlBLLObj->errorMessage != '') : echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>"; ?>
+                <?php endif; ?>
                 <div class="forms">
                     <h3 class="title1">Add Assessment Component Level</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
-                            <h4>Component Level:</h4>
+                            <h4>Component Level</h4>
                         </div>
                         <div class="form-body">
-                            <form method="post">
-                                <p style="font-size:16px; color:red" align="center"> <?php if ($msg) {
-                                                                                            echo $msg;
-                                                                                        }  ?> </p>
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-group col-md-12"> <label>Component Level ID</label><input type="text" id="cmpLvlID" name="cmpLvlID" class="form-control" value="<?php echo $rubricCmpLvlDALObj->generateID(); ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-12"> <label>Component Level Name</label> <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Poor" required="true"> </div>
+                                <div class="form-group col-md-12"> <label>Component Level Score</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="0-2" onchange="changeHandler(this)" required="true"> </div>
 
-
-                                <div class="form-group"> <label for="exampleInputEmail1">Component Level Name</label> <input type="text" class="form-control" id="cmpname" name="cmpname" value="" placeholder="Poor" required="true"> </div>
-                                <div class="form-group"> <label for="exampleInputPassword1">Component Level Score</label> <input type="text" id="cmplv" name="cmplv" class="form-control" value="" placeholder="0-2" required="true"> </div>
-
-                                <button type="submit" name="submit" class="btn btn-default ">Submit</button>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Component Level" class="form-group btn btn-default">Save</button></div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--footer-->
-            <?php include_once('../../includes/footer.php'); ?>
-            <!--//footer-->
-        </div>
 
+        </div>
+        <!--footer-->
+        <?php include_once('../../includes/footer.php'); ?>
+        <!--//footer-->
         <!-- Classie -->
         <script src="../../js/classie.js"></script>
         <script>
@@ -119,6 +121,14 @@ include('includes/db_connection.php');
             function disableOther(button) {
                 if (button !== 'showLeftPush') {
                     classie.toggle(showLeftPush, 'disabled');
+                }
+            }
+
+            function changeHandler(val) {
+                var phoneno = /^\(?([0-9]{1})\)?[-]?([0-9]{2})$/;
+                if (val.value.match(phoneno)) {
+                    warning("Total Weight not more than 3 Digit number");
+                    val.value = "";
                 }
             }
         </script>

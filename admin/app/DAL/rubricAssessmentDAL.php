@@ -3,7 +3,7 @@
 /**
  * Class for database interaction
  */
-include_once("../../includes/db_connection.php");
+require("../../includes/db_connection.php");
 class rubricAssessmentDAL
 {
 
@@ -90,10 +90,10 @@ class rubricAssessmentDAL
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         if ($result) {
-            header("Location: addRubricAssessment.php?addRubricAssessment=success");
+            header("Location: ../../view/page/addComponentLevel.php?status=success");
             exit();
         } else {
-            header("Location: addRubricAssessment.php?addRubricAssessment=failed");
+            header("Location: ../../view/page/addComponentLevel.php?status=failed");
             exit();
         }
     }
