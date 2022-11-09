@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-maintain.css">
+    <link rel="stylesheet" href="../../scss/ky-studCmpMaintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,7 +93,13 @@ include('includes/db_connection.php');
                                         <option>Female</option>
                                         </select>
                                     </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="Password" placeholder="New Password" name="Pass" required>
                                     
+                                        <input type="Password" placeholder="Confirm Password" name="conPass" required> 
+                                    </div>
+                                     
 
                                     <div class="title">
                                         <h2 class="title-4">Address</h2>
@@ -160,7 +166,7 @@ include('includes/db_connection.php');
                                     <div class="wrapper">
                                         <form action="ky-CVupload.php" method="post" enctype="multipart/form-data">
                                             <Input type="file" name="fuResume" id="fuResume" hidden>
-                                            <Input type="submit" value="Upload File">
+                                            
                                         </form>
                                     </div>
                                             
@@ -184,6 +190,29 @@ include('includes/db_connection.php');
         
 </body>
     
+<script>
+    var state= false;
+    function toggle(){
+        if (state){
+            document.getElementById(
+                "passsword").
+                setAttribute("type",
+                "password");
+                document.getElementById(
+                    "eye").style.color='#7a797e';
+                state = false;
+        }
+        else{
+            document.getElementById(
+                "password").
+                setAttribute("type",
+                "text");
+                document.getElementById(
+                    "eye").style.color='#5887ef';
+                    state = true;
+        }
+    }
+</script>
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
 <script>

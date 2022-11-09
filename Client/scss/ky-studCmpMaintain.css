@@ -264,7 +264,7 @@ form {
   }
 
   .wrapper{
-    height: 130px;
+    height: 150px;
     width:1025px;
     display: flex;
     cursor: pointer;
@@ -274,7 +274,7 @@ form {
     flex-direction: column;
     border-radius: 5px;
     border: 2px dashed #6990F2;
-    font-size: 10px;
+    font-size: 15px;
   }
 
   .progress-area .row .content{
@@ -325,4 +325,21 @@ form {
   }
   .uploaded-area i.fa-check{
     font-size: 16px;
+  }
+
+
+  span i{
+    position:absolute;
+    right: 750px;
+    transform: translate(0,-50%);
+    bottom: 72.5%;
+    cursor: pointer;
+  }
+
+  span1 i{
+    position:absolute;
+    right: 130px;
+    transform: translate(0,-50%);
+    bottom: 72.5%;
+    cursor: pointer;
   }
