@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-comMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-invite.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -87,55 +87,58 @@ include('includes/db_connection.php');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                 
-                                    $server = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $database = "westorn";
-
-                                    $conn = mysqli_connect($server, $username, $password, $database);
-                                    if (!$conn){
-                                        die("Error". mysqli_connect_error());
-                                    }
-
-                                    $sql = "select * from student"; 
-                                    $result = mysqli_query($conn, $sql);
+                                
+                                    <?php
                                     
-                                    while($row=mysqli_fetch_assoc($result)) {
-                                        $Id = $row['studentID'];
-                                        $username = $row['studName'];
-                                        $gender = $row['studGender'];
-                                        $email = $row['studEmail'];
-                                        $phone = $row['studContactNumber'];
-                                        $programme = $row['programmeID'];
-                                        $address = $row['studHomeAddress'];
+                                        $server = "localhost";
+                                        $username = "root";
+                                        $password = "";
+                                        $database = "westorn";
+
+                                        $conn = mysqli_connect($server, $username, $password, $database);
+                                        if (!$conn){
+                                            die("Error". mysqli_connect_error());
+                                        }
+
+                                        $sql = "select * from student"; 
+                                        $result = mysqli_query($conn, $sql);
+                                        
+                                        while($row=mysqli_fetch_assoc($result)) {
+                                            $Id = $row['studentID'];
+                                            $username = $row['studName'];
+                                            $gender = $row['studGender'];
+                                            $email = $row['studEmail'];
+                                            $phone = $row['studContactNumber'];
+                                            $programme = $row['programmeID'];
+                                            $address = $row['studHomeAddress'];
+                                        
+                                            echo '<tr>
+                                                <td>' .$Id. '</td>
+                                                <td>' .$username. '</td>
+                                                <td>' .$gender. '</td>
+                                                <td>' .$email. '</td>
+                                                <td>' .$phone. '</td>
+                                                <td>' .$programme. '</td>
+                                                <td>' .$address. '</td>
+                                                <td>
+                                                <form action="send.php" method="post">
+                                                <input type="hidden" name="email" id="email" value="'.$email.'">
+                                                <input type="hidden" name="username" id="username" value="'.$username.'">
+                                                <input type="hidden" name="id" id="id" value="'.$Id.'">
+                                                    <div class="button">
+                                                        <input type="submit" name="submit" value="Invite">
+                                                    </div>
+                                                </form>
+                                                    
+                                                </td>
+                                            </tr>';
+                                        }
+                                    ?>
                                     
-                                        echo '<tr>
-                                            <td>' .$Id. '</td>
-                                            <td>' .$username. '</td>
-                                            <td>' .$gender. '</td>
-                                            <td>' .$email. '</td>
-                                            <td>' .$phone. '</td>
-                                            <td>' .$programme. '</td>
-                                            <td>' .$address. '</td>
-                                            <td>
-                                                <div class="button-group">
-                                                    <!--                                    
-                                                    //TODO: onclick -> start retrieve student list and proceed mapping
-                                                    -->
-                                                    <button id = "login-show" data-target="#editUser' .$Id. '"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                    <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>';
-                                    }
-                                ?>
-                    
                             </tbody>
                         </table>
                     </div>
-            
+                                
                  </div>
             </div>
         </div>
