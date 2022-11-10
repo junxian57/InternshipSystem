@@ -1,5 +1,5 @@
 <?php
-require '../../includes/db_connection.php';
+require_once '../../includes/db_connection.php';
 
 class ComponentLvlDAL
 {
@@ -8,6 +8,24 @@ class ComponentLvlDAL
     {
         $this->databaseConnectionObj = new DBController();
     }
+
+    public function GetAllRubricComponentLevel()
+    {  
+        //$db = new DBController();
+        $listOfRubricCmptLvlDto = array();
+        $sql = "SELECT * FROM RubricComponentLevel";
+        $result = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($result)) {
+            for ($i = 0; $i < count($result); $i++) {
+                $cmpLvlID = $result[$i]['levelID'];
+                $title = $result[$i]['Title'];
+                $level = $result[$i]['Value'];
+                $listOfRubricCmptLvlDto[] = new componentLvlDTO($cmpLvlID, $title, $level);
+            }
+        }
+        return $listOfRubricCmptLvlDto;
+    }
+
     //generate ID
     public function generateID()
     {

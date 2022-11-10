@@ -15,6 +15,10 @@ class rubricAssessmentBLL
         return $this->rubricAssessmentDal->GetAllRubricAssessment();
     }
 
+    public function GetRubricAssessment($assessmentID)
+    {
+        return $this->rubricAssessmentDal->GetRubricAssmt($assessmentID);
+    }
     public function GenerateHtmlForAllRubricAssessment()
     {
 
@@ -44,11 +48,10 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
                 //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
-
                 $all_rubricAssessment_html .= '<td>
-				<button type="button" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '"></span>
-				</button>
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">
+                
+                </a>
 				<button type="button" class="btn btn-danger btn-xs dt-delete">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
@@ -80,9 +83,23 @@ class rubricAssessmentBLL
         return false;
     }
 
+    public function UpdRubricAssmt($rubricAssmtDto)
+    {
+
+        if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
+            $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
+            return false;
+        }
+
+        if ($this->IsValidRubric($rubricAssmtDto)) {
+            $this->rubricAssessmentDal->UpdRubricAssmt($rubricAssmtDto);
+            return true;
+        }
+        return false;
+    }
     public function IsValidRubric($rubricAssmtDto)
     {
-        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID())) {
+        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID(), $rubricAssmtDto->getAssmtId())) {
             $this->errorMessage = 'Rubric ' . $rubricAssmtDto->getTitle() . ' already exists in this session. Try a different one.';
             return false;
         } else {
@@ -90,8 +107,8 @@ class rubricAssessmentBLL
         }
     }
 
-    public function IsRubricExists($Title, $internshipBatchID)
+    public function IsRubricExists($Title, $internshipBatchID, $assmtID)
     {
-        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID);
+        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID, $assmtID);
     }
 }
