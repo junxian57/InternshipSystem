@@ -5,13 +5,19 @@ error_reporting(0);
 require_once('../../app/BLL/rubricAssessmentBLL.php');
 require_once("../../app/DTO/rubricAssessmentDTO.php");
 require_once("../../app/DAL/rubricAssessmentDAL.php");
+
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
 $rubricAssessmentBllObj  = new rubricAssessmentBLL();
 
 $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessment();
+require_once('../../app/DAL/ComponentLvlDAL.php');
+require_once('../../app/BLL/componentLvlBLL.php');
+require_once('../../app/DTO/componentLvlDTO.php');
+$rubricCmpLvlBLLObj = new componentLvlBLL();
 
+$all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -59,7 +65,7 @@ $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessm
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Rubric Assessment</button>
-                            <button class="tablinks" onclick="changeTab(event, 'Final')">Final Work Progress Report</button>
+                            <button class="tablinks" onclick="changeTab(event, 'RubricCmpLvlTab')">Rubric Component Level</button>
                         </div>
 
 
@@ -86,223 +92,30 @@ $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessm
 
 
                         </div>
-                        <div id="Final" class="tabcontent">
-                            <div class="table-title">
-                                <h4>Preview Table</h4>
-                                <p>Hint: Table Below Is Scrollable</p>
+                        <div id="RubricCmpLvlTab" class="tabcontent">
+                            <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
+                            <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
+                            <?php elseif ($rubricCmpLvlBLLObj->errorMessage != '') : echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>"; ?>
+                            <?php endif; ?>
+                            <div class="row">
+                                <div class="table-title">
+                                    <h4>Preview Table</h4>
+                                </div>
+                                <div class="text-right col-sm-12">
+                                    <button type="button" class="btn btn-primary" data-target="#cmpLvlModal" data-toggle="modal" href="../popUp/addeditComponentLevel.php?act">Add New Rubric Component Level</button>
+                                </div>
                             </div>
 
-                            <table id="finalTable" class="table-responsive">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Final Report ID</th>
-                                    <th>Submit Date Time</th>
-                                    <th>Report</th>
-                                    <th>Submit On Time</th>
-                                    <th style="border-right: 0;">Action</th>
-                                    <th style="border-left: 0;"></th>
-                                </tr>
+                            <?php
+                            echo $all_rubricCmpLvl;
+                            ?>
 
-                                <tr>
-                                    <td>1</td>
-                                    <td>FRPT000001</td>
-                                    <td>2023-07-30 12:00:00</td>
-                                    <td>Maria Anders</td>
-                                    <td>YES</td>
-                                    <td>
-                                        <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                    </td>
-                                    <td>
-                                        <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>FRPT000002</td>
-                                    <td>2023-07-30 12:00:00</td>
-                                    <td>Maria Anders</td>
-                                    <td>YES</td>
-                                    <td>
-                                        <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                    </td>
-                                    <td>
-                                        <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>FRPT000003</td>
-                                    <td>2023-07-30 12:00:00</td>
-                                    <td>Maria Anders</td>
-                                    <td>YES</td>
-                                    <td>
-                                        <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                    </td>
-                                    <td>
-                                        <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>FRPT000004</td>
-                                    <td>2023-07-30 12:00:00</td>
-                                    <td>Maria Anders</td>
-                                    <td>YES</td>
-                                    <td>
-                                        <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                    </td>
-                                    <td>
-                                        <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>FRPT000005</td>
-                                    <td>2023-07-30 12:00:00</td>
-                                    <td>Maria Anders</td>
-                                    <td>YES</td>
-                                    <td>
-                                        <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                    </td>
-                                    <td>
-                                        <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                    </td>
-                                </tr>
-
-                                <td>6</td>
-                                <td>FRPT000006</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>7</td>
-                                <td>FRPT000007</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>8</td>
-                                <td>FRPT000008</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>9</td>
-                                <td>FRPT000009</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>10</td>
-                                <td>FRPT000010</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>11</td>
-                                <td>FRPT000011</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>12</td>
-                                <td>FRPT000012</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>13</td>
-                                <td>FRPT000013</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>14</td>
-                                <td>FRPT000014</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-
-                                <td>15</td>
-                                <td>FRPT000015</td>
-                                <td>2023-07-30 12:00:00</td>
-                                <td>Maria Anders</td>
-                                <td>YES</td>
-                                <td>
-                                    <a class="view" href="view-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">View</a>
-                                </td>
-                                <td>
-                                    <a class="view" href="print-workprogress.php?workprogressid=<?php echo "weeklyReportID"; ?>">Print</a>
-                                </td>
-                                </tr>
-                            </table>
+                            <div class="modal fade text-center" id="cmpLvlModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -356,6 +169,27 @@ $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessm
             <script>
                 $(document).ready(function() {
                     $('#rubricCmpTbl').DataTable({
+                        //custom search bar 
+                        "language": {
+                            searchPlaceholder: "Search records"
+                        },
+                        "searchBox": {
+                            "addClass": 'form-control input-lg col-xs-12'
+                        },
+
+                        "fnDrawCallback": function() {
+                            $("input[type='search']").attr("id", "searchBox");
+                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                            //$('#searchBox').css("width", "250px");
+                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+
+                            $('.sorting').css("width", "");
+                            //$('#test1').style.remove('width');
+                        },
+                    });
+                    $('#RubricCmpLvlTbl').DataTable({
                         //custom search bar 
                         "language": {
                             searchPlaceholder: "Search records"
