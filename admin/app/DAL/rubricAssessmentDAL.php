@@ -40,6 +40,33 @@ class rubricAssessmentDAL
         return $listOfRubricAssessmentDto;
     }
 
+    /**
+     * Get a student
+     *
+     * @param string $assessmentID
+     * @return bool|\rubricAssessmentDTO
+     */
+    public function GetRubricAssmt($assessmentID)
+    {
+        $sql = "SELECT * FROM RubricAssessment WHERE assessmentID= '$assessmentID'";
+        $aRubricAssmt = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($aRubricAssmt)) {
+            $listOfRubricAssessmentObj = new rubricAssessmentDTO(
+                $aRubricAssmt[0]['assessmentID'],
+                $aRubricAssmt[0]['internshipBatchID'],
+                $aRubricAssmt[0]['Title'],
+                $aRubricAssmt[0]['Instructions'],
+                $aRubricAssmt[0]['TotalWeight'],
+                $aRubricAssmt[0]['RoleForMark'],
+                $aRubricAssmt[0]['CreateByID'],
+                $aRubricAssmt[0]['CreateDate']
+            );
+            return $listOfRubricAssessmentObj;
+        }
+
+        return false;
+    }
+
     //generate ID
     public function generateID()
     {
@@ -69,10 +96,9 @@ class rubricAssessmentDAL
     }
 
     /**
-     * Insert New Student
+     * Insert New Rubric Assessment
      *
-     * @param object $studentDto
-     * @return int
+     * @param object $rubricAssmtDto
      */
     public function AddRubricAssmt($rubricAssmtDto)
     {
@@ -90,10 +116,34 @@ class rubricAssessmentDAL
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         if ($result) {
-            header("Location: ../../view/page/addComponentLevel.php?status=success");
+            header("Location: ../../view/page/addRubricAssessment.php?status=success");
             exit();
         } else {
-            header("Location: ../../view/page/addComponentLevel.php?status=failed");
+            header("Location: ../../view/page/addRubricAssessment.php?status=failed");
+            exit();
+        }
+    }
+
+    /**
+     * Update Rubric Assessment
+     *
+     * @param object $rubricAssmtDto
+     */
+    public function UpdRubricAssmt($rubricAssmtDto)
+    {
+        $sql = " UPDATE RubricAssessment SET
+            internshipBatchID = '" . $rubricAssmtDto->getInternshipBatchID() . "',
+            Title = '" . $rubricAssmtDto->getTitle() . "',
+            Instructions ='" . $rubricAssmtDto->getInstructions() . "',
+            TotalWeight ='" . $rubricAssmtDto->getTotalWeight() . "',
+            RoleForMark ='" . $rubricAssmtDto->getRoleForMark() . "'
+            WHERE assessmentID ='" . $rubricAssmtDto->getAssmtId() . "'";
+        $result = $this->databaseConnectionObj->executeQuery($sql);
+        if ($result) {
+            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=success&id='" . $rubricAssmtDto->getAssmtId() . "'");
+            exit();
+        } else {
+            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=failed&id='" . $rubricAssmtDto->getAssmtId() . "'");
             exit();
         }
     }
@@ -104,11 +154,12 @@ class rubricAssessmentDAL
      *
      * @param string $tiitle
      * @param int $id
+     * @param string $assmtID
      * @return bool
      */
-    public function IsRubricExists($tiitle, $id)
+    public function IsRubricExists($tiitle, $id, $assmtID)
     {
-        $sql = "SELECT * FROM RubricAssessment WHERE Title='" . $tiitle . "' AND internshipBatchID = $id";
+        $sql = "SELECT * FROM RubricAssessment WHERE Title='" . $tiitle . "' AND assessmentID <>'" . $assmtID . "'AND internshipBatchID = $id ";
         $result = $this->databaseConnectionObj->runQuery($sql);
 
         if (!empty($result)) {

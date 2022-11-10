@@ -10,60 +10,56 @@ class componentLvlBLL
         $this->ComponentLvlDAL = new ComponentLvlDAL();
     }
 
-    /*public function GetAllRubricAssessment()
+    public function GetAllRubricComponentLevel()
     {
-        return $this->ComponentLvlDAL->GetAllRubricAssessment();
-    }*/
+        return $this->ComponentLvlDAL->GetAllRubricComponentLevel();
+    }
 
-    /*public function GenerateHtmlForAllRubricAssessment()
+    public function GenerateHtmlForAllRubricCmpLvl()
     {
 
         //$rubricAssessmentDal = new rubricAssessmentDAL();
 
-        $all_rubricAssessment_html = '';
-        $all_rubricAssessment = $this->GetAllRubricAssessment();
+        $all_rubricCmpLvlt_html = '';
+        $all_rubricCmpLvlt = $this->GetAllRubricComponentLevel();
         $i = 1;
-        if (count($all_rubricAssessment) > 0) {
-            $all_rubricAssessment_html .= '<table id="rubricCmpTbl" class="table table-striped table-bordered range-border" style="border:1px solid orange;">';
-            $all_rubricAssessment_html .= '<thead>';
-            $all_rubricAssessment_html .= '<tr>';
-            $all_rubricAssessment_html .= '<th id="test1">#</th>';
-            $all_rubricAssessment_html .= '<th>Assessment ID</th>';
-            $all_rubricAssessment_html .= '<th>Title </th>';
-            $all_rubricAssessment_html .= '<th>Total Weight</th>';
-            $all_rubricAssessment_html .= '<th>Role For Mark</th>';
-            $all_rubricAssessment_html .= '<th>Action</th>';
-            $all_rubricAssessment_html .= '</tr>';
-            $all_rubricAssessment_html .= '</thead>';
-            $all_rubricAssessment_html .= '<tbody>';
-            foreach ($all_rubricAssessment as $rubricAssessment) {
-                $all_rubricAssessment_html .= '<tr>';
-                $all_rubricAssessment_html .= '<td>' . $i++ . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getAssmtId() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
-                //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
-
-                $all_rubricAssessment_html .= '<td>
+        if (count($all_rubricCmpLvlt) > 0) {
+            $all_rubricCmpLvlt_html .= '<table id="RubricCmpLvlTbl" class="table-view ">';
+            $all_rubricCmpLvlt_html .= '<thead>';
+            $all_rubricCmpLvlt_html .= '<tr>';
+            $all_rubricCmpLvlt_html .= '<th>#</th>';
+            $all_rubricCmpLvlt_html .= '<th>Component Level ID</th>';
+            $all_rubricCmpLvlt_html .= '<th>Title</th>';
+            $all_rubricCmpLvlt_html .= '<th>Range of Mark</th>';
+            $all_rubricCmpLvlt_html .= '<th>Action</th>';
+            $all_rubricCmpLvlt_html .= '</tr>';
+            $all_rubricCmpLvlt_html .= '</thead>';
+            $all_rubricCmpLvlt_html .= '<tbody>';
+            foreach ($all_rubricCmpLvlt as $rubricCmpLvl) {
+                $all_rubricCmpLvlt_html .= '<tr>';
+                $all_rubricCmpLvlt_html .= '<td>' . $i++ . '</td>';
+                $all_rubricCmpLvlt_html .= '<td>' . $rubricCmpLvl->getCmpLvlID() . '</td>';
+                $all_rubricCmpLvlt_html .= '<td>' . $rubricCmpLvl->getcmpTitle() . '</td>';
+                $all_rubricCmpLvlt_html .= '<td>' . $rubricCmpLvl->getValue() . '</td>';
+                $all_rubricCmpLvlt_html .= '<td>
 				<button type="button" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '"></span>
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true" data-target="#theModal" data-toggle="modal"></span>
 				</button>
 				<button type="button" class="btn btn-danger btn-xs dt-delete">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
 			    </td>';
-                //$all_rubricAssessment_html .= '<td class="center"><a onclick="return confirm(\'Do you really want to delete this record?\')" href="index.php?id=' . $rubricAssessment->getAssmtId() . '&delete=yes">Delete</a></td>';
-                $all_rubricAssessment_html .= '</tr>';
+                //$all_rubricCmpLvlt_html .= '<td class="center"><a onclick="return confirm(\'Do you really want to delete this record?\')" href="index.php?id=' . $rubricAssessment->getAssmtId() . '&delete=yes">Delete</a></td>';
+                $all_rubricCmpLvlt_html .= '</tr>';
             }
-            $all_rubricAssessment_html .= '</tbody>';
-            $all_rubricAssessment_html .= '</table>';
+            $all_rubricCmpLvlt_html .= '</tbody>';
+            $all_rubricCmpLvlt_html .= '</table>';
         } else {
-            //$all_rubricAssessment_html = '<div class="alert alert-warning" role="alert">No student found. Try <a href="add.php">add</a> some.</div>';
+            //$all_rubricCmpLvlt_html = '<div class="alert alert-warning" role="alert">No student found. Try <a href="add.php">add</a> some.</div>';
         }
 
-        return $all_rubricAssessment_html;
-    }*/
+        return $all_rubricCmpLvlt_html;
+    }
 
     public function AddRubricCmpLvl($cmpLvlDto)
     {

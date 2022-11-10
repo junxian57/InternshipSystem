@@ -11,22 +11,41 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 } else {
 
 	}*/
-if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
-
-    $rubricAssmtBllObj = new rubricAssessmentBLL();
-    date_default_timezone_set("Asia/Kuala_Lumpur");
-    $date = date('Y-m-d');
-    $assessmentID = $_POST['assessmentID'];
-    $internshipBatchID = $_POST['internshipBatchID'];
-    $Title = $_POST['Title'];
-    $Instructions = $_POST['Instructions'];
-    $TotalWeight = $_POST['TotalWeight'];
-    $RoleForMark = $_POST['RoleForMark'];
-    $CreateByID = $_POST['CreateByID'];
-    $CreateDate = $date;
-    $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
-    $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
+$rubricAssmtBllObj = new rubricAssessmentBLL();
+if ($_GET['act'] == "edit") {
+    $id = str_replace("'", "", $_GET['id']);
+    $id = str_replace("'", "", $_GET['id']);
+    $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
+        $assessmentID = $aRubricAssmt->getAssmtId();
+        echo $assessmentID;
+        $internshipBatchID = $_POST['internshipBatchID'];
+        $Title = $_POST['Title'];
+        $Instructions = $_POST['Instructions'];
+        $TotalWeight = $_POST['TotalWeight'];
+        $RoleForMark = $_POST['RoleForMark'];
+        $CreateByID = $_POST['CreateByID'];
+        $CreateDate = $_POST['createDate'];
+        $updRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+        $rubricAssmtBllObj->UpdRubricAssmt($updRubricAssmt);
+    }
+} else {
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date = date('Y-m-d');
+        $assessmentID = $_POST['assessmentID'];
+        $internshipBatchID = $_POST['internshipBatchID'];
+        $Title = $_POST['Title'];
+        $Instructions = $_POST['Instructions'];
+        $TotalWeight = $_POST['TotalWeight'];
+        $RoleForMark = $_POST['RoleForMark'];
+        $CreateByID = $_POST['CreateByID'];
+        $CreateDate = $date;
+        $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+        $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt);
+    }
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -84,29 +103,63 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <?php if ($_GET['addRubricAssessment'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
-                <?php elseif ($_GET['addRubricAssessment'] == 'success') : echo "<script> addSuccess('Add Rubric Assessment successful'); </script>"; ?>
-                <?php elseif ($rubricAssmtBllObj->errorMessage != '') : echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>"; ?>
-                <?php endif; ?>
+                <?php
+                if ($_GET['act'] == "edit") {
+                    if ($_GET['status'] == 'failed') {
+                        echo "<script> warning('Record cant be Update. Operation failed.');</script>";
+                    } elseif ($_GET['status'] == 'success') {
+                        echo "<script> addSuccess('Update Rubric Assessment successful'); </script>";
+                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
+                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                    }
+                } else {
+                    if ($_GET['status'] == 'failed') {
+                        echo "<script> warning('Record cant be added. Operation failed.');</script>";
+                    } elseif ($_GET['status'] == 'success') {
+                        echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
+                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
+                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                    }
+                }
+                ?>
                 <div class="forms ">
-                    <h3 class="title1">Add Rubric Assessment</h3>
+                    <?php
+                    if ($_GET['act'] == "edit") {
+                        echo '<h3 class="title1">Edit Rubric Assessment</h3>';
+                    } else {
+                        echo '<h3 class="title1">Add Rubric Assessment</h3>';
+                    }
+                    ?>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Rubric Assessment</h4>
                         </div>
                         <div class="form-body">
                             <form method="post">
-                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo $rubricAssessmentDALObj->generateID(); ?>" readonly="readonly"></div>
-                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $rubricAssessmentDALObj->generateID() ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTitle() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Role for Mark</label>
+                                    <!--Change option to array for Role For Mark-->
                                     <select id="inputState" name="RoleForMark" class="form-control" required>
                                         <option selected disabled value="">Choose...</option>
-                                        <option>Company</option>
-                                        <option>Supervisor</option>
+                                        <?php
+                                        $options = array('Company', 'Supervisor');
+                                        foreach ($options as $option) {
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricAssmt->getRoleForMark() == $option) {
+                                                    echo "<option selected='selected' value='$option'>$option</option>";
+                                                } else {
+                                                    echo "<option value='$option'>$option</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='$option'>$option</option>";
+                                            }
+                                        }
+                                        ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTotalWeight() : "" ?>" onchange="changeHandler(this)" required="true"> </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -118,16 +171,26 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                         $results = $db_handle->runQuery($query);
 
                                         for ($i = 0; $i < count($results); $i++) {
-                                            echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricAssmt->getInternshipBatchID() == $results[$i]['internshipBatchID']) {
+                                                    echo "<option selected='selected' value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </div>
+                                <input id="createDate" name="createDate" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getCreateDate() : "" ?>" hidden></input>
                                 <div class="form-group col-md-3"> <label>Intern End Day</label> <input type="text" id="InternEndDate" name="InternEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
-                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required></textarea></div>
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add rubric assessment" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getInstructions() : "" ?></textarea></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit rubric assessment" : "Add rubric assessment" ?>" class="form-group btn btn-default">Save</button></div>
 
                             </form>
                         </div>
@@ -170,6 +233,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 }
 
             }
+
+            window.onload = function() {
+                insertDate();
+            }
+
             async function fetchInternDate() {
                 const internBatchID = document.getElementById('InternStartDate').value;
                 const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
