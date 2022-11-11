@@ -1,0 +1,93 @@
+.container {
+  max-width: 65rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 5px #000;
+  border: 0.1rem solid #000;
+  background: #fff;
+  padding: 4.5rem;
+  margin: 0 auto;
+}
+
+.container .inputBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.container .inputBox .viewInput {
+  width: 48%;
+}
+
+.container.inputBox .viewInput span {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 17px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.container .inputBox .viewInput input,
+.container .inputBox .viewInput textarea,
+.container .inputBox .viewInput select {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 15px;
+  color: #000;
+  text-transform: none;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.container .inputBox .viewInput textarea {
+  height: 10rem;
+  resize: none;
+}
+
+.subtitle h2 {
+  font-size: calc(1vw + 0.5em);
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  position: relative;
+  text-shadow: 0 0 3px #f2891f;
+}
+
+.subtitle h2::after {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  height: 1px;
+  background-color: #688ba5;
+  content: "";
+}
+
+.subtitle h2.sub-1::after {
+  width: 65%;
+}
+
+.subtitle h2.sub-2::after {
+  width: 83%;
+}
+
+.subtitle h2.sub-3::after {
+  width: 71%;
+}
+
+.approveBtn {
+  font-weight: 600;
+  color: white;
+  background: #39d441 !important;
+  width: 165px;
+}
+
+.rejectBtn {
+  font-weight: 600;
+  color: white;
+  background: tomato !important;
+  width: 85px;
+}
+
+h3.title1 {
+  margin-bottom: 0.8em;
+}
