@@ -12,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .container .inputBox .viewInput {
@@ -42,6 +43,35 @@
 .container .inputBox .viewInput textarea {
   height: 10rem;
   resize: none;
+}
+
+.subtitle h2 {
+  font-size: calc(1vw + 0.5em);
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  position: relative;
+  text-shadow: 0 0 3px #3f9dd9;
+}
+
+.subtitle h2::after {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  height: 1px;
+  background-color: #688ba5;
+  content: "";
+}
+
+.subtitle h2.sub-1::after {
+  width: 62%;
+}
+
+.subtitle h2.sub-2::after {
+  width: 75%;
+}
+
+.subtitle h2.sub-3::after {
+  width: 76%;
 }
 
 .approveBtn {
