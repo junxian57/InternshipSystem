@@ -15,6 +15,11 @@ class componentLvlBLL
         return $this->ComponentLvlDAL->GetAllRubricComponentLevel();
     }
 
+    public function GetCmptLvl($ID)
+    {
+        return $this->ComponentLvlDAL->GetCmptLvl($ID);
+    }
+
     public function GenerateHtmlForAllRubricCmpLvl()
     {
 
@@ -42,9 +47,7 @@ class componentLvlBLL
                 $all_rubricCmpLvlt_html .= '<td>' . $rubricCmpLvl->getcmpTitle() . '</td>';
                 $all_rubricCmpLvlt_html .= '<td>' . $rubricCmpLvl->getValue() . '</td>';
                 $all_rubricCmpLvlt_html .= '<td>
-				<button type="button" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true" data-target="#theModal" data-toggle="modal"></span>
-				</button>
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addComponentLevel.php?act=edit&id=' . $rubricCmpLvl->getCmpLvlID() . '"></a>
 				<button type="button" class="btn btn-danger btn-xs dt-delete">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
@@ -71,6 +74,21 @@ class componentLvlBLL
 
         if ($this->IsValidCmpLvl($cmpLvlDto)) {
             $this->ComponentLvlDAL->AddRubricCmpLvl($cmpLvlDto);
+            return true;
+        }
+        return false;
+    }
+
+    public function UpdRubricCmpLvl($cmpLvlDto)
+    {
+
+        if ($cmpLvlDto->getcmpTitle() == '' || $cmpLvlDto->getValue() == '') {
+            $this->errorMessage = 'Component Level Title, Component Level Weight is required.';
+            return false;
+        }
+
+        if ($this->IsValidCmpLvl($cmpLvlDto)) {
+            $this->ComponentLvlDAL->UpdRubricCmpLvl($cmpLvlDto);
             return true;
         }
         return false;
