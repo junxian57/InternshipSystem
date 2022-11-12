@@ -23,7 +23,7 @@ include('includes/dbconnection.php');
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
-
+  
 	<script>
 		new WOW().init();
 	</script>
@@ -112,7 +112,28 @@ include('includes/dbconnection.php');
             </div>
 
             <div class="subtitle">
-              <h2 class="sub-3">Supporting Documents</h2>
+              <h2 class="sub-2">Skill & Experience</h2>
+            </div>
+            
+            <div class="inputBox">
+              <div class="viewInput" style="width:100%;">
+                <span>Skills</span>
+                <textarea type="text" name="studSkill" readonly value="<?php echo$studSkill; ?>"></textarea>
+              </div> 
+
+              <div class="viewInput" style="width:100%;">
+                <span>Working Experiences</span>
+                <textarea type="text" name="studWorkExpc" readonly value="<?php echo$studWorkExpc; ?>"></textarea>
+              </div> 
+
+              <div class="viewInput" style="width:100%;">
+                <span>Languages Proficiency</span>
+                <input type="text" name="studLanguage" readonly value="<?php echo$studLanguage; ?>">
+              </div>
+            </div>
+
+            <div class="subtitle">
+              <h2 class="sub-3">Supporting Document</h2>
             </div>
             
             <div class="inputBox">
@@ -123,13 +144,40 @@ include('includes/dbconnection.php');
             </div>
             
             <div class="button-group">
-              <button type="submit" class="approveBtn"><i class="fa fa-check" aria-hidden="true"></i>  Call for Interview</button>
+              <button type="submit" id="approveBtn" class="approveBtn"><i class="fa fa-check" aria-hidden="true"></i>  Call for Interview</button>
               <button type="submit" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Reject</button>
             </div>
           </div>
         </div>
 		</div>
 	</div>
+
+  <div class="interviewForm">
+    <div class="formContent">
+      <div class="formWidget">
+        <h1 id="heading1" class="intvw-header title">Interview Requests - <?php echo $cmpName; ?></h1>
+        <div class="close">+</div>
+      </div> 
+      <form id="intvwForm" method="POST">
+        <input type="datetime-local" id="start" class="start" name="start" value="2022-12-01T00:00:00" min="2022-12-01T00:00:00" max="2023-12-31T23:59:59">
+        <textarea id="address" name="address" rows="4" placeholder="Location for Inteview*" required></textarea>
+        <textarea id="things" name="things" rows="4" placeholder="Things to prepare or bring*" required></textarea>
+        <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('approveBtn').addEventListener('click',
+      function(){
+        document.querySelector('.interviewForm').style.display = 'flex';
+      });
+      
+      document.querySelector('.close').addEventListener('click',
+        function(){
+          document.querySelector('.interviewForm').style.display = 'none';
+        })
+  </script>
 	
 	<script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
