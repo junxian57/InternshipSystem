@@ -126,11 +126,23 @@ h3.title1 {
 
 .formContent #start {
   background: transparent;
-  width: 48%;
+  width: 50%;
   height: 30px;
   font-size: 16px;
   margin: 15px auto;
   border: 1px solid black;
+  margin-left: 20px;
+}
+
+.formContent select {
+  color: #2d333f;
+  font-size: 16px;
+  line-height: 24px;
+  height: 30px;
+  width: 36.5%;
+  background: transparent;
+  border: 1px solid black;
+  margin: 10px auto;
   margin-left: 20px;
 }
 

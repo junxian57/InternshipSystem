@@ -23,7 +23,7 @@ include('includes/dbconnection.php');
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
-  
+
 	<script>
 		new WOW().init();
 	</script>
@@ -160,6 +160,15 @@ include('includes/dbconnection.php');
       </div> 
       <form id="intvwForm" method="POST">
         <input type="datetime-local" id="start" class="start" name="start" value="2022-12-01T00:00:00" min="2022-12-01T00:00:00" max="2023-12-31T23:59:59">
+        <select id="duration" name="duration" required>
+          <option selected disabled value="duration">Duration*</option>
+          <option value="15 Minutes">15 Minutes</option>
+          <option value="30 Minutes">30 Minutes</option>
+          <option value="45 Minutes">45 Minutes</option>
+          <option value="60 Minutes">60 Minutes</option>
+          <option value="75 Minutes">75 Minutes</option>
+          <option value="90 Minutes">90 Minutes</option>
+        </select>
         <textarea id="address" name="address" rows="4" placeholder="Location for Inteview*" required></textarea>
         <textarea id="things" name="things" rows="4" placeholder="Things to prepare or bring*" required></textarea>
         <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
