@@ -153,7 +153,7 @@ $pdf = new PDF('p', 'mm', 'A4', true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Nicola Asuni');
+$pdf->SetAuthor('XT');
 $pdf->SetTitle('Offer Letter');
 $pdf->SetSubject('Offer Letter');
 $pdf->SetKeywords('Offer Letter');
