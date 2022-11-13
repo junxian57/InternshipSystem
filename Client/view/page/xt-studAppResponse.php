@@ -48,6 +48,27 @@ include('includes/dbconnection.php');
 				<div class="tablesr">
 					<h3 class="title1">Student Job Application Review</h3>
           <div class="container">
+          <div class="subtitle">
+              <h2 class="sub-1">Interview Details</h2>
+            </div>
+            
+            <div class="inputBox">
+              <div class="viewInput">
+                <span>Interview Date</span>
+                <input type="text" name="studID" readonly value="<?php echo$studID; ?>">
+              </div>
+            
+              <div class="viewInput">
+                <span>Interview Time</span>
+                <input type="text" name="studName" readonly value="<?php echo$studName; ?>">
+              </div>
+
+              <div class="viewInput" style="width:100%;">
+                <span>Location</span>
+                <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
+              </div> 
+            </div>
+
             <div class="subtitle">
               <h2 class="sub-1">Student General Information</h2>
             </div>
@@ -144,7 +165,7 @@ include('includes/dbconnection.php');
             </div>
             
             <div class="button-group">
-              <button type="submit" id="approveBtn" class="approveBtn"><i class="fa fa-check" aria-hidden="true"></i>  Call for Interview</button>
+              <button type="submit" id="acceptBtn" class="acceptBtn"><i class="fa fa-check" aria-hidden="true"></i>  Accept</button>
               <button type="submit" id="rejectBtn" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Reject</button>
             </div>
           </div>
@@ -152,26 +173,33 @@ include('includes/dbconnection.php');
 		</div>
 	</div>
 
-  <div class="interviewForm">
+  <div class="acceptForm">
     <div class="formContent">
       <div class="formWidget">
-        <h1 id="heading1" class="intvw-header title">Interview Requests - <?php echo $cmpName; ?></h1>
+        <h1 id="heading1" class="accept-header title">Offer Letter Details - <?php echo $cmpName; ?></h1>
         <div class="close">+</div>
       </div> 
-      <form id="intvwForm" method="POST">
-        <input type="datetime-local" id="start" class="start" name="start" value="2022-12-01T00:00:00" min="2022-12-01T00:00:00" max="2023-12-31T23:59:59">
-        <select id="duration" name="duration" required>
-          <option selected disabled value="duration">Duration*</option>
-          <option value="15 Minutes">15 Minutes</option>
-          <option value="30 Minutes">30 Minutes</option>
-          <option value="45 Minutes">45 Minutes</option>
-          <option value="60 Minutes">60 Minutes</option>
-          <option value="75 Minutes">75 Minutes</option>
-          <option value="90 Minutes">90 Minutes</option>
+      <form action="makepdf.php" id="acceptForm" method="POST">
+        <span>Student Details</span><br>
+        <input type="text" id="studName" name="studName" placeholder="Student Name*" required>
+        <input type="text" id="nric" name="nric" placeholder="NRIC*" required>
+        <span>Intern Job Details</span><br>
+        <input type="text" id="allowance" name="allowance" placeholder="Allowance*" required>
+        <input type="text" id="position" name="position" placeholder="Intern Position*" required>
+        <textarea id="location" name="location" rows="4" placeholder="Working Location*" required></textarea>
+        <select id="period" name="period" style="width: 91.5%" required>
+          <option selected disabled value="period">Intern Period*</option>
+          <option value="3">3 Months</option>
+          <option value="6">6 Months</option>
+          <option value="9">9 Months</option>
+          <option value="12">12 Months</option>
         </select>
-        <textarea id="address" name="address" rows="4" placeholder="Location for Inteview*" required></textarea>
-        <textarea id="things" name="things" rows="4" placeholder="Things to prepare or bring*" required></textarea>
-        <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
+        <input type="date" value="2022-12-01" name="start" style="margin-right: 5px" required>to<input type="date" value="2022-12-01" name="end" style="margin-left: 5px" required>
+        <span>Supervisor Details</span><br>
+        <input type="text" id="supName" name="supName" placeholder="Supervisor Name*" required>
+        <input type="tel" id="supContact" name="supContact" placeholder="Contact*" required>
+        <input type="email" id="supEmail" name="supEmail" placeholder="Email*" required><br>
+        <button type="submit" id="confirmBtn" class="confirmBtn" name="create">Confirm</button>
       </form>
     </div>
   </div>
@@ -190,14 +218,14 @@ include('includes/dbconnection.php');
   </div>
 
   <script>
-    document.getElementById('approveBtn').addEventListener('click',
+    document.getElementById('acceptBtn').addEventListener('click',
       function(){
-        document.querySelector('.interviewForm').style.display = 'flex';
+        document.querySelector('.acceptForm').style.display = 'flex';
       });
       
       document.querySelector('.close').addEventListener('click',
         function(){
-          document.querySelector('.interviewForm').style.display = 'none';
+          document.querySelector('.acceptForm').style.display = 'none';
         })
 
     document.getElementById('rejectBtn').addEventListener('click',
