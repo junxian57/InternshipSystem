@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-Maintain.css">
+    <link rel="stylesheet" href="../../scss/ky-maintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -258,60 +258,70 @@ include('includes/db_connection.php');
                     <form action="">
                         <div class="user-details">
                             
-                            <div class="input-box">
+                            <div class="pass-box">
+                            <label>Student Name :</label>
                                 <input type="text" placeholder="Enter your name" id="studName2" required readonly>
-                                <i class="uil uil-user-circle icon"></i>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your email" id="email2" required readonly>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your address" id="address2" required readonly>
-                                <i class="uil uil-estate icon"></i>
-                                
-                            </div>
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter contact number" id="phone2" required readonly>
-                                <i class="uil uil-phone icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
-                                <i class="uil uil-graduation-cap icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
-                                <i class="uil uil-book-open icon"></i>
+                               
                             </div>
                             
                             <div class="pass-box">
-                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="fa fa-venus-mars icon"></i>
+                            <label>Programme :</label>
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                                
                             </div>
 
                             <div class="pass-box">
-                        
+                            <label>Lecturer ID :</label>
                             <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="fa fa-venus-mars icon"></i>
                             </div>
 
                             <div class="pass-box">
+                            <label>Internship Batch ID :</label>
                             <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="fa fa-venus-mars icon"></i>
+                            
+                            </div>
+
+                            <div class="input-box">
+                            <label>Address :</label>
+                                <input type="text" placeholder="Enter your address" id="address2" required readonly>
+                                
+                            </div>
+                            
+                            <div class="pass-box">
+                            <label>Email :</label>
+                                <input type="text" placeholder="Enter your email" id="email2" required readonly>
+                                
+                            </div>
+                            
+                            <div class="pass-box">
+                            <label>Contact Number:</label>
+                                <input type="text" placeholder="Enter contact number" id="phone2" required readonly>
+                            
+                            </div>
+
+                            <div class="pass-box">
+                            <label>Date Jioned :</label>
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                         
+                            </div>
+                            
+                            <div class="pass-box">
+                            <label>Application Quota :</label>
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                              
+                            </div>
+
+                            <div class="pass-box">
+                            <label>Current No Application :</label>
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                            
                             </div>
 
                             <div class="pass-box">
                             <label>Account Status :</label>
                             <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                
+                             
                             </div>
-
-
-
 
                             <button type = "button" class="submit-btn">Cancel</button>
                         </div> 
