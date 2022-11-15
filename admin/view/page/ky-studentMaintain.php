@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-comMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-Maintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -124,8 +124,8 @@ include('includes/db_connection.php');
                                                     <!--                                    
                                                     //TODO: onclick -> start retrieve student list and proceed mapping
                                                     -->
-                                                    <button id = "login-show" data-target="#editUser' .$Id. '"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                    <button><i class="fa fa-eye" style ="color:red"></i></button>
+                                                    <button type="button" class="editbtn"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button type="button" class="viewbtn"><i class="fa fa-eye" style ="color:red"></i></button>
                                                 </div>
                                             </td>
                                         </tr>';
@@ -141,65 +141,56 @@ include('includes/db_connection.php');
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
-
+     
+<!-- EDIT MODAL -->
     <div id="login-modal">
         <div class="model">
             <div class="top-form">
-                <h2>Student Details</h2>
+                <h2>Edit Student Details</h2>
                 <div class="close-modal">
                     &#10006;
                 </div>  
             </div>
             <div class="login-form">
                 <div class="content">
-                    <form action="">
+                    <form action="ky-updateStudent.php" method="POST">
                         <div class="user-details">
-                            
+                            <input type="hidden" name="update_id" id="update_id">
                             <div class="input-box">
-                                <input type="text" placeholder="Enter your name" required>
+                                <input type="text" placeholder="Enter your name" name="studName" id="studName" required>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" placeholder="Enter your email" required>
+                                <input type="text" placeholder="Enter your email" name="email" id="email" required>
                                 <i class="uil uil-envelope icon"></i>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" placeholder="Enter your address" required>
+                                <input type="text" placeholder="Enter your address" name="address" id="address"required>
                                 <i class="uil uil-estate icon"></i>
                                 
                             </div>
                             <div class="input-box">
-                                <input type="text" placeholder="Enter contact number" required>
+                                <input type="text" placeholder="Enter contact number" name="phone" id="phone" required>
                                 <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">
-                                    <option selected disabled>Choose Faculty</option>
-                                    <option>FOCS</option>
-                                    <option>FAFB</option>
-                                    <option>FOET</option>
-                                    <option>FOAS</option>
-                                </select>
+                                <input type="text" placeholder="Enter programme" name="programme" id="programme" required>
                                 <i class="uil uil-graduation-cap icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">                             
-                                    <option selected disabled>Choose Programme</option>    
-                                    <option>REI</option>
-                                    <option>RIS</option>
-                                    <option>RIT</option>
-                                    <option>RDS</option>
-                                </select>
+                                <input type="text" placeholder="Enter gender" name="gender" id="gender" required>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
                             
-                            <div class="input-box">
-                                <input type="radio" name="gender" id="dot-1">
-                                <input type="radio" name="gender" id="dot-2">
+                            <!--<div class="input-box">
+                                <input type="radio" name="gender" id="dot-1" <?php echo $gender =="Male"?
+                                   "checked=checked":""?>>
+                                <input type="radio" name="gender" id="dot-2" <?php echo $gender =="Female"?
+                                   "checked=checked":""?>>
                                 <input type="radio" name="gender" id="dot-3">
                                 
                                 <div class="category">
@@ -219,7 +210,7 @@ include('includes/db_connection.php');
                                     </label>
                                     
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="input-box">
                                 <input type="radio" name="status" id="dot-4">
@@ -244,7 +235,84 @@ include('includes/db_connection.php');
                                 </div>
                             </div>
 
-                            <button type = "button" class="submit-btn">Update</button>
+                            <button type = "submit" name="updatedata" class="submit-btn">Update</button>
+                            <button type = "button" class="submit-btn">Cancel</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+<!-- VIEW MODAL -->
+    <div id="view-modal">
+        <div class="model">
+            <div class="top-form">
+                <h2>Student Details</h2>
+                <div class="close-modal">
+                    &#10006;
+                </div>  
+            </div>
+            <div class="login-form">
+                <div class="content">
+                    <form action="">
+                        <div class="user-details">
+                            
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter your name" id="studName2" required readonly>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter your email" id="email2" required readonly>
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter your address" id="address2" required readonly>
+                                <i class="uil uil-estate icon"></i>
+                                
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Enter contact number" id="phone2" required readonly>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                                <i class="uil uil-graduation-cap icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="fa fa-venus-mars icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                        
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="fa fa-venus-mars icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="fa fa-venus-mars icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                            <label>Account Status :</label>
+                            <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                
+                            </div>
+
+
+
+
                             <button type = "button" class="submit-btn">Cancel</button>
                         </div> 
                     </form>
@@ -265,6 +333,54 @@ include('includes/db_connection.php');
             });
         });
     </script>
+
+<script>
+        $(document).ready(function(){
+            $('.editbtn').on('click', function () {
+                $('#login-modal').fadeIn().css("display", "flex");
+                $tr=$(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('#update_id').val(data[0]);
+                $('#studName').val(data[1]);
+                $('#gender').val(data[2]);
+                $('#email').val(data[3]);
+                $('#phone').val(data[4]);
+                $('#programme').val(data[5]);
+                $('#address').val(data[6]);
+            });
+        
+        });
+    </script>
+
+<script>
+        $(document).ready(function(){
+            $('.viewbtn').on('click', function () {
+                $('#view-modal').fadeIn().css("display", "flex");
+                $tr=$(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('#studName2').val(data[1]);
+                $('#gender2').val(data[2]);
+                $('#email2').val(data[3]);
+                $('#phone2').val(data[4]);
+                $('#programme2').val(data[5]);
+                $('#address2').val(data[6]);
+            });
+
+            $('.close-modal').click(function(){
+                $('#view-modal').fadeOut();
+            });
+        
+        });
+    </script>
+
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>

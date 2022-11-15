@@ -66,7 +66,7 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="page-title">Student Maintenance</h3>
+                    <h3 class="page-title">Student Invitation</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
@@ -121,7 +121,7 @@ include('includes/db_connection.php');
                                                 <td>' .$programme. '</td>
                                                 <td>' .$address. '</td>
                                                 <td>
-                                                <form action="send.php" method="post">
+                                                <form action="ky-send.php" method="post">
                                                 <input type="hidden" name="email" id="email" value="'.$email.'">
                                                 <input type="hidden" name="username" id="username" value="'.$username.'">
                                                 <input type="hidden" name="id" id="id" value="'.$Id.'">
