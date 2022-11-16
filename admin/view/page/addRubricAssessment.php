@@ -140,7 +140,6 @@ if ($_GET['act'] == "edit") {
                                 <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTitle() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Role for Mark</label>
-                                    <!--Change option to array for Role For Mark-->
                                     <select id="inputState" name="RoleForMark" class="form-control" required>
                                         <option selected disabled value="">Choose...</option>
                                         <?php

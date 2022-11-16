@@ -1,6 +1,27 @@
 <?php
 require_once '../../includes/db_connection.php';
+if (isset($_GET['ComponentLevelTitle'])) {
+    $ComponentLevelTitle = $_GET['ComponentLevelTitle'];
+    $db_handle1 = new DBController();
+    $query = "SELECT * FROM RubricComponentLevel WHERE Title = '$ComponentLevelTitle' order by Value ASC ";
+    $results = $db_handle1->runQuery($query);
+    $array = array();
 
+    if (!empty($results)) {
+        for ($i = 0; $i < count($results); $i++) {
+            $levelID = $results[$i]['levelID'];
+            $Title = $results[$i]['Title'];
+            $Value = $results[$i]['Value'];
+            $array[] = array(
+                'levelID' => $levelID,
+                'Title' => $Title,
+                'Value' => $Value
+            );
+        }
+    }
+    echo json_encode($array);
+    exit();
+}
 class ComponentLvlDAL
 {
     protected $databaseConnectionObj;
