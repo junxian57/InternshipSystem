@@ -178,7 +178,7 @@
 
 .view-form form input{
   position: relative;
-  height: 50px;
+  height: 45px;
   width: 100%;
   width: calc(100% / 2 - 20px);
   margin-bottom: 20px;
@@ -193,7 +193,7 @@
   padding: 10px 0px 20px 0;
   border-radius: 10px;
   width: 600px;
-  text-align: center;
+
 }
 
 .top-form{
@@ -219,7 +219,7 @@
 
 .login-form form input{
     position: relative;
-    height: 50px;
+    height: 45px;
     width: 100%;
     width: calc(100% / 2 - 20px);
     margin-bottom: 20px;
@@ -241,12 +241,13 @@
     font-size: 18px;
      font-weight: 500;
      letter-spacing: 1px;  
+     margin-top: 20px;
 }
 
 form{
     padding: 20px;
     width: 600px;
-    text-align: center;
+   
   
   }
   form .user-details{
@@ -268,14 +269,14 @@ form{
     margin-bottom: 5px;
   }
   .user-details .pass-box input, select{
-    height: 50px;
+    height: 45px;
     width: 100%;
     border: 1px solid #ccc;
     border-bottom-width: 2px;
     outline: none;
     font-size: 16px;
     border-radius: 5px;
-    padding-left: 35px;
+    padding-left: 15px;
     transition: all 0.3s ease;
   }
   .user-details .pass-box :is(:focus, :valid){
@@ -292,6 +293,22 @@ form{
       margin-left: 5px;
     }
     
+    .pass-box label{
+        margin-bottom: 10px;
+        height: 10px;
+        color: #f2891f;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .input-box label{
+      margin-bottom: 10px;
+      height: 10px;
+      color: #f2891f;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
     .pass-box input:is(:focus, :valid) ~ i{
       color: #4070f4;
     }
@@ -308,7 +325,7 @@ form{
   
   form .user-details .input-box{
       position: relative;
-      height: 50px;
+      height: 45px;
       width: 100%;
     margin-bottom: 25px;
   }
@@ -319,7 +336,7 @@ form{
     margin-bottom: 5px;
   }
   .user-details .input-box input, select{
-    height: 50px;
+    height: 45px;
     width: 100%;
     border: 1px solid #ccc;
     border-bottom-width: 2px;
