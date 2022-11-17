@@ -9,15 +9,25 @@ require_once("../../app/DAL/rubricAssessmentDAL.php");
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
-$rubricAssessmentBllObj  = new rubricAssessmentBLL();
 
-$all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessment();
 require_once('../../app/DAL/ComponentLvlDAL.php');
 require_once('../../app/BLL/componentLvlBLL.php');
 require_once('../../app/DTO/componentLvlDTO.php');
+
+require_once('../../app/BLL/rubricAssessmentComponentBLL.php');
+require_once("../../app/DTO/rubricAssessmentComponentDTO.php");
+require_once("../../app/DTO/rubricComponentDTO.php");
+require_once("../../app/DAL/rubricAssessmentComponentDAL.php");
+
+$rubricAssessmentBllObj  = new rubricAssessmentBLL();
+$all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessment();
+
 $rubricCmpLvlBLLObj = new componentLvlBLL();
 
 $all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
+
+$rubricAssessmentComponentBllObj = new rubricAssessmentComponentBLL();
+$all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRubricCmpCriteria();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -65,6 +75,7 @@ $all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Rubric Assessment</button>
+                            <button class="tablinks" onclick="changeTab(event, 'RubricCmpCriteriaTab')">Rubric Component Criteria</button>
                             <button class="tablinks" onclick="changeTab(event, 'RubricCmpLvlTab')">Rubric Component Level</button>
                         </div>
 
@@ -89,9 +100,32 @@ $all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div id="RubricCmpCriteriaTab" class="tabcontent">
+                            <div class="row">
+                                <div class="table-title">
+                                    <h4>Preview Table</h4>
+                                </div>
+                                <div class="text-right col-sm-12">
+                                    <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $all_rubricCmpCriteria;
+                            ?>
+
+                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    </div>
+                                </div>
+                            </div>
 
 
                         </div>
+
                         <div id="RubricCmpLvlTab" class="tabcontent">
                             <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
                             <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
@@ -190,6 +224,27 @@ $all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
                         },
                     });
                     $('#RubricCmpLvlTbl').DataTable({
+                        //custom search bar 
+                        "language": {
+                            searchPlaceholder: "Search records"
+                        },
+                        "searchBox": {
+                            "addClass": 'form-control input-lg col-xs-12'
+                        },
+
+                        "fnDrawCallback": function() {
+                            $("input[type='search']").attr("id", "searchBox");
+                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                            //$('#searchBox').css("width", "250px");
+                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+
+                            $('.sorting').css("width", "");
+                            //$('#test1').style.remove('width');
+                        },
+                    });
+                    $('#RubricCmpCriteriaTbl').DataTable({
                         //custom search bar 
                         "language": {
                             searchPlaceholder: "Search records"

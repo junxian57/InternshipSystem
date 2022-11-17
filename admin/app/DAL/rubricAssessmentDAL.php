@@ -3,7 +3,7 @@
 /**
  * Class for database interaction
  */
-require("../../includes/db_connection.php");
+require_once("../../includes/db_connection.php");
 class rubricAssessmentDAL
 {
 
