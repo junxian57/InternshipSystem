@@ -179,7 +179,7 @@ include('includes/dbconnection.php');
         <h1 id="heading1" class="accept-header title">Offer Letter Details - <?php echo $cmpName; ?></h1>
         <div class="close">+</div>
       </div> 
-      <form action="makepdf.php" id="acceptForm" method="POST">
+      <form action="xt-offerLetter.php" id="acceptForm" method="POST">
         <span>Student Details</span><br>
         <input type="text" id="studName" name="studName" placeholder="Student Name*" required>
         <input type="text" id="nric" name="nric" placeholder="NRIC*" required>
