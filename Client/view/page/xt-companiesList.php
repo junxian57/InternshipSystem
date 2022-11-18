@@ -1,10 +1,7 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	session_start();
+	error_reporting(0);
+  include('../../includes/db_connection.php');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -59,7 +56,7 @@ include('includes/dbconnection.php');
 						<table id="cmpListTable" class="sortable">
 							<thead>
 								<tr>
-									<th>#</th>
+									<th>ID</th>
 									<th>
 										<button>
 											<span aria-hidden="true">Company Name ▼</span>
@@ -84,117 +81,31 @@ include('includes/dbconnection.php');
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Unilifesity SDN BHD</td>
-									<td>Level 29, Menara Olympia, No 8, Jalan Raja Chulan, 50200 Kuala Lumpur, 50200, Kuala Lumpur</td>
-									<td>unilifesity@gmail.com</td>
-									<td>550 - 800</td>
-								</tr>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+								
+								$conn = mysqli_connect($host, $user, $password, $database); 
 
+								$get_cmp = "SELECT * FROM Company";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+                while($row_cmp = mysqli_fetch_array($run_cmp)){
+									$cmpID = $row_cmp['companyID'];
+									$cmpName = $row_cmp['cmpName'];
+									$cmpAddress = $row_cmp['cmpAddress'];
+									$cmpEmail = $row_cmp['cmpEmail'];
+									$cmpAverageAllowanceGiven = $row_cmp['cmpAverageAllowanceGiven'];
+              ?>
 								<tr>
-									<td>2</td>
-									<td>Samsung Malaysia</td>
-									<td>Phase 3, Bayan Lepas Free Industrial Zone, 11900 Penang, 11900, Johor</td>
-									<td>info@samsung.com</td>
-									<td>1500 - 1500</td>
+									<td><?php echo $cmpID; ?></td>
+									<td><?php echo $cmpName; ?></td>
+									<td><?php echo $cmpAddress; ?></td>
+									<td><?php echo $cmpEmail; ?></td>
+									<td><?php echo $cmpAverageAllowanceGiven; ?></td>
 								</tr>
-
-								<tr>
-									<td>3</td>
-									<td>Hap Seng SDN BHD</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@hapseng.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>4</td>
-									<td>Smazh Premium SDN BHD</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>5</td>
-									<td>SkyWorld Development SDN BHD</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>6</td>
-									<td>Unilifesity SDN BHD</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>7</td>
-									<td>BMW Coding SDN BHD</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>8</td>
-									<td>KK Supermart & Superstore Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>9</td>
-									<td>Arissto (Malaysia) Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>500 - 1000</td>
-								</tr>
-
-								<tr>
-									<td>10</td>
-									<td>Prosains (M) Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>2000 - 2000</td>
-								</tr>
-
-								<tr>
-									<td>11</td>
-									<td>Origin Integrated Studios Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>200 - 500</td>
-								</tr>
-
-								<tr>
-									<td>12</td>
-									<td>Dommal Food Services Sdb Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>200 - 500</td>
-								</tr>
-
-								<tr>
-									<td>13</td>
-									<td>Sunway Money Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>200 - 500</td>
-								</tr>
-
-								<tr>
-									<td>14</td>
-									<td>Fire Pos Sdn Bhd</td>
-									<td>D-35-05, Menara Suezcap 1,KL Gateway, Jalan Kerinchi, 59200 Kuala Lumpur, 46300, Selangor</td>
-									<td>jasmineyy@gmail.com</td>
-									<td>200 - 500</td>
-								</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>

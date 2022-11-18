@@ -1,10 +1,7 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	session_start();
+	error_reporting(0);
+  include('../../includes/db_connection.php');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -95,159 +92,37 @@ include('includes/dbconnection.php');
 						</thead>
 
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Unilifesity SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>3</td>
-								<td>800 - 1000</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+						<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+								
+								$conn = mysqli_connect($host, $user, $password, $database); 
 
+								$get_cmp = "SELECT * FROM Company";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+                while($row_cmp = mysqli_fetch_array($run_cmp)){
+									$cmpID = $row_cmp['companyID'];
+									$cmpName = $row_cmp['cmpName'];
+									$cmpFieldsArea = $row_cmp['cmpFieldsArea'];
+									$cmpState = $row_cmp['cmpState'];
+									$cmpSize = $row_cmp['cmpCompanySize'];
+									$cmpRating = $row_cmp['cmpRating'];
+									$cmpAverageAllowanceGiven = $row_cmp['cmpAverageAllowanceGiven'];
+									$i++;
+              ?>
 							<tr>
-								<td>2</td>
-								<td>Samsung Malaysia</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
+								<td><?php echo $i; ?></td>
+								<td><?php echo $cmpName; ?></td>
+								<td><?php echo $cmpFieldsArea; ?></td>
+								<td><?php echo $cmpState; ?></td>
+								<td><?php echo $cmpSize; ?></td>
+								<td><?php echo $cmpRating; ?></td>
+								<td><?php echo $cmpAverageAllowanceGiven; ?></td>
+								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "$cmpID"; ?>">View</a></td>
 							</tr>
-
-							<tr>
-								<td>3</td>
-								<td>Hap Seng SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Pulau Pinang</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>4</td>
-								<td>Smazh Premium SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>5</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>5</td>
-								<td>SkyWorld Development SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kedah</td>
-								<td>50 - 100</td>
-								<td>5</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>6</td>
-								<td>Unilifesity SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kelantan</td>
-								<td>50 - 100</td>
-								<td>2</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>								
-							</tr>
-
-							<tr>
-								<td>7</td>
-								<td>BMW Coding SDN BHD</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>3</td>									
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>8</td>
-								<td>KK Supermart & Superstore Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Kuala Lumpur</td>
-								<td>50 - 100</td>
-								<td>3</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>9</td>
-								<td>Arissto (Malaysia) Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Johor</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-							
-							<tr>
-								<td>10</td>
-								<td>Prosains (M) Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Selangor</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1200 - 1500</td>									
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>11</td>
-								<td>Origin Integrated Studios Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Sarawak</td>
-								<td>50 - 100</td>
-								<td>2</td>
-								<td>2000 - 2500</td>									
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>12</td>
-								<td>Dommal Food Services Sdb Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Sabah</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>13</td>
-								<td>Sunway Money Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Melaka</td>
-								<td>50 - 100</td>
-								<td>4</td>									
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
-
-							<tr>
-								<td>14</td>
-								<td>Fire Pos Sdn Bhd</td>
-								<td>Finance and Accounting</td>
-								<td>Pulau Pinang</td>
-								<td>50 - 100</td>
-								<td>4</td>
-								<td>1000 - 1200</td>
-								<td><a class="view" href="xt-viewCompanyDetails.php?cmpID=<?php echo "cmpID"; ?>">View</a></td>
-							</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>
