@@ -49,7 +49,8 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
         echo json_encode("No Data Found");
     }
 
-    exit();
+    exit(0);
+
 }elseif(isset($_GET['facultyID']) && isset($_GET['tab2'])){
     //Tab 2 - Supervisor
     $facultyID = $_GET['facultyID'];
@@ -79,7 +80,7 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
         echo json_encode("No Data Found");
     }
 
-    exit();
+    exit(0);
 
 }elseif(isset($_GET['facultyID']) && isset($_GET['tab3-supervisor'])){
     //Tab 3 - Supervisor
@@ -110,14 +111,14 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
         echo json_encode("No Data Found");
     }
 
-    exit();
+    exit(0);
 
 }elseif(isset($_GET['programmeID']) && isset($_GET['batchID']) && isset($_GET['tab3-student'])){
     //Tab 3 - Student
     $programmeID = $_GET['programmeID'];
     $batchID = $_GET['batchID'];
 
-    $sql = "SELECT COUNT(S.studentID) AS noSelectStudent, S.tutorialGroupNo, IB.studentYear, A.studentCount, P.programmeAcronym
+    $sql = "SELECT COUNT(S.studentID) AS noSelectStudent, S.tutorialGroupNo, IB.studentYear, A.studentCount, P.programmeAcronym, P.programmeID
             FROM InternshipBatch IB 
             LEFT JOIN Student S ON S.internshipBatchID = IB.internshipBatchID
             LEFT JOIN Programme P ON S.programmeID = P.programmeID
@@ -142,7 +143,8 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
                 "tutorialGroupNo" => $result[$i]['tutorialGroupNo'],
                 "studentYear" => $result[$i]['studentYear'],
                 "studentCount" => $result[$i]['studentCount'],
-                "programmeAcronym" => $result[$i]['programmeAcronym']
+                "programmeAcronym" => $result[$i]['programmeAcronym'],
+                "programmeID" => $result[$i]['programmeID']
             );
         }
         echo json_encode($tempArray);
@@ -150,6 +152,6 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
         echo json_encode("No Data Found");
     }
 
-    exit();
+    exit(0);
 }
 ?>

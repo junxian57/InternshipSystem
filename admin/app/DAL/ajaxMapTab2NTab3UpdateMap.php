@@ -5,39 +5,40 @@ require '../../../config/email.php';
 $tempArray = array();
 $db = new DBController();
 
-if(isset($_GET['lectureID']) && isset($_GET['studentIDArr'])){
-    $lectureID = $_GET['lectureID'];
-    $studentIDArr = $_GET['studentIDArr'];
+if(isset($_GET['studentLecMap'])){
+    $studentLecMapArr = json_decode($_GET['studentLecMap']);
+    $result = false;
     $mailConfig = new EmailConfig();
 
-    //remove [] in $studentIDArr
-    $studentIDArr = str_replace("[", "", $studentIDArr);
-    $studentIDArr = str_replace("]", "", $studentIDArr);
+    foreach($studentLecMapArr as $studentID => $lectureID){
+        //Update student lecturerID
+        $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID = '$studentID';";
+        $result = $db->executeQuery($sql);
+       
+        if($result){
+            //Send Email to student
+            $getEmailSql = "SELECT S.studEmail, L.lecName, L.lecEmail FROM Student S, Lecturer L  WHERE S.studentID = '$studentID' AND S.lecturerID = L.lecturerID;";
 
-    $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID IN ($studentIDArr);";
+            $studentEmail = $db->runQuery($getEmailSql);
 
-    $result = $db->executeQuery($sql);
+            $lectureName = $studentEmail[0]['lecName'];
+            $lectureEmail = $studentEmail[0]['lecEmail'];
 
-    
-    if($result){
-        $getEmailSql = "SELECT S.studEmail, L.lecName, L.lecEmail FROM Student S, Lecturer L  WHERE S.studentID IN ($studentIDArr) AND S.lecturerID = L.lecturerID;";
-
-        $studentEmail = $db->runQuery($getEmailSql);
-
-        foreach($studentEmail as $studentInfo){
-            $lectureName = $studentInfo['lecName'];
-            $lectureEmail = $studentInfo['lecEmail'];
-            $mailConfig->singleEmail(
-                $studentInfo['studEmail'], 
+            $sent = $mailConfig->singleEmail(
+                $studentEmail[0]['studEmail'], 
                 "Internship Supervisor Has Been Assigned", 
                 createHTMLmail($lectureName, $lectureEmail)
             );
+
+        }else{
+            echo json_encode($studentID);
+            break;
         }
+        
+    }
 
+    if($result){
         echo json_encode("Success");
-
-    }else{
-        echo json_encode("Failed");
     }
 
     exit(0);
@@ -61,3 +62,6 @@ function createHTMLmail($lectureName, $lectureEmail){
 
     return $html;
 }
+
+
+?>

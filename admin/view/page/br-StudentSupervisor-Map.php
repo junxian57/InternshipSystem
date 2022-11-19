@@ -110,14 +110,14 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <a class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</a>
+                                <button class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
                             </div>
                             <hr>
                             <div class="info-group">
-                                <p>Supervisor Current Slot: <span id="tab1-supervisor-slot">0 / 0</span></p>
+                                <p>Supervisor Current Slot: <span class="orange-font" id="tab1-supervisor-slot">0 / 0</span></p>
                                 <span>|</span>
-                                <p>Student Group Left Slot: <span id="tab1-student-slot">0 / 0</span></p>
+                                <p>Student Group Left Slot: <span class="orange-font"  id="tab1-student-slot">0 / 0</span></p>
                             </div>
                             <hr>
                             <div class="table-title">
@@ -133,7 +133,7 @@ include('../../includes/db_connection.php');
                                         <th>Action</th>
                                     </thead>
                                     <tbody id="tab1-preview-table">
-                                         <tr>
+                                         <!-- <tr>
                                             <td>1</td>
                                             <td>21WMR08523</td>
                                             <td>Bryson</td>
@@ -232,7 +232,7 @@ include('../../includes/db_connection.php');
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -282,7 +282,7 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
+                                <a class="clickable-btn" id="tab2-assign-btn">Assign</a>
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
@@ -293,137 +293,136 @@ include('../../includes/db_connection.php');
                                 <h4>Preview Table</h4>
                             </div>
                             <div>
-                                <table class="table-view">
+                                <table class="table-view" id="tab2-top-table">
                                     <thead>
                                         <th>#</th>
                                         <th>Student ID</th>
                                         <th>Faculty</th>
+                                        <th>Programme</th>
                                         <th>Student Name</th>
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
+                                    <tbody id="tab2-preview-table">
+                                        <!-- <tr>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>2</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
                             <hr>
                             <div class="update-group">
-                                <!--                                    
-                                //TODO: get all data from above and input into database
-                                -->
-                                <button class="clickable-btn" href="#">Update Mapping</button>
+                                <button class="blue-btn clickable-btn" onclick="dataTableClear('#tab2-top-table')">Clear</button>
+                                <button class="grey-btn" id="tab2-update-btn" onclick="tab2NTab3UpdateMapDB(2)" disabled>Update Mapping</button>
                             </div>
                         </div>
 
@@ -458,64 +457,18 @@ include('../../includes/db_connection.php');
                             <div class="checkbox-group">
                                 <form id="supervisor-field">
                                     <fieldset>
-                                        <legend>Supervisor Field - <span class="facAcronym-span">FOCS</span></legend>
+                                        <legend>Supervisor Field - <span class="facAcronym-span"></span></legend>
                                         <div>
                                             <table>
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
-                                                        <th>Curr / Max</th>
+                                                        <th>Fulfilled / Max</th>
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="tab3-small-table" id="tab3-supervisor-table">
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hello</td>
-                                                        <td>1 / 1</td>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                    </tr>
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </fieldset>
@@ -529,7 +482,7 @@ include('../../includes/db_connection.php');
                                            //!!!!! Query need to match internship batch
                                            //TODO: Remember the batch of internship
                                         -->
-                                        <legend>Student Group Field - <span class="facAcronym-span">FOCS</span></legend>
+                                        <legend>Student Group Field - <span class="facAcronym-span"></span></legend>
                                         <!--Create a table with 3 column-->
                                         <div class="table-responsive">
                                             <table>
@@ -540,7 +493,7 @@ include('../../includes/db_connection.php');
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="tab3-small-table" id="tab3-student-table2">
+                                                <tbody class="tab3-small-table" id="tab3-student-table">
                                                    
                                                 </tbody>
                                             </table>
@@ -553,33 +506,36 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <a class="clickable-btn" onclick="confirm('Confirm For Mapping?')">Assign</a>
+                                <a class="clickable-btn" id="tab3-assign-btn">Assign</a>
                                 <!-- 
                                 //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
                                 -->
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab3-programme'), document.getElementById('tab3-internBatch-group'), null, true)">
+                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab3-programme'), document.getElementById('tab3-internBatch-group'), null, true)">
                             </div>
                             <hr>
                             <div class="table-title">
                                 <h4>Preview Table</h4>
                             </div>
                             <div class="tables">
-                                <table class="table-view">
+                                <table class="table-view" id="tab3-top-table">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Student ID</th>
                                             <th>Faculty</th>
+                                            <th>Programme</th>
+                                            <th>Tutorial Group</th>
                                             <th>Student Name</th>
                                             <th>Supervisor</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="tab3-preview-table">
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -588,6 +544,7 @@ include('../../includes/db_connection.php');
                                             <td>2</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -596,6 +553,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -604,6 +562,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -612,6 +571,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -620,6 +580,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -628,6 +589,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -636,6 +598,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -644,6 +607,7 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
@@ -652,42 +616,11 @@ include('../../includes/db_connection.php');
                                             <td>3</td>
                                             <td>21WMR08523</td>
                                             <td>FOCS</td>
+                                            <td>REI</td>
                                             <td>Bryson</td>
                                             <td>Pong Suk Fun</td>
                                             <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -696,7 +629,7 @@ include('../../includes/db_connection.php');
                                 <!--                                    
                                 //TODO: get all data from above and input into database
                                 -->
-                                <button class="clickable-btn" href="#">Update Mapping</button>
+                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>Update Mapping</button>
                             </div>
                         </div>
                     </div>
@@ -730,12 +663,49 @@ include('../../includes/db_connection.php');
     }
 
     $(document).ready(function() {
-        $('.table-view').DataTable({
-        "searching": false,
-        "bLengthChange": false,
-        "info": false
-        });         
+        $('#tab1-top-table').DataTable({
+            "searching": false,
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp'
+        });
     });
+
+    $(document).ready(function() {
+        $('#tab2-top-table').DataTable({
+            "searching": false,
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp',
+            "columnDefs": [{
+                "targets" : 5,
+                "createdCell": function (td, cellData, rowData, row, col){
+                    $(td).attr('data-lectureid', function(){
+                        return document.getElementById('tab2-supervisor-group').value;
+                    });
+                }
+            }] 
+        });
+    })
+
+    $(document).ready(function() {
+        $('#tab3-top-table').DataTable({
+            "searching": false,
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp',
+            "columnDefs": [{
+                "targets" : 6,
+                "createdCell": function (td, cellData, rowData, row, col){
+                    $(td).attr('data-lectureid', function(){
+                        return tab3StoreLectureID;
+                    });
+                }
+            }] 
+        });
+    })
+
+
     
 </script>
 <script>
@@ -744,48 +714,84 @@ include('../../includes/db_connection.php');
     function resetInput(valueInput, selectionInput1, selectionInput2 = null, deleteTable = false){
         valueInput.value = "";
         selectionInput1.selectedIndex = "0";
-        const supervisorSlot = document.getElementById("tab1-supervisor-slot");
-        const getStudentSlot = document.getElementById("tab1-student-slot");
 
         if(valueInput.id == "tab1-supervisor"){
             valueInput.disabled = true;
             selectionInput1.disabled = false;
             selectionInput2.disabled = true;
             removeAllChildNodes(selectionInput2);
-            supervisorSlot.textContent = "0 / 0";
-            getStudentSlot.textContent = "0 / 0";
+
+            document.getElementById("tab1-supervisor-slot").textContent = "0 / 0";
+            document.getElementById("tab1-student-slot").textContent = "0 / 0";
+
             let assignBtn = document.getElementById("tab1-assign-btn");
             assignBtn.disabled = false;
             assignBtn.classList.remove("grey-btn");
             assignBtn.classList.add("clickable-btn");
 
-            document.getElementById('tab1-supervisor').disabled = false;
-            document.getElementById('student-group').disabled = false;
+            document.getElementById('tab1-supervisor').disabled = true;
+            document.getElementById('student-group').disabled = true;
+           
+            //Reset JSON Object
+            tab1LectureSlotCount = {};
 
             let updateBtn = document.getElementById('tab1-update-btn');
             updateBtn.disabled = true;
             updateBtn.classList.remove('clickable-btn');
-            updateBtn.classList.add('grey-btn')
+            updateBtn.classList.add('grey-btn');
+            dataTableClear('#tab1-top-table');
 
         }else if(valueInput.id == "tab2-student"){
             valueInput.disabled = true;
             selectionInput1.disabled = false;
             selectionInput2.disabled = true;
             removeAllChildNodes(selectionInput2);
+
+            tab2LectureSlotCount = {};
+            tab2StoreStudent = {};
+
+            let updateBtn = document.getElementById('tab2-update-btn');
+            updateBtn.disabled = true;
+            updateBtn.classList.add('grey-btn');
+            updateBtn.classList.remove('clickable-btn');
+
+            dataTableClear("#tab2-top-table");
+
         }else if(valueInput.id == "tab3-programme"){
             valueInput.disabled = true;
             selectionInput1.disabled = false;
+
+            dataTableClear("#tab3-top-table");
+
+            tab3LectureSlotCount = {};
+            tab3StoreStudent = {};
+            tab3StoreLectureID = "";
+            
+            let updateBtn = document.getElementById('tab3-update-btn');
+            updateBtn.disabled = true;
+            updateBtn.classList.add('grey-btn');
+            updateBtn.classList.remove('clickable-btn');
+            
+            document.getElementById("tab3-programme").removeAttribute("data-programmeid");
+
+            document.querySelectorAll(".facAcronym-span").forEach((item) => {
+                item.textContent = "";
+            });
+
+            document.getElementById('tab3-assign-btn').disabled = false;
+            document.getElementById('tab3-assign-btn').classList.add('clickable-btn');
+            document.getElementById('tab3-assign-btn').classList.remove('grey-btn');
         }
         
         if(selectionInput2 != null){
-            selectionInput2.selectedIndex = "0";
+            selectionInput2.selectedIndex = 0;
         }
 
         if(deleteTable){
            const tableArr = document.getElementsByClassName("tab3-small-table");
-              for(let i = 0; i < tableArr.length; i++){
+            for(let i = 0; i < tableArr.length; i++){
                 removeAllChildNodes(tableArr[i]);
-              }
+            }
         }
     }
 
@@ -839,13 +845,20 @@ include('../../includes/db_connection.php');
                     if(tabID == "tab1-supervisor"){
                         supervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
                         getSearchBar.setAttribute("data-lectureid", list.target.dataset.lectureid);
+                        getSearchBar.setAttribute("data-availableslot", list.target.dataset.maxno - list.target.dataset.currno);
+                        getSearchBar.setAttribute("data-maxno", list.target.dataset.maxno);
                         tutorialGroupData(list.target.dataset.facultyid);
+                        getSearchBar.disabled = true;
                     }else if(tabID == "tab2-student"){
-                        tab2SupervisorGroupData(list.target.dataset.facultyid);
+                        getSearchBar.setAttribute("data-studentid", list.target.dataset.studentid);
+                        getSearchBar.setAttribute("data-studname", decodeURIComponent(list.target.dataset.studname));
+                        getSearchBar.setAttribute("data-facAcronym", list.target.dataset.facacronym);
+                        getSearchBar.setAttribute("data-progAcronym", list.target.dataset.progacronym);
+                        tab2SupervisorGroupData(list.target.dataset.facultyid);                
                     }else if(tabID == "tab3-programme"){
+                        getSearchBar.setAttribute("data-programmeid", list.target.dataset.programmeid);
                         tab3InsertTable(list.target.dataset.facultyid, list.target.dataset.programmeid);
-                    }
-                    
+                    }                
                 });
             }
         } else {
@@ -928,6 +941,9 @@ include('../../includes/db_connection.php');
 
                 option.innerText = `${respondResult[i].facAcronym} : ${respondResult[i].lecName} - ${respondResult[i].currNoOfStudents} / ${respondResult[i].maxNoOfStudents}`;
 
+                option.setAttribute("data-lecturername", respondResult[i].lecName);
+                option.setAttribute("data-ableMapCount", respondResult[i].maxNoOfStudents - respondResult[i].currNoOfStudents);
+
                 supervisorSelect.appendChild(option);
             }
         }else{
@@ -954,7 +970,7 @@ include('../../includes/db_connection.php');
         const supervisorResult = await getTab3SupervisorTable(facultyID);
         const studentResult = await getTab3StudentTable(programmeID);
         const supervisorTable = document.getElementById("tab3-supervisor-table");
-        const studentTable = document.getElementById("tab3-student-table2");
+        const studentTable = document.getElementById("tab3-student-table");
         const getSpan = document.getElementsByClassName("facAcronym-span");
 
         if(supervisorTable.hasChildNodes()){
@@ -974,6 +990,12 @@ include('../../includes/db_connection.php');
             //Insert Supervisor Table Row
             for(let i = 0; i < supervisorResult.length; i++){
                 let trLeft = document.createElement("tr");
+                trLeft.setAttribute("data-lecturerid", supervisorResult[i].lecturerID);
+                trLeft.setAttribute("data-lecname", supervisorResult[i].lecName);
+                trLeft.setAttribute("data-maxstudent", supervisorResult[i].maxNoOfStudents);
+                trLeft.setAttribute("data-currstudent", supervisorResult[i].currNoOfStudents);
+                trLeft.setAttribute("data-ablemapcount", supervisorResult[i].maxNoOfStudents - supervisorResult[i].currNoOfStudents);
+
                 trLeft.innerHTML = `
                     <td>${supervisorResult[i].lecName}</td>
                     <td>${supervisorResult[i].currNoOfStudents} / ${supervisorResult[i].maxNoOfStudents}</td>
@@ -981,12 +1003,19 @@ include('../../includes/db_connection.php');
                         <input type="checkbox" name="${supervisorResult[i].lecturerID}" class="tab-3-checkbox">
                     </td>
                 `;
+
                 supervisorTable.appendChild(trLeft);
             }
 
             //Insert Student Table Row
             for(let j = 0; j < studentResult.length; j++){
                 let trRight = document.createElement("tr");
+                trRight.setAttribute("data-tutorialgroup", studentResult[j].tutorialGroupNo);
+                trRight.setAttribute("data-progid", studentResult[j].programmeID);
+                trRight.setAttribute("data-noselectstudent", studentResult[j].noSelectStudent);
+                trRight.setAttribute("data-studentcount", studentResult[j].studentCount);
+                trRight.setAttribute('data-tutorialyear', studentResult[j].studentYear);
+
                 trRight.innerHTML = `
                     <td>${studentResult[j].programmeAcronym} / ${studentResult[j].studentYear} / ${studentResult[j].tutorialGroupNo}</td>
                     <td>${studentResult[j].noSelectStudent} / ${studentResult[j].studentCount}</td>
@@ -994,11 +1023,14 @@ include('../../includes/db_connection.php');
                         <input type="checkbox" data-progAcronym="${studentResult[j].programmeAcronym}" data-tutorialGroup="${studentResult[j].tutorialGroupNo}" class="tab-3-checkbox">
                     </td>
                 `;
+
                 studentTable.appendChild(trRight);
             }
             
         }else{
             alert("No Data Found");
+            document.getElementById('tab3-programme').value = "";
+            return;
         }
     }
 
@@ -1041,9 +1073,10 @@ include('../../includes/db_connection.php');
 
         const getResultBox = document.getElementById(resultBoxNo);
         const respondResult = await searchBarData(searchBarTab, tabID);
+        const getSearchBarValue = searchBarTab.value;
         let resultArr = [];
 
-        if (respondResult == "No Data Found") {
+        if (respondResult == "No Data Found" || getSearchBarValue == "") {
             getResultBox.style.display = 'none';
             return;
         }
@@ -1062,7 +1095,7 @@ include('../../includes/db_connection.php');
             }else if(tabID == 'tab2-student'){
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                        `<li data-facultyID=${respondResult[i].facultyID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
+                        `<li data-facultyID=${respondResult[i].facultyID} data-facAcronym=${respondResult[i].facAcronym} data-progAcronym=${respondResult[i].programmeAcronym} data-studName=${encodeURIComponent(respondResult[i].studName)} data-studentID=${respondResult[i].studentID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
                     );
                 }
             }else if(tabID == 'tab3-programme'){
@@ -1118,44 +1151,102 @@ include('../../includes/db_connection.php');
 </script>
 <script>
     function deleteRow(table, row) {
-        let i = row.parentNode.parentNode.rowIndex;
-        document.getElementById(table).deleteRow(i);
+        let tabTable = $(`#${table}`).DataTable();
+        tabTable.row(row.parentNode.parentNode).remove().draw();
+        let tabUpdateBtn;
+
+        if(table == 'tab1-top-table'){
+            tabUpdateBtn = 'tab1-update-btn';
+           
+        }else if(table == 'tab2-top-table'){
+            tabUpdateBtn = 'tab2-update-btn';
+
+            //Remove Student
+            delete tab2StoreStudent[row.parentNode.parentNode.childNodes[1].innerText];
+            //Reset Lecture Count
+            tab2LectureSlotCount[row.parentNode.parentNode.childNodes[5].getAttribute('data-lectureid')]++;
+        }else if(table = 'tab3-top-table'){
+            tabUpdateBtn = 'tab3-update-btn';
+
+            //Remove Student
+            delete tab3StoreStudent[row.parentNode.parentNode.childNodes[4].innerText].student[row.parentNode.parentNode.childNodes[1].innerText];
+            //Add back count to student object
+            tab3StoreStudent[row.parentNode.parentNode.childNodes[4].innerText].studentCount++;
+            //Reset Lecture Count
+            tab3LectureSlotCount[row.parentNode.parentNode.childNodes[6].getAttribute('data-lectureid')].slotCount++;
+        }
+
+        if(tabTable.row().count() === 0){
+            document.getElementById(tabUpdateBtn).disabled = true;
+            document.getElementById(tabUpdateBtn).classList.add('grey-btn');
+            document.getElementById(tabUpdateBtn).classList.remove('clickable-btn');
+        }
     }
 
+    function dataTableClear(tableID){
+        $(tableID).DataTable().clear().draw();
+
+        if(tableID == "#tab2-top-table"){
+            //Reset JSON Data
+            tab2LectureSlotCount = {};
+            tab2StoreStudent = {}; 
+        }else if(tableID == "#tab3-top-table"){
+            //Reset JSON Data
+            tab3StoreStudent = {};
+            tab3LectureSlotCount = {};
+        }
+    }
+
+    //Tab 1 - Number for Preview Table Row
+    let tab1LectureSlotCount = {};
+
+    //Tab 1 - Map Supervisor and Student Data Into Preview Table
     async function tab1MapTable(){
-        let studentGroup = document.getElementById("student-group");
         let lectureID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
+        let lectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-availableslot");
+        let maxLectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-maxno");
         let internshipBatch = document.getElementById("internBatch-group").value;
+        
+        let studentGroup = document.getElementById("student-group");
         let tutorialGroupNo = studentGroup[studentGroup.selectedIndex].dataset.tutorialgroupno;
         let programmeID = studentGroup[studentGroup.selectedIndex].dataset.programmeid;
+
         let tab1previewBody = document.getElementById("tab1-preview-table");
+        let dataTable = $('#tab1-top-table').DataTable();
 
         if(!studentGroup.hasChildNodes()){
             alert("No Tutorial Group Selected");
+            return;
         }
 
         if(tab1previewBody.hasChildNodes()){
             removeAllChildNodes(tab1previewBody);
         }
 
-        const respondResult = await getStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID);
+        let respondResult = await tab1GetStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID);
 
-        //create table row and insert
-        let resultArr = [];
+        //Store Lecture Slot Count
+        tab1LectureSlotCount[lectureID] = lectureSlot;
 
+        //create table row and insert        
         if(respondResult != "No Data Found"){
             for (let i = 0; i < respondResult.length; i++) {
-                resultArr.push(
-                    `<tr>
-                        <td>${i + 1}</td>
-                        <td>${respondResult[i].studentID}</td>
-                        <td>${respondResult[i].studName}</td>
-                        <td>${respondResult[i].lecName}</td>
-                        <td><button class="remove" onclick="deleteRow('tab1-top-table', this)">Remove</button></td>
-                    </tr>`
-                );
+                //Set Row Index
+                let rowNo = dataTable.context[0].aoData.length + 1;
+
+                if(tab1LectureSlotCount[lectureID] > 0){
+                    dataTable.row.add([
+                        rowNo,
+                        respondResult[i].studentID,
+                        respondResult[i].studName,
+                        respondResult[i].lecName,
+                        `<button class="remove" onclick="deleteRow('tab1-top-table', this)">Remove</button>`
+                    ]).draw();
+
+                    tab1LectureSlotCount[lectureID]--;
+                    document.getElementById("tab1-supervisor-slot").innerText = `${ maxLectureSlot - tab1LectureSlotCount[lectureID]} / ${maxLectureSlot}`;
+                }    
             }
-            tab1previewBody.innerHTML = resultArr.join('');
 
             let assignBtn = document.getElementById("tab1-assign-btn");
             assignBtn.disabled = true;
@@ -1168,7 +1259,7 @@ include('../../includes/db_connection.php');
             let updateBtn = document.getElementById('tab1-update-btn');
             updateBtn.disabled = false;
             updateBtn.classList.remove('grey-btn');
-            updateBtn.classList.add('clickable-btn')
+            updateBtn.classList.add('clickable-btn');
             
         }else{
             alert("No Data Found");
@@ -1176,7 +1267,7 @@ include('../../includes/db_connection.php');
         
     }
 
-    async function getStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID){
+    async function tab1GetStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID){
         let url = `../../app/DAL/ajaxMapTab1InsertTable.php?lectureID=${lectureID}&internshipBatch=${internshipBatch}&tutorialGroupNo=${tutorialGroupNo}&programmeID=${programmeID}&tab1-map=true`;
 
         const response = await fetch(url);
@@ -1185,6 +1276,7 @@ include('../../includes/db_connection.php');
         return data;
     }
 
+    //Tab 1 - Update Supervisor and Student Mapping
     async function tab1UpdateMapDb(){
         let confirm = window.confirm("Are you sure you want to update the map?");
         if(confirm == true){
@@ -1197,13 +1289,20 @@ include('../../includes/db_connection.php');
                 studentIDTextArr.push(studentID.innerText);
             });
 
-            let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
+           let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
             
             if(responseResult == "Success"){
                 alert("Map Updated");
             }else{
                 alert("Map Update Failed");
             }
+
+            resetInput(
+                document.getElementById('tab1-supervisor'), 
+                document.getElementById('internBatch-group'), 
+                document.getElementById('student-group')
+            );
+
         }else{
             return;
         }
@@ -1218,6 +1317,368 @@ include('../../includes/db_connection.php');
         return data;
     }
 
+    //Tab 2 - Number for Preview Table Row
+    let tab2LectureSlotCount = {};
+    let tab2StoreStudent = {};
+
+    document.getElementById("tab2-assign-btn").addEventListener("click", () =>{
+        let student = document.getElementById("tab2-student");
+        let studentID = student.getAttribute("data-studentid");
+        let studentName = student.getAttribute("data-studname");
+        let facAcronym = student.getAttribute("data-facacronym");
+        let progAcronym = student.getAttribute("data-progacronym");
+        
+        let lectureOption = document.getElementById("tab2-supervisor-group");
+        let lectureName = lectureOption[lectureOption.selectedIndex].dataset.lecturername;
+        let lectureSlot = lectureOption[lectureOption.selectedIndex].dataset.ablemapcount;
+        let lectureID = lectureOption.value;
+        
+        let internshipBatch = document.getElementById("tab2-internBatch-group").value;
+        let tab2previewBody = document.getElementById("tab2-preview-table");
+
+       let dataTable = $('#tab2-top-table').DataTable();
+
+        //If lecture selection has no items
+        if(!lectureOption.hasChildNodes()){
+            alert("No Lecture Selected");
+            return;
+        }
+
+        //Set Row Index
+        let rowNo = dataTable.context[0].aoData.length + 1;
+
+        //create table row and insert
+        if(student.value == ""){
+            return;
+        }else{
+             //Update Student Count
+            if(tab2StoreStudent[studentID] == undefined){
+                tab2StoreStudent[studentID] = studentID;
+            }else{
+                alert("Student Already Selected");
+                student.value = "";
+                return;
+            }
+            
+            //Update Lecture Slot Count - JSON Object
+            if(tab2LectureSlotCount[lectureID] == undefined){
+                tab2LectureSlotCount[lectureID] = --lectureSlot;
+            }else if(tab2LectureSlotCount[lectureID] > 0){
+                tab2LectureSlotCount[lectureID]--;
+            }else{
+                alert("Lecture Slot Full");
+                delete tab2StoreStudent[studentID];
+                return;
+            }
+
+            dataTable.row.add([
+                rowNo,
+                studentID,
+                studentName,
+                facAcronym,
+                progAcronym,
+                lectureName,
+                `<button class="remove" onclick="deleteRow('tab2-top-table', this)">Remove</button>`
+            ]).draw();
+            
+        }
+
+        //Reset Student Input
+        document.getElementById('tab2-update-btn').disabled = false;
+        document.getElementById('tab2-update-btn').classList.remove('grey-btn');
+        document.getElementById('tab2-update-btn').classList.add('clickable-btn');
+
+        //Remove Attribute in Student Input
+        Object.keys(student.dataset).forEach((key) => {
+                delete student.dataset[key];
+        });
+
+        //Empty Student Input Value
+        student.value = "";
+
+    });
+
+    //Tab 2 - Map Supervisor and Student Data Into Preview Table
+    async function tab2NTab3UpdateMapDB(tabNo){       
+        let confirm = window.confirm("Are you sure you want to update the map?");
+        
+        if(confirm == true){
+            let tabtr = document.querySelectorAll(`#tab${tabNo}-preview-table tr`);
+            let studentLecMap = {};
+
+            tabtr.forEach((tr) => {
+                let td = tr.querySelectorAll("td");
+                //If tabNo is 2, lecture ID is in 5th column
+                //If tabNo is 3, lecture ID is in 6th column
+                studentLecMap[td[1].innerHTML] = td[tabNo == 2 ? 5 : 6].getAttribute("data-lectureid");
+            });
+            
+            let responseResult = await tab2NTab3FetchUpdateMapDb(studentLecMap);
+
+            if(responseResult == "Success" && tabNo == 2){
+                resetInput(
+                    document.getElementById(`tab${tabNo}-student`),
+                    document.getElementById(`tab${tabNo}-internBatch-group`),
+                    document.getElementById(`tab${tabNo}-supervisor-group`)
+                );
+                alert("Map Updated");
+            }else if(responseResult == "Success" && tabNo == 3){
+                resetInput(
+                    document.getElementById(`tab${tabNo}-student`),
+                    document.getElementById(`tab${tabNo}-internBatch-group`),
+                    document.getElementById(`tab${tabNo}-supervisor-group`)
+                );
+                tab3OpenMapSummary();
+            }else{
+                alert(`From ${responseResult} Onward, Map Update Failed`);
+                return;
+            }
+        }else{
+            return;
+        }
+    }
+
+    //Tab 2 - Update Map
+    async function tab2NTab3FetchUpdateMapDb(studentLecMap){
+        let url = `../../app/DAL/ajaxMapTab2NTab3UpdateMap.php?studentLecMap=${JSON.stringify(studentLecMap)}`;
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        return data;
+    }
+
+    //Tab 3 - Number for Preview Table Row
+    let tab3LectureSlotCount = {};
+    let tab3StoreStudent = {};
+    let tab3StoreLectureID;
+
+    document.getElementById("tab3-assign-btn").addEventListener("click", async () => {
+        let lectureGroup = document.querySelectorAll("#tab3-supervisor-table input:checked");
+        let checkedTutorialGroup = document.querySelectorAll("#tab3-student-table input:checked");
+        let studentMap;
+
+        dataTableClear("#tab3-top-table");
+
+        if(lectureGroup.length == 0){
+            alert("No Lecture Selected");
+            return;
+        }
+
+        if(checkedTutorialGroup.length != 0){
+            studentMap = await tab3FetchStudentForPreview();
+        }else{
+            alert("No Student Selected");
+            return;
+        }
+
+        //Store lecture id and name into tab3LectureSlotCount
+        lectureGroup.forEach((lecture) => {
+            let lectureRow = lecture.parentNode.parentNode;
+
+            if(tab3LectureSlotCount[lectureRow.dataset.lecturerid] == undefined){
+                tab3LectureSlotCount[lectureRow.dataset.lecturerid] = {
+                    "lecName" : lectureRow.dataset.lecname,
+                    "slotCount" : lectureRow.dataset.ablemapcount,
+                    "beforeCount" : lectureRow.dataset.ablemapcount,
+                    "maxSlot" : lectureRow.dataset.maxstudent
+                } 
+            }
+        });
+
+        let getNoSelectStudent = (tutorialNo) => {
+            let noSelectStudent;
+            document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
+                if(student.dataset.tutorialgroup == tutorialNo){
+                   noselectstudent = student.dataset.noselectstudent;
+                }    
+            });
+            return noselectstudent;
+         };
+
+         let getMaxStudent = (tutorialNo) => {
+            let studentCount;
+            document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
+                if(student.dataset.tutorialgroup == tutorialNo){
+                   studentCount = student.dataset.studentcount;
+                }
+            })
+            return studentCount;
+        };
+
+        let getTutorialYear = (tutorialNo) => {
+            let tutorialYear;
+            document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
+                if(student.dataset.tutorialgroup == tutorialNo){
+                   tutorialYear = student.dataset.tutorialyear;
+                }
+            })
+            return tutorialYear;
+        };
+
+        //Store Student into tab3StoreStudent
+        for (let k = 0; k < studentMap.length; k++) {
+            const student = studentMap[k];
+            if(tab3StoreStudent[student.tutorialGroupNo] == undefined){
+                //Create object into tab3StoreStudent separate by student id
+                tab3StoreStudent[student.tutorialGroupNo] = {
+                    "student" : {
+                            [student.studentID] : {
+                            "studentName" : student.studName,
+                            "facAcronym" : student.facAcronym,
+                            "progAcronym" : student.programmeAcronym,
+                            "tutorialGroupNo" : student.tutorialGroupNo
+                        }
+                    },        
+                    "studentCount" : 1,
+                    "noselectstudent" : getNoSelectStudent(student.tutorialGroupNo),
+                    "maxStudent" : getMaxStudent(student.tutorialGroupNo),
+                    "tutorialGroup" : student.tutorialGroupNo,
+                    "programme" : student.programmeAcronym,
+                    "year" : getTutorialYear(student.tutorialGroupNo)
+                }
+            }else{
+                //Create object into tab3StoreStudent separate by student id
+                tab3StoreStudent[student.tutorialGroupNo]["student"][student.studentID] = {
+                    "studentName" : student.studName,
+                    "facAcronym" : student.facAcronym,
+                    "progAcronym" : student.programmeAcronym,
+                    "tutorialGroupNo" : student.tutorialGroupNo
+                },
+                tab3StoreStudent[student.tutorialGroupNo]["studentCount"]++;
+            }
+        }
+
+        let tab3previewBody = document.getElementById("tab3-preview-table");
+        let dataTable = $('#tab3-top-table').DataTable();
+        let j = 0;
+        let m = 0;
+        let countStudent = 0;
+        let moveNextLecturer = false;
+
+        //Control lecture position
+        for (let i = 0; i < Object.keys(tab3LectureSlotCount).length; i++) {
+            //Control tutorial group position
+            for(;j< Object.keys(tab3StoreStudent).length; ){
+                //If the tutorial group count is larger than m
+                if(tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount > m){
+                    //Control the student position
+                    for(; m < tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount;){
+                        //Control Lecture position by its SLOT COUNT
+                        if(tab3LectureSlotCount[Object.keys(tab3LectureSlotCount)[i]].slotCount > 0){
+                            //Get Lecture ID for global variable
+                            tab3StoreLectureID = Object.keys(tab3LectureSlotCount)[i];
+                            //Get lecture object
+                            let lecturer = tab3LectureSlotCount[Object.keys(tab3LectureSlotCount)[i]];
+
+                            //Access student object key
+                            let student = tab3StoreStudent[Object.keys(tab3StoreStudent)[j]];
+                            let studentKey = Object.keys(student["student"])[m];
+                            
+                            //Set Row Index
+                            let rowNo = dataTable.context[0].aoData.length + 1;
+    
+                            dataTable.row.add([
+                                rowNo,
+                                studentKey,
+                                student["student"][studentKey].facAcronym,
+                                student["student"][studentKey].progAcronym,
+                                student["student"][studentKey].tutorialGroupNo,
+                                student["student"][studentKey].studentName,
+                                lecturer.lecName,
+                                `<button class="remove" onclick="deleteRow('tab3-top-table', this)">Remove</button>`
+                            ]).draw();
+                            //Reduce slot count after add map into table
+                            lecturer.slotCount--;
+                            //Increase student count after add map into table, for subtracting student group count
+                            countStudent++;
+                            //Increase the current group student position
+                            m++;
+                        }else{
+                            //If the current lecture slot count is 0, exit third loop
+                            moveNextLecturer = true;
+                            break;
+                        }      
+                    }
+
+                    //If the current lecture slot count is 0, break the second loop, to ALLOW the first loop to move to next lecture
+                    if (moveNextLecturer){
+                        break;
+                    }
+
+                }else{
+                    //If current tutorial group is done, go to next tutorial group
+                    //Subtract the student count from tutorial group count
+                    tab3StoreStudent[Object.keys(tab3StoreStudent)[j]]["studentCount"] -= countStudent;
+                    //Reset Student Count to 0
+                    countStudent = 0;
+                    //Reset the student control
+                    m = 0;
+                    //Move to next tutorial group
+                    j++;
+                }                                    
+            }
+            //Reset the next lecturer control
+            moveNextLecturer = false;
+       }
+
+        //Enable Update Mapping Button
+        document.getElementById('tab3-update-btn').disabled = false;
+        document.getElementById('tab3-update-btn').classList.remove('grey-btn');
+        document.getElementById('tab3-update-btn').classList.add('clickable-btn');
+        //Disable Assign Button
+        document.getElementById('tab3-assign-btn').disabled = true;
+        document.getElementById('tab3-assign-btn').classList.remove('clickable-btn');
+        document.getElementById('tab3-assign-btn').classList.add('grey-btn');
+
+    });
+
+    //Tab 3 - Fetch Student for Preview
+    async function tab3FetchStudentForPreview(){
+        let checkedTutorialGroup = document.querySelectorAll("#tab3-student-table input:checked");
+        let programmeID = document.querySelector("#tab3-programme").getAttribute("data-programmeid");
+        let internshipID = document.querySelector("#tab3-internBatch-group").value;
+        let tutorialGroupArr = [];
+
+        checkedTutorialGroup.forEach((tutorialGroup) => {
+            tutorialGroupArr.push(tutorialGroup.getAttribute('data-tutorialgroup'));
+        });
+        
+        let url = `../../app/DAL/ajaxMapTab3GetStudent.php?programmeID=${programmeID}&internshipID=${internshipID}&tutorialGroup=${JSON.stringify(tutorialGroupArr)}`;
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        return data;
+    }
+
+    async function tab3OpenMapSummary(){
+        let form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", `../../view/page/br-StudentMap-summary.php`);
+        form.setAttribute("target", "_blank");
+        form.setAttribute("id","tab3-temp-form");
+
+        let input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "student");
+        input.setAttribute("value", JSON.stringify(tab3StoreStudent));
+
+        let input2 = document.createElement("input");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("name", "lecture");
+        input2.setAttribute("value", JSON.stringify(tab3LectureSlotCount));
+
+        form.appendChild(input);
+        form.appendChild(input2);
+
+        document.body.appendChild(form);
+        form.submit();
+        
+        document.body.removeChild(form);
+
+        alert("Update Successfully");
+    }
 </script>
 
 </html>
