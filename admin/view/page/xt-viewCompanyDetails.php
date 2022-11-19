@@ -46,8 +46,12 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Company Details</h3>
+					<h3 class="title1">Company Review</h3>
           <div class="container">
+            <div class="subtitle">
+              <h2 class="sub-1">Company General Information</h2>
+            </div>
+            
             <div class="inputBox">
               <div class="viewInput">
                 <span>Company Name</span>
@@ -63,12 +67,39 @@ include('includes/dbconnection.php');
                 <span>Contact Number</span>
                 <input type="text" name="cmpContactNumber" readonly value="<?php echo$cmpContactNumber; ?>">
               </div>
+            </div>
+
+            <div class="subtitle">
+              <h2 class="sub-2">Company Address</h2>
+            </div>
+            
+            <div class="inputBox">
+              <div class="viewInput" style="width:100%;">
+                <span>Address</span>
+                <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
+              </div>   
 
               <div class="viewInput">
                 <span>State</span>
                 <input type="text" name="cmpState" readonly value="<?php echo$cmpState; ?>">
               </div>
 
+              <div class="viewInput">
+                <span>City</span>
+                <input type="text" name="cmpCity" readonly value="<?php echo$cmpCity; ?>">
+              </div>
+
+              <div class="viewInput">
+                <span>Postcode</span>
+                <input type="text" name="cmpPostcode" readonly value="<?php echo$cmpPostcode; ?>">
+              </div>
+            </div>
+
+            <div class="subtitle">
+              <h2 class="sub-3">Company Details</h2>
+            </div>
+            
+            <div class="inputBox">
               <div class="viewInput">
                 <span>Company Size</span>
                 <input type="text" name="cmpCompanySize" readonly value="<?php echo$cmpCompanySize; ?>">
@@ -86,14 +117,10 @@ include('includes/dbconnection.php');
 
               <div class="viewInput">
                 <span>Average Allowance</span>
-                <input type="text" name="cmpFieldsArea" readonly value="<?php echo$cmpFieldsArea; ?>">
-              </div>
-
-              <div class="viewInput" style="width:100%;">
-                <span>Address</span>
-                <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
-              </div>      
+                <input type="text" name="cmpFieldsArea" readonly value="<?php echo$cmpAvgAllowance; ?>">
+              </div> 
             </div>
+            
             <div class="button-group">
               <button type="submit" class="approveBtn"><i class="fa fa-check" aria-hidden="true"></i>  Accept</button>
               <button type="submit" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Reject</button>

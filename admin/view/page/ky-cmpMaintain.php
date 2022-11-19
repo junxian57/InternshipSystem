@@ -50,11 +50,11 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-cmpMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-Maintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
 
 
 </head>
@@ -70,13 +70,13 @@ include('includes/db_connection.php');
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
-                            <div class="table-title">
+                            <!-- <div class="table-title">
                                 <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of Company Name...">
                                 <p>Hint: Table Below Is Scrollable</p>
-                            </div>
+                            </div> -->
                             <div class="table-responsive black-border">
-                    <div class="table_section">
-                    <table id="myTable">
+                            <div class="table_section">
+                            <table class="table-view" id="myTable">
                             <thead>
                                 <tr>
                                 <th>Company Id</th>
@@ -88,6 +88,25 @@ include('includes/db_connection.php');
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                    $sql = "SELECT * FROM users"
+                                ?>
+                                <tr>
+                                <td>1</td>
+                                <td>Dell</td>
+                                <td>012334555</td>
+                                <td>dell@gmail.com</td>
+                                <td>IT</td>
+                                <td>
+                                    <div class="button-group">
+                                        <!--                                    
+                                        //TODO: onclick -> start retrieve student list and proceed mapping
+                                        -->
+                                        <button><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
+                                    </div>
+                                </td>
+                                </tr>
                                 <tr>
                                 <td>1</td>
                                 <td>Dell</td>
@@ -355,9 +374,11 @@ include('includes/db_connection.php');
             });
         });
     </script>
-    
+
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -375,6 +396,14 @@ include('includes/db_connection.php');
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+        $('.table-view').DataTable({
+        "bLengthChange": false,
+        "info": false
+        });         
+    });
+
 </script>
 <script>
     function searchInTable() {

@@ -11,14 +11,27 @@ $rubricCmpLvlDALObj  = new ComponentLvlDAL();
 	header('location:logout.php');
 } else {
 }*/
+$rubricCmpLvlBLLObj = new componentLvlBLL();
+if ($_GET['act'] == "edit") {
+    $id = str_replace("'", "", $_GET['id']);
+    $id = str_replace("'", "", $_GET['id']);
+    $aRubricCmpLvl = $rubricCmpLvlBLLObj->GetCmptLvl($id);
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Component Level') {
+        $cmpLvlID = $_POST['cmpLvlID'];
+        $title = $_POST['CmpLvlName'];
+        $level = $_POST['cmplv'];
+        $newRubricCmpLvl = new componentLvlDTO($cmpLvlID, $title, $level);
+        $rubricCmpLvlBLLObj->UpdRubricCmpLvl($newRubricCmpLvl);
+    }
+} else {
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Component Level') {
 
-if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Component Level') {
-    $rubricCmpLvlBLLObj = new componentLvlBLL();
-    $cmpLvlID = $_POST['cmpLvlID'];
-    $title = $_POST['cmpname'];
-    $level = $_POST['cmplv'];
-    $newRubricCmpLvl = new componentLvlDTO($cmpLvlID, $title, $level);
-    $rubricCmpLvlBLLObj->AddRubricCmpLvl($newRubricCmpLvl);
+        $cmpLvlID = $_POST['cmpLvlID'];
+        $title = $_POST['CmpLvlName'];
+        $level = $_POST['cmplv'];
+        $newRubricCmpLvl = new componentLvlDTO($cmpLvlID, $title, $level);
+        $rubricCmpLvlBLLObj->AddRubricCmpLvl($newRubricCmpLvl);
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -77,23 +90,66 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Component Le
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
-                <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
-                <?php elseif ($rubricCmpLvlBLLObj->errorMessage != '') : echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>"; ?>
-                <?php endif; ?>
+                <?php
+                if ($_GET['act'] == 'edit') {
+                    if ($_GET['status'] == 'failed') {
+                        echo "<script> warning('Record cant be Update. Operation failed.');</script>";
+                    } elseif ($_GET['status'] == 'success') {
+                        echo "<script> addSuccess('Update Component Level successful'); </script>";
+                    } elseif ($rubricCmpLvlBLLObj->errorMessage != '') {
+                        echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>";
+                    }
+                } else {
+                    if ($_GET['status'] == 'failed') {
+                        echo "<script> warning('Record cant be added. Operation failed.');</script>";
+                    } elseif ($_GET['status'] == 'success') {
+                        echo "<script> addSuccess('Add Rubric Component Level successful'); </script>";
+                    } elseif ($rubricCmpLvlBLLObj->errorMessage != '') {
+                        echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>";
+                    }
+                }
+                ?>
                 <div class="forms">
-                    <h3 class="title1">Add Assessment Component Level</h3>
+                    <?php
+                    if ($_GET['act'] == "edit") {
+                        echo '<h3 class="title1">Edit Assessment Component Level</h3>';
+                    } else {
+                        echo '<h3 class="title1">Add Assessment Component Level</h3>';
+                    }
+                    ?>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Component Level</h4>
                         </div>
                         <div class="form-body">
                             <form method="post" enctype="multipart/form-data">
-                                <div class="form-group col-md-12"> <label>Component Level ID</label><input type="text" id="cmpLvlID" name="cmpLvlID" class="form-control" value="<?php echo $rubricCmpLvlDALObj->generateID(); ?>" readonly="readonly"></div>
-                                <div class="form-group col-md-12"> <label>Component Level Name</label> <input type="text" class="form-control" id="cmpname" name="cmpname" placeholder="Poor" required="true"> </div>
-                                <div class="form-group col-md-12"> <label>Component Level Score</label> <input type="text" id="cmplv" name="cmplv" class="form-control" placeholder="0-2" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-2"> <label>Component Level ID</label><input type="text" id="cmpLvlID" name="cmpLvlID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $rubricCmpLvlDALObj->generateID(); ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputState">Component Level Name</label>
+                                    <!--Change option to array for Role For Mark-->
+                                    <select id="inputState" name="CmpLvlName" class="form-control" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        $options = array('Poor', 'Average', 'Good', 'Excellent');
+                                        foreach ($options as $option) {
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricCmpLvl->getcmpTitle() == $option) {
+                                                    echo "<option selected='selected' value='$option'>$option</option>";
+                                                } else {
+                                                    echo "<option value='$option'>$option</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='$option'>$option</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
 
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Component Level" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-8"> <label>Component Level Score</label> <input type="text" id="cmplv" name="cmplv" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricCmpLvl->getValue() : "" ?>" placeholder="0-2" onchange="changeHandler(this)" required="true">
+                                </div>
+
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Component Level" : "Add Component Level" ?>" class="form-group btn btn-default">Save</button></div>
                             </form>
                         </div>
                     </div>

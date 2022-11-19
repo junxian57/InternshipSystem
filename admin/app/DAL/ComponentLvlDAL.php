@@ -1,6 +1,27 @@
 <?php
-require '../../includes/db_connection.php';
+require_once '../../includes/db_connection.php';
+if (isset($_GET['ComponentLevelTitle'])) {
+    $ComponentLevelTitle = $_GET['ComponentLevelTitle'];
+    $db_handle1 = new DBController();
+    $query = "SELECT * FROM RubricComponentLevel WHERE Title = '$ComponentLevelTitle' order by Value ASC ";
+    $results = $db_handle1->runQuery($query);
+    $array = array();
 
+    if (!empty($results)) {
+        for ($i = 0; $i < count($results); $i++) {
+            $levelID = $results[$i]['levelID'];
+            $Title = $results[$i]['Title'];
+            $Value = $results[$i]['Value'];
+            $array[] = array(
+                'levelID' => $levelID,
+                'Title' => $Title,
+                'Value' => $Value
+            );
+        }
+    }
+    echo json_encode($array);
+    exit();
+}
 class ComponentLvlDAL
 {
     protected $databaseConnectionObj;
@@ -8,6 +29,47 @@ class ComponentLvlDAL
     {
         $this->databaseConnectionObj = new DBController();
     }
+
+    public function GetAllRubricComponentLevel()
+    {
+        //$db = new DBController();
+        $listOfRubricCmptLvlDto = array();
+        $sql = "SELECT * FROM RubricComponentLevel";
+        $result = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($result)) {
+            for ($i = 0; $i < count($result); $i++) {
+                $cmpLvlID = $result[$i]['levelID'];
+                $title = $result[$i]['Title'];
+                $level = $result[$i]['Value'];
+                $listOfRubricCmptLvlDto[] = new componentLvlDTO($cmpLvlID, $title, $level);
+            }
+        }
+        return $listOfRubricCmptLvlDto;
+    }
+
+    /**
+     * Get a Component Level
+     *
+     * @param string $assessmentID
+     * @return bool|\componentLvlDTO
+     */
+    public function GetCmptLvl($ID)
+    {
+        $sql = "SELECT * FROM RubricComponentLevel WHERE levelID= '$ID'";
+        $aRubricCmptLvl = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($aRubricCmptLvl)) {
+            $listOfRubricCmptLvlObj = new componentLvlDTO(
+                $aRubricCmptLvl[0]['levelID'],
+                $aRubricCmptLvl[0]['Title'],
+                $aRubricCmptLvl[0]['Value']
+
+            );
+            return $listOfRubricCmptLvlObj;
+        }
+
+        return false;
+    }
+
     //generate ID
     public function generateID()
     {
@@ -61,6 +123,27 @@ class ComponentLvlDAL
     }
 
     /**
+     * Update Rubric Assessment
+     *
+     * @param object $rubricAssmtDto
+     */
+    public function UpdRubricCmpLvl($cmpLvlDto)
+    {
+        $sql = " UPDATE RubricComponentLevel SET
+            Title = '" . $cmpLvlDto->getcmpTitle() . "',
+            Value = '" . $cmpLvlDto->getValue() . "'
+            WHERE levelID ='" . $cmpLvlDto->getCmpLvlID() . "'";
+        $result = $this->databaseConnectionObj->executeQuery($sql);
+        if ($result) {
+            header("Location: ../../view/page/addComponentLevel.php?act=edit&status=success&id='" . $cmpLvlDto->getCmpLvlID() . "'");
+            exit();
+        } else {
+            header("Location: ../../view/page/addComponentLevel.php?act=edit&status=failed&id='" . $cmpLvlDto->getCmpLvlID() . "'");
+            exit();
+        }
+    }
+
+    /**
      * Checks whether given Rubric Component Level exists
      *
      * @param string $tiitle
@@ -69,7 +152,7 @@ class ComponentLvlDAL
      */
     public function IsCmpLvlExists($Title, $value)
     {
-        $sql = "SELECT * FROM RubricComponentLevel WHERE Title='" . $Title . "' AND Value ='" . $value . "' ";
+        $sql = "SELECT * FROM RubricComponentLevel WHERE Title='" . $Title . "' AND Value LIKE'%" . $value . "%' ";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             return true;

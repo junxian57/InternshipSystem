@@ -50,13 +50,14 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-studEdit.css">
+    <link rel="stylesheet" href="../../scss/ky-maintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="cbp-spmenu-push">
@@ -70,46 +71,68 @@ include('includes/db_connection.php');
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
-                            <div class="table-title">
-                                <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of User Name...">
-                                <p>Hint: Table Below Is Scrollable</p>
-                            </div>
+                            
                             <div class="table-responsive black-border">
-                    <div class="table_section">
-                    <table id="myTable">
+                            <div class="table_section">
+                            <table  class="table-view" id="myTable">
                             <thead>
                                 <tr>
                                 <th>User Id</th>
                                 <th>Name</th>
-                                <th>Username</th>
+                                <th>Gender</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
-                                <th>Faculty</th>
-                                <th>Programme</th>
+                                <th>Programme</th> 
+                                <th>Address</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <td>1</td>
-                                <td>Kang Yi</td>
-                                <td>KY001</td>
-                                <td>KY@gmail.com</td>
-                                <td>017-59797976</td>
-                                <td>FOCS</td>
-                                <td>REI</td>
-                                <td>
-                                    <div class="button-group">
-                                        <!--                                    
-                                        //TODO: onclick -> start retrieve student list and proceed mapping
-                                        -->
-                                        <button id = "login-show"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                        <button><i class="fa fa-eye" style ="color:red"></i></button>
-                                    </div>
-                                </td>
-                                </tr>
-                               
-                            
+                                <?php
+                                 
+                                    $server = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $database = "westorn";
+
+                                    $conn = mysqli_connect($server, $username, $password, $database);
+                                    if (!$conn){
+                                        die("Error". mysqli_connect_error());
+                                    }
+
+                                    $sql = "select * from student"; 
+                                    $result = mysqli_query($conn, $sql);
+                                    
+                                    while($row=mysqli_fetch_assoc($result)) {
+                                        $Id = $row['studentID'];
+                                        $username = $row['studName'];
+                                        $gender = $row['studGender'];
+                                        $email = $row['studEmail'];
+                                        $phone = $row['studContactNumber'];
+                                        $programme = $row['programmeID'];
+                                        $address = $row['studHomeAddress'];
+                                    
+                                        echo '<tr>
+                                            <td>' .$Id. '</td>
+                                            <td>' .$username. '</td>
+                                            <td>' .$gender. '</td>
+                                            <td>' .$email. '</td>
+                                            <td>' .$phone. '</td>
+                                            <td>' .$programme. '</td>
+                                            <td>' .$address. '</td>
+                                            <td>
+                                                <div class="button-group">
+                                                    <!--                                    
+                                                    //TODO: onclick -> start retrieve student list and proceed mapping
+                                                    -->
+                                                    <button type="button" class="editbtn"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button type="button" class="viewbtn"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>';
+                                    }
+                                ?>
+                    
                             </tbody>
                         </table>
                     </div>
@@ -119,65 +142,104 @@ include('includes/db_connection.php');
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
-
+     
+<!-- EDIT MODAL -->
     <div id="login-modal">
         <div class="model">
             <div class="top-form">
-                <h2>Student Details</h2>
+                <h2>Edit Student Details</h2>
                 <div class="close-modal">
                     &#10006;
                 </div>  
             </div>
             <div class="login-form">
                 <div class="content">
-                    <form action="">
+                    <form action="ky-updateStudent.php" method="POST">
                         <div class="user-details">
-                            
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your name" required>
+        
+                            <div class="pass-box">
+                                <label>Student ID :</label>
+                                <input type="text" placeholder="Enter your id" name="update_id" id="update_id" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your email" required>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your address" required>
-                                <i class="uil uil-estate icon"></i>
-                                
-                            </div>
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter contact number" required>
-                                <i class="uil uil-phone icon"></i>
-                            </div>
-
                             <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">
-                                    <option selected disabled>Choose Faculty</option>
-                                    <option>FOCS</option>
-                                    <option>FAFB</option>
-                                    <option>FOET</option>
-                                    <option>FOAS</option>
-                                </select>
+                                <label>Student Name :</label>
+                                <input type="text" placeholder="Enter your name" name="studName" id="studName" required>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Programme :</label>
+                                <input type="text" placeholder="Enter programme" name="programme" id="programme" required>
                                 <i class="uil uil-graduation-cap icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">                             
-                                    <option selected disabled>Choose Programme</option>    
-                                    <option>REI</option>
-                                    <option>RIS</option>
-                                    <option>RIT</option>
-                                    <option>RDS</option>
-                                </select>
+                                <label>Lecturer ID :</label>
+                                <input type="text" placeholder="Enter programme" required>
+                                <i class="uil uil-book-reader icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Internship Batch ID :</label>
+                                <input type="text" placeholder="Enter programme" required>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
-                            
+
+                            <div class="pass-box">
+                                <label>Gender :</label>
+                                <input type="text" placeholder="Enter programme" name="gender" id="gender" required >
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+
                             <div class="input-box">
-                                <input type="radio" name="gender" id="dot-1">
-                                <input type="radio" name="gender" id="dot-2">
+                                <label>Address :</label>
+                                <input type="text" placeholder="Enter your address" name="address" id="address" required>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Email :</label>
+                                <input type="text" placeholder="Enter your email" name="email" id="email" required>
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Contact Number:</label>
+                                <input type="text" placeholder="Enter contact number" name="phone" id="phone" required>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Date Jioned :</label>
+                                <input type="text" placeholder="Enter programme" required>
+                                <i class='far fa-calendar-check icon'></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Application Quota :</label>
+                                <input type="text" placeholder="Enter programme" required>
+                                <i class="fa fa-address-card icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Current No Application :</label>
+                                <input type="text" placeholder="Enter programme"  required>
+                                <i class="fa fa-address-card-o icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Account Status :</label>
+                                <input type="text" placeholder="Enter programme" required>
+                                <i class='far fa-lightbulb icon'></i>
+                            </div>
+                            
+                            <!--<div class="input-box">
+                                <input type="radio" name="gender" id="dot-1" <?php echo $gender =="Male"?
+                                   "checked=checked":""?>>
+                                <input type="radio" name="gender" id="dot-2" <?php echo $gender =="Female"?
+                                   "checked=checked":""?>>
                                 <input type="radio" name="gender" id="dot-3">
                                 
                                 <div class="category">
@@ -220,10 +282,110 @@ include('includes/db_connection.php');
                                     </label>
                                     
                                 </div>
+                            </div>-->
+
+                            <button type = "submit" name="updatedata" class="submit-btn">Update</button>
+                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+<!-- VIEW MODAL -->
+    <div id="view-modal">
+        <div class="model">
+            <div class="top-form">
+                <h2>Student Details</h2>
+                <div class="close-modal">
+                    &#10006;
+                </div>  
+            </div>
+            <div class="login-form">
+                <div class="content">
+                    <form action="">
+                        <div class="user-details">
+                            
+                            <div class="pass-box">
+                                <label>Student ID :</label>
+                                <input type="text" placeholder="Enter your id" id="update_id2" required readonly>
+                                <i class="uil uil-user-circle icon"></i>
                             </div>
 
-                            <button type = "button" class="submit-btn">Update</button>
-                            <button type = "button" class="submit-btn">Cancel</button>
+                            <div class="pass-box">
+                                <label>Student Name :</label>
+                                <input type="text" placeholder="Enter your name" id="studName2" required readonly>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Programme :</label>
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                                <i class="uil uil-graduation-cap icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Lecturer ID :</label>
+                                <input type="text" placeholder="Enter programme" required readonly>
+                                <i class="uil uil-book-reader icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Internship Batch ID :</label>
+                                <input type="text" placeholder="Enter programme" required readonly>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Gender :</label>
+                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <label>Address :</label>
+                                <input type="text" placeholder="Enter your address" id="address2" required readonly>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Email :</label>
+                                <input type="text" placeholder="Enter your email" id="email2" required readonly>
+                                <i class="uil uil-envelope icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Contact Number:</label>
+                                <input type="text" placeholder="Enter contact number" id="phone2" required readonly>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Date Jioned :</label>
+                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
+                                <i class='far fa-calendar-check icon'></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Application Quota :</label>
+                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="fa fa-address-card icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Current No Application :</label>
+                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class="fa fa-address-card-o icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Account Status :</label>
+                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
+                                <i class='far fa-lightbulb icon'></i>
+                            </div>
+
+                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
                         </div> 
                     </form>
                 </div>
@@ -234,18 +396,73 @@ include('includes/db_connection.php');
     
     <script type="text/javascript">
         $(function(){
-            $('#login-show').click(function(){
-                $('#login-modal').fadeIn().css("display", "flex");
+            $('#close-modal').click(function(){
+                $('#view-modal').fadeOut();
             });
-        
+
             $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+
+            $('#close-modal').click(function(){
                 $('#login-modal').fadeOut();
             });
         });
     </script>
 
+<script>
+        $(document).ready(function(){
+            $('.editbtn').on('click', function () {
+                $('#login-modal').fadeIn().css("display", "flex");
+                $tr=$(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('#update_id').val(data[0]);
+                $('#studName').val(data[1]);
+                $('#gender').val(data[2]);
+                $('#email').val(data[3]);
+                $('#phone').val(data[4]);
+                $('#programme').val(data[5]);
+                $('#address').val(data[6]);
+            });
+        
+        });
+    </script>
+
+<script>
+        $(document).ready(function(){
+            $('.viewbtn').on('click', function () {
+                $('#view-modal').fadeIn().css("display", "flex");
+                $tr=$(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('#update_id2').val(data[0]);
+                $('#studName2').val(data[1]);
+                $('#gender2').val(data[2]);
+                $('#email2').val(data[3]);
+                $('#phone2').val(data[4]);
+                $('#programme2').val(data[5]);
+                $('#address2').val(data[6]);
+            });
+
+            $('.close-modal').click(function(){
+                $('#view-modal').fadeOut();
+            });
+        
+        });
+    </script>
+
+
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -263,6 +480,13 @@ include('includes/db_connection.php');
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+        $('.table-view').DataTable({
+        "bLengthChange": false,
+        "info": false
+        });         
+    });
 </script>
 <script>
     function searchInTable() {
