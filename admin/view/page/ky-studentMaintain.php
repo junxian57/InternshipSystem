@@ -156,7 +156,7 @@ include('includes/db_connection.php');
                 <div class="content">
                     <form action="ky-updateStudent.php" method="POST">
                         <div class="user-details">
-        
+                        
                             <div class="pass-box">
                                 <label>Student ID :</label>
                                 <input type="text" placeholder="Enter your id" name="update_id" id="update_id" required readonly>
