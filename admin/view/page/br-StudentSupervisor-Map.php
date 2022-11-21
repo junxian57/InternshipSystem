@@ -2,25 +2,6 @@
 session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
 
     try{
         $db = new DBController();
@@ -73,9 +54,9 @@ include('../../includes/db_connection.php');
 
                         <!-- Tab Button -->
                         <div class="tab">
-                            <button class="tablinks" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
-                            <button class="tablinks" onclick="changeTab(event, 'SupervisorToStudent')">Assign Supervisors <span class="arrow-icon">&#129050</span> Students</button>
-                            <button class="tablinks" onclick="changeTab(event, 'AutomatedMap')">Automated Mapping</button>
+                            <button class="tablinks tab1" onclick="changeTab(event, 'StudentToSupervisor')" id='defaultOpen'>Assign Students <span class="arrow-icon">&#129050</span> Supervisors</button>
+                            <button class="tablinks tab2" onclick="changeTab(event, 'SupervisorToStudent')">Assign Supervisors <span class="arrow-icon">&#129050</span> Students</button>
+                            <button class="tablinks tab3" onclick="changeTab(event, 'AutomatedMap')">Automated Mapping</button>
                         </div>
 
                         <!-- Tab Content 1-->
@@ -91,7 +72,7 @@ include('../../includes/db_connection.php');
 
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab1-supervisor'), document.getElementById(this.id))">
+                                    <select name="internBatch-group" id="tab1-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab1-supervisor'), document.getElementById(this.id))">
                                         <option value="" selected disabled>Select Internship Batch</option>
                                         <?php
                                             foreach($getInternBatch as $batch){
@@ -101,7 +82,7 @@ include('../../includes/db_connection.php');
                                     </select>
 
                                     <label for="student-group" class="margin-top-20">Tutorial Group <span class="required-star">*</span></label>
-                                    <select name="student-group" id="student-group" class="form-control" required="true" disabled onchange="changeStudentSlotNo()">
+                                    <select name="student-group" id="tab1-student-group" class="form-control" required="true" disabled onchange="changeStudentSlotNo()">
                                     </select>
                                 </div>
                             </div>
@@ -111,7 +92,7 @@ include('../../includes/db_connection.php');
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
                                 <button class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</button>
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('internBatch-group'), document.getElementById('student-group'))">
+                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('tab1-internBatch-group'), document.getElementById('tab1-student-group'))">
                             </div>
                             <hr>
                             <div class="info-group">
@@ -132,107 +113,7 @@ include('../../includes/db_connection.php');
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="tab1-preview-table">
-                                         <!-- <tr>
-                                            <td>1</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td>
-                                                <button class="remove" onclick="deleteRow('tab1-top-table', this)">Remove</button>
-                                            </td>
-                                        </tr>
-                                         <tr>
-                                            <td>2</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><button class="remove">Remove</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr> -->
+                                    <tbody id="tab1-preview-table">                                     
                                     </tbody>
                                 </table>
                             </div>
@@ -530,97 +411,7 @@ include('../../includes/db_connection.php');
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tab3-preview-table">
-                                        <!-- <tr>
-                                            <td>1</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr> -->
+                                    <tbody id="tab3-preview-table">                                     
                                     </tbody>
                                 </table>
                             </div>
@@ -730,7 +521,7 @@ include('../../includes/db_connection.php');
             assignBtn.classList.add("clickable-btn");
 
             document.getElementById('tab1-supervisor').disabled = true;
-            document.getElementById('student-group').disabled = true;
+            document.getElementById('tab1-student-group').disabled = true;
            
             //Reset JSON Object
             tab1LectureSlotCount = {};
@@ -812,8 +603,34 @@ include('../../includes/db_connection.php');
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(tabName).style.display = "block";
+        
         evt.currentTarget.className += " active";
     }
+
+    document.querySelectorAll(".tab .tablinks").forEach((item) => {
+        item.addEventListener('click', (tab) => {
+            if(item.classList.contains('tab1')){
+                resetInput(
+                    document.getElementById('tab1-supervisor'), 
+                    document.getElementById('tab1-internBatch-group'), 
+                    document.getElementById('tab1-student-group')
+                );    
+            }else if(item.classList.contains('tab2')){
+                resetInput(
+                    document.getElementById('tab2-student'), 
+                    document.getElementById('tab2-internBatch-group'), 
+                    document.getElementById('tab2-supervisor-group')
+                );
+            }else if(item.classList.contains('tab3')){
+                resetInput(
+                    document.getElementById('tab3-programme'), 
+                    document.getElementById('tab3-internBatch-group'), 
+                    null, 
+                    true
+                );
+            }
+        });
+    });
 </script>
 <script>
     //Hide the Search Box
@@ -866,9 +683,99 @@ include('../../includes/db_connection.php');
         }
     }
 
+    //Show Result Box
+    async function displaySearchResult(searchBarTab, tabID) {
+        
+        if(tabID == 'tab1-supervisor'){
+            resultBoxNo = "result-box-1";
+        }else if(tabID == 'tab2-student'){
+            resultBoxNo = "result-box-2";
+        }else if(tabID == 'tab3-programme'){
+            resultBoxNo = "result-box-3";
+        }
+
+        const getResultBox = document.getElementById(resultBoxNo);
+        const respondResult = await fetchSearchBarData(searchBarTab, tabID);
+        const getSearchBarValue = searchBarTab.value;
+        let resultArr = [];
+
+        if (respondResult == "No Data Found" || getSearchBarValue == "") {
+            getResultBox.style.display = 'none';
+            return;
+        }
+
+        if(getResultBox.hasChildNodes()){
+            removeAllChildNodes(getResultBox);
+        }
+
+        if(respondResult != "No Data Found" ){
+            if(tabID == 'tab1-supervisor'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents} data-lectureid=${respondResult[i].lecturerID}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>`
+                    );
+                }
+            }else if(tabID == 'tab2-student'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                        `<li data-facultyID=${respondResult[i].facultyID} data-facAcronym=${respondResult[i].facAcronym} data-progAcronym=${respondResult[i].programmeAcronym} data-studName=${encodeURIComponent(respondResult[i].studName)} data-studentID=${respondResult[i].studentID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
+                    );
+                }
+            }else if(tabID == 'tab3-programme'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                        `<li data-programmeID=${respondResult[i].programmeID} data-facultyID=${respondResult[i].facultyID}> ${respondResult[i].facAcronym} : ${respondResult[i].programmeName.substr(12)}</li>` 
+                    );
+                }
+            }
+        } else {
+           getResultBox.style.display = 'none';
+           return;
+        }
+
+        getResultBox.style.display = 'block';
+        getResultBox.innerHTML = resultArr.join('');
+       inputSearchResult(tabID, resultBoxNo);
+    }
+
+    //Fetch Search Bar Data from DB
+    async function fetchSearchBarData(searchBarTab, tabID) {
+        const getSearchInput = searchBarTab.value;
+        let resultBoxNo, url, internBatch;
+
+        if(tabID == 'tab1-supervisor'){
+            resultBoxNo = "result-box-1";
+        }else if(tabID == 'tab2-student'){
+            resultBoxNo = "result-box-2";
+            internBatch = document.getElementById('tab2-internBatch-group').value;
+        }else if(tabID == 'tab3-programme'){
+            resultBoxNo = "result-box-3";
+        }
+
+        const getResultBox = document.getElementById(resultBoxNo);
+        
+        if (getSearchInput == '') {
+            getResultBox.style.display = 'none';
+            return;
+        } else {
+            if (tabID == 'tab1-supervisor') {
+                url = '../../app/DAL/ajaxMapSearchBar.php?supervisor=' + getSearchInput;
+            } else if (tabID == 'tab2-student') {
+                url = `../../app/DAL/ajaxMapSearchBar.php?student=${getSearchInput}&internBatch=${internBatch}`;
+            } else if (tabID == 'tab3-programme') {
+                url = '../../app/DAL/ajaxMapSearchBar.php?programme=' + getSearchInput;
+            } 
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            return data;
+        }
+    }
+
     //Tab 1 - Change Student Slot Number
     function changeStudentSlotNo(){
-        let getStudent = document.getElementById("student-group");
+        let getStudent = document.getElementById("tab1-student-group");
         let getStudentSlot = document.getElementById("tab1-student-slot");
         let tutorialGroupArr = getStudent.childNodes;
 
@@ -878,7 +785,7 @@ include('../../includes/db_connection.php');
     //Tab 1 Selection
     async function tutorialGroupData(facultyID) {
         const respondResult = await getTutorialGroupData(facultyID);
-        const studentSelect = document.getElementById("student-group");
+        const studentSelect = document.getElementById("tab1-student-group");
         const studentSlot = document.getElementById("tab1-student-slot");
         const defaultOption = document.createElement("option");
 
@@ -915,7 +822,7 @@ include('../../includes/db_connection.php');
 
     //Tab 1 Selection - Fetch Tutorial Group Data
     async function getTutorialGroupData(facultyID){
-        let internNo = document.getElementById("internBatch-group").value;
+        let internNo = document.getElementById("tab1-internBatch-group").value;
         let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&internNo=${internNo}`;
 
         const response = await fetch(url);
@@ -1060,94 +967,6 @@ include('../../includes/db_connection.php');
             parent.removeChild(parent.firstChild);
         }
     }
-
-    async function displaySearchResult(searchBarTab, tabID) {
-        
-        if(tabID == 'tab1-supervisor'){
-            resultBoxNo = "result-box-1";
-        }else if(tabID == 'tab2-student'){
-            resultBoxNo = "result-box-2";
-        }else if(tabID == 'tab3-programme'){
-            resultBoxNo = "result-box-3";
-        }
-
-        const getResultBox = document.getElementById(resultBoxNo);
-        const respondResult = await searchBarData(searchBarTab, tabID);
-        const getSearchBarValue = searchBarTab.value;
-        let resultArr = [];
-
-        if (respondResult == "No Data Found" || getSearchBarValue == "") {
-            getResultBox.style.display = 'none';
-            return;
-        }
-
-        if(getResultBox.hasChildNodes()){
-            removeAllChildNodes(getResultBox);
-        }
-
-        if(respondResult != "No Data Found" ){
-            if(tabID == 'tab1-supervisor'){
-                for (let i = 0; i < respondResult.length; i++) {
-                    resultArr.push(
-                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents} data-lectureid=${respondResult[i].lecturerID}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>`
-                    );
-                }
-            }else if(tabID == 'tab2-student'){
-                for (let i = 0; i < respondResult.length; i++) {
-                    resultArr.push(
-                        `<li data-facultyID=${respondResult[i].facultyID} data-facAcronym=${respondResult[i].facAcronym} data-progAcronym=${respondResult[i].programmeAcronym} data-studName=${encodeURIComponent(respondResult[i].studName)} data-studentID=${respondResult[i].studentID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
-                    );
-                }
-            }else if(tabID == 'tab3-programme'){
-                for (let i = 0; i < respondResult.length; i++) {
-                    resultArr.push(
-                        `<li data-programmeID=${respondResult[i].programmeID} data-facultyID=${respondResult[i].facultyID}> ${respondResult[i].facAcronym} : ${respondResult[i].programmeName.substr(12)}</li>` 
-                    );
-                }
-            }
-        } else {
-           getResultBox.style.display = 'none';
-           return;
-        }
-
-        getResultBox.style.display = 'block';
-        getResultBox.innerHTML = resultArr.join('');
-       inputSearchResult(tabID, resultBoxNo);
-    }
-
-    async function searchBarData(searchBarTab, tabID) {
-        const getSearchInput = searchBarTab.value;
-        let resultBoxNo, url, internBatch;
-
-        if(tabID == 'tab1-supervisor'){
-            resultBoxNo = "result-box-1";
-        }else if(tabID == 'tab2-student'){
-            resultBoxNo = "result-box-2";
-            internBatch = document.getElementById('tab2-internBatch-group').value;
-        }else if(tabID == 'tab3-programme'){
-            resultBoxNo = "result-box-3";
-        }
-
-        const getResultBox = document.getElementById(resultBoxNo);
-        
-        if (getSearchInput == '') {
-            getResultBox.style.display = 'none';
-            return;
-        } else {
-            if (tabID == 'tab1-supervisor') {
-                url = '../../app/DAL/ajaxMapSearchBar.php?supervisor=' + getSearchInput;
-            } else if (tabID == 'tab2-student') {
-                url = `../../app/DAL/ajaxMapSearchBar.php?student=${getSearchInput}&internBatch=${internBatch}`;
-            } else if (tabID == 'tab3-programme') {
-                url = '../../app/DAL/ajaxMapSearchBar.php?programme=' + getSearchInput;
-            } 
-
-            const response = await fetch(url);
-            const data = await response.json();
-
-            return data;
-        }
-    }
 </script>
 <script>
     function deleteRow(table, row) {
@@ -1205,9 +1024,9 @@ include('../../includes/db_connection.php');
         let lectureID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
         let lectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-availableslot");
         let maxLectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-maxno");
-        let internshipBatch = document.getElementById("internBatch-group").value;
+        let internshipBatch = document.getElementById("tab1-internBatch-group").value;
         
-        let studentGroup = document.getElementById("student-group");
+        let studentGroup = document.getElementById("tab1-student-group");
         let tutorialGroupNo = studentGroup[studentGroup.selectedIndex].dataset.tutorialgroupno;
         let programmeID = studentGroup[studentGroup.selectedIndex].dataset.programmeid;
 
@@ -1254,7 +1073,7 @@ include('../../includes/db_connection.php');
             assignBtn.classList.add("grey-btn");
 
             document.getElementById('tab1-supervisor').disabled = true;
-            document.getElementById('student-group').disabled = true;
+            document.getElementById('tab1-student-group').disabled = true;
 
             let updateBtn = document.getElementById('tab1-update-btn');
             updateBtn.disabled = false;
@@ -1299,8 +1118,8 @@ include('../../includes/db_connection.php');
 
             resetInput(
                 document.getElementById('tab1-supervisor'), 
-                document.getElementById('internBatch-group'), 
-                document.getElementById('student-group')
+                document.getElementById('tab1-internBatch-group'), 
+                document.getElementById('tab1-student-group')
             );
 
         }else{

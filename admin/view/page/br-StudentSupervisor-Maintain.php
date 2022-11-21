@@ -1,27 +1,16 @@
 <?php
 session_start();
 error_reporting(0);
-include "includes/db_connection.php";
+include('../../includes/db_connection.php');
 
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
+try{
+    $db = new DBController();
+    $getFaculty = $db->runQuery("SELECT * FROM Faculty");
+}catch(Exception $e){
+    echo '<script>alert("Database Connection Error")</script>';
+}
 
 
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -37,6 +26,7 @@ include "includes/db_connection.php";
             window.scrollTo(0, 1);
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -77,9 +67,19 @@ include "includes/db_connection.php";
                                 //TODO: Require AJAX method to display searched supervisor         
                                 -->
                                 <div class="form-group">
-                                    <label for="curr-supervisor">Current Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="curr-supervisor" name="curr-supervisor" placeholder="Enter Supervisor ID or Name...." required="true">
-                                    <div class="form-control result-box">
+                                    <label for="tab1-faculty">Faculty <span class="required-star">*</span></label>
+                                    <select name="tab1-faculty" id="tab1-faculty" class="form-control" required="true">
+                                        <option value="0" disabled selected>Select a Faculty</option>
+                                        <?php
+                                            foreach($getFaculty as $faculty){
+                                                echo "<option value='".$faculty['facultyID']."'>".$faculty['facAcronym']."</option>";
+                                            }
+                                        ?>
+                                    </select>
+
+                                    <label for="curr-supervisor" style="margin-top: 20px;">Current Supervisor <span class="required-star">*</span></label>
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="curr-supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled>
+                                    <div class="form-control" id="result-box-1">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
@@ -93,12 +93,7 @@ include "includes/db_connection.php";
                                 -->
                                 <div class="form-group">
                                     <label for="new-supervisor">New Supervisor | Available Slot <span class="required-star">*</span></label>
-                                    <select name="new-supervisor" id="new-supervisor" class="form-control" required="true">
-                                        <option value="0">Select a New Supervisor</option>
-                                        <option value="LEC1001">Pong Suk Fun | 24/24</option>
-                                        <option value="LEC1002">Pong Suk Fun | 24/24</option>
-                                        <option value="LEC1003">Pong Suk Fun | 24/24</option>
-                                        <option value="LEC1004">Pong Suk Fun | 24/24</option>
+                                    <select name="new-supervisor" id="tab1-new-supervisor-select" class="form-control" required="true" disabled>                                   
                                     </select>
                                 </div>
                             </div>
@@ -107,143 +102,33 @@ include "includes/db_connection.php";
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <button class="clickable-btn" onclick="">Search</button>
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('curr-supervisor'), document.getElementById('new-supervisor'))">
+                                <button class="grey-btn" onclick="tab1InsertTable()" disabled id="tab1-search-btn">Search</button>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput('1')">
                             </div>
                             <hr>
                             <div class="info-group">
-                                <p><span style="color:#313e85;">Current</span> Supervisor Available Slot: <span>24 / 24</span></p>
+                                <p><span style="color:#313e85;">Current</span> Supervisor Available Slot: <span id="tab1-curr-supervisor">0 / 0</span></p>
                                 <span>|</span>
-                                <p><span style="color:#f2891f;">New</span> Supervisor Available Slot: <span>24 / 24</span></p>
+                                <p><span style="color:#f2891f;">New</span> Supervisor Available Slot: <span id="tab1-new-supervisor">0 / 0</span></p>
                             </div>
                             <hr>
                             <div class="table-title">
-                                <p>Hint: Table Below Is Scrollable</p>
                                 <h4>Result Table</h4>
-                                <input type="search" id="keyInput-update" onkeyup="searchInTable(document.getElementById('update-table'), document.getElementById(this.id))" placeholder="Enter Student Name...">
                             </div>
-                            <div class="orange-border">
-                                <table id="update-table">
+                            <div>
+                                <table id="tab1-table">
                                     <thead>
-                                        <th>#</th>
+                                        <th>Selection</th>
+                                        <th>Internship Batch</th> 
                                         <th>Student ID</th>
-                                        <th>Faculty</th>
                                         <th>Student Name</th>
-                                        <th>Supervisor</th>
+                                        <th>Programme</th>
+                                        <th>Year</th>
+                                        <th>Semester</th>
+                                        <th>Tutorial Group</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Poi Han</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Yan Ning</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="21WMR08523" id="21WMR08523" checked></td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-
-                                        </tr>
+                                    <tbody id="tab1-table">
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -262,12 +147,13 @@ include "includes/db_connection.php";
 
                                 <div class="form-group">
                                     <label for="faculty">Faculty <span class="required-star">*</span></label>
-                                    <select name="faculty" id="faculty" class="form-control" required="true">
-                                        <option value="0">Select a Faculty</option>
-                                        <option value="FAC001">FOCS</option>
-                                        <option value="FAC001">FAFB</option>
-                                        <option value="FAC001">FOCI</option>
-                                        <option value="FAC001">FOCI</option>
+                                    <select name="faculty" id="tab2-faculty" class="form-control" required="true">
+                                        <option value="0" disabled selected>Select a Faculty</option>
+                                        <?php
+                                            foreach($getFaculty as $faculty){
+                                                echo "<option value='".$faculty['facultyID']."'>".$faculty['facAcronym']."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
 
@@ -276,8 +162,8 @@ include "includes/db_connection.php";
                                 -->
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="supervisor" name="supervisor" placeholder="Enter Supervisor ID or Name...." required="true">
-                                    <div class="form-control result-box">
+                                    <input type="search" class="form-control" id="tab2-supervisor" name="supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)">                                  
+                                    <div class="form-control" id="result-box-2">
                                         <!--                                    
                                         //TODO: Javascript to display result box need to fix         
                                         -->
@@ -291,17 +177,15 @@ include "includes/db_connection.php";
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <button class="clickable-btn" onclick="">Search</button>
-                                <input type="reset" class="clickable-btn" href="#" value="Reset Field" onclick="resetInput(document.getElementById('supervisor'), document.getElementById('faculty'))">
+                                <button class="clickable-btn" onclick="" id="tab2-search-btn">Search</button>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab2-supervisor'), document.getElementById('tab2-faculty'))">
                             </div>
                             <hr>
                             <div class="table-title">
-                                <p>Hint: Table Below Is Scrollable</p>
                                 <h4>Result Table</h4>
-                                <input type="search" id="keyInput-remove" onkeyup="searchInTable(document.getElementById('remove-table'), document.getElementById(this.id))" placeholder="Enter Student Name...">
                             </div>
-                            <div class="table-responsive orange-border">
-                                <table id="remove-table">
+                            <div>
+                                <table id="tab2-table">
                                     <thead>
                                         <th>#</th>
                                         <th>Student ID</th>
@@ -310,149 +194,7 @@ include "includes/db_connection.php";
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Poi Han</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                            <div>
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Yan Ning</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Hui Xuan</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                           <td class="btn-td">
-                                                <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a>
-                                            </td>
-                                        </tr>
+                                    <tbody id="tab2-table">                                   
                                     </tbody>
                                 </table>
                             </div>
@@ -469,6 +211,8 @@ include "includes/db_connection.php";
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -486,27 +230,23 @@ include "includes/db_connection.php";
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+        $('#tab1-table').DataTable({
+            "bLengthChange": false,
+            "info": false,         
+        });
+    });
+
+    $(document).ready(function() {
+        $('#tab2-table').DataTable({
+            "bLengthChange": false,
+            "info": false,
+        });
+    });
 </script>
 <script>
-    function searchInTable(tableID, inputID) {
-        let input, filter, table, tr, td, i, txtValue;
-        input = inputID;
-        filter = input.value.toUpperCase();
-        table = tableID;
-        tr = table.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    document.getElementById("defaultOpen").click();
 
     function changeTab(evt, tabName) {
         let i, tabcontent, tablinks;
@@ -528,32 +268,54 @@ include "includes/db_connection.php";
         evt.currentTarget.className += " active";
     }
 
-    function resetInput(valueInput, selectionInput){
-        valueInput.value = "";
-        selectionInput.selectedIndex = "0";       
+    function resetInput(tabID){
+        let facultySelect = document.getElementById(`tab${tabID}-faculty`);
+        let supervisorInput = document.getElementById(`tab${tabID}-supervisor`);
+        let searchBtn = document.getElementById(`tab${tabID}-search-btn`);
+
+        console.log(`tab${tabID}-faculty`)
+        facultySelect.selectedIndex = "0";
+        supervisorInput.value = "";
+
+        facultySelect.disabled = false;
+        supervisorInput.disabled = true;
+
+        searchBtn.disabled = true;
+        searchBtn.classList.add('grey-btn');
+        searchBtn.classList.remove('clickable-btn');
+
+        Object.keys(supervisorInput).forEach(i => {
+            delete supervisorInput.dataset[i];
+        });
+
+        $(`#tab${tabID}-table`).DataTable().clear().draw();
+        
+        if(tabID = '1'){
+            const newSupervisorSelect = document.getElementById('tab1-new-supervisor-select');
+            const currSupervisorSlot = document.getElementById('tab1-curr-supervisor');
+            const newSupervisorSlot = document.getElementById('tab1-new-supervisor');
+
+            //Remove All Options in Select
+            newSupervisorSelect.innerHTML = "";
+
+            newSupervisorSelect.disabled = true;
+
+            tab1CurrLecturer = {};
+            tab1NewLecturer = {};
+
+            currSupervisorSlot.textContent = "0/0";
+            newSupervisorSlot.textContent = "0/0";
+        }
     }
 
 </script>
 <script>
-    document.getElementById("defaultOpen").click();
-
-    //Search Result on Search Bar
-    function inputSearchResult() {
-        const getSearchResultArr = document.getElementsByClassName('search-result');
-        const getSearchBar = document.getElementById('searchBar');
-        const getResultBox = document.querySelector('.result-box');
-
-        if (getSearchResultArr.length > 0) {
-            for (let i = 0; i < getSearchResultArr.length; i++) {
-                getSearchResultArr[i].addEventListener('click', (btn) => {
-                    getSearchBar.value = btn.target.innerText;
-                    getResultBox.style.display = 'none';
-                });
-            }
-        } else {
-            return;
-        }
-    }
+    document.querySelector('body').addEventListener('click', () => {
+        const getResultBox = document.querySelectorAll('.result-box');
+        getResultBox.forEach(i => {
+            i.style.display = "none";          
+        });
+    });
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -561,49 +323,232 @@ include "includes/db_connection.php";
         }
     }
 
-    async function displaySearchResult() {
-        const getResultBox = document.querySelector('.result-box');
-        const respondResult = await searchBarData();
+    //Change Tab 1 New Supervisor Slot
+    document.getElementById('tab1-new-supervisor-select').addEventListener('change', e => {
+        let currNo = e.target.options[e.target.selectedIndex].dataset.currno;
+        let maxNo = e.target.options[e.target.selectedIndex].dataset.maxno;
+        let newSupervisorSlot = document.getElementById("tab1-new-supervisor");
+
+        newSupervisorSlot.textContent = `${currNo} / ${maxNo}`;
+    });
+
+    //Change Tab 1 Faculty
+    document.getElementById('tab1-faculty').addEventListener('change', e => {
+        const tab1SearchBtn = document.getElementById('tab1-search-btn');
+
+        document.getElementById('tab1-supervisor').disabled = false;
+        tab1SearchBtn.disabled = false;
+        tab1SearchBtn.classList.remove('grey-btn');
+        tab1SearchBtn.classList.add('clickable-btn');
+    })
+
+    //Change Supervisor Option and Re-store the new lecturer object
+    document.getElementById('tab1-new-supervisor-select').addEventListener('change', () => {
+        tab1StoreNewLecturerObject();
+    })
+    
+    function tab1StoreNewLecturerObject() {
+        const select = document.getElementById('tab1-new-supervisor-select');
+
+        tab1NewLecturer = {};
+
+        tab1NewLecturer = {
+            id: select.options[select.selectedIndex].value,
+            currNo: select.options[select.selectedIndex].dataset.currno,
+            maxNo: select.options[select.selectedIndex].dataset.maxno
+        }
+    }
+
+    //Enable New Supervisor Slot if At least 1 student is selected
+    document.querySelectorAll("#tab1-table input[type='checkbox']").forEach(i => {
+        if(i.checked){
+            document.getElementById('tab1-new-supervisor-select').disabled = false;
+        }
+        console.log(i)
+    })
+
+    //Tab 1 Store Lecturer Object
+    let tab1CurrLecturer = {};
+    let tab1NewLecturer = {};
+
+    //Search Result on Search Bar
+    function inputSearchResult(tabID, resultBox) {
+        const getSearchResultArr = document.getElementById(resultBox).childNodes;
+        const getSearchBar = document.getElementById(tabID);
+        const getResultBox = document.getElementById(resultBox);
+        const currSupervisorSlot = document.getElementById("tab1-curr-supervisor");
+        let facultyID = document.getElementById(`tab${tabID == "tab1-supervisor" ? '1' : '2'}-faculty`).value;
+        
+        if (getSearchResultArr.length > 0) {
+            for (let i = 0; i < getSearchResultArr.length; i++) {
+                getSearchResultArr[i].addEventListener('click', (list) => {
+                    getSearchBar.value = list.target.innerText;
+                    getResultBox.style.display = 'none';
+
+                        currSupervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
+                        getSearchBar.setAttribute("data-lecturerid", list.target.dataset.lecturerid);
+
+                        if(tabID == "tab1-supervisor"){
+                            getSearchBar.setAttribute("data-currno", list.target.dataset.currno);
+                            getSearchBar.setAttribute("data-maxno", list.target.dataset.maxno);
+                            tab1CurrLecturer = {
+                                lecturerID: list.target.dataset.lecturerid,
+                                currNo: list.target.dataset.currno,
+                                maxNo: list.target.dataset.maxno
+                            }
+                        }
+                        
+                        getSearchBar.disabled = true;
+                        tab1InsertLecturerData(facultyID, list.target.dataset.lecturerid)
+                });
+            }
+        } else {
+            return;
+        }
+    }
+
+    //Tab 1 Retrieve Lecturer Data From the Faculty
+    async function tab1InsertLecturerData(facultyID, lecturerID){
+        let newSupervisorSelect = document.getElementById("tab1-new-supervisor-select");
+
+        let url = `../../app/DAL/ajaxMapUpdateSearchBar.php?facultyID=${facultyID}&lecturerID=${lecturerID}&selection=true`;
+        let response = await fetch(url);
+        let data = await response.json();
+
+        removeAllChildNodes(newSupervisorSelect);
+
+        if(data != "No Data Found"){
+            data.forEach(i => {
+                let option = document.createElement("option");
+                option.value = i.lecturerID;
+                option.textContent = `${i.lecName} | ${i.currNoOfStudents} / ${i.maxNoOfStudents}`;
+                option.setAttribute("data-currno", i.currNoOfStudents);
+                option.setAttribute("data-maxno", i.maxNoOfStudents);
+                newSupervisorSelect.appendChild(option);
+            });
+
+            let currNo = newSupervisorSelect.childNodes[0].dataset.currno;
+            let maxNo = newSupervisorSelect.childNodes[0].dataset.maxno;
+            let newSupervisorSlot = document.getElementById("tab1-new-supervisor");
+
+            newSupervisorSlot.textContent = `${currNo} / ${maxNo}`;
+            
+        }else{
+            let option = document.createElement("option");
+            option.value = "0";
+            option.textContent = "No Data Found";
+            newSupervisorSelect.appendChild(option);
+        }
+    }
+
+    async function tab1InsertTable(){
+        const currLecturerID = document.getElementById("tab1-supervisor").dataset.lecturerid;
+        let tab1DataTable = $('#tab1-table').DataTable();
+        const tab1SearchBtn = document.getElementById('tab1-search-btn');
+
+        let url = `../../app/DAL/ajaxMapUpdateInsertTable.php?lecturerID=${currLecturerID}&insertTable=true`;
+        let response = await fetch(url);
+        let data = await response.json();
+
+        if(data != "No Data Found"){
+            data.forEach(i => {
+                tab1DataTable.row.add([
+                    `<input type="checkbox" value="${i.studentID}">`,
+                    i.internshipBatchID,
+                    i.studentID,
+                    i.studName,
+                    i.programmeAcronym,
+                    i.studentYear,
+                    i.studentSemester,
+                    i.tutorialGroupNo
+                ]).draw();
+            })
+    
+            tab1SearchBtn.disabled = true;
+            tab1SearchBtn.classList.add('grey-btn');
+            tab1SearchBtn.classList.remove('clickable-btn');
+            document.getElementById('tab1-faculty').disabled = true;
+            console.log(tab1CurrLecturer)
+        }else{
+            alert("No Data Found");
+        }
+
+    }
+
+
+    //Show Result Box
+    async function displaySearchResult(searchBarTab, tabID) {
+        
+        resultBoxNo = tabID == 'tab1-supervisor' ? "result-box-1" : "result-box-2";
+
+        const getResultBox = document.getElementById(resultBoxNo);
+        const respondResult = await fetchSearchBarData(searchBarTab, tabID);
+        const getSearchBarValue = searchBarTab.value;
         let resultArr = [];
 
-        if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
+        if (respondResult == "No Data Found" || getSearchBarValue == "") {
             getResultBox.style.display = 'none';
             return;
         }
-        //Clear the existing box
-        removeAllChildNodes(getResultBox);
 
-        if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
-            for (let i = 0; i < Object.keys(respondResult).length; i++) {
-                resultArr[i] =
-                    `<li class='search-result'>${respondResult[i].employeeID}: ${respondResult[i].fullName}</li>`;
+        if(getResultBox.hasChildNodes()){
+            removeAllChildNodes(getResultBox);
+        }
+
+        if(respondResult != "No Data Found" ){
+            if(tabID == 'tab1-supervisor'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                       `<li 
+                       data-lecturerid=${respondResult[i].lecturerID} 
+                       data-facultyID=${respondResult[i].facultyID} 
+                       data-currNo=${respondResult[i].currNoOfStudents} 
+                       data-maxNo=${respondResult[i].maxNoOfStudents}>
+                        ${respondResult[i].lecName}
+                       </li>`
+                    );
+                }
+            }else if(tabID == 'tab2-supervisor'){
+                for (let i = 0; i < respondResult.length; i++) {
+                    resultArr.push(
+                        `<li data-lecturerid=${respondResult[i].lecturerID} data-facultyID=${respondResult[i].facultyID}>${respondResult[i].lecName}</li>`
+                    );
+                }
             }
         } else {
-            getResultBox.style.display = 'none';
-            return;
+           getResultBox.style.display = 'none';
+           return;
         }
 
         getResultBox.style.display = 'block';
         getResultBox.innerHTML = resultArr.join('');
-        inputSearchResult();
+        inputSearchResult(tabID, resultBoxNo);
     }
 
-    async function searchBarData() {
-        const getSearchInput = document.getElementById('searchBar').value;
-        const getResultBox = document.querySelector('.result-box');
+    //Fetch Search Bar Data from DB
+    async function fetchSearchBarData(searchBarTab, tabID) {
+       // let getSearchInput = searchBarTab.value;
         let url;
+        
+        let facultyID = document.getElementById(`tab${tabID == 'tab1-supervisor' ? '1' : '2'}-faculty`).value;
 
+        let getSearchInput = document.getElementById(`tab${tabID == 'tab1-supervisor' ? '1' : '2'}-supervisor`).value;
+
+        const getResultBox = document.getElementById(`result-box-${tabID == 'tab1-supervisor' ? '1' : '2'}`);
+        
         if (getSearchInput == '') {
             getResultBox.style.display = 'none';
             return;
         } else {
-            if (Number.isInteger(parseInt(getSearchInput))) {
-                url = '../php-inc/ajaxSearchEmployee.php?icNo=' + getSearchInput;
-            } else {
-                url = '../php-inc/ajaxSearchEmployee.php?fullName=' + getSearchInput;
+            if (tabID == 'tab1-supervisor') {
+                url = `../../app/DAL/ajaxMapUpdateSearchBar.php?faculty=${facultyID}&supervisor=${getSearchInput}&tab1=true`;
+            } else if (tabID == 'tab2-supervisor') {
+                url = `../../app/DAL/ajaxMapUpdateSearchBar.php?faculty=${facultyID}&supervisor=${getSearchInput}&tab2=true`;
             }
+
             const response = await fetch(url);
             const data = await response.json();
+
             return data;
         }
     }

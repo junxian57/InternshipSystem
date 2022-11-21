@@ -9,7 +9,7 @@ if(isset($_GET['supervisor'])){
 
     $sql = "SELECT L.lecName, L.lecturerID, L.departmentID, F.facultyID, F.facAcronym, L.currNoOfStudents, L.maxNoOfStudents
             FROM Lecturer L, Faculty F, Department D
-            WHERE L.lecName LIKE '%$supervisor%' AND L.supervisorQualification = 1 AND
+            WHERE (L.lecName LIKE '%$supervisor%' OR L.lecturerID LIKE '%$supervisor%') AND L.supervisorQualification = 1 AND
             L.currNoOfStudents < L.maxNoOfStudents AND
             L.departmentID = D.departmentID AND
             D.facultyID = F.facultyID
@@ -42,7 +42,7 @@ if(isset($_GET['supervisor'])){
 
     $sql = "SELECT S.studentID, S.studName, F.facultyID, P.programmeID, F.facAcronym, P.programmeAcronym
             FROM Student S, Faculty F, Programme P, Department D
-            WHERE S.studName LIKE '%$student%' AND 
+            WHERE (S.studName LIKE '%$student%' OR L.studentID LIKE '%$student%') AND 
             S.internshipBatchID = $intern AND
             S.lecturerID IS NULL AND
             S.programmeID = P.programmeID AND

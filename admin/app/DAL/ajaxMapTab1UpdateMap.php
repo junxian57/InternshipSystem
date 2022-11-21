@@ -14,11 +14,19 @@ if(isset($_GET['lectureID']) && isset($_GET['studentIDArr'])){
     $studentIDArr = str_replace("[", "", $studentIDArr);
     $studentIDArr = str_replace("]", "", $studentIDArr);
 
+    //Update Student Lecturer Mapping
     $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID IN ($studentIDArr);";
 
     $result = $db->executeQuery($sql);
 
+    if($result){
+        $studentCount = count(explode(",", $studentIDArr));
     
+        $sqlUpdateCurrStud = "UPDATE Lecturer SET currNoOfStudents = currNoOfStudents + $studentCount WHERE lecturerID = '$lectureID';";
+    
+        $result = $db->executeQuery($sqlUpdateCurrStud);
+    }
+
     if($result){
         $getEmailSql = "SELECT S.studEmail, L.lecName, L.lecEmail FROM Student S, Lecturer L  WHERE S.studentID IN ($studentIDArr) AND S.lecturerID = L.lecturerID;";
 
