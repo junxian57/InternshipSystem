@@ -18,8 +18,8 @@ if ($_GET['act'] == "edit") {
     $id = str_replace("'", "", $_GET['id']);
     $aRubricAssmtCmptCriteria = $rubricAssessmentComponentBllObj->GetRubricCmptCriteria($id);
     $aRubricAssmtCmpt = $rubricAssessmentComponentBllObj->GetRubricCmpt($id);
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
-        /*$newOfRubricCmpDto = array();
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Rubric Criteria Component') {
+        $newOfRubricCmpDto = array();
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date = date('Y-m-d');
 
@@ -30,16 +30,18 @@ if ($_GET['act'] == "edit") {
         $assessmentCriteriaDesc = $_POST['assessmentCriteriaDesc'];
         $CreateByID = $_POST['CreateByID'];
         $CreateDate = $date;
-
         if (count($_POST['cmpLvlValue']) == count($_POST['CriteriaCmpDesc'])) {
             $countRow = count($_POST['cmpLvlValue']);
             for ($i = 0; $i < $countRow; $i++) {
-                $newOfRubricCmpDto[] = new rubricComponentDTO($assessmentCriteriaID, $_POST['cmpLvlValue'][$i], $_POST['CriteriaCmpDesc'][$i]);
+                $newOfRubricCmpDto[] = new rubricComponentDTO($_POST['cmptID'][$i], $assessmentCriteriaID, $_POST['cmplvTitle'][$i], $_POST['cmpLvlValue'][$i], $_POST['CriteriaCmpDesc'][$i]);
             }
         }
-
+        //print_r($newOfRubricCmpDto);
         $newRubricCmpCriteria = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
-        $rubricAssessmentComponentBllObj->AddRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);*/ }
+
+        //print_r($newRubricCmpCriteria);
+        $rubricAssessmentComponentBllObj->UpdRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);
+    }
 } else {
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Rubric Criteria Component') {
         $newOfRubricCmpDto = array();
@@ -58,7 +60,7 @@ if ($_GET['act'] == "edit") {
             $countRow = count($_POST['cmpLvlValue']);
             $componentId = $rubricAssessmentComponentDALObj->generateRubricCmptID();
             for ($i = 0; $i < $countRow; $i++) {
-                $newOfRubricCmpDto[] = new rubricComponentDTO($componentId, $assessmentCriteriaID, $_POST['cmpLvlValue'][$i],  $_POST['cmplvTitle'][$i], $_POST['CriteriaCmpDesc'][$i]);
+                $newOfRubricCmpDto[] = new rubricComponentDTO($componentId, $assessmentCriteriaID, $_POST['cmplvTitle'][$i], $_POST['cmpLvlValue'][$i], $_POST['CriteriaCmpDesc'][$i]);
                 $componentId = generateRubricCmptID($componentId);
             }
         }
@@ -67,6 +69,7 @@ if ($_GET['act'] == "edit") {
         $rubricAssessmentComponentBllObj->AddRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);
     }
 }
+
 function generateRubricCmptID($componentId)
 {
 
@@ -147,27 +150,34 @@ function generateRubricCmptID($componentId)
                         echo "<script> warning('Record cant be Update. Operation failed.');</script>";
                     } elseif ($_GET['status'] == 'success') {
                         echo "<script> addSuccess('Update Rubric Assessment Criteria successful'); </script>";
-                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                    } elseif ($rubricAssessmentComponentBllObj->errorMessage != '') {
+                        echo "<script> warning('$rubricAssessmentComponentBllObj->errorMessage'); </script>";
                     }
                 } else {
                     if ($_GET['status'] == 'failed') {
                         echo "<script> warning('Record cant be added. Operation failed.');</script>";
                     } elseif ($_GET['status'] == 'success') {
                         echo "<script> addSuccess('Add Rubric Assessment Criteria successful'); </script>";
-                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                    } elseif ($rubricAssessmentComponentBllObj->errorMessage != '') {
+                        echo "<script> warning('$rubricAssessmentComponentBllObj->errorMessage'); </script>";
                     }
                 }
+
                 ?>
                 <div class="forms ">
-                    <h3 class="title1">Add Rubric Assessment Criteria</h3>
+                <?php
+                    if ($_GET['act'] == "edit") {
+                        echo '<h3 class="title1">Edit Rubric Assessment Criteria</h3>';
+                    } else {
+                        echo '<h3 class="title1">Add Rubric Assessment Criteria</h3>';
+                    }
+                    ?>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Rubric Assessment Criteria</h4>
                         </div>
                         <div class="form-body">
-                            <form action="../../view/page/addRubricComponentCriteria.php" method="post">
+                            <form method="post">
                                 <div class="form-group col-md-2"> <label for="exampleInput">Assessment Criteria ID</label><input type="text" id="assessmentCriteriaID" name="assessmentCriteriaID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $rubricAssessmentComponentDALObj->generateID() ?>" readonly="readonly"></div>
                                 <div class="form-group col-md-7"> <label for="exampleInputPassword1">Assessment Criteria Title</label> <input type="text" id="assessmentCriteriaTitle" name="assessmentCriteriaTitle" class="form-control" placeholder="Component Level" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getTitle() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-3">
@@ -192,73 +202,32 @@ function generateRubricCmptID($componentId)
                                 </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Session</label> <input type="text" id="assessmentCriteriaSession" name="assessmentCriteriaSession" class="form-control" placeholder="Section A. Progress Reports" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Description</label> <textarea type="text-area" class="form-control" id="assessmentCriteriaDesc" name="assessmentCriteriaDesc" placeholder="Component Name" required="true"><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getDesc() : "" ?></textarea></div>
-                                <?php
-                                if (!$_GET['act'] == "edit") {
-                                    echo "<div class='form-group col-md-12 text-right'> <text class='btn btn-default' id='btnAddNewRow' onclick='clone()'>Add Criteria Component Description row</text></div>";
-                                }
-                                ?>
                                 <div id="CriteriaDesc">
-                                    <div class="row" id="CloneCriteriaDesc">
-                                        <div class="form-group col-md-5"> <label for="exampleInputEmail1">Assessment Criteria Component Description</label>
-                                            <textarea type="text-area" class="form-control" id="CriteriaCmpDesc" name="CriteriaCmpDesc[]" placeholder="Assessment Criteria Description " required="true"><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmpt[0]->getcriteriaCmpDesc() : "" ?></textarea>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="inputState">Component Level Title</label>
-                                            <select id="cmplvTitle_1" name="cmplvTitle[]" class="form-control" required>
-                                                <option selected disabled value="">Choose...</option>
-                                                <?php
-                                                $options = array('Very Poor', 'Poor', 'Average', 'Good', 'Excellent');
-                                                foreach ($options as $option) {
-                                                    if ($_GET['act'] == "edit") {
-                                                        if ($aRubricAssmtCmptCriteria->getRoleForMark() == $option) {
-                                                            echo "<option selected='selected' value='$option'>$option</option>";
-                                                        } else {
-                                                            echo "<option value='$option'>$option</option>";
-                                                        }
-                                                    } else {
-                                                        echo "<option value='$option'>$option</option>";
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="inputState">Component Level</label>
-                                            <select id="ComponentLevel_1 " name="cmpLvlValue[]" class="form-control">
-                                                <option selected value="LVL00001">0</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-1">
-                                            <button type="button" id="btnRemove" class="btn btn-primary btnRemove hide">X</button>
-                                        </div>
-                                    </div>
                                     <?php
-
-                                    if ($_GET['act'] == "edit") {
-                                        $valueName = array('Poor', 'Average', 'Good', 'Excellent');
-                                        for ($i = 1; $i < count($aRubricAssmtCmpt); $i++) {
-                                            $count = $i + 1;
-                                            echo '<div class="row">';
-                                            echo ' <div class="form-group col-md-6"> <label for="exampleInputEmail1">Assessment Criteria Component Description ' . $count . '</label>';
-                                            echo '<textarea type="text-area" class="form-control" id="CriteriaCmpDesc" name="CriteriaCmpDesc[]" placeholder="Assessment Criteria Description"  required>' . $aRubricAssmtCmpt[$i]->getcriteriaCmpDesc() . '</textarea>';
-                                            echo '</div>';
-                                            echo '<div class="form-group col-md-3">';
-                                            echo '<label for="inputState">Component Level Title</label>';
-                                            echo '<input type="text" id="cmplvTitle" name="cmplvTitle" class="form-control" value="' . $valueName[$i - 1] . '" readonly>';
-                                            echo '</div>';
-                                            echo '<div class="form-group col-md-3">';
-                                            echo '<label for="inputState">Component Level</label>';
-                                            echo '<select id="' . $valueName[$i - 1] . '" name="cmpLvlValue[]"class="form-control">';
-                                            echo '</select>';
-                                            //if ($aRubricAssmtCmpt->getlevelID() == $CmpLvlObj[i].levelID) { }
-                                            echo '</div>';
-                                            echo '</div>';
-                                        }
+                                    $count = 1;
+                                    $valueName = array('Very Poor', 'Poor', 'Average', 'Good', 'Excellent');
+                                    for ($i = 0; $i < 5; $i++) {
+                                        echo "<div class='row'>";
+                                        echo '<input class="form-group hide" name="cmptID[]" value="', isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmpt[$i]->getcmptID() : "", '"></input>';
+                                        echo '<div class="form-group col-md-6"> <label for="exampleInputEmail1">Assessment Criteria Component Description ' . $count . '</label>';
+                                        echo '<textarea type="text-area" class="form-control" id="CriteriaCmpDesc" name="CriteriaCmpDesc[]" placeholder="Assessment Criteria Description" required>', isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmpt[$i]->getcriteriaCmpDesc() : '', '</textarea>';
+                                        echo "</div>";
+                                        echo "<div class='form-group col-md-3'>";
+                                        echo '<label for="inputState">Component Level Title</label>';
+                                        echo '<input type="text" id="cmplvTitle" name="cmplvTitle[]" class="form-control" value="' . $valueName[$i] . '" readonly>';
+                                        echo '</div>';
+                                        echo '<div class="form-group col-md-3">';
+                                        echo '<label for="inputState">Component Level</label>';
+                                        echo '<input type="text" id="cmpLvlValue_' . $count . '" name="cmpLvlValue[]" class="form-control cmpLvlValue_" placeholder="0-2" value="', isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmpt[$i]->getscore() : "", '" onchange="changeHandler(this)" required>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                        $count++;
                                     }
 
                                     ?>
+
                                 </div>
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Rubric Criteria Component" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Rubric Criteria Component" : "Add Rubric Criteria Component" ?>" class="form-group btn btn-default">Save</button></div>
                             </form>
                         </div>
                     </div>
@@ -290,10 +259,6 @@ function generateRubricCmptID($componentId)
             }
 
 
-            var count = 2;
-            var num = 0;
-            var removeCount = 0;
-            const valueName = ["Poor", "Average", "Good", "Excellent"];
 
             $('body').on('click', '.btnRemove', function() {
                 $(this).closest('div.row').remove()
@@ -303,17 +268,6 @@ function generateRubricCmptID($componentId)
                 document.getElementById('btnAddNewRow').style = "";
             });
 
-            function addRow() {
-                $("#CriteriaDesc").append(addNewRow(count, num, valueName));
-                insertCmptLvlValue();
-                num++;
-                removeCount++;
-                count++;
-                if (removeCount == valueName.length) {
-                    $("#btnAddNewRow").attr("disabled", "disabled");
-                    document.getElementById('btnAddNewRow').style = "pointer-events: none;";
-                }
-            }
             var cloneCount = 2;
 
             function clone() {
@@ -335,26 +289,6 @@ function generateRubricCmptID($componentId)
 
                 var example = document.getElementById('CriteriaDesc');
                 example.appendChild(clone);
-            }
-
-            function addNewRow(count, num, valueName) {
-
-                var newrow = '<div class="row">' +
-                    '<div class="form-group col-md-5"> <label for="exampleInputEmail1">Assessment Criteria Component Description ' + count + '</label> <textarea type="text-area" class="form-control" id="CriteriaCmpDesc" name="CriteriaCmpDesc[]" placeholder="Assessment Criteria Description " required="true"></textarea></div>' +
-                    '<div class="form-group col-md-3">' +
-                    ' <label for="inputState">Component Level Title</label>' +
-                    '<input type="text" id="cmplvTitle" name="cmplvTitle[]" class="form-control" value= ' + valueName[num] + ' readonly>' +
-                    ' </div>' +
-                    '<div class="form-group col-md-3">' +
-                    '<label for="inputState">Component Level</label>' +
-                    '<select id="' + valueName[num] + '" name="cmpLvlValue[]"class="form-control">' +
-                    ' </select>' +
-                    ' </div>' +
-                    '<div class="form-group col-md-1" id="' + count + '">' +
-                    '<button type="button" id="btnRemove" class="btn btn-primary btnRemove">X</button>' +
-                    '</div>';
-                return newrow;
-
             }
 
             async function fetchCmptLvlValue2(cmplvTitleId) {
@@ -379,29 +313,46 @@ function generateRubricCmptID($componentId)
                 }
             }
 
-
-
-            async function fetchCmptLvlValue() {
-
-                const getManagerPhp = '../../app/DAL/ComponentLvlDAL.php?ComponentLevelTitle=' + valueName[num];
-
-                let getComponentLvlRespond = await fetch(getManagerPhp);
-                let CmpLvlObj = await getComponentLvlRespond.json();
-                return CmpLvlObj;
+            function setInputFilter(textbox, inputFilter, errMsg) {
+                ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
+                    textbox.addEventListener(event, function(e) {
+                        if (inputFilter(this.value)) {
+                            // Accepted value
+                            if (["keydown", "mousedown", "focusout"].indexOf(e.type) >= 0) {
+                                this.classList.remove("input-error");
+                                this.setCustomValidity("");
+                            }
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            // Rejected value - restore the previous one
+                            this.classList.add("input-error");
+                            this.setCustomValidity(errMsg);
+                            this.reportValidity();
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        } else {
+                            // Rejected value - nothing to restore
+                            this.value = "";
+                        }
+                    });
+                });
             }
+            /*setInputFilter(document.getElementById("cmpLvlValue_1"), function(value) {
+                return /^-?\d*[.,]?\d{0,2}$/.test(value);
+            }, "Must be a currency value");*/
+            /*setInputFilter($('[id^=cmpLvlValue_]'), function(value) {
+                return /^-?\d*[-]?\d{0,2}$/.test(value);
+            }, "Must be a currency value");*/
 
-            //Calling async function need to be async as well
-            async function insertCmptLvlValue() {
-                const CmpLvlSelect = document.getElementById(valueName[num]);
-                const CmpLvlObj = await fetchCmptLvlValue();
+            //change
+            function changeHandler(val) {
 
-                if (Object.keys(CmpLvlObj).length != 0) {
-                    //  CmpLvlSelect.innerHTML = "";
-                    for (let i = 0; i < CmpLvlObj.length; i++) {
-                        CmpLvlSelect.innerHTML += "<option value='" + CmpLvlObj[i].levelID + "'>" + CmpLvlObj[i].Value + "</option>";
-                    }
-                } else {
-                    CmpLvlSelect.innerHTML = "<option value='None'>None</option>";
+                var scoreRange = /^-?\d*[-]?\d{0,2}$/;
+                if (!val.value.match(scoreRange)) {
+                    warning("Must be a Number value exp: 1 - 10 The last digit only accept 2");
+                    val.value = "";
                 }
             }
         </script>
