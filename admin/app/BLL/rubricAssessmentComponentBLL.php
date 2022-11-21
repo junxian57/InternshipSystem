@@ -10,22 +10,22 @@ class rubricAssessmentComponentBLL
         $this->rubricAssessmentComponentDAL = new rubricAssessmentComponentDAL();
     }
 
-    
+
     public function GetAllRubricComponentCriteria()
     {
         return $this->rubricAssessmentComponentDAL->GetAllRubricComponentCriteria();
     }
-    
+
     public function GetRubricCmptCriteria($ID)
     {
         return $this->rubricAssessmentComponentDAL->GetRubricCmptCriteria($ID);
     }
-    
+
     public function GetRubricCmpt($ID)
     {
         return $this->rubricAssessmentComponentDAL->GetRubricComponent($ID);
     }
-    
+
     public function GenerateHtmlForAllRubricCmpCriteria()
     {
         //$rubricAssessmentDal = new rubricAssessmentDAL();
@@ -75,7 +75,7 @@ class rubricAssessmentComponentBLL
     {
 
         if ($rubricCmpCriteriaDto->getTitle() == '' || $rubricCmpCriteriaDto->getCriteriaSession() == '') {
-            $this->errorMessage = 'Component Level Title, Component Level Weight is required.';
+            $this->errorMessage = 'Criteria Title, Criteria Description is required.';
             return false;
         }
 
@@ -86,16 +86,16 @@ class rubricAssessmentComponentBLL
         return false;
     }
     //
-    public function UpdRubricCmpLvl($rubricCmpCriteriaDto)
+    public function UpdRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
 
-        if ($rubricCmpCriteriaDto->getcmpTitle() == '' || $rubricCmpCriteriaDto->getValue() == '') {
-            $this->errorMessage = 'Component Level Title, Component Level Weight is required.';
+        if ($rubricCmpCriteriaDto->getTitle() == '' || $rubricCmpCriteriaDto->getCriteriaSession() == '') {
+            $this->errorMessage = 'Criteria Title, Criteria Description is required.';
             return false;
         }
 
-        if ($this->IsValidCmpLvl($rubricCmpCriteriaDto)) {
-            $this->ComponentLvlDAL->UpdRubricCmpLvl($rubricCmpCriteriaDto);
+        if ($this->IsValidRubricCmp($rubricCmpCriteriaDto)) {
+            $this->rubricAssessmentComponentDAL->UpdRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto);
             return true;
         }
         return false;
@@ -104,7 +104,7 @@ class rubricAssessmentComponentBLL
     public function IsValidRubricCmp($rubricCmpCriteriaDto)
     {
         if ($this->IsValidRubricCmpExists($rubricCmpCriteriaDto->getTitle(), $rubricCmpCriteriaDto->getRoleForMark(), $rubricCmpCriteriaDto->getCriteriaSession())) {
-            $this->errorMessage = 'Criteria Title ' . $rubricCmpCriteriaDto->getTitle() . ' and ' . $rubricCmpCriteriaDto->getCriteriaSession() . ' already exists. Try a different one.';
+            $this->errorMessage = 'Criteria ' . $rubricCmpCriteriaDto->getTitle() . ' in ' . $rubricCmpCriteriaDto->getCriteriaSession() . ' already exists. Try a different one.';
             return false;
         } else {
             return true;

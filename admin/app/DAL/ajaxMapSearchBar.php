@@ -33,14 +33,14 @@ if(isset($_GET['supervisor'])){
     }else{
         echo json_encode("No Data Found");
     }
-    exit();
+    exit(0);
 
 }elseif(isset($_GET['student']) && isset($_GET['internBatch'])){
 
     $student = $_GET['student'];
     $intern = $_GET['internBatch'];
 
-    $sql = "SELECT S.studentID, S.studName, F.facultyID, P.programmeID
+    $sql = "SELECT S.studentID, S.studName, F.facultyID, P.programmeID, F.facAcronym, P.programmeAcronym
             FROM Student S, Faculty F, Programme P, Department D
             WHERE S.studName LIKE '%$student%' AND 
             S.internshipBatchID = $intern AND
@@ -56,7 +56,10 @@ if(isset($_GET['supervisor'])){
             $tempArray[] = array(
                 "studentID" => $result[$i]['studentID'], 
                 "studName" => $result[$i]['studName'],
-                "facultyID" => $result[$i]['facultyID']
+                "facultyID" => $result[$i]['facultyID'],
+                "programmeID" => $result[$i]['programmeID'],
+                "facAcronym" => $result[$i]['facAcronym'],
+                "programmeAcronym" => $result[$i]['programmeAcronym']
             );
         }
         echo json_encode($tempArray);
@@ -64,7 +67,7 @@ if(isset($_GET['supervisor'])){
         echo json_encode("No Data Found");
     }
 
-    exit();
+    exit(0);
 
 }elseif(isset($_GET['programme'])){
     $programme = $_GET['programme'];
@@ -91,6 +94,6 @@ if(isset($_GET['supervisor'])){
         echo json_encode("No Data Found");
     }
     
-    exit();
+    exit(0);
 }
 ?>

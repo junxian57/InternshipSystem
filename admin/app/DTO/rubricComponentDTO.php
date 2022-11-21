@@ -4,17 +4,17 @@ class rubricComponentDTO
 
     private $cmptID;
     private $criterionID;
-    private $levelID;
     private $valueName;
+    private $score;
     private $criteriaCmpDesc;
 
 
-    public function __construct($cmptID, $criterionID, $levelID, $valueName, $criteriaCmpDesc)
+    public function __construct($cmptID, $criterionID, $valueName, $score, $criteriaCmpDesc)
     {
         $this->cmptID = $cmptID;
         $this->criterionID = $criterionID;
-        $this->levelID = $levelID;
         $this->valueName = $valueName;
+        $this->score = $score;
         $this->criteriaCmpDesc = $criteriaCmpDesc;
     }
 
@@ -28,14 +28,15 @@ class rubricComponentDTO
         return $this->criterionID;
     }
 
-    public function getlevelID()
-    {
-        return $this->levelID;
-    }
 
     public function getvalueName()
     {
         return $this->valueName;
+    }
+
+    public function getscore()
+    {
+        return $this->score;
     }
 
     public function getcriteriaCmpDesc()

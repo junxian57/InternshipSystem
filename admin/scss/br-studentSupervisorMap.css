@@ -28,6 +28,11 @@
   transition: 0.3s;
   font-size: 1vw;
 }
+@media only screen and (max-width: 1260px) {
+  .tab button {
+    font-size: calc(1vw + 0.4em);
+  }
+}
 .tab button span {
   font-size: 1vw;
 }
@@ -90,6 +95,11 @@
 .tabcontent .search-group .arrow-icon {
   font-size: 2vw;
   color: #f2891f;
+}
+@media only screen and (max-width: 1260px) {
+  .tabcontent .search-group .arrow-icon {
+    font-size: 1.7em;
+  }
 }
 .tabcontent .result-box {
   min-height: 200px;
@@ -240,6 +250,9 @@
   font-weight: 600;
   font-size: 1.2rem;
 }
+.tabcontent .info-group .orange-font {
+  color: #f2891f;
+}
 .tabcontent a.remove {
   color: red;
 }
@@ -264,6 +277,7 @@
 }
 .tabcontent .table-title {
   margin-top: 10px;
+  margin-bottom: 1em;
   font-size: 1.1em;
   text-align: center;
   position: relative;
@@ -289,6 +303,15 @@
   background-color: #b9b7b4;
   color: #474747;
   border: 1px solid #b9b7b4;
+}
+.tabcontent .blue-btn {
+  background-color: #313e85 !important;
+  border-color: #313e85 !important;
+  margin-right: 20px;
+}
+.tabcontent .blue-btn:hover {
+  background-color: #535ea6 !important;
+  border-color: #535ea6 !important;
 }
 .tabcontent table {
   width: 100%;

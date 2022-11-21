@@ -34,8 +34,7 @@ if(isset($_GET['lectureID']) && isset($_GET['internshipBatch']) && isset($_GET['
     }else{
         echo json_encode("No Data Found");
     }
-
-   
+ 
     exit();
 }
 ?>
