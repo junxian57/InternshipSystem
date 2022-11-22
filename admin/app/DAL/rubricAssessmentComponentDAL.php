@@ -21,7 +21,7 @@ class rubricAssessmentComponentDAL
                 $assessmentCriteriaTitle = $result[$i]['Title'];
                 $RoleForMark = $result[$i]['RoleForMark'];
                 $assessmentCriteriaSession = $result[$i]['CriteriaSession'];
-                $assessmentCriteriaDesc = $result[$i]['Desc'];
+                $assessmentCriteriaDesc = $result[$i]['description'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
 
@@ -35,17 +35,16 @@ class rubricAssessmentComponentDAL
     {
         //$db = new DBController();
         $listOfRubricCmptDto = array();
-        $sql = "SELECT rc.levelID,rc.criterionID,rc.Desc from RubricComponentCriteria rcc left JOIN RubricComponent rc on rcc.criterionID=rc.criterionID WHERE rcc.criterionID= '$id'";
+        $sql = "SELECT rc.componentID,rc.criterionID,rc.valueName,rc.score,rc.description from RubricComponentCriteria rcc left JOIN RubricComponent rc on rcc.criterionID=rc.criterionID WHERE rcc.criterionID= '$id'";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
-                $cmpLvlValue = $result[$i]['levelID'];
-                $cmpLvlValue = $result[$i]['levelID'];
+                $componentID = $result[$i]['componentID'];
                 $assessmentCriteriaID = $result[$i]['criterionID'];
                 $valueName = $result[$i]['valueName'];
-                $CriteriaCmpDesc = $result[$i]['Desc'];
-                //nid change
-                $listOfRubricCmptDto[] = new rubricComponentDTO($cmpLvlValue, $assessmentCriteriaID, $cmpLvlValue, $valueName, $CriteriaCmpDesc);
+                $score = $result[$i]['score'];
+                $CriteriaCmpDesc = $result[$i]['description'];
+                $listOfRubricCmptDto[] = new rubricComponentDTO($componentID, $assessmentCriteriaID, $valueName, $score, $CriteriaCmpDesc);
             }
         }
         return $listOfRubricCmptDto;
@@ -66,7 +65,7 @@ class rubricAssessmentComponentDAL
                 $aRubricCmptCriteria[0]['Title'],
                 $aRubricCmptCriteria[0]['RoleForMark'],
                 $aRubricCmptCriteria[0]['CriteriaSession'],
-                $aRubricCmptCriteria[0]['Desc'],
+                $aRubricCmptCriteria[0]['description'],
                 $aRubricCmptCriteria[0]['CreateByID'],
                 $aRubricCmptCriteria[0]['CreateDate']
 
@@ -139,7 +138,7 @@ class rubricAssessmentComponentDAL
      */
     public function AddRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
-        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `Title`, `RoleForMark`,`CriteriaSession`,`Desc`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `Title`, `RoleForMark`,`CriteriaSession`,`description`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricCmpCriteriaDto->getcriterionID() . "',
                   '" . $rubricCmpCriteriaDto->getTitle() . "',
@@ -153,12 +152,12 @@ class rubricAssessmentComponentDAL
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         foreach ($rubricCmpDto as $rubricCmpDto1) {
-            $sql1 = "INSERT INTO RubricComponent (`componentID`,`levelID`,`criterionID`,`valueName`,`Desc`)
+            $sql1 = "INSERT INTO RubricComponent (`componentID`,`criterionID`,`valueName`,`score`,`description`)
                 VALUES (
                   '" . $rubricCmpDto1->getcmptID() . "',
-                  '" . $rubricCmpDto1->getlevelID() . "',
                   '" . $rubricCmpDto1->getcriterionID() . "',
                   '" . $rubricCmpDto1->getvalueName() . "',
+                  '" . $rubricCmpDto1->getscore() . "',
                   '" . $rubricCmpDto1->getcriteriaCmpDesc() . "'
                 )";
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
@@ -177,20 +176,40 @@ class rubricAssessmentComponentDAL
     /**
      * Update Rubric Assessment
      *
-     * @param object $rubricAssmtDto
+     * @param object $rubricCmpCriteriaDto
+     * @param object $rubricCmpDto
      */
-    public function UpdRubricCmpLvl($cmpLvlDto)
+    public function UpdRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
-        $sql = " UPDATE RubricComponentLevel SET
-            Title = '" . $cmpLvlDto->getcmpTitle() . "',
-            Value = '" . $cmpLvlDto->getValue() . "'
-            WHERE levelID ='" . $cmpLvlDto->getCmpLvlID() . "'";
+        /*$sql = " UPDATE RubricAssessment SET
+        internshipBatchID = '" . $rubricAssmtDto->getInternshipBatchID() . "',
+        Title = '" . $rubricAssmtDto->getTitle() . "',
+        Instructions ='" . $rubricAssmtDto->getInstructions() . "',
+        TotalWeight ='" . $rubricAssmtDto->getTotalWeight() . "',
+        RoleForMark ='" . $rubricAssmtDto->getRoleForMark() . "'
+        WHERE assessmentID ='" . $rubricAssmtDto->getAssmtId() . "'";*/
+
+        $sql = " UPDATE RubricComponentCriteria SET
+            Title = '" . $rubricCmpCriteriaDto->getTitle() . "',
+            RoleForMark = '" . $rubricCmpCriteriaDto->getRoleForMark() . "',
+            CriteriaSession = '" . $rubricCmpCriteriaDto->getCriteriaSession() . "',
+            description = '" . $rubricCmpCriteriaDto->getDesc() . "'
+            WHERE criterionID ='" . $rubricCmpCriteriaDto->getcriterionID() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
-        if ($result) {
-            header("Location: ../../view/page/addComponentLevel.php?act=edit&status=success&id='" . $cmpLvlDto->getCmpLvlID() . "'");
+
+        foreach ($rubricCmpDto as $rubricCmpDto1) {
+            $sql2 = " UPDATE RubricComponent SET
+            valueName = '" . $rubricCmpDto1->getvalueName() . "',
+            score = '" . $rubricCmpDto1->getscore() . "',
+            description = '" . $rubricCmpDto1->getcriteriaCmpDesc() . "'
+            WHERE criterionID ='" . $rubricCmpDto1->getcriterionID() . "' AND componentID ='" . $rubricCmpDto1->getcmptID() . "'";
+            $result2 = $this->databaseConnectionObj->executeQuery($sql2);
+        }
+        if ($result && $result2) {
+            header("Location: ../../view/page/addRubricComponentCriteria.php?act=edit&status=success&id='" . $rubricCmpCriteriaDto->getcriterionID() . "'");
             exit();
         } else {
-            header("Location: ../../view/page/addComponentLevel.php?act=edit&status=failed&id='" . $cmpLvlDto->getCmpLvlID() . "'");
+            header("Location: ../../view/page/addRubricComponentCriteria.php?act=edit&status=failed&id='" . $rubricCmpCriteriaDto->getcriterionID() . "'");
             exit();
         }
     }
@@ -205,7 +224,7 @@ class rubricAssessmentComponentDAL
      */
     public function IsValidRubricCmpExists($Title, $RoleForMark, $session)
     {
-        $sql = "SELECT * FROM RubricComponent WHERE Title LIKE'%" . $Title . "%' AND RoleForMark ='" . $RoleForMark . "' AND CriteriaSession LIKE'%" . $session . "%'";
+        $sql = "SELECT * FROM RubricComponentCriteria WHERE Title LIKE'%" . $Title . "%' AND RoleForMark ='" . $RoleForMark . "' AND CriteriaSession LIKE'%" . $session . "%'";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             return true;
