@@ -100,7 +100,7 @@ include('includes/db_connection.php');
                                             die("Error". mysqli_connect_error());
                                         }
 
-                                        $sql = "select * from student"; 
+                                        $sql = "select * from student where studAccountStatus = 'Uninvite' "; 
                                         $result = mysqli_query($conn, $sql);
                                         
                                         while($row=mysqli_fetch_assoc($result)) {
