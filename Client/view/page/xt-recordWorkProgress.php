@@ -48,6 +48,7 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
+          <form id="form">
           <div class="container">
           <div class="subtitle">
               <h2 class="sub-1">Student General Information</h2>
@@ -77,25 +78,25 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput" style="width:100%;">
                 <span>Week 1</span>
-                <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false"></textarea>
+                <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
                 <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 2</span>
-                <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false"></textarea>
+                <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
                 <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 3</span>
-                <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false"></textarea>
+                <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
                 <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 4</span>
-                <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false"></textarea>
+                <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
                 <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
               </div> 
             </div>
@@ -116,24 +117,32 @@ include('includes/dbconnection.php');
             </div>
 
             <div class="inputBox">
+              <div class="viewInput" style="width:100%;">
+                <span>Any leave taken?</span><br>
+                <select name="leaveTaken" id="leaveTaken">
+                  <option value="Yes">Yes</option>
+                  <option value="No" selected>No</option>
+                </select>
+              </div>
+
               <div class="viewInput">
                 <span>Leave From</span>
-                <input type="date" name="fromDate" id="fromDate">
+                <input type="date" name="fromDate" id="fromDate" disabled>
               </div>
             
               <div class="viewInput">
                 <span>Leave Till</span>
-                <input type="date" name="toDate" id="toDate">
+                <input type="date" name="toDate" id="toDate" disabled>
               </div>
 
               <div class="viewInput">
                 <span>Number of Days Taken</span>
-                <input type="text" name="leaveDays" id="leaveDays" value="0">
+                <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
               </div>
 
               <div class="viewInput">
                 <span>Reasons for taking leave</span>
-                <input type="text" name="leaveDays" id="leaveDays">
+                <input type="text" name="leaveReason" id="leaveReason" disabled>
               </div>
             </div>
 
@@ -142,6 +151,7 @@ include('includes/dbconnection.php');
               <button type="submit" id="rejectBtn" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Submit</button>
             </div>
           </div>
+        </form>
         </div>
 		</div>
 	</div>
@@ -297,6 +307,25 @@ include('includes/dbconnection.php');
         evt.preventDefault(); // Cancel event
       }
     });
+
+    var select_element = document.getElementById("leaveTaken");
+    
+    select_element.addEventListener("change", () => {
+      
+    var selected = select_element.options[select_element.selectedIndex ].value
+      if(selected == "No"){
+        document.getElementById("fromDate").disabled = true;
+        document.getElementById("fromDate").value = "";
+        document.getElementById("toDate").disabled = true;
+        document.getElementById("toDate").value = "";
+        document.getElementById("leaveDays").value = "0";
+        document.getElementById("leaveReason").disabled = true;
+      }else{
+        document.getElementById("fromDate").disabled = false;
+        document.getElementById("toDate").disabled = false;
+        document.getElementById("leaveReason").disabled = false;
+      }
+    });
   </script>
 
   <script>
@@ -306,10 +335,11 @@ include('includes/dbconnection.php');
       }); 
     })
   </script>
-	
+
 	<script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
 	<script src="../../js/scripts.js"></script>
 	<script src="../../js/bootstrap.js"> </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>
 </html>
