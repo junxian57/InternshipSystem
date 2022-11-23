@@ -77,22 +77,23 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput" style="width:100%;">
                 <span>Week 1</span>
-                <textarea type="text" name="week1"></textarea>
+                <textarea type="text" name="week1" id="week1" oninput="countWord()"></textarea>
+                <span id="show">0</span>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 2</span>
-                <textarea type="text" name="week2"></textarea>
+                <textarea type="text" name="week2" id="week2" oninput="countWord()"></textarea>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 3</span>
-                <textarea type="text" name="week3"></textarea>
+                <textarea type="text" name="week3" id="week3" oninput="countWord()"></textarea>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 4</span>
-                <textarea type="text" name="week4"></textarea>
+                <textarea type="text" name="week4" id="week4" oninput="countWord()"></textarea>
               </div> 
             </div>
             
@@ -200,6 +201,61 @@ include('includes/dbconnection.php');
       }
     });
   </script>
+
+  <script>
+    function countWord() {
+      var words = document.getElementById("week1").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show").innerHTML = count;
+    }
+    
+    document.getElementById("week1").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 300;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("week2").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 300;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("week3").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 300;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("week4").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 300;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+</script>
 	
 	<script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
