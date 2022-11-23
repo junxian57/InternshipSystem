@@ -14,6 +14,12 @@ if(isset($_GET['studentLecMap'])){
         //Update student lecturerID
         $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID = '$studentID';";
         $result = $db->executeQuery($sql);
+
+        if($result){
+            $sqlUpdateCurrStud = "UPDATE Lecturer SET currNoOfStudents = currNoOfStudents + 1 WHERE lecturerID = '$lectureID';";
+        
+            $result = $db->executeQuery($sqlUpdateCurrStud);
+        }
        
         if($result){
             //Send Email to student
