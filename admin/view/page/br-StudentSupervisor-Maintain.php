@@ -102,7 +102,7 @@ try{
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <button class="grey-btn" onclick="tab1InsertTable()" disabled id="tab1-search-btn">Search</button>
+                                <button class="grey-btn" onclick="insertTable('1')" disabled id="tab1-search-btn">Search</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput('1')">
                             </div>
                             <hr>
@@ -137,7 +137,7 @@ try{
                                 <!--                                    
                                 //TODO: get all data from above and input into database
                                 -->
-                                <button class="grey-btn" href="#" disabled>Update Mapping</button>
+                                <button class="grey-btn" disabled id="tab1-update-btn" onclick="tab1UpdateDB()">Update Mapping</button>
                             </div>
                         </div>
 
@@ -177,8 +177,8 @@ try{
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <button class="clickable-btn" onclick="" id="tab2-search-btn">Search</button>
-                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab2-supervisor'), document.getElementById('tab2-faculty'))">
+                                <button class="grey-btn" onclick="insertTable('2')" id="tab2-search-btn" disabled>Search</button>
+                                <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput('2')">
                             </div>
                             <hr>
                             <div class="table-title">
@@ -188,13 +188,19 @@ try{
                                 <table id="tab2-table">
                                     <thead>
                                         <th>#</th>
+                                        <th>Internship Batch</th> 
                                         <th>Student ID</th>
-                                        <th>Faculty</th>
                                         <th>Student Name</th>
-                                        <th>Supervisor</th>
+                                        <th>Programme</th>
+                                        <th>Year</th>
+                                        <th>Semester</th>
+                                        <th>Tutorial Group</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="tab2-table">                                   
+                                    <tbody id="tab2-table">
+                                        <!-- <tr>
+                                            <td><button class="remove button">Remove</button></td>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -273,7 +279,6 @@ try{
         let supervisorInput = document.getElementById(`tab${tabID}-supervisor`);
         let searchBtn = document.getElementById(`tab${tabID}-search-btn`);
 
-        console.log(`tab${tabID}-faculty`)
         facultySelect.selectedIndex = "0";
         supervisorInput.value = "";
 
@@ -289,11 +294,16 @@ try{
         });
 
         $(`#tab${tabID}-table`).DataTable().clear().draw();
+
+        Object.keys(document.getElementById(`tab${tabID}-supervisor`).dataset).forEach(i => {
+            delete document.getElementById(`tab${tabID}-supervisor`).dataset[i];
+        });
         
         if(tabID = '1'){
             const newSupervisorSelect = document.getElementById('tab1-new-supervisor-select');
             const currSupervisorSlot = document.getElementById('tab1-curr-supervisor');
             const newSupervisorSlot = document.getElementById('tab1-new-supervisor');
+            const updateBtn = document.getElementById('tab1-update-btn');
 
             //Remove All Options in Select
             newSupervisorSelect.innerHTML = "";
@@ -303,8 +313,12 @@ try{
             tab1CurrLecturer = {};
             tab1NewLecturer = {};
 
-            currSupervisorSlot.textContent = "0/0";
-            newSupervisorSlot.textContent = "0/0";
+            currSupervisorSlot.textContent = "0 / 0";
+            newSupervisorSlot.textContent = "0 / 0";
+
+            updateBtn.disabled = true;
+            updateBtn.classList.add('grey-btn');
+            updateBtn.classList.remove('clickable-btn');
         }
     }
 
@@ -334,38 +348,107 @@ try{
 
     //Change Tab 1 Faculty
     document.getElementById('tab1-faculty').addEventListener('change', e => {
-        const tab1SearchBtn = document.getElementById('tab1-search-btn');
-
         document.getElementById('tab1-supervisor').disabled = false;
-        tab1SearchBtn.disabled = false;
-        tab1SearchBtn.classList.remove('grey-btn');
-        tab1SearchBtn.classList.add('clickable-btn');
+    })
+
+    //Change Tab 2 Faculty
+    document.getElementById('tab2-faculty').addEventListener('change', e => {
+        document.getElementById('tab2-supervisor').disabled = false;
     })
 
     //Change Supervisor Option and Re-store the new lecturer object
     document.getElementById('tab1-new-supervisor-select').addEventListener('change', () => {
-        tab1StoreNewLecturerObject();
-    })
-    
-    function tab1StoreNewLecturerObject() {
         const select = document.getElementById('tab1-new-supervisor-select');
-
+    
         tab1NewLecturer = {};
-
+    
         tab1NewLecturer = {
-            id: select.options[select.selectedIndex].value,
+            lecturerID: select.options[select.selectedIndex].value,
             currNo: select.options[select.selectedIndex].dataset.currno,
             maxNo: select.options[select.selectedIndex].dataset.maxno
         }
+
+        document.querySelectorAll("#tab1-table input[type='checkbox']").forEach(i => {
+            i.checked = false;
+        });
+        
+    })
+
+    //For Tab 1 Check or Uncheck Action
+    function getAllCheckBox(checkboxInput){
+        let checkbox = document.querySelectorAll("#tab1-table input:checked");
+        let updateMap = document.getElementById('tab1-update-btn');
+
+        if(checkboxInput.checked == false){
+            tab1NewLecturer['currNo'] = tab1NewLecturer['currNo'] - 1;
+            tab1CurrLecturer['currNo'] = tab1CurrLecturer['currNo'] + 1;
+
+            document.getElementById('tab1-curr-supervisor').textContent = `${tab1CurrLecturer['currNo']} / ${tab1CurrLecturer['maxNo']}`;
+
+            document.getElementById('tab1-new-supervisor').textContent = `${tab1NewLecturer['currNo']} / ${tab1NewLecturer['maxNo']}`;
+        }
+
+        if(checkbox.length > 0){
+            updateMap.classList.add('clickable-btn');
+            updateMap.classList.remove('grey-btn');
+            updateMap.disabled = false;
+        }else{
+            updateMap.classList.remove('clickable-btn');
+            updateMap.classList.add('grey-btn');
+            updateMap.disabled = true;
+            return;
+        }
+
+        if(tab1NewLecturer['currNo'] == tab1NewLecturer['maxNo']){
+            checkboxInput.checked = false;
+            alert("You have selected more than the maximum number of students allowed for this supervisor");
+            return;
+        }else if (tab1NewLecturer['currNo'] < tab1NewLecturer['maxNo'] && checkboxInput.checked == true){
+            tab1NewLecturer['currNo'] = Number.parseInt(tab1NewLecturer['currNo']) + 1;
+            tab1CurrLecturer['currNo'] = Number.parseInt(tab1CurrLecturer['currNo']) - 1;
+
+            document.getElementById('tab1-curr-supervisor').textContent = `${tab1CurrLecturer['currNo']} / ${tab1CurrLecturer['maxNo']}`;
+
+            document.getElementById('tab1-new-supervisor').textContent = `${tab1NewLecturer['currNo']} / ${tab1NewLecturer['maxNo']}`;
+        }
     }
 
-    //Enable New Supervisor Slot if At least 1 student is selected
-    document.querySelectorAll("#tab1-table input[type='checkbox']").forEach(i => {
-        if(i.checked){
-            document.getElementById('tab1-new-supervisor-select').disabled = false;
+    async function tab1UpdateDB(){
+        let tab1Table = document.querySelectorAll('#tab1-table tr td input:checked');
+        let selectedNewSupervisor = document.getElementById('tab1-new-supervisor-select');
+        //New Supervisor
+        let newSupervisorID = selectedNewSupervisor.value;
+        let newSupervisorCurrNo = tab1NewLecturer['currNo'];
+
+        //Current Supervisor
+        let currSupervisorID = tab1CurrLecturer['lecturerID'];
+        let currSupervisorCurrNo = tab1CurrLecturer['currNo'];
+        let currSupervisorName = document.getElementById('tab1-supervisor').value;
+
+        let studentIDArr = [];
+        let confirm = window.confirm(`Are you sure you want to update the NEW mapping?`);
+
+        if(confirm){
+            tab1Table.forEach(i => {
+                studentIDArr.push(i.parentNode.parentNode.childNodes[2].innerText);
+            })
+    
+            let url = `../../app/DAL/ajaxMapUpdateTab1UpdateMap.php?newLectureID=${newSupervisorID}&oldLectureID=${currSupervisorID}&oldLectureName=${currSupervisorName}&studentIDArr=${JSON.stringify(studentIDArr)}&tab1=true`;
+            
+            let response = await fetch(url);
+            let data = await response.json();
+    
+            if(data == "Success"){
+                alert("Update Successfully");
+                resetInput('1');
+            }else{
+                alert("Update Failed");
+            }
+        }else{
+            return;
         }
-        console.log(i)
-    })
+        
+    }
 
     //Tab 1 Store Lecturer Object
     let tab1CurrLecturer = {};
@@ -384,11 +467,11 @@ try{
                 getSearchResultArr[i].addEventListener('click', (list) => {
                     getSearchBar.value = list.target.innerText;
                     getResultBox.style.display = 'none';
-
-                        currSupervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
+                        
                         getSearchBar.setAttribute("data-lecturerid", list.target.dataset.lecturerid);
 
                         if(tabID == "tab1-supervisor"){
+                            currSupervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
                             getSearchBar.setAttribute("data-currno", list.target.dataset.currno);
                             getSearchBar.setAttribute("data-maxno", list.target.dataset.maxno);
                             tab1CurrLecturer = {
@@ -396,10 +479,15 @@ try{
                                 currNo: list.target.dataset.currno,
                                 maxNo: list.target.dataset.maxno
                             }
+                            tab1InsertLecturerData(facultyID, list.target.dataset.lecturerid)
                         }
                         
                         getSearchBar.disabled = true;
-                        tab1InsertLecturerData(facultyID, list.target.dataset.lecturerid)
+
+                        const searchBtn = document.getElementById(`tab${tabID == 'tab1-supervisor' ? '1' : '2'}-search-btn`);
+                        searchBtn.disabled = false;
+                        searchBtn.classList.remove('grey-btn');
+                        searchBtn.classList.add('clickable-btn');
                 });
             }
         } else {
@@ -424,6 +512,7 @@ try{
                 option.textContent = `${i.lecName} | ${i.currNoOfStudents} / ${i.maxNoOfStudents}`;
                 option.setAttribute("data-currno", i.currNoOfStudents);
                 option.setAttribute("data-maxno", i.maxNoOfStudents);
+                option.setAttribute("data-lecname", i.lecName);
                 newSupervisorSelect.appendChild(option);
             });
 
@@ -432,6 +521,12 @@ try{
             let newSupervisorSlot = document.getElementById("tab1-new-supervisor");
 
             newSupervisorSlot.textContent = `${currNo} / ${maxNo}`;
+
+            tab1NewLecturer = {
+                lecturerID: newSupervisorSelect.childNodes[0].value,
+                currNo: newSupervisorSelect.childNodes[0].dataset.currno,
+                maxNo: newSupervisorSelect.childNodes[0].dataset.maxno
+            }
             
         }else{
             let option = document.createElement("option");
@@ -441,40 +536,77 @@ try{
         }
     }
 
-    async function tab1InsertTable(){
-        const currLecturerID = document.getElementById("tab1-supervisor").dataset.lecturerid;
-        let tab1DataTable = $('#tab1-table').DataTable();
-        const tab1SearchBtn = document.getElementById('tab1-search-btn');
+    async function insertTable(tabID){
+        const currLecturerID = document.getElementById(`tab${tabID}-supervisor`).dataset.lecturerid;
+        let dataTable = $(`#tab${tabID}-table`).DataTable();
+        const searchBtn = document.getElementById(`tab${tabID}-search-btn`);
 
-        let url = `../../app/DAL/ajaxMapUpdateInsertTable.php?lecturerID=${currLecturerID}&insertTable=true`;
+        let url = `../../app/DAL/ajaxMapUpdateInsertTable.php?lecturerID=${currLecturerID}&insertTable=true&tab1=true`;
         let response = await fetch(url);
         let data = await response.json();
 
         if(data != "No Data Found"){
-            data.forEach(i => {
-                tab1DataTable.row.add([
-                    `<input type="checkbox" value="${i.studentID}">`,
-                    i.internshipBatchID,
-                    i.studentID,
-                    i.studName,
-                    i.programmeAcronym,
-                    i.studentYear,
-                    i.studentSemester,
-                    i.tutorialGroupNo
-                ]).draw();
-            })
+            if(tabID == '1'){
+                data.forEach(i => {
+                    dataTable.row.add([
+                        `<input type="checkbox" onclick='getAllCheckBox(this)' value="${i.studentID}">`,
+                        i.internshipBatchID,
+                        i.studentID,
+                        i.studName,
+                        i.programmeAcronym,
+                        i.studentYear,
+                        i.studentSemester,
+                        i.tutorialGroupNo
+                    ]).draw();
+                })  
+                document.getElementById('tab1-new-supervisor-select').disabled = false;   
+            }else if(tabID == '2'){
+                data.forEach(i => {
+                    let rowNo = dataTable.context[0].aoData.length + 1;
+
+                    dataTable.row.add([
+                        rowNo,
+                        i.internshipBatchID,
+                        i.studentID,
+                        i.studName,
+                        i.programmeAcronym,
+                        i.studentYear,
+                        i.studentSemester,
+                        i.tutorialGroupNo,
+                        `<button onclick="tab2RemoveStudent('${i.studentID}')" class="remove button">Remove</button>`
+                    ]).draw();
+                }) 
+            }
     
-            tab1SearchBtn.disabled = true;
-            tab1SearchBtn.classList.add('grey-btn');
-            tab1SearchBtn.classList.remove('clickable-btn');
-            document.getElementById('tab1-faculty').disabled = true;
-            console.log(tab1CurrLecturer)
+            searchBtn.disabled = true;
+            searchBtn.classList.add('grey-btn');
+            searchBtn.classList.remove('clickable-btn');
+            document.getElementById(`tab${tabID}-faculty`).disabled = true;
         }else{
             alert("No Data Found");
         }
-
     }
 
+    async function tab2RemoveStudent(studentID){
+        let confirm = window.confirm(`Are you sure you want to remove this student with student ID : ${studentID}?`);
+
+        if(confirm){
+            alert("Delete Successfully");
+            let dataTable = $('#tab2-table').DataTable();
+            let url = `../../app/DAL/ajaxMapUpdateTab2RemoveStudent.php?studentID=${studentID}&tab2=true`;
+            let response = await fetch(url);
+            let data = await response.json();
+    
+            if(data == "Success"){
+                dataTable.row($(`#tab2-table tr:contains(${studentID})`)).remove().draw();
+                alert("Delete Successfully");
+            }else{
+                alert("Delete Failed");
+            }
+        }else{
+            return;
+        }
+    }
 
     //Show Result Box
     async function displaySearchResult(searchBarTab, tabID) {
@@ -482,7 +614,7 @@ try{
         resultBoxNo = tabID == 'tab1-supervisor' ? "result-box-1" : "result-box-2";
 
         const getResultBox = document.getElementById(resultBoxNo);
-        const respondResult = await fetchSearchBarData(searchBarTab, tabID);
+        const respondResult = await fetchSearchBarData(tabID);
         const getSearchBarValue = searchBarTab.value;
         let resultArr = [];
 
@@ -526,8 +658,7 @@ try{
     }
 
     //Fetch Search Bar Data from DB
-    async function fetchSearchBarData(searchBarTab, tabID) {
-       // let getSearchInput = searchBarTab.value;
+    async function fetchSearchBarData(tabID) {
         let url;
         
         let facultyID = document.getElementById(`tab${tabID == 'tab1-supervisor' ? '1' : '2'}-faculty`).value;

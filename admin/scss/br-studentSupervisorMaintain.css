@@ -247,18 +247,20 @@
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table tbody .btn-td .button {
+.tabcontent table tbody .button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.3em 1em;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #ffffff;
   font-size: 16px;
   outline: none;
+  border: none;
+  transition: ease-in-out 0.2s;
 }
 @media only screen and (max-width: 1260px) {
-  .tabcontent table tbody .btn-td .button {
+  .tabcontent table tbody .button {
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
@@ -266,10 +268,10 @@
     padding: 0.3em 0.5em;
   }
 }
-.tabcontent table tbody .btn-td .remove {
+.tabcontent table tbody .remove {
   background-color: #ff4500;
 }
-.tabcontent table tbody .btn-td .remove:hover {
-  background-color: #f5ae67;
+.tabcontent table tbody .remove:hover {
+  background-color: #f5891d;
   color: #fff;
 }/*# sourceMappingURL=br-studentSupervisorMaintain.css.map */

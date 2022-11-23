@@ -5,7 +5,7 @@ require '../../includes/db_connection.php';
 $tempArray = array();
 $db = new DBController();
 
-if(isset($_GET['lecturerID']) && isset($_GET['insertTable'])){
+if(isset($_GET['lecturerID']) && isset($_GET['insertTable']) && isset($_GET['tab1'])){
     //Tab 1 Search Supervisor Result Box
     $lecturerID = $_GET['lecturerID'];
 
@@ -37,7 +37,6 @@ if(isset($_GET['lecturerID']) && isset($_GET['insertTable'])){
     }
  
     exit();
-    
 }
 
 ?>
