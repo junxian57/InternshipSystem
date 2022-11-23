@@ -77,23 +77,26 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput" style="width:100%;">
                 <span>Week 1</span>
-                <textarea type="text" name="week1" id="week1" oninput="countWord()"></textarea>
-                <span id="show">0</span>
+                <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false"></textarea>
+                <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 2</span>
-                <textarea type="text" name="week2" id="week2" oninput="countWord()"></textarea>
+                <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false"></textarea>
+                <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 3</span>
-                <textarea type="text" name="week3" id="week3" oninput="countWord()"></textarea>
+                <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false"></textarea>
+                <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
               </div> 
 
               <div class="viewInput" style="width:100%;">
                 <span>Week 4</span>
-                <textarea type="text" name="week4" id="week4" oninput="countWord()"></textarea>
+                <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false"></textarea>
+                <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
               </div> 
             </div>
             
@@ -215,6 +218,45 @@ include('includes/dbconnection.php');
     
       document.getElementById("show").innerHTML = count;
     }
+
+    function countWord2() {
+      var words = document.getElementById("week2").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show2").innerHTML = count;
+    }
+
+    function countWord3() {
+      var words = document.getElementById("week3").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show3").innerHTML = count;
+    }
+
+    function countWord4() {
+      var words = document.getElementById("week4").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show4").innerHTML = count;
+    }
     
     document.getElementById("week1").addEventListener("keypress", function(evt){
       var words = this.value.split(/\s+/);
@@ -255,7 +297,15 @@ include('includes/dbconnection.php');
         evt.preventDefault(); // Cancel event
       }
     });
-</script>
+  </script>
+
+  <script>
+    $(document).ready(function(){ 
+      $(document).bind("contextmenu",function(e){
+        return false;
+      }); 
+    })
+  </script>
 	
 	<script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>

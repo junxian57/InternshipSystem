@@ -309,3 +309,11 @@ h3.title1 {
 .formWidget .accept-header {
   padding: 15px 0;
 }
+
+.wordCount {
+  color: red;
+  float: right;
+  padding-bottom: 15px;
+  position: relative;
+  bottom: 15px;
+}
