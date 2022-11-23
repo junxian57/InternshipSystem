@@ -100,7 +100,7 @@
 								
 								$conn = mysqli_connect($host, $user, $password, $database); 
 
-								$get_cmp = "SELECT * FROM Company";
+								$get_cmp = "SELECT * FROM Company WHERE cmpAccountStatus = 'Pending'";
                 $run_cmp = mysqli_query($conn, $get_cmp);
                 while($row_cmp = mysqli_fetch_array($run_cmp)){
 									$cmpID = $row_cmp['companyID'];
