@@ -68,7 +68,7 @@ class rubricAssessmentBLL
         return $all_rubricAssessment_html;
     }
 
-    public function AddRubricAssmt($rubricAssmtDto)
+    public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
 
         if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
@@ -77,7 +77,7 @@ class rubricAssessmentBLL
         }
 
         if ($this->IsValidRubric($rubricAssmtDto)) {
-            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto);
             return true;
         }
         return false;

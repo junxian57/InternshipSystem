@@ -132,11 +132,11 @@ include('includes/db_connection.php');
                                 
                                             <td>
                                                 <div class="button-group">
-                                                    <!--                                    
-                                                    //TODO: onclick -> start retrieve student list and proceed mapping
-                                                    -->
-                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                  
                                                     <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button><i class="uil uil-file-export" style="color:green"></i>
+                                                    <!-- Export file --></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -245,7 +245,7 @@ include('includes/db_connection.php');
                             </div>
 
                             <button type = "submit" name="updatedata" class="submit-btn">Update</button>
-                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
+                            
                         </div> 
                     </form>
                     

@@ -105,31 +105,39 @@ include('includes/db_connection.php');
                                     
                                     while($row=mysqli_fetch_assoc($result)) {
                                         $Id = $row['studentID'];
+                                        $programme = $row['programmeID'];
+                                        $lecturer = $row['lecturerID'];
+                                        $internBatch = $row['internshipBatchID'];
                                         $username = $row['studName'];
                                         $gender = $row['studGender'];
                                         $email = $row['studEmail'];
                                         $phone = $row['studContactNumber'];
-                                        $programme = $row['programmeID'];
                                         $address = $row['studHomeAddress'];
-                                    
-                                        echo '<tr>
-                                            <td>' .$Id. '</td>
-                                            <td>' .$username. '</td>
-                                            <td>' .$gender. '</td>
-                                            <td>' .$email. '</td>
-                                            <td>' .$phone. '</td>
-                                            <td>' .$programme. '</td>
-                                            <td>' .$address. '</td>
+                                        $dateJoined = $row['studDateJoined'];
+                                        $applicationQuota = $row['studApplicationQuota'];
+                                        $currentApplication = $row['studCurrentNoOfApp'];
+                                        $status = $row['studAccountStatus'];
+                                    ?>
+
+                                        <tr>
+                                            <td><?php echo $Id ?></td>
+                                            <td><?php echo $username ?></td>
+                                            <td><?php echo $gender ?></td>
+                                            <td><?php echo $email ?></td>
+                                            <td><?php echo $phone ?></td>
+                                            <td><?php echo $programme ?></td>
+                                            <td><?php echo $address ?></td>
                                             <td>
                                                 <div class="button-group">
-                                                    <!--                                    
-                                                    //TODO: onclick -> start retrieve student list and proceed mapping
-                                                    -->
-                                                    <button type="button" class="editbtn"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                    <button type="button" class="viewbtn"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' ,'<?php echo $status ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                <button onclick="toModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' , '<?php echo $status ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
                                                 </div>
                                             </td>
-                                        </tr>';
+                                        </tr>
+                                        
+                                    <?php
+                                        
+                                        
                                     }
                                 ?>
                     
@@ -143,6 +151,109 @@ include('includes/db_connection.php');
         <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
      
+
+
+<!-- VIEW MODAL -->
+    <div id="view-modal">
+        <div class="model">
+            <div class="top-form">
+                <h2>Student Details</h2>
+                <div class="close-modal">
+                    &#10006;
+                </div>  
+            </div>
+            <div class="login-form">
+                <div class="content">
+                    <form action="">
+                        <div class="user-details">
+                            
+                        <div class="pass-box">
+                                <label>Student ID :</label>
+                                <input type="text" placeholder="Enter your id" id="input_id2" required readonly>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Student Name :</label>
+                                <input type="text" placeholder="Enter your name" id="input_name2" required>
+                                <i class="uil uil-user-circle icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Programme :</label>
+                                <input type="text" placeholder="Enter programme" id="input_programme2" required>
+                                <i class="uil uil-graduation-cap icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Lecturer ID :</label>
+                                <input type="text" placeholder="Enter programme" id="input_lecturer2" required>
+                                <i class="uil uil-book-reader icon"></i>
+                            </div>
+                    
+                            <div class="pass-box">
+                                <label>Internship Batch ID :</label>
+                                <input type="text" placeholder="Enter programme" id="input_internBatch2" required>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Gender :</label>
+                                <input type="text" placeholder="Enter programme" id="input_gender2" required >
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+ 
+                            <div class="pass-box">
+                                <label>Email :</label>
+                                <input type="text" placeholder="Enter your email" id="input_email2" required>
+                                <i class="uil uil-envelope icon"></i>
+                            </div> 
+                            
+                            <div class="pass-box">
+                                <label>Contact Number:</label>
+                                <input type="text" placeholder="Enter contact number" id="input_phone2" required>
+                                <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="input-box">
+                                <label>Address :</label>
+                                <input type="text" placeholder="Enter your address" id="input_address2" required>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Date Jioned :</label>
+                                <input type="text" placeholder="Enter programme" id="input_dateJoined2" required>
+                                <i class='far fa-calendar-check icon'></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>Application Quota :</label>
+                                <input type="text" placeholder="Enter programme" id="input_applicationQuota2" required>
+                                <i class="fa fa-address-card icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Current No Application :</label>
+                                <input type="text" placeholder="Enter programme" id="input_currentApplication2" required>
+                                <i class="fa fa-address-card-o icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Account Status :</label>
+                                <input type="text" placeholder="Enter programme" id="input_status2" required>
+                                <i class='far fa-lightbulb icon'></i>
+                            </div>
+
+                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
+                           
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+
 <!-- EDIT MODAL -->
     <div id="login-modal">
         <div class="model">
@@ -157,90 +268,91 @@ include('includes/db_connection.php');
                     <form action="ky-updateStudent.php" method="POST">
                         <div class="user-details">
                         
+
                             <div class="pass-box">
                                 <label>Student ID :</label>
-                                <input type="text" placeholder="Enter your id" name="update_id" id="update_id" required readonly>
+                                <input type="text" placeholder="Enter your id" name="update_id" id="input_id" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Student Name :</label>
-                                <input type="text" placeholder="Enter your name" name="studName" id="studName" required>
+                                <input type="text" placeholder="Enter your name" name="studName" id="input_name" required>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
-                            
+
                             <div class="pass-box">
                                 <label>Programme :</label>
-                                <input type="text" placeholder="Enter programme" name="programme" id="programme" required>
+                                <input type="text" placeholder="Enter programme" name="programme" id="input_programme" required>
                                 <i class="uil uil-graduation-cap icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Lecturer ID :</label>
-                                <input type="text" placeholder="Enter programme" required>
+                                <input type="text" placeholder="Enter programme" name="lecturer" id="input_lecturer" required>
                                 <i class="uil uil-book-reader icon"></i>
                             </div>
-
+                    
                             <div class="pass-box">
                                 <label>Internship Batch ID :</label>
-                                <input type="text" placeholder="Enter programme" required>
+                                <input type="text" placeholder="Enter programme" name="internBatch" id="input_internBatch" required>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Gender :</label>
-                                <input type="text" placeholder="Enter programme" name="gender" id="gender" required >
+                                <input type="text" placeholder="Enter programme" name="gender" id="input_gender" required >
                                 <i class="uil uil-book-open icon"></i>
+                            </div>
+ 
+                            <div class="pass-box">
+                                <label>Email :</label>
+                                <input type="text" placeholder="Enter your email" name="email" id="input_email" required>
+                                <i class="uil uil-envelope icon"></i>
+                            </div> 
+                            
+                            <div class="pass-box">
+                                <label>Contact Number:</label>
+                                <input type="text" placeholder="Enter contact number" name="phone" id="input_phone" required>
+                                <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" placeholder="Enter your address" name="address" id="address" required>
+                                <input type="text" placeholder="Enter your address" name="address" id="input_address" required>
                                 <i class="uil uil-estate icon"></i>
-                            </div>
-                            
-                            <div class="pass-box">
-                                <label>Email :</label>
-                                <input type="text" placeholder="Enter your email" name="email" id="email" required>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <label>Contact Number:</label>
-                                <input type="text" placeholder="Enter contact number" name="phone" id="phone" required>
-                                <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" required>
+                                <input type="text" placeholder="Enter programme" name="dateJoined" id="input_dateJoined" required>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Application Quota :</label>
-                                <input type="text" placeholder="Enter programme" required>
+                                <input type="text" placeholder="Enter programme" name="appQuota" id="input_applicationQuota" required>
                                 <i class="fa fa-address-card icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Current No Application :</label>
-                                <input type="text" placeholder="Enter programme"  required>
+                                <input type="text" placeholder="Enter programme"  name="currentApp" id="input_currentApplication" required>
                                 <i class="fa fa-address-card-o icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" placeholder="Enter programme" required>
+                                <input type="text" placeholder="Enter programme" name="status" id="input_status" required>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
                             
                             <!--<div class="input-box">
                                 <input type="radio" name="gender" id="dot-1" <?php echo $gender =="Male"?
-                                   "checked=checked":""?>>
+                                   "checked=checked":""?> />Male
                                 <input type="radio" name="gender" id="dot-2" <?php echo $gender =="Female"?
-                                   "checked=checked":""?>>
-                                <input type="radio" name="gender" id="dot-3">
+                                   "checked=checked":""?> />Female
+                               
                                 
                                 <div class="category">
                                     <label>Gender :</label>
@@ -285,7 +397,7 @@ include('includes/db_connection.php');
                             </div>-->
 
                             <button type = "submit" name="updatedata" class="submit-btn">Update</button>
-                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
+                            
                         </div> 
                     </form>
                 </div>
@@ -293,107 +405,67 @@ include('includes/db_connection.php');
         </div>  
     </div>
 
-<!-- VIEW MODAL -->
-    <div id="view-modal">
-        <div class="model">
-            <div class="top-form">
-                <h2>Student Details</h2>
-                <div class="close-modal">
-                    &#10006;
-                </div>  
-            </div>
-            <div class="login-form">
-                <div class="content">
-                    <form action="">
-                        <div class="user-details">
-                            
-                            <div class="pass-box">
-                                <label>Student ID :</label>
-                                <input type="text" placeholder="Enter your id" id="update_id2" required readonly>
-                                <i class="uil uil-user-circle icon"></i>
-                            </div>
+    <script type="text/javascript">
+        function viewModal(Id ,programme ,lecturer ,internBatch ,username ,gender ,email ,phone ,address ,dateJoined ,applicationQuota ,currentApplication ,status){
+            
+            $('#view-modal').fadeIn().css("display", "flex");
 
-                            <div class="pass-box">
-                                <label>Student Name :</label>
-                                <input type="text" placeholder="Enter your name" id="studName2" required readonly>
-                                <i class="uil uil-user-circle icon"></i>
-                            </div>
-                            
-                            <div class="pass-box">
-                                <label>Programme :</label>
-                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
-                                <i class="uil uil-graduation-cap icon"></i>
-                            </div>
+            input_id = document.getElementById('input_id2').value = Id;
+            input_preogramme = document.getElementById('input_programme2').value = programme;
+            input_lecturer = document.getElementById('input_lecturer2').value = lecturer;
+            input_internBatch = document.getElementById('input_internBatch2').value = internBatch;
+            input_name = document.getElementById('input_name2').value = username;
+            input_gender = document.getElementById('input_gender2').value = gender;
+            input_email = document.getElementById('input_email2').value = email;
+            input_phone = document.getElementById('input_phone2').value = phone;
+            input_address = document.getElementById('input_address2').value = address;
+            input_dateJoined = document.getElementById('input_dateJoined2').value = dateJoined; 
+            input_applicationQuota = document.getElementById('input_applicationQuota2').value = applicationQuota;
+            input_currentApplication = document.getElementById('input_currentApplication2').value = currentApplication;
+            input_status = document.getElementById('input_status2').value = status;
 
-                            <div class="pass-box">
-                                <label>Lecturer ID :</label>
-                                <input type="text" placeholder="Enter programme" required readonly>
-                                <i class="uil uil-book-reader icon"></i>
-                            </div>
+        
+            $('.close-modal').click(function(){
+                $('#view-modal').fadeOut();
+            });
 
-                            <div class="pass-box">
-                                <label>Internship Batch ID :</label>
-                                <input type="text" placeholder="Enter programme" required readonly>
-                                <i class="uil uil-book-open icon"></i>
-                            </div>
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+        }
+           
+    </script>
 
-                            <div class="pass-box">
-                                <label>Gender :</label>
-                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="uil uil-book-open icon"></i>
-                            </div>
+    <script type="text/javascript">
+        function toModal(Id ,programme ,lecturer ,internBatch ,username ,gender ,email ,phone ,address ,dateJoined ,applicationQuota ,currentApplication ,status){
+           
+        $('#login-modal').fadeIn().css("display", "flex");
+            input_id = document.getElementById('input_id').value = Id;
+            input_preogramme = document.getElementById('input_programme').value = programme;
+            input_lecturer = document.getElementById('input_lecturer').value = lecturer;
+            input_internBatch = document.getElementById('input_internBatch').value = internBatch;
+            input_name = document.getElementById('input_name').value = username;
+            input_gender = document.getElementById('input_gender').value = gender;
+            input_email = document.getElementById('input_email').value = email;
+            input_phone = document.getElementById('input_phone').value = phone;
+            input_address = document.getElementById('input_address').value = address;
+            input_dateJoined = document.getElementById('input_dateJoined').value = dateJoined; 
+            input_applicationQuota = document.getElementById('input_applicationQuota').value = applicationQuota;
+            input_currentApplication = document.getElementById('input_currentApplication').value = currentApplication;
+            input_status = document.getElementById('input_status').value = status;
+            
 
-                            <div class="input-box">
-                                <label>Address :</label>
-                                <input type="text" placeholder="Enter your address" id="address2" required readonly>
-                                <i class="uil uil-estate icon"></i>
-                            </div>
-                            
-                            <div class="pass-box">
-                                <label>Email :</label>
-                                <input type="text" placeholder="Enter your email" id="email2" required readonly>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
 
-                            <div class="pass-box">
-                                <label>Contact Number:</label>
-                                <input type="text" placeholder="Enter contact number" id="phone2" required readonly>
-                                <i class="uil uil-phone icon"></i>
-                            </div>
+            $('.close-modal').click(function(){
+                $('#view-modal').fadeOut();
+            });
+        }
+           
+    </script>
 
-                            <div class="pass-box">
-                                <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" id="programme2" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
-                            </div>
-                            
-                            <div class="pass-box">
-                                <label>Application Quota :</label>
-                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="fa fa-address-card icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <label>Current No Application :</label>
-                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class="fa fa-address-card-o icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <label>Account Status :</label>
-                                <input type="text" placeholder="Enter programme" id="gender2" required readonly>
-                                <i class='far fa-lightbulb icon'></i>
-                            </div>
-
-                            <button id="close-modal" type="button" class="submit-btn">Cancel</button>
-                        </div> 
-                    </form>
-                </div>
-            </div>
-        </div>  
-    </div>
-
-    
     <script type="text/javascript">
         $(function(){
             $('#close-modal').click(function(){

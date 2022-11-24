@@ -9,7 +9,6 @@ if (!$conn){
     die("Error". mysqli_connect_error());
 }
 
-
     if(isset($_POST['updatedata']))
     {   
         $id = $_POST['update_id'];
@@ -31,7 +30,7 @@ if (!$conn){
         if($query_run)
         {
             echo '<script> alert("Data Updated"); </script>';
-            header("Location:ky-test.php");
+            header("Location:ky-cmpMaintain.php");
         }
         else
         {
