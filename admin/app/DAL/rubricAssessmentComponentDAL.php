@@ -181,14 +181,6 @@ class rubricAssessmentComponentDAL
      */
     public function UpdRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
-        /*$sql = " UPDATE RubricAssessment SET
-        internshipBatchID = '" . $rubricAssmtDto->getInternshipBatchID() . "',
-        Title = '" . $rubricAssmtDto->getTitle() . "',
-        Instructions ='" . $rubricAssmtDto->getInstructions() . "',
-        TotalWeight ='" . $rubricAssmtDto->getTotalWeight() . "',
-        RoleForMark ='" . $rubricAssmtDto->getRoleForMark() . "'
-        WHERE assessmentID ='" . $rubricAssmtDto->getAssmtId() . "'";*/
-
         $sql = " UPDATE RubricComponentCriteria SET
             Title = '" . $rubricCmpCriteriaDto->getTitle() . "',
             RoleForMark = '" . $rubricCmpCriteriaDto->getRoleForMark() . "',
