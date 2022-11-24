@@ -50,7 +50,7 @@ include('includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-studCmpMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-cmpStudMaintain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,6 +59,43 @@ include('includes/db_connection.php');
 
 
 </head>
+<?php
+ session_start();
+ if(isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin']==true){
+    $adminloggedin= true;
+    $id = $_SESSION['studentID'];
+ }
+
+    $server = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "westorn";
+
+    $conn = mysqli_connect($server, $username, $password, $database);
+    if (!$conn){
+        die("Error". mysqli_connect_error());
+    }
+
+    $sql = "select * from student where studentID ='$id'"; 
+    $result = mysqli_query($conn, $sql);
+    
+    while($row=mysqli_fetch_assoc($result)) {
+        $Id = $row['studentID'];
+        $programme = $row['programmeID'];
+        $lecturer = $row['lecturerID'];
+        $internBatch = $row['internshipBatchID'];
+        $username = $row['studName'];
+        $gender = $row['studGender'];
+        $email = $row['studEmail'];
+        $phone = $row['studContactNumber'];
+        $address = $row['studHomeAddress'];
+        $dateJoined = $row['studDateJoined'];
+        $applicationQuota = $row['studApplicationQuota'];
+        $currentApplication = $row['studCurrentNoOfApp'];
+        $status = $row['studAccountStatus'];
+    }
+
+?>
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
@@ -77,69 +114,90 @@ include('includes/db_connection.php');
                                     <div class="title">
                                         <h2 class="title-1">Student Name & Contact</h2>
                                     </div>
-                                    <div class="input-style name-address-group">
-                                        <input type="text" style="width: 100%;" placeholder="Student Name" name="cmpName" required readonly>                  
+
+                                    <div class="labal">
+                                        <label class="label1">Student Id :</label>
+                                        <label class="label2" style="margin-left: 535px;">Name :</label>
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Contact No." name="stdContactNo" required readonly>   
-                                        <input type="email" placeholder="Email" name="stdEmail" required readonly>             
+                                        <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" required readonly > 
+                                        <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" required >                  
+                                    </div>
+
+                                    <div class="labal">
+                                        <label class="label1">Contact No :</label>
+                                        <label class="label2" style="margin-left: 528px;">Email :</label>
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <select name="student-group" id="student-group" required="true">
-                                        <option selected disabled>Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        </select>
+                                        <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" required readonly>   
+                                        <input type="email" placeholder="Email" name="stdEmail" value="<?php echo $email ?>" required readonly>             
+                                    </div>
+
+                                    <div class="labal" style="margin-bottom: 10px;">
+                                        <label class="label1">Gender :</label>
+                                    </div>
+
+                                    <div class="gender-group">
+                                        
+                                        <input type="radio" name="gender" value="Male" id="dot-1" <?php echo $gender =="Male"?
+                                        "checked=checked":""?> />Male
+                                        <input type="radio" name="gender" value="Female" id="dot-2" <?php echo $gender =="Female"?
+                                            "checked=checked":""?> />Female
+                                    </div>
+
+                                    <div class="title">
+                                        <h2 class="title-4">Password</h2>
+                                    </div>
+
+                                    <div class="labal">
+                                        <label class="label1">Old Password :</label>
+                                        <label class="label2" style="margin-left: 508px;">New Password :</label>
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="Password" placeholder="New Password" name="Pass" required>
+                                        <input type="Password" placeholder="Old Password" name="Pass" required>
                                     
-                                        <input type="Password" placeholder="Confirm Password" name="conPass" required> 
+                                        <input type="Password" placeholder="New Password" name="conPass" required> 
                                     </div>
                                      
 
-                                    <div class="title">
-                                        <h2 class="title-4">Address</h2>
+                                    <div class="title" style="margin-top: 30px;">
+                                        <h2 class="title-4" >Address</h2>
                                     </div>
-                                    <div class="input-style name-address-group">
-                                        <textarea type="text" name="cmpAddress" placeholder="Address" cols="30" rows="5" required readonly></textarea>
-                                    </div>
-
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="State" name="cmpState" required readonly> 
-                                        <input type="text" placeholder="Postcode" name="cmpPostCode" required readonly>                  
+                                    
+                                    <div class="input-style name-address-group" style="margin-top: 30px;">
+                                        <input type="text" style="width: 100%;" name="stdAddress" placeholder="Address" value="<?php echo $address ?>" required>
                                     </div>
 
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="City" name="cmpCity" required readonly>                   
-                                    </div>
-
-                                    <div class="title">
+                                    <div class="title" style="margin-top: 30px;">
                                         <h2 class="title-3">Academic Details</h2>
                                     </div>
-
-                                    <div class="input-style name-address-group">
-                                        <select name="student-group" id="student-group" required="true">
-                                        <option selected disabled>Faculty</option>
-                                        <option>FOCS</option>
-                                        <option>FAFB</option>
-                                        <option>FOET</option>
-                                        <option>FOES</option>
-                                        </select>
-
-                                        <select name="student-group" id="student-group" required="true">
-                                        <option selected disabled>Programme</option>
-                                        <option>REI</option>
-                                        <option>RIT</option>
-                                        <option>RIT</option>
-                                        <option>RDS</option>
-                                        </select>
+                                    
+                                    <div class="labal">
+                                        <label class="label1">Programme ID:</label>
+                                        <label class="label2" style="margin-left: 510px;">Lecturer ID:</label>
                                     </div>
 
-                                    <div class="title">
+                                    <div class="input-style name-address-group">
+                                        <input type="text" placeholder="Enter your programme id" name="programmeID" value="<?php echo $programme ?>" required>
+
+                                        <input type="text" placeholder="Enter your lecturer id" name="lecturerID" value="<?php echo $lecturer ?>" required>
+                                        
+                                    </div>
+
+                                    <div class="labal">
+                                        <label class="label1">Internship Batch :</label>
+                                    
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" placeholder="Enter your internship batch" name="internshipBatchID" value="<?php echo $internBatch ?>" required>
+
+                                    </div>
+
+                                    <div class="title" style="margin-top: 30px;">
                                         <h2 class="title-4">CV Details</h2>
                                     </div>
 
@@ -159,7 +217,7 @@ include('includes/db_connection.php');
                                         <input type="text" style="width: 100%;" placeholder="School or University" name="school" required readonly>         
                                     </div>
 
-                                    <div class="title">
+                                    <div class="title" style="margin-top: 30px;">
                                         <h2 class="title-4">Upload CV</h2>
                                     </div>
 

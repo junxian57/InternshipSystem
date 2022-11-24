@@ -349,10 +349,10 @@ include('includes/db_connection.php');
                             
                             <!--<div class="input-box">
                                 <input type="radio" name="gender" id="dot-1" <?php echo $gender =="Male"?
-                                   "checked=checked":""?>>
+                                   "checked=checked":""?> />Male
                                 <input type="radio" name="gender" id="dot-2" <?php echo $gender =="Female"?
-                                   "checked=checked":""?>>
-                                <input type="radio" name="gender" id="dot-3">
+                                   "checked=checked":""?> />Female
+                               
                                 
                                 <div class="category">
                                     <label>Gender :</label>

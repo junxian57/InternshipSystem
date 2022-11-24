@@ -135,6 +135,8 @@ include('includes/db_connection.php');
                                                   
                                                     <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
                                                     <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button><i class="uil uil-file-export" style="color:green"></i>
+                                                    <!-- Export file --></button>
                                                 </div>
                                             </td>
                                         </tr>

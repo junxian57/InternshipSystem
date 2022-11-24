@@ -115,7 +115,7 @@ form {
   }
   
   .user-details .input-style {
-    margin: 30px 0;
+    margin: 10px 0;
   }
   .user-details .input-style input, .user-details .input-style select {
     text-indent: 5px;
@@ -181,7 +181,7 @@ form {
   }
   .user-details .name-address-group {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
   }
   .user-details .name-address-group p {
     width: calc(1vw + 18em);
@@ -204,6 +204,17 @@ form {
       justify-content: center;
     }
   }
+
+  .user-details .gender-group {
+    display: flex;
+    justify-content: space-between;
+    width: 405px;
+    padding: 10px 90px 10px 90px;
+    border: 1px solid black;
+    margin-bottom: 30px;
+  }
+
+
   .user-details .company-details-group p {
     text-align: left;
     font-size: 0.8em;
@@ -343,3 +354,17 @@ form {
     bottom: 72.5%;
     cursor: pointer;
   }
+
+  .labal .label1{
+      
+      color: #f2891f;
+      font-size: 18px;
+      margin-top: 10px;
+  }
+  
+  .labal .label2{
+   
+    color: #f2891f;
+    font-size: 18px;
+    margin-top: 10px;
+}
