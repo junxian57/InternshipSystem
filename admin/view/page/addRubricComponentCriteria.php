@@ -64,7 +64,7 @@ if ($_GET['act'] == "edit") {
                 $componentId = generateRubricCmptID($componentId);
             }
         }
-        print_r($newOfRubricCmpDto);
+        //print_r($newOfRubricCmpDto);
         $newRubricCmpCriteria = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
         $rubricAssessmentComponentBllObj->AddRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);
     }

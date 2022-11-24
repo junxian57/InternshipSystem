@@ -100,7 +100,7 @@ class rubricAssessmentDAL
      *
      * @param object $rubricAssmtDto
      */
-    public function AddRubricAssmt($rubricAssmtDto)
+    public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
         $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`CreateByID`,`CreateDate`)
                 VALUES (
@@ -114,8 +114,18 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
+        foreach ($rubricAssmtCriteriaDto as $rubricAssmtCriteriaDto1) {
+            $sql1 = "INSERT INTO RubricAssessmentCriteria (`assessmentID`,`criterionID`,`Title`,`TotalWeight`)
+                    VALUES (
+                      '" . $rubricAssmtCriteriaDto1->getAssmtId() . "',
+                      '" . $rubricAssmtCriteriaDto1->getcriterionID() . "',
+                      '" . $rubricAssmtCriteriaDto1->getTitle() . "',
+                      '" . $rubricAssmtCriteriaDto1->getscore() . "'
+                    )";
+            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        }
+        if ($result &&  $result2) {
 
-        if ($result) {
             header("Location: ../../view/page/addRubricAssessment.php?status=success");
             exit();
         } else {
