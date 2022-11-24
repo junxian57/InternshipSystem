@@ -5,6 +5,7 @@ $tempArray = array();
 $db = new DBController();
 
 if(isset($_GET['supervisor'])){
+    //Tab 1
     $supervisor = $_GET['supervisor'];
 
     $sql = "SELECT L.lecName, L.lecturerID, L.departmentID, F.facultyID, F.facAcronym, L.currNoOfStudents, L.maxNoOfStudents
@@ -36,14 +37,15 @@ if(isset($_GET['supervisor'])){
     exit(0);
 
 }elseif(isset($_GET['student']) && isset($_GET['internBatch'])){
-
+    //Tab 2
     $student = $_GET['student'];
     $intern = $_GET['internBatch'];
 
     $sql = "SELECT S.studentID, S.studName, F.facultyID, P.programmeID, F.facAcronym, P.programmeAcronym
             FROM Student S, Faculty F, Programme P, Department D
-            WHERE (S.studName LIKE '%$student%' OR L.studentID LIKE '%$student%') AND 
+            WHERE (S.studName LIKE '%$student%' OR S.studentID LIKE '%$student%') AND 
             S.internshipBatchID = $intern AND
+            S.studAccountStatus LIKE 'Pending Map' AND
             S.lecturerID IS NULL AND
             S.programmeID = P.programmeID AND
             P.departmentID = D.departmentID AND
@@ -70,6 +72,7 @@ if(isset($_GET['supervisor'])){
     exit(0);
 
 }elseif(isset($_GET['programme'])){
+    //Tab 3
     $programme = $_GET['programme'];
 
     $sql = "SELECT P.programmeID, P.programmeName, F.facAcronym, F.facultyID

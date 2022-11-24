@@ -2,9 +2,9 @@
 
 class DBController
 {
-    private $host = "sql444.main-hosting.eu";
+     private $host = "sql444.main-hosting.eu";
     private $user = "u928796707_group34";
-    private $password = "u1VF3KYO1r";
+    private $password = "u1VF3KYO1r|";
     private $database = "u928796707_internshipWeb";
 
     function __construct()

@@ -146,7 +146,7 @@ class ComponentLvlDAL
     /**
      * Checks whether given Rubric Component Level exists
      *
-     * @param string $tiitle
+     * @param string $title
      * @param string $value
      * @return bool
      */

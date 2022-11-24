@@ -94,7 +94,7 @@ include "includes/db_connection.php";
                             <input
                                 type="text"
                                 name="jobQualification"
-                                placeholder="e.g. Degree in Computer Science or Relevant Qualification"
+                                placeholder="e.g. Degree in Computer Science or Equivalent Qualification"
                                 required
                             />
                             <p>
@@ -205,6 +205,17 @@ include "includes/db_connection.php";
                                 required
                             />
                             </div>
+                        </div>
+
+                        <div class="vertical-wrap">
+                            <div class="input-style width-100 name-address-group">
+                            <label for="cmpJobSupervisor">Job Supervisor <span style="color:#313e85; text-decoration:underline;">Name</span> from Company</label>
+                            <input type="text" name="cmpJobSupervisor" required />
+                            <p>
+                                <span>* </span>Maximum 50 Characters (<span id="cmpJobSupervisor"
+                                >0</span>/50)
+                            </p>
+                            </div>                           
                         </div>
 
                         <hr />

@@ -20,6 +20,7 @@ if(isset($_GET['programmeID']) && isset($_GET['internshipID']) && isset($_GET['t
             D.facultyID = F.facultyID AND
             S.tutorialGroupNo IN ($tutorialGroupArr) AND
             S.lecturerID IS NULL AND
+            S.studAccountStatus LIKE 'Pending Map' AND
             S.programmeID LIKE '$programmeID' AND
             S.internshipBatchID LIKE '$internshipID';";
 

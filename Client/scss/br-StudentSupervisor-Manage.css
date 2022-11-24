@@ -4,6 +4,10 @@
   font-weight: 600;
 }
 
+:is(#preview-table_wrapper, #preview-table_paginate) {
+  margin-top: 30px;
+}
+
 .tabcontent {
   padding: 20px;
   border: 1px solid #ccc;
@@ -28,34 +32,17 @@
     opacity: 1;
   }
 }
-.tabcontent .hint {
-  color: #ff4500;
-  font-size: 0.9rem;
-  text-align: center;
-}
 .tabcontent .form-group {
   min-width: 50%;
   margin-bottom: 0;
 }
-.tabcontent .form-group h4 {
-  color: black;
-}
 .tabcontent .form-group .required-star {
-  color: #ff4500;
-}
-.tabcontent .form-group h4:nth-child(2) {
-  color: #ff4500;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 5px;
+  color: red;
 }
 .tabcontent .form-group .form-control {
   font-size: 16px;
   margin-top: 5px;
   width: 100%;
-}
-.tabcontent .margin-top-20 {
-  margin-top: 20px;
 }
 .tabcontent .search-group {
   position: relative;
@@ -83,37 +70,51 @@
   border: 1px solid #f2891f;
   letter-spacing: 1px;
   transition: all 0.1s ease-in-out;
+  margin-right: 20px;
 }
 .tabcontent .button-group .clickable-btn:hover {
   background-color: #f5ae67;
   color: #fff;
   border: 1px solid #f5ae67;
 }
+.tabcontent .button-group .clear-btn {
+  cursor: pointer;
+  background-color: #313e85;
+  padding: 10px 15px;
+  color: #fff;
+  outline: none;
+  border: 1px solid #313e85;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+}
+.tabcontent .button-group .clear-btn:hover {
+  background-color: #4454b0;
+  color: #fff;
+  border: 1px solid #4454b0;
+}
+.tabcontent .button-group .grey-btn {
+  background-color: #b9b7b4;
+  padding: 10px 15px;
+  color: #474747;
+  outline: none;
+  border: 1px solid #b9b7b4;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+  margin-right: 20px;
+}
+.tabcontent .button-group .grey-btn:hover {
+  background-color: #b9b7b4;
+  color: #474747;
+  border: 1px solid #b9b7b4;
+}
 .tabcontent .table-title {
   margin-top: 10px;
   font-size: 1.1em;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 .tabcontent .table-title p {
   font-size: 0.8em;
   color: #ff4500;
-}
-.tabcontent .table-title input {
-  width: 25%;
-  padding: 5px;
-  border: 1px solid #f2891f;
-  outline: none;
-  font-size: 0.8em;
-}
-.tabcontent .bs-example {
-  margin-top: 1em;
-}
-.tabcontent .orange-border {
-  border: 1px solid #f2891f;
-  margin-top: 1em;
 }
 .tabcontent table {
   width: 100%;
@@ -130,14 +131,6 @@
   width: 100%;
   table-layout: fixed;
 }
-.tabcontent table th:first-child,
-.tabcontent table td:first-child {
-  width: 7%;
-}
-.tabcontent table th:nth-child(6),
-.tabcontent table td:nth-child(6) {
-  width: 20%;
-}
 .tabcontent table th,
 .tabcontent table td {
   text-align: center;
@@ -152,8 +145,6 @@
 }
 .tabcontent table tbody {
   display: block;
-  max-height: 420px;
-  overflow-y: scroll;
 }
 .tabcontent table tbody tr {
   transition: all 0.5s;
@@ -161,26 +152,7 @@
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table tbody .column-max-width {
-  max-width: 80px;
-  line-height: 1.2em;
-}
-.tabcontent table tbody .description {
-  max-width: 150px;
-  line-height: 1.2em;
-  padding: 5px;
-}
-.tabcontent table tbody .btn-td div {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-@media only screen and (max-width: 1260px) {
-  .tabcontent table tbody .btn-td div {
-    flex-direction: column;
-  }
-}
-.tabcontent table tbody .btn-td .button {
+.tabcontent table tbody .button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -191,24 +163,17 @@
   outline: none;
 }
 @media only screen and (max-width: 1260px) {
-  .tabcontent table tbody .btn-td .button {
+  .tabcontent table tbody .button {
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
     max-width: 100%;
   }
 }
-.tabcontent table tbody .btn-td .remove {
-  background-color: #ff4500;
-}
-.tabcontent table tbody .btn-td .remove:hover {
-  background-color: #f5ae67;
-  color: #fff;
-}
-.tabcontent table tbody .btn-td .edit {
+.tabcontent table tbody .view {
   background-color: #313e85;
 }
-.tabcontent table tbody .btn-td .edit:hover {
+.tabcontent table tbody .view:hover {
   background-color: #535ea6;
   color: #fff;
 }/*# sourceMappingURL=br-StudentSupervisor-Manage.css.map */

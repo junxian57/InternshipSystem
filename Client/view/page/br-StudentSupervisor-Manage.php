@@ -1,9 +1,17 @@
 <?php
 session_start();
-error_reporting(0);
-include "includes/db_connection.php";
+include('../../includes/db_connection.php');
 
-//prettier client\view\page\br-StudentSupervisor-Manage.php --write
+try{
+    $db = new DBController();
+    $getInternBatch = $db->runQuery("SELECT * FROM InternshipBatch");
+}catch(Exception $e){
+    echo '<script>alert("Database Connection Error")</script>';
+}
+
+//Session get logged in LECTURER ID
+$lecturerID = 'LEC00001';
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -19,6 +27,7 @@ include "includes/db_connection.php";
             window.scrollTo(0, 1);
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -54,12 +63,13 @@ include "includes/db_connection.php";
                                 -->
                                 <div class="form-group">
                                     <label for="batch-number">Internship Batch Number <span class="required-star">*</span></label>
-                                    <select name="batch-number" id="batch-number" class="form-control" required="true">
-                                        <option value="0">Select a Batch Number</option>
-                                        <option value="BATCH001">BATCH001</option>
-                                        <option value="BATCH001">BATCH001</option>
-                                        <option value="BATCH001">BATCH001</option>
-                                        <option value="BATCH001">BATCH001</option>
+                                    <select name="batch-number" id="batch-number" class="form-control" required="true" onchange="enableBtn()">
+                                        <option value="0" selected disabled>Select a Batch Number</option>
+                                        <?php
+                                            foreach($getInternBatch as $batch){
+                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
 
@@ -69,90 +79,28 @@ include "includes/db_connection.php";
                                 <!--                                    
                                 //TODO: onclick -> start retrieve student list and proceed mapping
                                 -->
-                                <button class="clickable-btn" onclick="">Search</button>
+                                <button class="grey-btn" id="search-btn" onclick="searchStudent()" disabled>Search</button>
+
+                                <button class="clear-btn" id="clear-btn" onclick="resetAll()">Reset All</button>
                             </div>
                             <hr>
                             <div class="table-title">
-                                <p>Hint: Table Below Is Scrollable</p>
                                 <h4>Result Table</h4>
-                                <input type="search" id="keyInput-remove" onkeyup="searchInTable(document.getElementById('remove-table'), document.getElementById(this.id))" placeholder="Enter Student Name...">
                             </div>
-                            <div class="table-responsive orange-border">
-                                <table id="remove-table">
+                            <div>
+                                <table id="preview-table">
                                     <thead>
                                         <th>#</th>
                                         <th>Student ID</th>
-                                        <th>Faculty</th>
                                         <th>Student Name</th>
-                                        <th>Batch Number</th>
+                                        <th>Programme</th>
+                                        <th>Year</th>
+                                        <th>Tutorial Group</th>
+                                        <th>Email</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Poi Han</td>
-                                            <td>BATCH001</td>
-                                            <td class="btn-td">
-                                                <div>
-                                                    <a class="edit button" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a>
-                                                    <!-- <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a> -->
-                                                </div>                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Yan Ning</td>
-                                            <td>BATCH001</td>
-                                            <td class="btn-td">
-                                                <div>
-                                                    <a class="edit button" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a>
-                                                    <!-- <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a> -->
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>BATCH001</td>
-                                            <td class="btn-td">
-                                                <div>
-                                                    <a class="edit button" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a>
-                                                    <!-- <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a> -->
-                                                </div>                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Hui Xuan</td>
-                                            <td>BATCH001</td>
-                                            <td class="btn-td">
-                                                <div>
-                                                    <a class="edit button" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a>
-                                                    <!-- <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a> -->
-                                                </div>                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>Bryson</td>
-                                            <td>BATCH001</td>
-                                            <td class="btn-td">
-                                                <div>
-                                                    <a class="edit button" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a>
-                                                    <!-- <a class="remove button" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a> -->
-                                                </div>                            
-                                            </td>
-                                        </tr>                                     
+                                    <tbody id="table-body">                 
+                                                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -169,6 +117,8 @@ include "includes/db_connection.php";
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -186,31 +136,58 @@ include "includes/db_connection.php";
             classie.toggle(showLeftPush, 'disabled');
         }
     }
-
-    function searchInTable(tableID, inputID) {
-        let input, filter, table, tr, td, i, txtValue;
-        input = inputID;
-        filter = input.value.toUpperCase();
-        table = tableID;
-        tr = table.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
+    
+    $(document).ready(function() {
+        $('#preview-table').DataTable({
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp'
+        });
+    });
 </script>
 <script>
- 
+    function enableBtn(){
+        searchBtn = document.getElementById('search-btn');
+        searchBtn.disabled = false;
+        searchBtn.classList.add('clickable-btn');
+        searchBtn.classList.remove('grey-btn');
+    }
+
+    function resetAll(){
+        searchBtn = document.getElementById('search-btn');
+        searchBtn.disabled = true;
+        searchBtn.classList.remove('clickable-btn');
+        searchBtn.classList.add('grey-btn');
+
+        let dataTable = $('#preview-table').DataTable();
+        dataTable.clear().draw();
+
+        document.getElementById('batch-number').value = 0;
+    }
+
+    async function searchStudent(){
+        let dataTable = $('#preview-table').DataTable();
+        let batchNumber = document.getElementById('batch-number').value;
+        let url = `../../app/DAL/ajaxStudentMapManageGetStudent.php?batchNumber=${batchNumber}&lecturerID=<?php echo $lecturerID;?>`;
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        data.forEach(student => {
+            let rowNo = dataTable.context[0].aoData.length + 1;
+            dataTable.row.add([
+                rowNo,
+                student.studentID,
+                student.studName,
+                student.programmeAcronym,
+                student.studentYear,
+                student.tutorialGroupNo,
+                `<a href='mailto:${student.studEmail}'>Email Student</a>`,
+                `<a class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
+            ]).draw();
+        });    
+    }
+
+
 </script>
-
-
 </html>

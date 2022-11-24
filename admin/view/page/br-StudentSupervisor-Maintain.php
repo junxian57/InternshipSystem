@@ -63,9 +63,6 @@ try{
                         <!-- Tab Content 1-->
                         <div id="updateSupervisorMap" class="tabcontent">
                             <div class="search-group">
-                                <!--                                    
-                                //TODO: Require AJAX method to display searched supervisor         
-                                -->
                                 <div class="form-group">
                                     <label for="tab1-faculty">Faculty <span class="required-star">*</span></label>
                                     <select name="tab1-faculty" id="tab1-faculty" class="form-control" required="true">
@@ -80,17 +77,12 @@ try{
                                     <label for="curr-supervisor" style="margin-top: 20px;">Current Supervisor <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab1-supervisor" name="curr-supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled>
                                     <div class="form-control" id="result-box-1">
-                                        <!--                                    
-                                        //TODO: Javascript to display result box need to fix         
-                                        -->
+
                                     </div>
                                 </div>
 
                                 <span class="arrow-icon">&#129050</span>
 
-                                <!--                                    
-                                //TODO: Select intern batch first only allow to select students group        
-                                -->
                                 <div class="form-group">
                                     <label for="new-supervisor">New Supervisor | Available Slot <span class="required-star">*</span></label>
                                     <select name="new-supervisor" id="tab1-new-supervisor-select" class="form-control" required="true" disabled>                                   
@@ -99,9 +91,6 @@ try{
                             </div>
 
                             <div class="button-group">
-                                <!--                                    
-                                //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
                                 <button class="grey-btn" onclick="insertTable('1')" disabled id="tab1-search-btn">Search</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput('1')">
                             </div>
@@ -134,9 +123,6 @@ try{
                             </div>
                             <hr>
                             <div class="update-group">
-                                <!--                                    
-                                //TODO: get all data from above and input into database
-                                -->
                                 <button class="grey-btn" disabled id="tab1-update-btn" onclick="tab1UpdateDB()">Update Mapping</button>
                             </div>
                         </div>
@@ -157,16 +143,10 @@ try{
                                     </select>
                                 </div>
 
-                                <!--                                    
-                                //TODO: Require AJAX method to display searched supervisor         
-                                -->
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab2-supervisor" name="supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)">                                  
                                     <div class="form-control" id="result-box-2">
-                                        <!--                                    
-                                        //TODO: Javascript to display result box need to fix         
-                                        -->
                                     </div>
                                 </div>
 
@@ -174,9 +154,6 @@ try{
                             </div>
 
                             <div class="button-group">
-                                <!--                                    
-                                //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
                                 <button class="grey-btn" onclick="insertTable('2')" id="tab2-search-btn" disabled>Search</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput('2')">
                             </div>
@@ -198,9 +175,6 @@ try{
                                         <th>Action</th>
                                     </thead>
                                     <tbody id="tab2-table">
-                                        <!-- <tr>
-                                            <td><button class="remove button">Remove</button></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>

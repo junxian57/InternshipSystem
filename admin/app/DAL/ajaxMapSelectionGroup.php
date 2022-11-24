@@ -22,10 +22,12 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
             P.departmentID = D.departmentID AND
             D.facultyID = F.facultyID AND
             S.internshipBatchID LIKE '$internNo' AND
-            F.facultyID LIKE '$facultyID'
+            F.facultyID LIKE '$facultyID' AND
+            S.studAccountStatus LIKE 'Pending Map'
             GROUP BY P.programmeAcronym, S.tutorialGroupNo) AS A ON IB.internshipBatchID = A.internshipBatchID AND A.tutorialGroupNo = S.tutorialGroupNo AND P.programmeAcronym = A.programmeAcronym
             WHERE S.internshipBatchID LIKE '$internNo' AND 
             S.lecturerID IS NULL AND
+            S.studAccountStatus LIKE 'Pending Map' AND
             F.facultyID LIKE '$facultyID'
             GROUP BY P.programmeAcronym, S.tutorialGroupNo
             HAVING noSelectStudent > 0";
@@ -126,7 +128,8 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
             FROM InternshipBatch IB, Student S
             WHERE S.internshipBatchID = IB.internshipBatchID AND
             S.programmeID LIKE '$programmeID' AND
-            S.internshipBatchID LIKE '$batchID'
+            S.internshipBatchID LIKE '$batchID' AND
+            S.studAccountStatus LIKE 'Pending Map'
             GROUP BY S.tutorialGroupNo) AS A ON IB.internshipBatchID = A.internshipBatchID AND A.tutorialGroupNo = S.tutorialGroupNo
             WHERE S.programmeID LIKE '$programmeID' AND 
             S.lecturerID IS NULL AND

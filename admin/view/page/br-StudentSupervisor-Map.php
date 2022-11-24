@@ -88,9 +88,6 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="button-group">
-                                <!--                                    
-                                //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
                                 <button class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('tab1-internBatch-group'), document.getElementById('tab1-student-group'))">
                             </div>
@@ -119,9 +116,6 @@ include('../../includes/db_connection.php');
                             </div>
                             <hr>
                             <div class="update-group">
-                                <!--                                    
-                                //TODO: get all data from above and input into database
-                                -->
                                 <button class="grey-btn" id="tab1-update-btn" onclick="tab1UpdateMapDb()" disabled>Update Mapping</button>
                             </div>
                         </div>
@@ -129,9 +123,7 @@ include('../../includes/db_connection.php');
                         <!-- Tab Content 2-->
                         <div id="SupervisorToStudent" class="tabcontent">
                             <div class="search-group">
-                                <!--                                    
-                                //TODO: Select intern batch first only allow to select students group        
-                                -->
+
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab2-student'), document.getElementById(this.id))">
@@ -160,13 +152,8 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="button-group">
-                                <!--                                    
-                                //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
                                 <a class="clickable-btn" id="tab2-assign-btn">Assign</a>
-                                <!-- 
-                                //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
-                                -->
+
                                 <input type="reset" class="clickable-btn" value="Reset Field" onclick="resetInput(document.getElementById('tab2-student'), document.getElementById('tab2-internBatch-group'), document.getElementById('tab2-supervisor-group'))">
                             </div>
                             <hr>
@@ -184,119 +171,7 @@ include('../../includes/db_connection.php');
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="tab2-preview-table">
-                                        <!-- <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>21WMR08523</td>
-                                            <td>FOCS</td>
-                                            <td>REI</td>
-                                            <td>Bryson</td>
-                                            <td>Pong Suk Fun</td>
-                                            <td><a class="remove" href="edit-services.php?editid=<?php echo "ID"; ?>">Remove</a></td>
-                                        </tr> -->
+                                    <tbody id="tab2-preview-table"> 
                                     </tbody>
                                 </table>
                             </div>
@@ -359,10 +234,6 @@ include('../../includes/db_connection.php');
 
                                 <form id="student-field">
                                     <fieldset>
-                                        <!--
-                                           //!!!!! Query need to match internship batch
-                                           //TODO: Remember the batch of internship
-                                        -->
                                         <legend>Student Group Field - <span class="facAcronym-span"></span></legend>
                                         <!--Create a table with 3 column-->
                                         <div class="table-responsive">
@@ -384,13 +255,7 @@ include('../../includes/db_connection.php');
 
                             </div>
                             <div class="button-group">
-                                <!--                                    
-                                //TODO: onclick -> start retrieve student list and proceed mapping
-                                -->
                                 <a class="clickable-btn" id="tab3-assign-btn">Assign</a>
-                                <!-- 
-                                //TODO: While click on Mapping, check whether it is already inside the preview table, if yes, then alert user...return false 
-                                -->
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab3-programme'), document.getElementById('tab3-internBatch-group'), null, true)">
                             </div>
                             <hr>
@@ -411,15 +276,12 @@ include('../../includes/db_connection.php');
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tab3-preview-table">                                     
+                                    <tbody id="tab3-preview-table">
                                     </tbody>
                                 </table>
                             </div>
                             <hr>
                             <div class="update-group">
-                                <!--                                    
-                                //TODO: get all data from above and input into database
-                                -->
                                 <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>Update Mapping</button>
                             </div>
                         </div>

@@ -9,6 +9,87 @@ body {
   height: 100vh;
 }
 
+.reject-comment {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(22, 22, 22, 0.5176470588);
+  display: none;
+}
+.reject-comment .innerBox {
+  width: 50%;
+  height: 55%;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 1.2rem;
+  position: relative;
+  top: 25%;
+  left: 25%;
+  z-index: 100;
+}
+.reject-comment .horizon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.reject-comment h2 {
+  color: #f2891f;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  flex-grow: 60;
+}
+.reject-comment #close-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #f2891f;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 30px;
+  border: none;
+  cursor: pointer;
+  flex-grow: 0.5;
+  transition: all 0.3s ease-in-out;
+}
+.reject-comment #close-btn:hover {
+  background-color: #313e85;
+}
+.reject-comment .count {
+  color: #161616;
+}
+.reject-comment #rejectComment {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1.1em;
+  resize: none;
+  color: #161616;
+}
+.reject-comment #submit-btn {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 10px;
+  background-color: #313e85;
+  color: #ffffff;
+  font-size: 1em;
+  margin-top: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+}
+.reject-comment #submit-btn:hover {
+  background-color: #3748a7;
+}
+
 header {
   position: fixed;
   background-color: #313e85;

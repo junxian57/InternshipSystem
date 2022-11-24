@@ -77,7 +77,7 @@
             <div class="profile_img">
               <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
               <div class="user-name">
-                <p><?php echo $name; ?></p>
+                <!-- <p><?php echo $name; ?></p> -->
                 <span>Administrator</span>
               </div>
               <i class="fa fa-angle-down lnr"></i>
