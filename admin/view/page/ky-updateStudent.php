@@ -1,10 +1,10 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "westorn";
+$host = "sql444.main-hosting.eu";
+$user = "u928796707_group34";
+$password = "u1VF3KYO1r|";
+$database = "u928796707_internshipWeb";
 
-$conn = mysqli_connect($server, $username, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn){
     die("Error". mysqli_connect_error());
 }
@@ -26,7 +26,7 @@ if (!$conn){
         $currentApp = $_POST['currentApp'];
         $status = $_POST['status'];
 
-        $query = "UPDATE student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+        $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
         studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', studDateJoined='$dateJoined', studApplicationQuota='$appQuota', studCurrentNoOfApp='$currentApp', studAccountStatus='$status' WHERE studentID='$id' ";
         $query_run = mysqli_query($conn, $query);
 
