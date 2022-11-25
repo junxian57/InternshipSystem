@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
+include('../../includes/db_connection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
@@ -36,7 +36,6 @@ include('includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
-    <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
     <script src="../../js/jquery-1.11.1.min.js"></script>
@@ -83,52 +82,59 @@ include('includes/db_connection.php');
                                 <th>Company Name</th>
                                 <th>Email</th>
                                 <th>Contact No</th>
-                                <th>Address</th>
-                                <th>Field Area</th>
+                                <th>Account Status</th>
+                                <th>Date Joined</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    
-                                    $server = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $database = "westorn";
+                                    $db = new DBController();
 
-                                    $conn = mysqli_connect($server, $username, $password, $database);
-                                    if (!$conn){
-                                        die("Error". mysqli_connect_error());
-                                    }
+                                    
+                                    // $server = "localhost";
+                                    // $username = "root";
+                                    // $password = "";
+                                    // $database = "westorn";
+
+                                    // $conn = mysqli_connect($server, $username, $password, $database);
+                                    // if (!$conn){
+                                    //     die("Error". mysqli_connect_error());
+                                    // }
 
                                     $sql = "select * from company"; 
-                                    $result = mysqli_query($conn, $sql);
+                                    $result = $db->runQuery($sql)
                                     
-                                    while($row=mysqli_fetch_assoc($result)) {
-                                        $Id = $row['companyID'];
-                                        $name = $row['cmpName'];
-                                        $email = $row['cmpEmail'];
-                                        $phone = $row['cmpContactNumber'];
-                                        $cmpUsername = $row['cmpUsername'];
-                                        $size = $row['cmpCompanySize'];
-                                        $address = $row['cmpAddress'];
-                                        $fieldArea = $row['cmpFieldsArea'];
-                                        $cmpInternshipPlacement = $row['cmpNumberOfInternshipPlacements'];
-                                        $allowance = $row['cmpAverageAllowanceGiven'];
-                                        $dateJoined = $row['cmpDateJoined'];
-                                        $status = $row['cmpAccountStatus'];
-                                        $rating= $row['cmpRating'];
-                                        
-                                ?>
+                                    // while($row=mysqli_fetch_assoc($result)) {
+                                    //     $Id = $row['companyID'];
+                                    //     $name = $row['cmpName'];
+                                    //     $dateJoined = $row['cmpDateJoined'];
                                     
-                                        <tr>
-                                    
-                                            <td><?php echo $Id ?></td>
-                                            <td><?php echo $name ?></td>
-                                            <td><?php echo $email?></td>
-                                            <td><?php echo $phone ?></td>
-                                            <td><?php echo $address?></td> 
-                                            <td><?php echo $fieldArea?></td> 
+                                    //     $email = $row['cmpEmail'];
+                                    //     $phone = $row['cmpContactNumber'];
+                                    //     $cmpUsername = $row['cmpUsername'];
+                                    //     $size = $row['cmpCompanySize'];
+                                    //     $address = $row['cmpAddress'];
+                                    //     $fieldArea = $row['cmpFieldsArea'];
+                                    //     $cmpInternshipPlacement = $row['cmpNumberOfInternshipPlacements'];
+                                    //     $allowance = $row['cmpAverageAllowanceGiven'];
+                                    //     $status = $row['cmpAccountStatus'];
+                                    //     $rating= $row['cmpRating'];
+
+                                    if(count($result) > 0){
+                                        foreach ($result as $company) { //Associative Array
+                                            $tempArray = array(
+                                                "companyID" = $company['companyID'],
+                                                "cmpName" =  $company['cmpName'],
+                                            );
+                                ?>                          
+                                        <tr>                                   
+                                            <td><?php echo $company['companyID'] ?></td>
+                                            <td><?php echo $company['cmpName'] ?></td>
+                                            <td><a href="mailto:<?php echo $company['cmpEmail'] ?>">Email</td>
+                                            <td><?php echo $company['cmpContactNumber'] ?></td>
+                                            <td><?php echo $company['cmpAccountStatus'] ?></td> 
+                                            <td><?php echo $company['cmpDateJoined']?></td> 
                                 
                                             <td>
                                                 <div class="button-group">
@@ -140,9 +146,8 @@ include('includes/db_connection.php');
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php
-                                        
-                                        
+                                        <?php                                                                           
+                                        }
                                     }
                                 ?>
                                 
@@ -371,6 +376,8 @@ include('includes/db_connection.php');
             input_allowance = document.getElementById('input_allowance').value = allowance;
             input_dateJoined = document.getElementById('input_dateJoined').value = dateJoined;
             input_status = document.getElementById('input_status').value = status;
+
+            console.log(input_name, email)
             
 
             $('.close-modal').click(function(){
