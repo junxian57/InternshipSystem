@@ -5,10 +5,10 @@ include('../../includes/db_connection.php');
 ?>
 
 <!DOCTYPE HTML>
-<html>
-
+<html lang="en" dir="ltr">
 <head>
-<title>ITP SYSTEM</title>
+    <meta charset="utf-8">
+    <title>ITP SYSTEM</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -32,12 +32,12 @@ include('../../includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-cmpStudMaintain.css">
+    <link rel="stylesheet" href="../../scss/ky-invite.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
 
 </head>
 
@@ -47,105 +47,96 @@ include('../../includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-                <div class="container">
-                    <div class="forms">
-                        <h3 class="page-title">Company Details Maintenance</h3>
-                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-
-                            <div class="content">
-                                <form action="#">
-                                    <div class="user-details">
-                                    <div class="title">
-                                        <h2 class="title-1">Company Name & Contact</h2>
-                                    </div>
-                                    <div class="input-style name-address-group">
-                                        <input type="text" style="width: 100%;" placeholder="Company Name" name="cmpName" required readonly>                  
-                                    </div>
-
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Contact No." name="cmpContactNo" required readonly>   
-                                        <input type="email" placeholder="Email" name="cmpEmail" required readonly>             
-                                    </div>
-
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Contact Person" name="cmpContactPerson" required readonly>                
-                                    </div>
-
-                                    <div class="title">
-                                        <h2 class="title-2">Company Address</h2>
-                                    </div>
-                                    <div class="input-style name-address-group">
-                                        <textarea type="text" name="cmpAddress" placeholder="Address" cols="30" rows="5" required readonly></textarea>
-                                    </div>
-
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="State" name="cmpState" required readonly> 
-                                        <input type="text" placeholder="Postcode" name="cmpPostCode" required readonly>                  
-                                    </div>
-
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="City" name="cmpCity" required readonly>                   
-                                    </div>
-
-                                    <div class="title">
-                                        <h2 class="title-3">Company Details</h2>
-                                    </div>
-
-                                    <div class="company-details-group input-style">  
-                                        <input type="text" style="width: 100%;" placeholder="Company Size" name="cmpFieldArea" required readonly>              
-                                    </div>
-
-                                    <div class="title">
-                                        <h2 class="title-3">Company Fields</h2>
-                                    </div>
+                <div class="forms">
+                    <h3 class="page-title">Company Invitation</h3>
+                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                        <!-- Tab Content 1-->
+                        <div id="StudentToSupervisor" class="tabcontent">
+                            
+                            <div class="table-responsive black-border">
+                            <div class="table_section">
+                            <table  class="table-view" id="myTable">
+                            <thead>
+                                <tr>
+                                <th>Company Id</th>
+                                <th>Company Name</th>
+                                <th>Email</th>
+                                <th>Contact No</th>
+                                <th>Account Status</th>
+                                <th>Date Joined</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <?php
                                     
-                                    <div class="company-details-group input-style">
-                                        <div id="fields-row" class="task-row">
-                                            <div class="row">
-                                                <p>IT</p>              
-                                            </div>
-                                            <div class="row">
-                                                <p>Accounting</p>
-                                            </div>
-                                            <div class="row">
-                                                <p>Business</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    $db = new DBController();
+                                        
+                                    $sql = "select * from Company where cmpAccountStatus ='Pending' "; 
+                                    $result = $db->runQuery($sql);
 
-                                    <div class="title">
-                                        <h2 class="title-3">Internship Details</h2>
-                                    </div>
+                                    if(count($result) > 0){
+                                         foreach ($result as $company) {
+                                          
+                                            $Id = $company['companyID'];
+                                            $username = $company['cmpName'];
+                                            $email = $company['cmpEmail'];
+                                            $phone = $company['cmpContactNumber'];
+                                            $status = $company['cmpAccountStatus'];
+                                            $dateJoined = $company['cmpDateJoined'];
 
-                                    <div class="input-style name-address-group">
-                                        <input type="text" placeholder="Number of Internship Placements ." name="cmpInternNo" required readonly>   
-                                        <input type="email" placeholder="Internship Areas" name="cmpInternAreas" required readonly>             
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="button-group">
-                                        <a class="clickable-btn Update" href="">Update</a>
-                                        <a class="clickable-btn Export" href="">Export</a>
-                                    </div>
-
-
-                                </form>
-                            </div>
-                         
-                           
-                        </div>
-
+                                            echo '<tr>
+                                                <td>' .$Id. '</td>
+                                                <td>' .$username. '</td>
+                                                <td>' .$email. '</td>
+                                                <td>' .$phone. '</td>
+                                                <td>' .$status. '</td>
+                                                <td>' .$dateJoined. '</td>
+                                                <td>
+                                                <form action="ky-sendCmp.php" method="post">
+                                                <input type="hidden" name="email" id="email" value="'.$email.'">
+                                                <input type="hidden" name="username" id="username" value="'.$username.'">
+                                                <input type="hidden" name="id" id="id" value="'.$Id.'">
+                                                    <div class="button">
+                                                        <input type="submit" name="submit" value="Invite">
+                                                    </div>
+                                                </form>
+                                                    
+                                                </td>
+                                            </tr>';
+                                                                                                                     
+                                        }
+                                    }
+                                    
+                                ?>
+                                    
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                                
+                 </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>
-        <script src="../../js/companyLogin.js"></script>
+        <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
     
+    <script type="text/javascript">
+        $(function(){
+            $('#login-show').click(function(){
+                $('#login-modal').fadeIn().css("display", "flex");
+            });
+        
+            $('.close-modal').click(function(){
+                $('#login-modal').fadeOut();
+            });
+        });
+    </script>
+
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -163,6 +154,13 @@ include('../../includes/db_connection.php');
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+        $('.table-view').DataTable({
+        "bLengthChange": false,
+        "info": false
+        });         
+    });
 </script>
 <script>
     function searchInTable() {

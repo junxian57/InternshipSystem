@@ -2,25 +2,7 @@
 session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
 
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -36,26 +18,38 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
-    <link href="../../css/style.css" rel='stylesheet' type='text/css' />
-    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../scss/ky-maintain.css" type='text/css' >
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/font-awesome.css" rel="stylesheet" />
     <script src="../../js/jquery-1.11.1.min.js"></script>
     <script src="../../js/modernizr.custom.js"></script>
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <link
+      href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="../../css/animate.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
     <script src="../../js/wow.min.js"></script>
     <script>
-        new WOW().init();
+      new WOW().init();
     </script>
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
-    <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-maintain.css">
+    <link href="../../css/custom.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="cbp-spmenu-push">
@@ -90,7 +84,8 @@ include('../../includes/db_connection.php');
                             <tbody>
                                 <?php
                                     $db = new DBController();
-
+                                    $sql = "select * from Company"; 
+                                    $result = $db->runQuery($sql);
                                     
                                     // $server = "localhost";
                                     // $username = "root";
@@ -101,10 +96,6 @@ include('../../includes/db_connection.php');
                                     // if (!$conn){
                                     //     die("Error". mysqli_connect_error());
                                     // }
-
-                                    $sql = "select * from company"; 
-                                    $result = $db->runQuery($sql)
-                                    
                                     // while($row=mysqli_fetch_assoc($result)) {
                                     //     $Id = $row['companyID'];
                                     //     $name = $row['cmpName'];
@@ -122,33 +113,47 @@ include('../../includes/db_connection.php');
                                     //     $rating= $row['cmpRating'];
 
                                     if(count($result) > 0){
-                                        foreach ($result as $company) { //Associative Array
-                                            $tempArray = array(
-                                                "companyID" = $company['companyID'],
-                                                "cmpName" =  $company['cmpName'],
-                                            );
+                                         foreach ($result as $company) { //Associative Array
+                                        //     $tempArray = array(
+                                        //         "companyID" = $company['companyID'],
+                                        //         "cmpName" =  $company['cmpName']
+                                        //     );
+                                        $Id = $company['companyID'];
+                                        $name = $company['cmpName'];
+                                        $dateJoined = $company['cmpDateJoined'];
+                                    
+                                        $email = $company['cmpEmail'];
+                                        $phone = $company['cmpContactNumber'];
+                                        $cmpUsername = $company['cmpUsername'];
+                                        $size = $company['cmpCompanySize'];
+                                        $address = $company['cmpAddress'];
+                                        $fieldArea = $company['cmpFieldsArea'];
+                                        $cmpInternshipPlacement = $company['cmpNumberOfInternshipPlacements'];
+                                        $allowance = $company['cmpAverageAllowanceGiven'];
+                                        $status = $company['cmpAccountStatus'];
+                                        $rating= $company['cmpRating'];
                                 ?>                          
                                         <tr>                                   
-                                            <td><?php echo $company['companyID'] ?></td>
-                                            <td><?php echo $company['cmpName'] ?></td>
-                                            <td><a href="mailto:<?php echo $company['cmpEmail'] ?>">Email</td>
-                                            <td><?php echo $company['cmpContactNumber'] ?></td>
-                                            <td><?php echo $company['cmpAccountStatus'] ?></td> 
-                                            <td><?php echo $company['cmpDateJoined']?></td> 
+                                            <td><?php echo $Id ?></td>
+                                            <td><?php echo $name ?></td>
+                                            <td><a href="mailto:<?php echo $email ?>">Email</td>
+                                            <td><?php echo $phone ?></td>
+                                            <td><?php echo $status ?></td> 
+                                            <td><?php echo $dateJoined ?></td> 
                                 
                                             <td>
                                                 <div class="button-group">
                                                   
                                                     <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
-                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                    <button><i class="uil uil-file-export" style="color:green"></i>
-                                                    <!-- Export file --></button>
+                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                               
                                                 </div>
                                             </td>
                                         </tr>
                                         <?php                                                                           
                                         }
                                     }
+                                    
                                 ?>
                                 
                             </tbody>
@@ -185,7 +190,7 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Company Name :</label>
-                                <input type="text" placeholder="Enter your name" name="cmpName" id="input_name" required>
+                                <input type="text" placeholder="Enter your name" name="cmpName" id="input_name" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
                             
@@ -215,13 +220,13 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Company User Name :</label>
-                                <input type="text" placeholder="Enter your address" name="cmpUserName" id="input_username" required>
+                                <input type="text" placeholder="Enter your address" name="cmpUserName" id="input_username" >
                                 <i class="uil uil-chat-bubble-user icon"></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Company Size :</label>
-                                <input type="text" placeholder="Enter your email" name="cmpSize" id="input_size" required>
+                                <input type="text" placeholder="Enter your email" name="cmpSize" id="input_size" >
                                 <i class='far fa-building icon'></i>
                             </div>
 
@@ -239,7 +244,7 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" name ="dateJoined" id="input_dateJoined" required>
+                                <input type="text" placeholder="Enter programme" name ="dateJoined" id="input_dateJoined" required readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
 
@@ -247,6 +252,12 @@ include('../../includes/db_connection.php');
                                 <label>Account Status :</label>
                                 <input type="text" name="status" id="input_status" required>
                                 <i class='far fa-lightbulb icon'></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label> Company Rating :</label>
+                                <input type="text" name="rating" id="input_rating" required >
+                                <i class="uil uil-star icon"></i>
                             </div>
 
                             <button type = "submit" name="updatedata" class="submit-btn">Update</button>
@@ -270,7 +281,7 @@ include('../../includes/db_connection.php');
             </div>
             <div class="login-form">
                 <div class="content">
-                    <form action="">
+                    <form action="ky-exportCmpDetails.php" method="POST">
                         <div class="user-details">
                             
                         <div class="pass-box">
@@ -351,6 +362,7 @@ include('../../includes/db_connection.php');
                                 <i class="uil uil-star icon"></i>
                             </div>
 
+                            <button type = "submit" name="Exportpdf" class="submit-btn">Export</button>
                             <button id="close-modal" type="button" class="submit-btn">Cancel</button>
                            
                         </div> 
@@ -361,23 +373,24 @@ include('../../includes/db_connection.php');
     </div>
 
     <script type="text/javascript">
-        function toModal(Id, name, email , phone , cmpUsername , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status){
+        function toModal(Id, name, email , phone , cmpUsername , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating){
            
         $('#login-modal').fadeIn().css("display", "flex");
-            input_id = document.getElementById('input_id').value = Id;
-            input_name = document.getElementById('input_name').value = name;
-            input_email = document.getElementById('input_email').value = email;
-            input_phone = document.getElementById('input_phone').value = phone;
-            input_username = document.getElementById('input_username').value = cmpUsername;
-            input_size = document.getElementById('input_size').value = size;
-            input_address = document.getElementById('input_address').value = address;
-            input_field = document.getElementById('input_field').value = fieldArea;
-            input_placement = document.getElementById('input_placement').value = cmpInternshipPlacement;
-            input_allowance = document.getElementById('input_allowance').value = allowance;
-            input_dateJoined = document.getElementById('input_dateJoined').value = dateJoined;
-            input_status = document.getElementById('input_status').value = status;
+            document.getElementById('input_id').value = Id;
+            document.getElementById('input_name').value = name;
+            document.getElementById('input_email').value = email;
+            document.getElementById('input_phone').value = phone;
+            document.getElementById('input_username').value = cmpUsername;
+            document.getElementById('input_size').value = size;
+            document.getElementById('input_address').value = address;
+            document.getElementById('input_field').value = fieldArea;
+            document.getElementById('input_placement').value = cmpInternshipPlacement;
+            document.getElementById('input_allowance').value = allowance;
+            document.getElementById('input_dateJoined').value = dateJoined;
+            document.getElementById('input_status').value = status;
+            document.getElementById('input_rating').value = rating;
 
-            console.log(input_name, email)
+            //console.log(input_name, email)
             
 
             $('.close-modal').click(function(){
@@ -395,19 +408,19 @@ include('../../includes/db_connection.php');
         function viewModal(Id, name, email , phone , cmpUsername , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating){
            
         $('#view-modal').fadeIn().css("display", "flex");
-            input_id = document.getElementById('input_id2').value = Id;
-            input_name = document.getElementById('input_name2').value = name;
-            input_email = document.getElementById('input_email2').value = email;
-            input_phone = document.getElementById('input_phone2').value = phone;
-            input_username = document.getElementById('input_username2').value = cmpUsername;
-            input_size = document.getElementById('input_size2').value = size;
-            input_address = document.getElementById('input_address2').value = address;
-            input_field = document.getElementById('input_field2').value = fieldArea;
-            input_placement = document.getElementById('input_placement2').value = cmpInternshipPlacement;
-            input_allowance = document.getElementById('input_allowance2').value = allowance;
-            input_dateJoined = document.getElementById('input_dateJoined2').value = dateJoined;
-            input_status = document.getElementById('input_status2').value = status;
-            input_rating = document.getElementById('input_rating2').value = rating;
+            document.getElementById('input_id2').value = Id;
+            document.getElementById('input_name2').value = name;
+            document.getElementById('input_email2').value = email;
+            document.getElementById('input_phone2').value = phone;
+            document.getElementById('input_username2').value = cmpUsername;
+            document.getElementById('input_size2').value = size;
+            document.getElementById('input_address2').value = address;
+            document.getElementById('input_field2').value = fieldArea;
+            document.getElementById('input_placement2').value = cmpInternshipPlacement;
+            document.getElementById('input_allowance2').value = allowance;
+            document.getElementById('input_dateJoined2').value = dateJoined;
+            document.getElementById('input_status2').value = status;
+            document.getElementById('input_rating2').value = rating;
 
             $('.close-modal').click(function(){
                 $('#view-modal').fadeOut();

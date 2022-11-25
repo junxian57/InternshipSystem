@@ -1,10 +1,10 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "westorn";
+$host = "sql444.main-hosting.eu";
+$user = "u928796707_group34";
+$password = "u1VF3KYO1r|";
+$database = "u928796707_internshipWeb";
 
-$conn = mysqli_connect($server, $username, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn){
     die("Error". mysqli_connect_error());
 }
@@ -23,8 +23,10 @@ if (!$conn){
         $allowance = $_POST['allowance'];
         $dateJoined = $_POST['dateJoined'];
         $status = $_POST['status'];
+        $rating = $_POST['rating'];
+        
 
-        $query = "UPDATE company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpUsername=' $username', cmpCompanySize=' $size', cmpAddress=' $address', cmpFieldsArea=' $fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status' WHERE companyID='$id'  ";
+        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpUsername=' $username', cmpCompanySize=' $size', cmpAddress=' $address', cmpFieldsArea=' $fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating' WHERE companyID='$id'  ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)

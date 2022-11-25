@@ -1,10 +1,10 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "westorn";
+$host = "sql444.main-hosting.eu";
+$user = "u928796707_group34";
+$password = "u1VF3KYO1r|";
+$database = "u928796707_internshipWeb";
 
-$conn = mysqli_connect($server, $username, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn){
     die("Error". mysqli_connect_error());
 }
@@ -14,7 +14,7 @@ if (!$conn){
         $id = $_POST['userId'];
         $password = $_POST['password'];
         
-        $sql="select * from student where studentID='$id'";
+        $sql="select * from Student where studentID='$id'";
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if ($num == 1){
@@ -24,7 +24,7 @@ if (!$conn){
 
                     session_start();
                     $_SESSION['adminloggedin'] = true;
-                    $_SESSION['adminusername'] = $username;
+                    //$_SESSION['adminusername'] = $username;
                     $_SESSION['studentID'] = $id;
 
                     echo "
@@ -34,8 +34,8 @@ if (!$conn){
                     </script>
                     ";
 
-                    $sql1="UPDATE student SET studAccountStatus='Active' where studentID='$id'";
-                    $result1 = mysqli_query($conn, $sql1);
+                    //$sql1="UPDATE Student SET studAccountStatus='Active' where studentID='$id'";
+                    //$result1 = mysqli_query($conn, $sql1);
                 } 
                 else{
                     echo "

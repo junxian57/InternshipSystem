@@ -1,12 +1,12 @@
 <?php
 require '../../../config/email.php';
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "westorn";
+$host = "sql444.main-hosting.eu";
+$user = "u928796707_group34";
+$password = "u1VF3KYO1r|";
+$database = "u928796707_internshipWeb";
 
-$conn = mysqli_connect($server, $username, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn){
     die("Error". mysqli_connect_error());
 }
@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
 
     $id = $_POST['id'];
     $username = $_POST['username'];
-    $query = "UPDATE student SET studAccountStatus ='Invited' WHERE studentID='$id' ";
+    $query = "UPDATE Student SET studAccountStatus ='InitialPass' WHERE studentID='$id' ";
     $query_run = mysqli_query($conn, $query);
 
     $mailConfig = new EmailConfig();
@@ -25,12 +25,12 @@ if(isset($_POST['submit'])){
     $y=date('y');
     $d=date('d');
     $pass=$a.$m.$y.$d;
-    //link has problem
+    
     $passMessage='<html>
     <p>Dear '.$username.', You have been invited to register in ITP system.</p>
     <p>Your id is '.$id.' and initial password is '.$pass.'</p>
     <p>Please change your password immediately after login.</p>
-    <p><a herf = "http://localhost/InternshipSystem/Client/view/page/ky-studLogin.php?">Clic here to login</a></p>
+    <p><a href = "http://localhost/InternshipSystem/Client/view/page/ky-studLogin.php?">Clic here to login</a></p>
     </html>';
     
     //? This is for single email
@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
     $hash = password_hash($pass, PASSWORD_DEFAULT);
 
     if($success){
-        $query2 = "UPDATE student SET studPassword ='$hash' WHERE studentID='$id' ";
+        $query2 = "UPDATE Student SET studPassword ='$hash' WHERE studentID='$id' ";
         $query_run = mysqli_query($conn, $query2);
 
         echo "
