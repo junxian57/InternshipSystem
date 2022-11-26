@@ -102,13 +102,13 @@ include('includes/dbconnection.php');
             </div>
             
             <div class="subtitle">
-              <h2 class="sub-3">Suggestions / Comments / Additional information</h2>
+              <h2 class="sub-3">Problems Faced / Comments / Additional information</h2>
             </div>
             
             <div class="inputBox">
               <div class="viewInput" style="width:100%;">
                 <span>Suggestions / Comments / Additional information (if any)</span>
-                <textarea type="text" name="suggestion"></textarea>
+                <textarea type="text" name="suggestion" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"></textarea>
               </div>
             </div>
 

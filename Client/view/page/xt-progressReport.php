@@ -110,7 +110,7 @@ $pdf->Cell(135, 25, ' ', 1, 0, 'C', 1);
 
 $pdf->Ln(30);
 $pdf->SetFont('times', 'B', 11);
-$pdf->Cell(189, 3, 'Suggestions / Comments / Additional information (if any): ', 0, 1, 'L');
+$pdf->Cell(189, 3, 'Problems Faced / Comments / Additional information (if any): ', 0, 1, 'L');
 
 $pdf->Ln(1);
 $pdf->Cell(174, 15, ' ', 1, 0, 'C', 1);
