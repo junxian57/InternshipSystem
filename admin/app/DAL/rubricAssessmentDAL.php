@@ -150,10 +150,10 @@ class rubricAssessmentDAL
             WHERE assessmentID ='" . $rubricAssmtDto->getAssmtId() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
         if ($result) {
-            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=success&id='" . $rubricAssmtDto->getAssmtId() . "'");
+            header("Location: ../../view/page/RubricAssessment-Maintain.php?act=edit&status=success&id='" . $rubricAssmtDto->getAssmtId() . "'");
             exit();
         } else {
-            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=failed&id='" . $rubricAssmtDto->getAssmtId() . "'");
+            header("Location: ../../view/page/RubricAssessment-Maintain.php?act=edit&status=failed&id='" . $rubricAssmtDto->getAssmtId() . "'");
             exit();
         }
     }
