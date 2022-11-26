@@ -13,59 +13,28 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 
 	}*/
 $rubricAssmtBllObj = new rubricAssessmentBLL();
-if ($_GET['act'] == "edit") {
-    $id = str_replace("'", "", $_GET['id']);
-    $id = str_replace("'", "", $_GET['id']);
-    $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
-        $assessmentID = $aRubricAssmt->getAssmtId();
-        echo $assessmentID;
-        $internshipBatchID = $_POST['internshipBatchID'];
-        $Title = $_POST['Title'];
-        $Instructions = $_POST['Instructions'];
-        $TotalWeight = $_POST['TotalWeight'];
-        $RoleForMark = $_POST['RoleForMark'];
-        $CreateByID = $_POST['CreateByID'];
-        $CreateDate = $_POST['createDate'];
-        $updRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
-        if (count($_POST['criterionID']) == count($_POST['criteriaTitle'])) {
-            $countRow = count($_POST['criterionID']);
-            for ($i = 0; $i < $countRow; $i++) {
-                $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['criterionID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
-            }
-        }
-        $rubricAssmtBllObj->UpdRubricAssmt($updRubricAssmt);
-    }
-} else {
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date = date('Y-m-d');
-        $assessmentID = $_POST['assessmentID'];
-        $internshipBatchID = $_POST['internshipBatchID'];
-        $Title = $_POST['Title'];
-        $Instructions = $_POST['Instructions'];
-        $TotalWeight = $_POST['TotalWeight'];
-        $RoleForMark = $_POST['RoleForMark'];
-        $CreateByID = $_POST['CreateByID'];
-        $CreateDate = $date;
-        $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
 
-        if (count($_POST['criterionID']) == count($_POST['criteriaTitle'])) {
-            $countRow = count($_POST['criterionID']);
-            for ($i = 0; $i < $countRow; $i++) {
-                $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['criterionID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
-            }
-        }
-        
-        $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt,$newOfRubricCriteriaDto);
-    }
-}
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    $date = date('Y-m-d');
+    $assessmentID = $_POST['assessmentID'];
+    $internshipBatchID = $_POST['internshipBatchID'];
+    $Title = $_POST['Title'];
+    $Instructions = $_POST['Instructions'];
+    $TotalWeight = $_POST['TotalWeight'];
+    $RoleForMark = $_POST['RoleForMark'];
+    $CreateByID = $_POST['CreateByID'];
+    $CreateDate = $date;
+    $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
 
-function verifyScore($totalScore, $countScore)
-{
-    if ($totalScore == $countScore) {
-        return true;
-    } else return false;
+    if (count($_POST['componentID']) == count($_POST['criteriaTitle'])) {
+        $countRow = count($_POST['componentID']);
+        for ($i = 0; $i < $countRow; $i++) {
+            $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['componentID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
+        }
+    }
+
+    $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt, $newOfRubricCriteriaDto);
 }
 ?>
 <!DOCTYPE HTML>
@@ -159,31 +128,6 @@ function verifyScore($totalScore, $countScore)
         background-color: rgb(235, 235, 235);
     }
 
-    .CellWithComment {
-        position: relative;
-    }
-
-    .CellComment {
-        display: none;
-        position: absolute;
-        z-index: 100;
-        border: 1px;
-        background-color: white;
-        border-style: solid;
-        border-width: 1px;
-        border-color: red;
-        padding: 3px;
-        color: red;
-        top: 20px;
-        left: 20px;
-    }
-
-    .CellWithComment:hover span.CellComment {
-        display: block;
-        visibility: visible;
-        opacity: 1;
-    }
-
     .checkbox-group table tbody button {
         padding: 5px;
         letter-spacing: 1px;
@@ -250,10 +194,16 @@ function verifyScore($totalScore, $countScore)
         width: 15%;
     }
 
-    .checkbox-group table tbody {
+    .checkbox-group table tbody,
+    .checkbox-group table tfoot {
         display: block;
         max-height: 250px;
         overflow-y: scroll;
+    }
+
+    .checkbox-group table tfoot {
+        display: block;
+        max-height: 50px;
     }
 </style>
 
@@ -311,40 +261,27 @@ function verifyScore($totalScore, $countScore)
         <div id="page-wrapper">
             <div class="main-page">
                 <?php
-                if ($_GET['act'] == "edit") {
-                    if ($_GET['status'] == 'failed') {
-                        echo "<script> warning('Record cant be Update. Operation failed.');</script>";
-                    } elseif ($_GET['status'] == 'success') {
-                        echo "<script> addSuccess('Update Rubric Assessment successful'); </script>";
-                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
-                    }
-                } else {
-                    if ($_GET['status'] == 'failed') {
-                        echo "<script> warning('Record cant be added. Operation failed.');</script>";
-                    } elseif ($_GET['status'] == 'success') {
-                        echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
-                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
-                    }
+
+                if ($_GET['status'] == 'failed') {
+                    echo "<script> warning('Record cant be added. Operation failed.');</script>";
+                } elseif ($_GET['status'] == 'success') {
+                    echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
+                } elseif ($rubricAssmtBllObj->errorMessage != '') {
+                    echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
                 }
+
                 ?>
                 <div class="forms ">
-                    <?php
-                    if ($_GET['act'] == "edit") {
-                        echo '<h3 class="title1">Edit Rubric Assessment</h3>';
-                    } else {
-                        echo '<h3 class="title1">Add Rubric Assessment</h3>';
-                    }
-                    ?>
+
+                    <h3 class="title1">Add Rubric Assessment</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Rubric Assessment</h4>
                         </div>
                         <div class="form-body">
                             <form method="post">
-                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $rubricAssessmentDALObj->generateID() ?>" readonly="readonly"></div>
-                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTitle() : "" ?>" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo $rubricAssessmentDALObj->generateID() ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="" required="true"> </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Role for Mark</label>
                                     <select id="RoleForMark" name="RoleForMark" class="form-control" onchange="insertRubricCriteriaTitle();" required>
@@ -365,7 +302,7 @@ function verifyScore($totalScore, $countScore)
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTotalWeight() : "" ?>" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="" onchange="changeHandler(this)" required="true"> </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -391,11 +328,11 @@ function verifyScore($totalScore, $countScore)
                                         ?>
                                     </select>
                                 </div>
-                                <input id="createDate" name="createDate" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getCreateDate() : "" ?>" hidden></input>
+                                <input id="createDate" name="createDate" value="" hidden></input>
                                 <div class="form-group col-md-3"> <label>Intern End Day</label> <input type="text" id="InternEndDate" name="InternEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
-                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getInstructions() : "" ?></textarea></div>
+                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required></textarea></div>
 
                                 <div class="form-group col-md-12 checkbox-group">
 
@@ -412,7 +349,7 @@ function verifyScore($totalScore, $countScore)
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="tab3-small-table" id="tab3-supervisor-table">
+                                                <tbody class="tab3-small-table" id="rubric-assessment-criteria-table">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -435,9 +372,11 @@ function verifyScore($totalScore, $countScore)
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="tab3-small-table" id="tab3-student-table">
+                                                <tbody class="tab3-small-table" id="selected-rubric-assessment-criteria-table">
 
                                                 </tbody>
+                                                <tfoot id="test-table">
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </fieldset>
@@ -446,10 +385,10 @@ function verifyScore($totalScore, $countScore)
                                 </div>
                                 <div class="button-group">
                                     <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                    <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetSelect(document.getElementById('tab3-supervisor-table'), document.getElementById('tab3-student-table'))">
+                                    <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('rubric-assessment-criteria-table'), document.getElementById('selected-rubric-assessment-criteria-table'))">
                                 </div>
 
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit rubric assessment" : "Add rubric assessment" ?>" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add rubric assessment" class="form-group btn btn-default">Save</button></div>
 
                             </form>
                         </div>
@@ -521,11 +460,6 @@ function verifyScore($totalScore, $countScore)
             checkScoreIsMatch(countScore);
         }
 
-        window.onload = function() {
-            insertDate();
-            insertRubricCriteriaTitle();
-        }
-
         async function fetchInternDate() {
             const internBatchID = document.getElementById('InternStartDate').value;
             const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
@@ -535,7 +469,6 @@ function verifyScore($totalScore, $countScore)
             return internObj;
         }
 
-        //Calling async function need to be async as well
         async function insertDate() {
             const internObj = await fetchInternDate();
             if (internObj.length != 0) {
@@ -546,18 +479,6 @@ function verifyScore($totalScore, $countScore)
 
         }
 
-        async function insertCriteria(test, Assmt_Criteria_Session_, Assmt_Criteria_Title_) {
-            var hell = "hello";
-            //const cmpValue = document.getElementById("RoleForMark").value;
-
-            document.getElementById(Assmt_Criteria_Session_).value = hell;
-            document.getElementById(Assmt_Criteria_Title_).value = test;
-            //const internObj = await fetchInternDate();
-            //document.getElementById('InternEndDate').value = internObj[0].officialEndDate;
-            //document.getElementById('EarliestStartDate').value = internObj[0].earliestStartDate;
-            //document.getElementById('LatestEndDate').value = internObj[0].latestEndDate;
-        }
-
         async function fetchRubricCriteriaTitle() {
             const RoleForMark = document.getElementById("RoleForMark").value;
             const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark;
@@ -566,61 +487,26 @@ function verifyScore($totalScore, $countScore)
             return CmpLvlObj;
         }
 
+        let countScore = 0;
+
         async function insertRubricCriteriaTitle() {
-            const CmpLvlObj = await fetchRubricCriteriaTitle();
-            tab3InsertTable();
-            let CmpLvlSelect = document.querySelectorAll("#Assmt_Criteria_Title");
-            CmpLvlSelect.forEach(i => {
-                //console.log(i)
-                i.parentNode.nextElementSibling.childNodes[3].value = "None";
-                i.parentNode.nextElementSibling.nextElementSibling.childNodes[3].value = "None";
-                if (Object.keys(CmpLvlObj).length != 0) {
-                    i.innerHTML = "";
-                    i.innerHTML += "<option selected disabled value=''>Choose...</option>";
-                    for (let j = 0; j < CmpLvlObj.length; j++) {
-                        i.innerHTML += "<option value='" + CmpLvlObj[j].criterionID + "'>" + CmpLvlObj[j].Title + "</option>";
-                    }
-                } else {
-                    i.innerHTML = "<option value='None'>None</option>";
+            InsertCriteriaTable();
+            const selectedRubricAssessmentCriteriaTable = document.getElementById("selected-rubric-assessment-criteria-table");
+            if (selectedRubricAssessmentCriteriaTable.hasChildNodes()) {
+                removeAllChildNodes(selectedRubricAssessmentCriteriaTable);
+                countScore = 0;
+                const testTable = document.getElementById("test-table");
+                if (testTable.hasChildNodes()) {
+                    removeAllChildNodes(testTable);
                 }
-            });
-            //console.log(CmpLvlSelect);
-            //console.log($('[id^=ComponentLevel_]').attr('id'));
-            //document.getElementById('Assmt_Criteria_Title');
-            //console.log($('[id^=Assmt_Criteria_Title]').attr('id'));
-            //console.log(CmpLvlObj);
-        }
-
-        count = 2;
-
-        function clone() {
-            var div = document.getElementById('CloneRow'),
-                clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-            //clone.getElementsByTagName('select')[0].id = "ComponentLevel_" + count;
-            clone.getElementsByTagName('input')[0].id = "Assmt_Criteria_Session_" + count;
-            clone.getElementsByTagName('input')[1].id = "Assmt_Criteria_Title_" + count;
-            count++;
-
-            //set select onchange pass value
-            /*clone.getElementsByTagName('select')[0].setAttribute("onchange", "insertCmpLvlValue('cmplvTitle_" + cloneCount + "', 'ComponentLevel_" + cloneCount + "')");
-            clone.getElementsByTagName('select')[0].className = "form-control ComponentLevel_ " + cloneCount;
-
-            //remove button
-            clone.getElementsByTagName('button')[0].className = "btn btn-primary btnRemove";
-            if (cloneCount == 5) {
-                $("#btnAddNewRow").attr("disabled", "disabled");
-                document.getElementById('btnAddNewRow').style = "pointer-events: none;";
             }
-            cloneCount++;*/
 
-            var example = document.getElementById('Clone');
-            example.appendChild(clone);
         }
 
-        async function tab3InsertTable() {
+        async function InsertCriteriaTable() {
             const criteriaResult = await fetchRubricCriteriaTitle();
-            const supervisorTable = document.getElementById("tab3-supervisor-table");
-            const getSpan = document.getElementsByClassName("facAcronym-span");
+            const supervisorTable = document.getElementById("rubric-assessment-criteria-table");
+
 
             if (supervisorTable.hasChildNodes()) {
                 removeAllChildNodes(supervisorTable);
@@ -628,36 +514,29 @@ function verifyScore($totalScore, $countScore)
 
 
             if (criteriaResult !== "No Data Found") {
-                //Change Faculty Acronym
-                for (let k = 0; k < getSpan.length; k++) {
-                    getSpan[k].innerText = criteriaResult[0].facAcronym;
-                }
 
-                //Insert Supervisor Table Row
                 for (let i = 0; i < criteriaResult.length; i++) {
                     var str = criteriaResult[i].score;
                     var maxScore = str.substr(-1);
                     let trLeft = document.createElement("tr");
-                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
+                    trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
                     trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                     trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                     trLeft.setAttribute("data-score", criteriaResult[i].score);
                     trLeft.setAttribute("data-maxScore", maxScore);
 
                     trLeft.innerHTML = `
-                    <td>${criteriaResult[i].criterionID}</td>
+                    <td>${criteriaResult[i].componentID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].componentID}" class="tab-3-checkbox">
                     </td>
                 `;
-
                     supervisorTable.appendChild(trLeft);
                 }
-
             } else {
                 //alert("No Data Found");
                 return;
@@ -669,13 +548,11 @@ function verifyScore($totalScore, $countScore)
                 parent.removeChild(parent.firstChild);
             }
         }
-        let countScore = 0;
 
         function assign() {
-            var table = document.getElementById("tab3-supervisor-table");
-            const studentTable = document.getElementById("tab3-student-table");
+            var table = document.getElementById("rubric-assessment-criteria-table");
+            const studentTable = document.getElementById("selected-rubric-assessment-criteria-table");
             const rCount = table.rows.length;
-
             for (var i = 0; i < table.rows.length; i++) {
                 if (table.rows[i].cells[4].children[0].checked) {
                     if (isExistingAssign(table.rows[i].getAttribute('data-CriteriaSession'), table.rows[i].getAttribute('data-Title'))) {
@@ -684,10 +561,10 @@ function verifyScore($totalScore, $countScore)
                         trRight.setAttribute("data-Title", table.rows[i].getAttribute('data-Title'));
                         trRight.setAttribute("data-maxScore", table.rows[i].getAttribute('data-maxScore'));
                         trRight.innerHTML = `
-                    <td hiden><input name="criterionID[]" class="no-border col-md-12 text-center" style="padding-left:0px;" readonly value="${table.rows[i].getAttribute('data-criterionID')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-componentID')}<input hidden name="componentID[]" value="${table.rows[i].getAttribute('data-componentID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-CriteriaSession')}</td>
-                    <td><input name="criteriaTitle[]" class="no-border col-md-12 text-center" readonly value="${table.rows[i].getAttribute('data-Title')}"></input></td>
-                    <td><input name="maxScore[]" class="no-border col-md-12 text-center" readonly value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-componentID')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
                     <td>
                     <button type="button" onClick="removeChildNode(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}));">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -700,16 +577,40 @@ function verifyScore($totalScore, $countScore)
                         countScore += Number.parseInt(table.rows[i].getAttribute('data-maxScore'));
                     }
                 }
+
             }
+            const testTable = document.getElementById("test-table");
+            let trRight = document.createElement("tr");
+            if (testTable.hasChildNodes()) {
+                removeAllChildNodes(testTable);
+            }
+
+            trRight.innerHTML = `
+            
+            <td style="width:35%">Total Score</td>
+            <td>${countScore}</td>
+            `;
+            testTable.appendChild(trRight);
             checkScoreIsMatch(countScore);
             //alert(value_check);
         }
 
         function removeChildNode(currentRow, currentScore) {
-            //countScore-= Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}); $(this).closest('tr').remove();
             $(currentRow).closest('tr').remove();
             countScore -= Number.parseInt(currentScore)
             checkScoreIsMatch(countScore);
+            const testTable = document.getElementById("test-table");
+            let trRight = document.createElement("tr");
+            if (testTable.hasChildNodes()) {
+                removeAllChildNodes(testTable);
+            }
+
+            trRight.innerHTML = `
+            
+            <td style="width:35%">Total Score</td>
+            <td>${countScore}</td>
+            `;
+            testTable.appendChild(trRight);
         }
 
         function checkScoreIsMatch(countScore) {
@@ -730,7 +631,7 @@ function verifyScore($totalScore, $countScore)
         }
 
         function isExistingAssign(criteriaSession, title) {
-            var table = document.getElementById("tab3-student-table");
+            var table = document.getElementById("selected-rubric-assessment-criteria-table");
             var rCount = table.rows.length;
             //console.log(table.rows[0].cells[1].getAttribute('data-Title'));
             var value_check = "";
@@ -745,6 +646,10 @@ function verifyScore($totalScore, $countScore)
         function resetSelect(table1, table2) {
             if (table2.hasChildNodes()) {
                 removeAllChildNodes(table2);
+            }
+            const testTable = document.getElementById("test-table");
+            if (testTable.hasChildNodes()) {
+                removeAllChildNodes(testTable);
             }
             var rCount = table1.rows.length;
             for (var i = 0; i < table1.rows.length; i++) {
