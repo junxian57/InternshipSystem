@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
+include('../../includes/db_connection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
