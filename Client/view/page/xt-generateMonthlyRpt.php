@@ -1,5 +1,13 @@
 <?php
+   $sig_string=$_POST['signature'];
+   $file_name="signature_".date("his").".png";
+   file_put_contents($file_name, file_get_contents($sig_string));
+   if(file_exists($file_name)){
+     echo "<img src='".$file_name."'></p>";
+   }
+?>
 
+<?php
 require_once('../../../TCPDF-main/tcpdf.php');
 
 extract($_POST);
@@ -14,6 +22,8 @@ if(isset($_POST['generate'])){
   $week4 = $_POST['week4'];
   $problem = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
+  $signature = $_POST['signature'];
+
   if($leaveTaken == 'NO'){
     $leave = '0';
     $fromDate = "_____________________";
@@ -124,7 +134,7 @@ $pdf->Cell(135, 10, 'Projects / Activities', 1, 0, 'C', 1);
 $pdf->Ln(10);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->Cell(39, 45, '1', 1, 0, 'C', 1);
-$pdf->MultiCell(135, 45, ''.$week1, 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$signature, 1, 0, 'C', 1);
 
 $pdf->Cell(39, 45, '2', 1, 0, 'C', 1);
 $pdf->MultiCell(135, 45, ''.$week2, 1, 0, 'C', 1);
@@ -200,3 +210,4 @@ $pdf->MultiCell(123, 5, '
 $pdf->Ln(5);
 
 $pdf->Output('progress-report.pdf', 'I');
+?>

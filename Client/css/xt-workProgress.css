@@ -101,7 +101,7 @@
 }
 
 .subtitle h2.sub-4::after {
-  width: 61%;
+  width: 78%;
 }
 
 .saveBtn {
@@ -148,4 +148,8 @@ h3.title1 {
   transform: translate(-50%, -50%);
   font-size: 24px;
   color: white;
+}
+
+.button-group {
+  float: right;
 }
