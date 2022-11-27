@@ -1,6 +1,45 @@
 <?php
-
 require_once('../../../TCPDF-main/tcpdf.php');
+
+extract($_POST);
+
+if(isset($_POST['signaturesubmit'])){
+  $studName = $_POST['studName'];
+  $cmpName = $_POST['cmpName'];
+  $monthYear = $_POST['monthYear'];
+  $week1 = $_POST['week1'];
+  $week2 = $_POST['week2'];
+  $week3 = $_POST['week3'];
+  $week4 = $_POST['week4'];
+  $problem = $_POST['problem'];
+  $leaveTaken = $_POST['leaveTaken'];
+  $signature = $_POST['signature'];
+  $signature = $_POST['signature'];
+  $signatureFileName = $studName.'.jpg';
+  $signature = str_replace('data:image/png;base64,', '', $signature);
+  $signature = str_replace(' ', '+', $signature);
+  $data = base64_decode($signature);
+  $file = '../../../Client/view/signature/'.$signatureFileName;
+  file_put_contents($file, $data);
+  $sign = '../../../Client/view/signature/'.$studName.'.jpg';
+
+  if($leaveTaken == 'NO'){
+    $leave = '0';
+    $fromDate = "_____________________";
+    $toDate = "_____________________";
+    $leaveReason = "______________________________________________________________";
+  }
+  else{
+    $fromDate = $_POST['fromDate'];
+    $toDate = $_POST['toDate'];
+    $leaveDays = $_POST['leaveDays'];
+    $leaveReason = $_POST['leaveReason'];
+    $leave = $leaveDays;
+  }
+
+  date_default_timezone_set("Asia/Kuala_Lumpur");
+  $today = date("F j, Y", time());
+}
 
 class PDF extends TCPDF{
   public function Header(){
@@ -78,14 +117,14 @@ $pdf->AddPage();
 $pdf->Ln(23);
 
 $pdf->SetFont('times', '', 12);
-$pdf->Cell(189, 3, 'Name of Trainee:     _________________________________________________________________', 0, 1, 'L');
+$pdf->Cell(189, 3, 'Name of Trainee:        '.$studName , 0, 1, 'L');
 $pdf->Ln(5);
 
-$pdf->Cell(189, 3, 'Name of Company:  _________________________________________________________________', 0, 1, 'L');
+$pdf->Cell(189, 3, 'Name of Company:     '.$cmpName, 0, 1, 'L');
 $pdf->Ln(5);
 
-$pdf->Cell(189, 3, 'Month/Year:             _________________________________________________________________', 0, 1, 'L');
-$pdf->Ln(8);
+$pdf->Cell(189, 3, 'Month/Year:                '.$monthYear, 0, 1, 'L');
+$pdf->Ln(6);
 
 $pdf->SetFillColor(224, 235, 255);
 $pdf->Cell(39, 10, 'Week', 1, 0, 'C', 1);
@@ -93,44 +132,47 @@ $pdf->Cell(135, 10, 'Projects / Activities', 1, 0, 'C', 1);
 
 $pdf->Ln(10);
 $pdf->SetFillColor(255, 255, 255);
-$pdf->Cell(39, 25, '1', 1, 0, 'C', 1);
-$pdf->Cell(135, 25, ' ', 1, 0, 'C', 1);
+$pdf->Cell(39, 45, '1', 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$week1, 1, 0, 'C', 1);
 
-$pdf->Ln(25);
-$pdf->Cell(39, 25, '2', 1, 0, 'C', 1);
-$pdf->Cell(135, 25, ' ', 1, 0, 'C', 1);
+$pdf->Cell(39, 45, '2', 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$week2, 1, 0, 'C', 1);
 
-$pdf->Ln(25);
-$pdf->Cell(39, 25, '3', 1, 0, 'C', 1);
-$pdf->Cell(135, 25, ' ', 1, 0, 'C', 1);
+$pdf->Cell(39, 45, '3', 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$week3, 1, 0, 'C', 1);
 
-$pdf->Ln(25);
-$pdf->Cell(39, 25, '4', 1, 0, 'C', 1);
-$pdf->Cell(135, 25, ' ', 1, 0, 'C', 1);
+$pdf->Cell(39, 45, '4', 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$week4, 1, 0, 'C', 1);
 
-$pdf->Ln(30);
+$pdf->AddPage();
+
+$pdf->Ln(18);
 $pdf->SetFont('times', 'B', 11);
-$pdf->Cell(189, 3, 'Problems Faced / Comments / Additional information (if any): ', 0, 1, 'L');
+$pdf->MultiCell(189, 3, 'Problems Faced / Comments / Additional information (if any): ', 0, 1, 'L');
 
 $pdf->Ln(1);
-$pdf->Cell(174, 15, ' ', 1, 0, 'C', 1);
+$pdf->SetFont('times', '', 11);
+$pdf->MultiCell(176, 50, ''.$problem, 1, 0, 'C', 1);
 
-$pdf->Ln(20);
+$pdf->Ln(5);
+$pdf->SetFont('times', 'B', 11);
 $pdf->Cell(189, 3, 'Leave Application / Leave Taken', 0, 1, 'L');
 
 $pdf->Ln(2);
 $pdf->SetFont('times', '', 11);
-$pdf->Cell(189, 3, '1. From (dd/mm/yyyy):		____________________ to (dd/mm/yyyy) ____________________	(      day(s))', 0, 1, 'L');
-$pdf->Cell(189, 3, '2. Reasons for taking leave:		_____________________________________________________________', 0, 1, 'L');
-$pdf->Cell(189, 3, '3. Total number of days taken:		___________________________________________________________', 0, 1, 'L');
+$pdf->Cell(189, 3, '1. From (dd/mm/yyyy):		'.$fromDate.'  to (dd/mm/yyyy) '.$toDate.'	(' .$leave.' day(s))', 0, 1, 'L');
+$pdf->Cell(189, 3, '2. Reasons for taking leave:		'.$leaveReason, 0, 1, 'L');
+$pdf->Cell(189, 3, '3. Total number of days taken:		'.$leave. ' day(s)', 0, 1, 'L');
 
 $pdf->Ln(5);
 $pdf->SetFont('times', 'B', 11);
 $pdf->Cell(189, 3, 'I hereby declare that the information given above is correct.', 0, 1, 'L');
 
 $pdf->Ln(11);
-$pdf->Cell(100, 5, 'Signature: ____________________ ', ' ', 0, 0);
-$pdf->Cell(38, 5, 'Date (dd/mm/yyyy): ____________________', ' ', 0, 1);
+$pdf->Cell(189, 5, 'Signature: ____________________ ', ' ', 0, 0);
+$pdf->Image($sign, 35, 138, 60, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+$pdf->Ln(17);
+$pdf->Cell(189, 5, 'Date (dd/mm/yyyy): '.$today, ' ', 0, 1);
 
 $pdf->AddPage();
 
@@ -169,3 +211,7 @@ $pdf->MultiCell(123, 5, '
 $pdf->Ln(5);
 
 $pdf->Output('progress-report.pdf', 'I');
+
+unlink($sign);
+?>
+

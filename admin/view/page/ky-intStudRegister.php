@@ -1,27 +1,9 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
+include('../../includes/db_connection.php');
 ?>
+
 <!DOCTYPE HTML>
 <html lang="en" dir="ltr">
 <head>
@@ -88,29 +70,23 @@ include('includes/db_connection.php');
                             </thead>
                             <tbody>
                                 
-                                    <?php
+                                <?php
                                     
-                                        $server = "localhost";
-                                        $username = "root";
-                                        $password = "";
-                                        $database = "westorn";
-
-                                        $conn = mysqli_connect($server, $username, $password, $database);
-                                        if (!$conn){
-                                            die("Error". mysqli_connect_error());
-                                        }
-
-                                        $sql = "select * from student where studAccountStatus = 'Uninvite' "; 
-                                        $result = mysqli_query($conn, $sql);
+                                    $db = new DBController();
                                         
-                                        while($row=mysqli_fetch_assoc($result)) {
-                                            $Id = $row['studentID'];
-                                            $username = $row['studName'];
-                                            $gender = $row['studGender'];
-                                            $email = $row['studEmail'];
-                                            $phone = $row['studContactNumber'];
-                                            $programme = $row['programmeID'];
-                                            $address = $row['studHomeAddress'];
+                                    $sql = "select * from Student where studAccountStatus ='Pending Invite' "; 
+                                    $result = $db->runQuery($sql);
+
+                                    if(count($result) > 0){
+                                         foreach ($result as $student) {
+                                        
+                                            $Id = $student['studentID'];
+                                            $username = $student['studName'];
+                                            $gender = $student['studGender'];
+                                            $email = $student['studEmail'];
+                                            $phone = $student['studContactNumber'];
+                                            $programme = $student['programmeID'];
+                                            $address = $student['studHomeAddress'];
                                         
                                             echo '<tr>
                                                 <td>' .$Id. '</td>
@@ -132,8 +108,11 @@ include('includes/db_connection.php');
                                                     
                                                 </td>
                                             </tr>';
+                                                                                                                     
                                         }
-                                    ?>
+                                    }
+                                    
+                                ?>
                                     
                             </tbody>
                         </table>

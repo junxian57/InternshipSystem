@@ -1,27 +1,9 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
+include('../../includes/db_connection.php');
 ?>
+
 <!DOCTYPE HTML>
 <html>
 

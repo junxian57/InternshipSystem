@@ -6,6 +6,9 @@ include('includes/dbconnection.php');
 	//header('location:logout.php');
 } else {*/
 ?>
+
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -23,7 +26,17 @@ include('includes/dbconnection.php');
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
 	<script src="../../js/custom.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../../js/signature.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+  <style>
+    #canvasDiv{
+      position: relative;
+      border: 2px dashed grey;
+      height: 250px;
+    }
+  </style>
 
 	<script>
 		new WOW().init();
@@ -48,136 +61,287 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form id="form">
-          <div class="container">
-          <div class="subtitle">
-              <h2 class="sub-1">Student General Information</h2>
-            </div>
-            
-            <div class="inputBox">
-              <div class="viewInput">
-                <span>Name of Trainee</span>
-                <input type="text" name="studName" readonly value="<?php echo$studName; ?>">
+          <form method="post" action="xt-generateMonthlyRpt.php" enctype="multipart/form-data" id="signatureform">
+            <div class="container">
+              <div class="subtitle">
+                <h2 class="sub-1">Student General Information</h2>
+              </div>
+              
+              <div class="inputBox">
+                <div class="viewInput">
+                  <span>Name of Trainee</span>
+                  <input type="text" name="studName" readonly value="Wong Xiao Tong">
+                </div>
+                
+                <div class="viewInput">
+                  <span>Name of Company</span>
+                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
+                </div>
+
+                <div class="viewInput">
+                  <span>Month / Year</span>
+                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo date('F Y'); ?>">
+                </div> 
+              </div>
+
+              <div class="subtitle">
+                <h2 class="sub-2">Weekly Projects / Activities</h2>
               </div>
             
-              <div class="viewInput">
-                <span>Name of Company</span>
-                <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo$cmpName; ?>">
-              </div>
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <span>Week 1</span>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
+                </div> 
 
-              <div class="viewInput">
-                <span>Month / Year</span>
-                <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo date('F Y'); ?>">
-              </div> 
-            </div>
+                <div class="viewInput" style="width:100%;">
+                  <span>Week 2</span>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
+                </div> 
 
-            <div class="subtitle">
-              <h2 class="sub-2">Weekly Projects / Activities</h2>
-            </div>
-            
-            <div class="inputBox">
-              <div class="viewInput" style="width:100%;">
-                <span>Week 1</span>
-                <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
-                <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
-              </div> 
+                <div class="viewInput" style="width:100%;">
+                  <span>Week 3</span>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
+                </div> 
 
-              <div class="viewInput" style="width:100%;">
-                <span>Week 2</span>
-                <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
-                <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
-              </div> 
-
-              <div class="viewInput" style="width:100%;">
-                <span>Week 3</span>
-                <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
-                <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
-              </div> 
-
-              <div class="viewInput" style="width:100%;">
-                <span>Week 4</span>
-                <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
-                <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
-              </div> 
-            </div>
-            
-            <div class="subtitle">
-              <h2 class="sub-3">Suggestions / Comments / Additional information</h2>
-            </div>
-            
-            <div class="inputBox">
-              <div class="viewInput" style="width:100%;">
-                <span>Suggestions / Comments / Additional information (if any)</span>
-                <textarea type="text" name="suggestion"></textarea>
-              </div>
-            </div>
-
-            <div class="subtitle">
-              <h2 class="sub-4">Leave Application / Leave Taken</h2>
-            </div>
-
-            <div class="inputBox">
-              <div class="viewInput" style="width:100%;">
-                <span>Any leave taken?</span><br>
-                <select name="leaveTaken" id="leaveTaken">
-                  <option value="Yes">Yes</option>
-                  <option value="No" selected>No</option>
-                </select>
-              </div>
-
-              <div class="viewInput">
-                <span>Leave From</span>
-                <input type="date" name="fromDate" id="fromDate" disabled>
+                <div class="viewInput" style="width:100%;">
+                  <span>Week 4</span>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
+                </div> 
               </div>
             
-              <div class="viewInput">
-                <span>Leave Till</span>
-                <input type="date" name="toDate" id="toDate" disabled>
+              <div class="subtitle">
+                <h2 class="sub-3">Problems Faced / Comments / Additional information</h2>
+              </div>
+            
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <span>Problems Faced / Comments / Additional information (if any)</span>
+                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"></textarea>
+                </div>
               </div>
 
-              <div class="viewInput">
-                <span>Number of Days Taken</span>
-                <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
+              <div class="subtitle">
+                <h2 class="sub-4">Leave Application / Leave Taken</h2>
               </div>
 
-              <div class="viewInput">
-                <span>Reasons for taking leave</span>
-                <input type="text" name="leaveReason" id="leaveReason" disabled>
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <span>Any leave taken?</span><br>
+                  <select name="leaveTaken" id="leaveTaken">
+                    <option value="YES">Yes</option>
+                    <option value="NO" selected>No</option>
+                  </select>
+                </div>
+
+                <div class="viewInput">
+                  <span>Leave From</span>
+                  <input type="date" name="fromDate" id="fromDate" disabled>
+                </div>
+            
+                <div class="viewInput">
+                  <span>Leave Till</span>
+                  <input type="date" name="toDate" id="toDate" disabled>
+                </div>
+
+                <div class="viewInput">
+                  <span>Number of Days Taken</span>
+                  <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
+                </div>
+
+                <div class="viewInput">
+                  <span>Reasons for taking leave</span>
+                  <input type="text" name="leaveReason" id="leaveReason" disabled>
+                </div>
               </div>
+
+              <div class="subtitle">
+                <h2 class="sub-4">Digital Signature</h2>
+              </div>
+
+              <div id="signature-pad">
+                  <div id="canvasDiv"></div>
+                  <br>
+                  <button type="button" class="btn btn-danger" id="reset-btn">Clear</button>
+                  <button type="button" class="btn btn-success" id="btn-save">Save</button>
+              </div>
+
+              <input type="hidden" id="signature" name="signature">
+              <input type="hidden" name="signaturesubmit" value="1">
             </div>
-
-            <div class="button-group">
-              <button type="submit" id="acceptBtn" class="acceptBtn"><i class="fa fa-check" aria-hidden="true"></i>  Save</button>
-              <button type="submit" id="rejectBtn" class="rejectBtn"><i class="fa fa-times" aria-hidden="true"></i>  Submit</button>
-            </div>
-          </div>
-        </form>
+          </form>
         </div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    document.getElementById('acceptBtn').addEventListener('click',
-      function(){
-        document.querySelector('.acceptForm').style.display = 'flex';
+    $(document).ready(() => {
+      var canvasDiv = document.getElementById('canvasDiv');
+      var canvas = document.createElement('canvas');
+      canvas.setAttribute('id', 'canvas');
+      canvasDiv.appendChild(canvas);
+      $("#canvas").attr('height', $("#canvasDiv").outerHeight());
+      $("#canvas").attr('width', $("#canvasDiv").width());
+      if (typeof G_vmlCanvasManager != 'undefined') {
+        canvas = G_vmlCanvasManager.initElement(canvas);
+      }
+        
+      context = canvas.getContext("2d");
+      $('#canvas').mousedown(function(e) {
+        var offset = $(this).offset()
+        var mouseX = e.pageX - this.offsetLeft;
+        var mouseY = e.pageY - this.offsetTop;
+        
+        paint = true;
+        addClick(e.pageX - offset.left, e.pageY - offset.top);
+        redraw();
       });
       
-      document.querySelector('.close').addEventListener('click',
-        function(){
-          document.querySelector('.acceptForm').style.display = 'none';
-        })
+      $('#canvas').mousemove(function(e) {
+        if (paint) {
+          var offset = $(this).offset()
+          //addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+          addClick(e.pageX - offset.left, e.pageY - offset.top, true);
+          console.log(e.pageX, offset.left, e.pageY, offset.top);
+          redraw();
+        }
+      });
+      
+      $('#canvas').mouseup(function(e) {
+        paint = false;
+      });
+      
+      $('#canvas').mouseleave(function(e) {
+        paint = false;
+      });
 
-    document.getElementById('rejectBtn').addEventListener('click',
-      function(){
-        document.querySelector('.rejectForm').style.display = 'flex';
+      var clickX = new Array();
+      var clickY = new Array();
+      var clickDrag = new Array();
+      var paint;
+
+      function addClick(x, y, dragging) {
+        clickX.push(x);
+        clickY.push(y);
+        clickDrag.push(dragging);
+      }
+      
+      $("#reset-btn").click(function() {
+        context.clearRect(0, 0, window.innerWidth, window.innerWidth);
+        clickX = [];
+        clickY = [];
+        clickDrag = [];
+      });
+
+      $(document).on('click', '#btn-save', function() {
+        var mycanvas = document.getElementById('canvas');
+        var img = mycanvas.toDataURL("image/png");
+        anchor = $("#signature");
+        anchor.val(img);
+        $("#signatureform").submit();
       });
       
-      document.querySelector('.closeR').addEventListener('click',
-        function(){
-          document.querySelector('.rejectForm').style.display = 'none';
+      var drawing = false;
+      var mousePos = {
+        x: 0,
+        y: 0
+      };
+      var lastPos = mousePos;
+
+      canvas.addEventListener("touchstart", function(e) {
+        mousePos = getTouchPos(canvas, e);
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousedown", {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+          canvas.dispatchEvent(mouseEvent);
+        }, false);
+        
+        canvas.addEventListener("touchend", function(e) {
+          var mouseEvent = new MouseEvent("mouseup", {});
+          canvas.dispatchEvent(mouseEvent);
+        }, false);
+
+        canvas.addEventListener("touchmove", function(e) {
+          var touch = e.touches[0];
+          var offset = $('#canvas').offset();
+          var mouseEvent = new MouseEvent("mousemove", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+          });
+          canvas.dispatchEvent(mouseEvent);
+        }, false);
+
+        // Get the position of a touch relative to the canvas
+        function getTouchPos(canvasDiv, touchEvent) {
+          var rect = canvasDiv.getBoundingClientRect();
+          return {
+            x: touchEvent.touches[0].clientX - rect.left,
+            y: touchEvent.touches[0].clientY - rect.top
+          };
+        }
+
+        var elem = document.getElementById("canvas");
+
+        var defaultPrevent = function(e) {
+            e.preventDefault();
+        }
+
+        elem.addEventListener("touchstart", defaultPrevent);
+        elem.addEventListener("touchmove", defaultPrevent);
+
+        function redraw() {
+          lastPos = mousePos;
+          for (var i = 0; i < clickX.length; i++) {
+            context.beginPath();
+            if (clickDrag[i] && i) {
+              context.moveTo(clickX[i - 1], clickY[i - 1]);
+            } else {
+              context.moveTo(clickX[i] - 1, clickY[i]);
+            }
+              context.lineTo(clickX[i], clickY[i]);
+              context.closePath();
+              context.stroke();
+            }
+          }
         })
   </script>
 
+  <script>
+    var wrapper = document.getElementById("signature-pad");
+    var clearButton = wrapper.querySelector("[data-action=clear]");
+    var savePNGButton = wrapper.querySelector("[data-action=save-png]");
+    var canvas = wrapper.querySelector("canvas");
+    var el_note = document.getElementById("note");
+    var signaturePad;
+    signaturePad = new SignaturePad(canvas);
+    clearButton.addEventListener("click", function (event) {
+      document.getElementById("note").innerHTML="Please draw your signature inside the box.";
+      signaturePad.clear();
+    });
+
+    savePNGButton.addEventListener("click", function (event){
+      if (signaturePad.isEmpty()){
+        alert("Please provide signature first.");
+        event.preventDefault();
+      }else{
+        var canvas  = document.getElementById("the_canvas");
+        var dataUrl = canvas.toDataURL();
+        document.getElementById("signature").value = dataUrl;
+      }
+    });
+    
+    function my_function(){
+      document.getElementById("note").innerHTML="";
+    }
+  </script>
+  
   <script type="text/javaScript">
     /*$(document).ready(function(){
       $("#cmpName-1").keyup(function(){
@@ -340,6 +504,5 @@ include('includes/dbconnection.php');
 	<script src="../../js/jquery.nicescroll.js"></script>
 	<script src="../../js/scripts.js"></script>
 	<script src="../../js/bootstrap.js"> </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>
 </html>

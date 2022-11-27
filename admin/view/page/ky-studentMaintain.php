@@ -1,27 +1,9 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
+include('../../includes/db_connection.php');
 ?>
+
 <!DOCTYPE HTML>
 <html lang="en" dir="ltr">
 <head>
@@ -88,36 +70,30 @@ include('includes/db_connection.php');
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 <?php
-                                 
-                                    $server = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $database = "westorn";
+                                    $db = new DBController();
+                                        
+                                    $sql = "select * from Student"; 
+                                    $result = $db->runQuery($sql);
 
-                                    $conn = mysqli_connect($server, $username, $password, $database);
-                                    if (!$conn){
-                                        die("Error". mysqli_connect_error());
-                                    }
+                                    if(count($result) > 0){
+                                         foreach ($result as $student) {
 
-                                    $sql = "select * from student"; 
-                                    $result = mysqli_query($conn, $sql);
-                                    
-                                    while($row=mysqli_fetch_assoc($result)) {
-                                        $Id = $row['studentID'];
-                                        $programme = $row['programmeID'];
-                                        $lecturer = $row['lecturerID'];
-                                        $internBatch = $row['internshipBatchID'];
-                                        $username = $row['studName'];
-                                        $gender = $row['studGender'];
-                                        $email = $row['studEmail'];
-                                        $phone = $row['studContactNumber'];
-                                        $address = $row['studHomeAddress'];
-                                        $dateJoined = $row['studDateJoined'];
-                                        $applicationQuota = $row['studApplicationQuota'];
-                                        $currentApplication = $row['studCurrentNoOfApp'];
-                                        $status = $row['studAccountStatus'];
-                                    ?>
+                                            $Id = $student['studentID'];
+                                            $programme = $student['programmeID'];
+                                            $lecturer = $student['lecturerID'];
+                                            $internBatch = $student['internshipBatchID'];
+                                            $username = $student['studName'];
+                                            $gender = $student['studGender'];
+                                            $email = $student['studEmail'];
+                                            $phone = $student['studContactNumber'];
+                                            $address = $student['studHomeAddress'];
+                                            $dateJoined = $student['studDateJoined'];
+                                            $applicationQuota = $student['studApplicationQuota'];
+                                            $currentApplication = $student['studCurrentNoOfApp'];
+                                            $status = $student['studAccountStatus'];
+                                ?>
 
                                         <tr>
                                             <td><?php echo $Id ?></td>
@@ -126,7 +102,7 @@ include('includes/db_connection.php');
                                             <td><?php echo $email ?></td>
                                             <td><?php echo $phone ?></td>
                                             <td><?php echo $programme ?></td>
-                                            <td><?php echo $address ?></td>
+                                            <td><?php echo $status ?></td>
                                             <td>
                                                 <div class="button-group">
                                                 <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' ,'<?php echo $status ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
@@ -135,10 +111,10 @@ include('includes/db_connection.php');
                                             </td>
                                         </tr>
                                         
-                                    <?php
-                                        
-                                        
+                                        <?php                                                                           
+                                        }
                                     }
+                                    
                                 ?>
                     
                             </tbody>
