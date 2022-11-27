@@ -66,7 +66,7 @@ include('includes/dbconnection.php');
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo $monthlyReportID;?>">
+                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
                 </div>
                 
                 <div class="viewInput">

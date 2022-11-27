@@ -32,7 +32,7 @@ include('../../includes/db_connection.php');
     }
 
     .tabcontent{
-      min-height: 1050px;
+      min-height: 1100px;
     }
 
     #progressRpt{
