@@ -1,18 +1,9 @@
 <?php
-   $sig_string=$_POST['signature'];
-   $file_name="signature_".date("his").".png";
-   file_put_contents($file_name, file_get_contents($sig_string));
-   if(file_exists($file_name)){
-     echo "<img src='".$file_name."'></p>";
-   }
-?>
-
-<?php
 require_once('../../../TCPDF-main/tcpdf.php');
 
 extract($_POST);
 
-if(isset($_POST['generate'])){
+if(isset($_POST['signaturesubmit'])){
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
@@ -23,6 +14,14 @@ if(isset($_POST['generate'])){
   $problem = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
   $signature = $_POST['signature'];
+  $signature = $_POST['signature'];
+  $signatureFileName = $studName.'.jpg';
+  $signature = str_replace('data:image/png;base64,', '', $signature);
+  $signature = str_replace(' ', '+', $signature);
+  $data = base64_decode($signature);
+  $file = '../../../Client/view/signature/'.$signatureFileName;
+  file_put_contents($file, $data);
+  $sign = '../../../Client/view/signature/'.$studName.'.jpg';
 
   if($leaveTaken == 'NO'){
     $leave = '0';
@@ -134,7 +133,7 @@ $pdf->Cell(135, 10, 'Projects / Activities', 1, 0, 'C', 1);
 $pdf->Ln(10);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->Cell(39, 45, '1', 1, 0, 'C', 1);
-$pdf->MultiCell(135, 45, ''.$signature, 1, 0, 'C', 1);
+$pdf->MultiCell(135, 45, ''.$week1, 1, 0, 'C', 1);
 
 $pdf->Cell(39, 45, '2', 1, 0, 'C', 1);
 $pdf->MultiCell(135, 45, ''.$week2, 1, 0, 'C', 1);
@@ -170,8 +169,10 @@ $pdf->SetFont('times', 'B', 11);
 $pdf->Cell(189, 3, 'I hereby declare that the information given above is correct.', 0, 1, 'L');
 
 $pdf->Ln(11);
-$pdf->Cell(100, 5, 'Signature: ____________________ ', ' ', 0, 0);
-$pdf->Cell(38, 5, 'Date (dd/mm/yyyy): '.$today, ' ', 0, 1);
+$pdf->Cell(189, 5, 'Signature: ____________________ ', ' ', 0, 0);
+$pdf->Image($sign, 35, 138, 60, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+$pdf->Ln(17);
+$pdf->Cell(189, 5, 'Date (dd/mm/yyyy): '.$today, ' ', 0, 1);
 
 $pdf->AddPage();
 
@@ -210,4 +211,7 @@ $pdf->MultiCell(123, 5, '
 $pdf->Ln(5);
 
 $pdf->Output('progress-report.pdf', 'I');
+
+unlink($sign);
 ?>
+

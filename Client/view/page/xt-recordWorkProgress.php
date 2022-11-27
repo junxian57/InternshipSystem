@@ -7,18 +7,7 @@ include('includes/dbconnection.php');
 } else {*/
 ?>
 
-<?php 
-if(isset($_POST['signaturesubmit'])){ 
-    $studName = $_POST['studName'];
-    $signature = $_POST['signature'];
-    $signatureFileName = $studName.'.png';
-    $signature = str_replace('data:image/png;base64,', '', $signature);
-    $signature = str_replace(' ', '+', $signature);
-    $data = base64_decode($signature);
-    $file = '../../../Client/view/signature/'.$signatureFileName;
-    file_put_contents($file, $data);
-} 
-?>
+
 
 <!DOCTYPE HTML>
 <html>
@@ -72,7 +61,7 @@ if(isset($_POST['signaturesubmit'])){
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post"  enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="xt-generateMonthlyRpt.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
