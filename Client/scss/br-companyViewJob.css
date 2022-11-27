@@ -150,40 +150,44 @@ body {
   background: #535ea6;
 }
 .wrapper .task-row {
-  margin: 10px 0;
-  width: 100%;
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 .wrapper .task-row .row {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  min-width: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 8px 15px;
-  margin: 7px 0;
+  padding: 5px 6px 5px 10px;
+  margin: 5px 15px 0px 0px;
   text-align: left;
-  background-color: #707cc8;
-  color: rgb(245, 245, 245);
-  border-radius: 15px;
-  transition: all 0.2s ease-in;
-}
-.wrapper .task-row .row:hover {
-  background-color: #828ac2;
+  background-color: #ea9d50;
+  border-radius: 13px;
 }
 .wrapper .task-row .deleteRow {
   cursor: pointer;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  background: #fcd9bb;
-  padding: 4px;
-  margin-left: 8px;
+  text-align: center;
+  background: #4e5db0;
+  padding: 5px 10px;
+  margin-left: 10px;
   border-radius: 50%;
+  font-size: 1.2em;
+  color: #ffffff;
+  transition: all 0.2s ease-in;
+}
+.wrapper .task-row .deleteRow:hover {
+  background-color: #6674be;
 }
 .wrapper .task-row p {
   word-wrap: break-word;
-  width: 90%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90%;
+  color: #ffffff;
+  font-size: 16px;
+  margin-top: 0;
 }
 .wrapper .selection-group {
   display: flex;

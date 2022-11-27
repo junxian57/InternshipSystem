@@ -159,8 +159,7 @@ $lecturerID = 'LEC00001';
         searchBtn.classList.remove('clickable-btn');
         searchBtn.classList.add('grey-btn');
 
-        let dataTable = $('#preview-table').DataTable();
-        dataTable.clear().draw();
+        $('#preview-table').DataTable().clear().draw();
 
         document.getElementById('batch-number').value = 0;
     }
@@ -170,8 +169,7 @@ $lecturerID = 'LEC00001';
         let batchNumber = document.getElementById('batch-number').value;
         let url = `../../app/DAL/ajaxStudentMapManageGetStudent.php?batchNumber=${batchNumber}&lecturerID=<?php echo $lecturerID;?>`;
 
-        let response = await fetch(url);
-        let data = await response.json();
+        let data = await fetch(url).then(response => response.json());
 
         data.forEach(student => {
             let rowNo = dataTable.context[0].aoData.length + 1;
@@ -182,8 +180,8 @@ $lecturerID = 'LEC00001';
                 student.programmeAcronym,
                 student.studentYear,
                 student.tutorialGroupNo,
-                `<a href='mailto:${student.studEmail}'>Email Student</a>`,
-                `<a class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
+                `<a href='mailto:${student.studEmail}'>Send Email</a>`,
+                `<a target="_blank" class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
             ]).draw();
         });    
     }
