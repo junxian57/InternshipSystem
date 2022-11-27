@@ -37,17 +37,7 @@ body {
   }
 }
 .tab-content table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-.tab-content table thead {
-  font-size: 1.1em;
-}
-.tab-content table thead, .tab-content table tbody, .tab-content table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+  width: 100% !important;
 }
 .tab-content table th, .tab-content table td {
   text-align: center;
@@ -59,9 +49,6 @@ body {
 }
 .tab-content table th {
   background-color: #eeeded;
-}
-.tab-content table tbody {
-  display: block;
 }
 .tab-content table tbody tr {
   transition: all 0.5s;

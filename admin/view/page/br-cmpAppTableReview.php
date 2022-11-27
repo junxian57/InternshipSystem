@@ -19,6 +19,8 @@ include('../../includes/db_connection.php');
         }
     </script>
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -97,6 +99,8 @@ include('../../includes/db_connection.php');
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -116,11 +120,13 @@ include('../../includes/db_connection.php');
     }
 
     $(document).ready(function() {
-        $('#review-table').DataTable({
+      let table = $('#review-table').DataTable({
             "bLengthChange": false,
             "info": false,
-            "dom": 'lrtp'
+            "dom": 'lrtp',
+            responsive : true
         });
+        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <?php

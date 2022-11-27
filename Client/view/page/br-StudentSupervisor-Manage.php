@@ -27,6 +27,8 @@ $lecturerID = 'LEC00001';
             window.scrollTo(0, 1);
         }
     </script>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -119,6 +121,8 @@ $lecturerID = 'LEC00001';
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -138,11 +142,14 @@ $lecturerID = 'LEC00001';
     }
     
     $(document).ready(function() {
-        $('#preview-table').DataTable({
+        let table = $('#preview-table').DataTable({
             "bLengthChange": false,
             "info": false,
-            "dom": 'lrtp'
+            "dom": 'lrtp',
+            responsive : true
         });
+
+        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>

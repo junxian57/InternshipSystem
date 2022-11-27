@@ -3,7 +3,12 @@ session_start();
 error_reporting(0);
 include "includes/db_connection.php";
 
-//prettier client\view\page\br-StudentSupervisor-Manage.php --write
+/**
+ * 
+ * TODO: If status is 'deleted / done / full', then disable all input and button, only view is available
+ * TODO: If status is 'Accept Student', then enable all input and button, edit is available
+ * 
+ */
 ?>
 <!DOCTYPE HTML>
 <html>

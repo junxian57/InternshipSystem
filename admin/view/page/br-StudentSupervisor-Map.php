@@ -24,6 +24,8 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -316,20 +318,24 @@ include('../../includes/db_connection.php');
     }
 
     $(document).ready(function() {
-        $('#tab1-top-table').DataTable({
-            "searching": false,
-            "bLengthChange": false,
-            "info": false,
-            "dom": 'lrtp'
-        });
-    });
-
-    $(document).ready(function() {
-        $('#tab2-top-table').DataTable({
+        let table = $('#tab1-top-table').DataTable({
             "searching": false,
             "bLengthChange": false,
             "info": false,
             "dom": 'lrtp',
+            responsive : true
+        });
+
+        $.fn.dataTable.FixedHeader(table);
+    });
+
+    $(document).ready(function() {
+        let table = $('#tab2-top-table').DataTable({
+            "searching": false,
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp',
+            responsive : true,
             "columnDefs": [{
                 "targets" : 5,
                 "createdCell": function (td, cellData, rowData, row, col){
@@ -339,14 +345,17 @@ include('../../includes/db_connection.php');
                 }
             }] 
         });
+
+        $.fn.dataTable.FixedHeader(table);
     })
 
     $(document).ready(function() {
-        $('#tab3-top-table').DataTable({
+        let table = $('#tab3-top-table').DataTable({
             "searching": false,
             "bLengthChange": false,
             "info": false,
             "dom": 'lrtp',
+            responsive : true,
             "columnDefs": [{
                 "targets" : 6,
                 "createdCell": function (td, cellData, rowData, row, col){
@@ -356,6 +365,8 @@ include('../../includes/db_connection.php');
                 }
             }] 
         });
+
+        $.fn.dataTable.FixedHeader(table);
     })
 
 
