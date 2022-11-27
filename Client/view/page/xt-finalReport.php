@@ -35,7 +35,7 @@ $pdf = new PDF('p', 'mm', 'A4', true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('XT');
+$pdf->SetAuthor('ITP System');
 $pdf->SetTitle('Final Report Template');
 $pdf->SetSubject('Final Report Template');
 $pdf->SetKeywords('Final Report Template');

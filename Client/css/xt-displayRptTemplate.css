@@ -49,3 +49,13 @@
 h3.title1 {
   margin-bottom: 0.8em;
 }
+
+.btn-success {
+  float: right;
+  margin-bottom: 20px;
+}
+
+#btn-save {
+  float: right;
+  margin-bottom: 20px;
+}

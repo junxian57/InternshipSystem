@@ -4,7 +4,35 @@ require_once('../../../TCPDF-main/tcpdf.php');
 extract($_POST);
 
 if(isset($_POST['signaturesubmit'])){
-  $studName = $_POST['studName'];
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $monthRptID = $_POST['studName'];
+  $studID = "21WMR04845";
+  $cmpID = "CMP00001";
+  $monthOfTraining = $_POST['monthYear'];
+  $firstWeekDeliverables = $_POST['week1'];
+  $secondWeekDeliverables = $_POST['week2'];
+  $thirdWeekDeliverables = $_POST['week3'];
+  $forthWeekDeliverables = $_POST['week4'];
+  $issuesEncountered = $_POST['problem'];
+  $leaveTaken = $_POST['leaveTaken'];
+  $leaveTakens = $_POST['leaveDays'];
+
+  if($leaveTaken == 'NO'){
+    $leaveReasons = "N/A";
+  }
+  else{
+    $leaveReasons = $_POST['leaveReason'];
+  }
+
+  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason) VALUES ('$monthRptID','$studID','$cmpID','$monthOfTraining','$firstWeekDeliverables','$secondWeekDeliverables','$thirdWeekDeliverables','$forthWeekDeliverables','$issuesEncountered','$leaveTaken','$leaveReasons')";
+  if (mysqli_query($conn, $sql)) {
+    $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
   $week1 = $_POST['week1'];
@@ -12,7 +40,6 @@ if(isset($_POST['signaturesubmit'])){
   $week3 = $_POST['week3'];
   $week4 = $_POST['week4'];
   $problem = $_POST['problem'];
-  $leaveTaken = $_POST['leaveTaken'];
   $signature = $_POST['signature'];
   $signature = $_POST['signature'];
   $signatureFileName = $studName.'.jpg';
@@ -39,6 +66,7 @@ if(isset($_POST['signaturesubmit'])){
 
   date_default_timezone_set("Asia/Kuala_Lumpur");
   $today = date("F j, Y", time());
+  }
 }
 
 class PDF extends TCPDF{

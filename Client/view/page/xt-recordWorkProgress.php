@@ -7,7 +7,11 @@ include('includes/dbconnection.php');
 } else {*/
 ?>
 
-
+<?php
+	if(isset($_GET['monthlyReportID'])){
+    $monthlyReportID = $_GET['monthlyReportID'];
+  }
+?>
 
 <!DOCTYPE HTML>
 <html>
@@ -29,14 +33,6 @@ include('includes/dbconnection.php');
   <script src="../../js/signature.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-
-  <style>
-    #canvasDiv{
-      position: relative;
-      border: 2px dashed grey;
-      height: 250px;
-    }
-  </style>
 
 	<script>
 		new WOW().init();
@@ -70,7 +66,7 @@ include('includes/dbconnection.php');
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="Wong Xiao Tong">
+                  <input type="text" name="studName" readonly value="<?php echo $monthlyReportID;?>">
                 </div>
                 
                 <div class="viewInput">
@@ -166,8 +162,8 @@ include('includes/dbconnection.php');
               <div id="signature-pad">
                   <div id="canvasDiv"></div>
                   <br>
-                  <button type="button" class="btn btn-danger" id="reset-btn">Clear</button>
-                  <button type="button" class="btn btn-success" id="btn-save">Save</button>
+                  <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
+                  <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
               </div>
 
               <input type="hidden" id="signature" name="signature">
@@ -178,6 +174,36 @@ include('includes/dbconnection.php');
       </div>
     </div>
   </div>
+
+  <?php
+    $host = "sql444.main-hosting.eu";
+    $user = "u928796707_group34";
+    $password = "u1VF3KYO1r|";
+    $database = "u928796707_internshipWeb";
+                                
+    $conn = mysqli_connect($host, $user, $password, $database); 
+
+    if(isset($_POST['signaturesubmit'])){
+      $monthRptID = $monthlyReportID;
+      $studID = "21WMR04845";
+      $cmpID = "CMP00001";
+      $monthOfTraining = $_POST['monthYear'];
+      $firstWeekDeliverables = $_POST['week1'];
+      $secondWeekDeliverables = $_POST['week2'];
+      $thirdWeekDeliverables = $_POST['week3'];
+      $forthWeekDeliverables = $_POST['week4'];
+      $issuesEncountered = $_POST['problem'];
+      $leaveTaken = $_POST['leaveDays'];
+      $leaveReason = $_POST['leaveReason'];
+    
+      $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason) VALUES ('$monthRptID','$studID','$cmpID','$monthOfTraining','$firstWeekDeliverables','$secondWeekDeliverables','$thirdWeekDeliverables','$forthWeekDeliverables','$issueEncountered','$leaveTaken','$leaveReason)";   
+      if (mysqli_query($conn, $sql)) {
+        echo "<script>alert('Work progress have been saved into database.')</script>";    
+      } else {
+        echo "Error: " . $sql . mysqli_error($conn);
+     }
+    }
+?>
 
   <script>
     $(document).ready(() => {
@@ -236,6 +262,15 @@ include('includes/dbconnection.php');
         clickX = [];
         clickY = [];
         clickDrag = [];
+        document.getElementById("week1").value = "";
+        document.getElementById("week2").value = "";
+        document.getElementById("week3").value = "";
+        document.getElementById("week4").value = "";
+        document.getElementById("problem").value = "";
+        document.getElementById("fromDate").value = "";
+        document.getElementById("toDate").value = "";
+        document.getElementById("leaveDays").value = "0";
+        document.getElementById("leaveReason").value = "";
       });
 
       $(document).on('click', '#btn-save', function() {
@@ -499,6 +534,25 @@ include('includes/dbconnection.php');
       }); 
     })
   </script>
+
+<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'),
+			showLeftPush = document.getElementById('showLeftPush'),
+			body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
 
 	<script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
