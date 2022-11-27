@@ -1,3 +1,20 @@
+<?php
+
+if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pending"){
+    echo "<script>
+    alert('Your company has been registered successfully. Please wait for the approval from the ITP Committee.');
+
+    window.location.href = 'br-cmpSelfRegister.php';
+    </script>";
+}else if(isset($_GET['failed'])){
+    echo "<script>
+    alert('Your company has NOT been registered successfully. Please try again.');
+
+    window.location.href = 'br-cmpSelfRegister.php'
+    </script>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,7 +57,7 @@
 
     <div class="content">
       <div class="wrapper">
-        <form action="#">
+        <form action="../../app/BLL/cmpSelfRegisterBLL.php" method="GET" onsubmit="formTaskArray()">
           <h3 class="form-title">Company Registration Form</h3>
           <div class="title">
             <h2 class="title-1">Company Name & Contact</h2>
@@ -63,9 +80,14 @@
               class="width-45"
               placeholder="Contact No."
               name="cmpContactNo"
+              pattern="[0-9]{10,11}"
+              placeholder="E.g. 0123456789 - Without Dash"
               required
             />
-            <input type="email" placeholder="Email" class="width-45" name="cmpEmail" required />
+
+            <div class="width-45-100">
+              <input type="email" placeholder="Email" style='width:100%;' name="cmpEmail" required />
+            </div>
           </div>
 
           <div class="input-style name-address-group">
@@ -74,9 +96,10 @@
               placeholder="Contact Person"
               class="width-45"
               name="cmpContactPerson"
+              pattern="[a-zA-Z ]{1,}"
               required
             />
-          </div>
+          </div>        
 
           <div class="title">
             <h2 class="title-2">Company Address</h2>
@@ -94,7 +117,7 @@
 
           <div class="input-style name-address-group">
             <select name="cmpState" id="state" class="width-45">
-              <option value="0">State</option>
+              <option value="0" disabled selected>Select a State</option>
               <option value="Johor">Johor</option>
               <option value="Kuala Lumpur">Kuala Lumpur</option>
               <option value="Kedah">Kedah</option>
@@ -111,17 +134,20 @@
               <option value="Terengganu">Terengganu</option>
             </select>
 
-            <input
+            <div class="width-45-100">
+              <input
               type="text"
-              class="width-45"
               placeholder="Postcode"
               name="cmpPostCode"
+              style='width:100%;'
+              pattern="[0-9]{5}"
               required
             />
+            </div>
           </div>
 
           <div class="input-style name-address-group">
-            <input type="text" class="width-45" placeholder="City" name="cmpCity" required />
+            <input type="text" class="width-45" placeholder="City" pattern="[a-zA-Z ]{1,}" name="cmpCity" required />
           </div>
 
           <div class="title">
@@ -130,7 +156,7 @@
 
           <div class="company-details-group input-style">
             <select name="cmpSize" id="cmpSize" style="width: 100%">
-              <option value="0">Company Size</option>
+              <option value="0" disabled selected>Company Size</option>
               <option value="Micro">Mirco: 1 - 4</option>
               <option value="Small">Small: 5 - 74</option>
               <option value="Medium">Medium: 75 - 200</option>
@@ -141,32 +167,21 @@
 
           <div class="company-details-group input-style fieldArea">
             <div id="fields-row" class="task-row">
-              <div class="row">
-                  <p>IT</p>              
-                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
-              </div>
-              <div class="row">
-                  <p>Accounting</p>
-                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
-              </div>
-              <div class="row">
-                  <p>Business</p>
-                  <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
-              </div>
             </div>
+
+            <input type="hidden" name="cmpHiddenFieldsArea" id="cmpHiddenFieldsArea">
+
             <input
               type="text"
               style="width: 100%"
               placeholder="Company Field Area"
-              name="cmpFieldArea"
               id="cmpFieldArea"
-              required
             />
             <input type="button" id="addNewField" value="Add New">
           </div>
 
           <div class="button-group">
-            <button type="submit" class="clickable-btn">Submit</button>
+            <button type="submit" name="submit" class="clickable-btn">Submit</button>
             <button type="reset" class="clickable-btn">Reset All</button>
           </div>
         </form>
@@ -180,24 +195,57 @@
     });
 
     function addNewRow(taskGroup, newTaskValue){
+      //Entering Alphabet Only
+      if(!checkIsAlphabet(newTaskValue.value)){
+        alert('Please Enter Alphabet and Space Only');
+        newTaskValue.value = '';
+        return;
+      }
+
       let value = newTaskValue.value;
         
       if (value === ""){
-            alert("Please Enter A Task");
+            alert("Please Enter a Task");
             return;
       }
-
         let taskRow = document.getElementById(taskGroup);
         let newTask = document.createElement("div");
         newTask.className = "row";
-        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>`;
+        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>`;
         taskRow.appendChild(newTask);
         newTaskValue.value = "";
+    }
+
+    function checkIsAlphabet(value){
+      let regex = /^[a-zA-Z ]+$/;
+      return regex.test(value);
     }
 
     function deleteTaskRow(taskGroup){
         taskGroup.parentElement.remove();
     };
+
+    function formTaskArray(){
+      let taskValue = "";
+      let fieldsRow = document.querySelectorAll('#fields-row .row p');
+
+      fieldsRow.forEach((task) => {
+        taskValue += task.innerHTML + "-";
+      });
+
+      document.getElementById('cmpHiddenFieldsArea').value = taskValue;
+
+      if(document.getElementById('cmpSize').value == 0){
+        alert('Please select a company size');
+        return false;
+      }else if(document.getElementById('state').value == 0){
+        alert('Please select a state');
+        return false;
+      }else if(fieldsRow.length == 0){
+        alert('Please enter a field area');
+        return false;
+      }
+    }
 
   </script>
 </html>

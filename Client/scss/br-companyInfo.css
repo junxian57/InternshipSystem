@@ -31,8 +31,11 @@ body {
 .wrapper .margin-btm-20 {
   margin-bottom: 20px;
 }
+.wrapper .margin-top-50 {
+  margin-top: 50px !important;
+}
 .wrapper .grey-bg {
-  background-color: rgb(236, 233, 233);
+  background-color: rgb(236, 233, 233) !important;
 }
 .wrapper .width-100 {
   width: 100%;
@@ -126,10 +129,13 @@ body {
 .wrapper .select-style input:focus {
   border: 2px solid #f2891f;
 }
-.wrapper .select-style button {
+.wrapper input#addNewField {
   margin-top: 15px;
   font-size: 0.9em;
   padding: 0.5em 1em;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   outline: none;
   transition: 0.1s ease-in;
   background: #313e85;
@@ -138,7 +144,7 @@ body {
   letter-spacing: 1px;
   border-radius: 10px;
 }
-.wrapper .select-style button:hover {
+.wrapper input#addNewField:hover {
   background: #535ea6;
 }
 .wrapper .horizon-wrap {
@@ -161,6 +167,46 @@ body {
     display: none;
   }
 }
+.wrapper .task-row {
+  margin: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper .task-row .row {
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 6px 5px 10px;
+  margin: 5px 15px 0px 0px;
+  text-align: left;
+  background-color: #ea9d50;
+  border-radius: 13px;
+}
+.wrapper .task-row .deleteRow {
+  cursor: pointer;
+  text-align: center;
+  background: #4e5db0;
+  padding: 5px 10px;
+  margin-left: 30px;
+  border-radius: 50%;
+  font-size: 1.2em;
+  color: #ffffff;
+  transition: all 0.2s ease-in;
+}
+.wrapper .task-row .deleteRow:hover {
+  background-color: #6674be;
+}
+.wrapper .task-row p {
+  word-wrap: break-word;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90%;
+  color: #ffffff;
+  font-size: 16px;
+  margin-top: 0;
+}
 .wrapper .name-address-group {
   display: flex;
   justify-content: flex-start;
@@ -173,10 +219,6 @@ body {
     justify-content: center;
     width: 100%;
   }
-}
-.wrapper .name-address-group p {
-  width: calc(1vw + 18em);
-  min-width: 200px;
 }
 .wrapper .button-group {
   display: flex;
