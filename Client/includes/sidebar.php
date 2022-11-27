@@ -61,10 +61,13 @@
         </li>
 
         <li>
-          <a href="work-progress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="xt-recordWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="work-progress.php">All Work Progress</a>
+              <a href="xt-displayRptTemplate.php">Report Template</a>
+            </li>
+            <li>
+              <a href="xt-recordWorkProgress.php">Sample Report Format</a>
             </li>
             <li>
               <a href="print-work-progress.php">Print Reports</a>

@@ -153,3 +153,9 @@ h3.title1 {
 .button-group {
   float: right;
 }
+
+#canvasDiv {
+  position: relative;
+  border: 2px dashed grey;
+  height: 250px;
+}

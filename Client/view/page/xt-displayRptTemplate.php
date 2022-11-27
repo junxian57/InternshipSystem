@@ -1,15 +1,16 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
+include('../../includes/db_connection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>ITP System | Sample Report Format</title>
+	<title>ITP System | Report Template</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
@@ -31,7 +32,7 @@ include('includes/dbconnection.php');
     }
 
     .tabcontent{
-      min-height: 1050px;
+      min-height: 1100px;
     }
 
     #progressRpt{
@@ -65,13 +66,15 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">Sample Report Format</h3>
+					<h3 class="title1">Report Template</h3>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="appType(event, 'ProgressReport')">Progress Report</button>
 						<button class="tablinks" onclick="appType(event, 'FinalReport')">Final Report</button>
 					</div>
 					
 					<div id="ProgressReport" class="tabcontent">
+							<?php echo "<a href='xt-sampleProgressRpt.php' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
+
 						<div id="progressRpt">
               <?php
                 echo "<iframe src=\"xt-progressReport.php\" width=\"100%\" style=\"height:100%\"></iframe>";
@@ -80,17 +83,19 @@ include('includes/dbconnection.php');
 					</div>
 
           <div id="FinalReport" class="tabcontent">
+						<?php echo "<a href='xt-sampleFinalRpt.php' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
+
 						<div id="finalRpt">
               <?php
                 echo "<iframe src=\"xt-finalReport.php\" width=\"100%\" style=\"height:100%\"></iframe>";
               ?>
             </div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<script src="../../js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
