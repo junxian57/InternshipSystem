@@ -47,27 +47,6 @@ include('includes/dbconnection.php');
 	</script>
 </head>
 
-<?php
-	$host = "sql444.main-hosting.eu";
-  $user = "u928796707_group34";
-  $password = "u1VF3KYO1r|";
-  $database = "u928796707_internshipWeb";
-                              
-  $conn = mysqli_connect($host, $user, $password, $database); 
-
-	$query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
-	$result = mysqli_query($conn, $query);
-	$row = mysqli_fetch_array($result);
-	$lastID = $row['monthlyReportID'];
-	if($lastID == "") {
-		$monthlyReportID = "MRPT1001";
-	} else {
-		$monthlyReportID = substr($lastID, 4);
-		$monthlyReportID = intval($monthlyReportID);
-		$monthlyReportID = "MRPT".($monthlyReportID + 1);
-	}
-?>
-
 <body class="cbp-spmenu-push">
 	<div class="main-content">
 		<?php include_once('../../includes/sidebar.php'); ?>
@@ -75,7 +54,7 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">View Work Progress</h3><?php echo "<a href='xt-recordWorkProgress.php?monthlyReportID=$monthlyReportID' class='btn btn-success' id='btn-save' name='record'>";?>Record Work Progress</a>
+					<h3 class="title1">View Work Progress</h3><?php echo "<a href='xt-recordWorkProgress.php' class='btn btn-success' id='btn-save' name='record'>";?>Record Work Progress</a>
 					<hr>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
@@ -133,13 +112,13 @@ include('includes/dbconnection.php');
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND status = 'Saved'";
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND reportStatus = 'Saved'";
                 $run_month = mysqli_query($conn, $get_month);
                 while($row_month = mysqli_fetch_array($run_month)){
                   $monthlyRptID = $row_month['monthlyReportID'];
                   $cmpID = $row_month['companyID'];
                   $monthOfTraining = $row_month['monthOfTraining'];
-									$status = $row_month['status'];
+									$status = $row_month['reportStatus'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);
@@ -210,13 +189,13 @@ include('includes/dbconnection.php');
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND status='Submitted'";
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND reportStatus='Submitted'";
                 $run_month = mysqli_query($conn, $get_month);
                 while($row_month = mysqli_fetch_array($run_month)){
                   $monthlyRptID = $row_month['monthlyReportID'];
                   $cmpID = $row_month['companyID'];
                   $monthOfTraining = $row_month['monthOfTraining'];
-									$status = $row_month['status'];
+									$status = $row_month['reportStatus'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);

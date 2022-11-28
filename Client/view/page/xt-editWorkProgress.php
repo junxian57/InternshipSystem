@@ -207,8 +207,6 @@ include('includes/dbconnection.php');
     </div>
   </div>
 
-  
-
   <script>
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');

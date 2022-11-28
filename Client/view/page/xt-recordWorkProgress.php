@@ -8,9 +8,55 @@ include('includes/dbconnection.php');
 ?>
 
 <?php
-	if(isset($_GET['monthlyReportID'])){
-    $monthlyReportID = $_GET['monthlyReportID'];
+if(isset($_POST['signaturesave'])){
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_array($result);
+	$lastID = $row['monthlyReportID'];
+	if($lastID == "") {
+		$monthlyReportID = "MRPT1001";
+	} else {
+		$monthlyReportID = substr($lastID, 4);
+		$monthlyReportID = intval($monthlyReportID);
+		$monthlyReportID = "MRPT".($monthlyReportID + 1);
+	}
+
+  $studID = "21WMR04845";
+  $cmpID = "CMP00001";
+  $studName = $_POST['studName'];
+  $cmpName = $_POST['cmpName'];
+  $monthYear = $_POST['monthYear'];
+  $week1 = $_POST['week1'];
+  $week2 = $_POST['week2'];
+  $week3 = $_POST['week3'];
+  $week4 = $_POST['week4'];
+  $problem = $_POST['problem'];
+  $leaveTaken = $_POST['leaveTaken'];
+  $leaveTakens = $_POST['leaveDays'];
+  $status = "Saved";
+
+  if($leaveTaken == 'NO'){
+    $leaveReasons = "N/A";
   }
+  else{
+    $leaveReasons = $_POST['leaveReason'];
+  }
+
+  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
+  if (mysqli_query($conn, $sql)) {
+    echo "<script>alert('The report have been saved into database.')</script>";     
+    echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+  } else {
+    echo "Error: " . $sql . mysqli_error($conn);
+    }   
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -57,7 +103,7 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>

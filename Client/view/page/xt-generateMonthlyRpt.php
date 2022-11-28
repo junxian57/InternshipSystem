@@ -7,7 +7,7 @@ if(isset($_GET['monthlyRptID'])){
   $monthlyReportID = $_GET['monthlyRptID'];
 }
 
-if(isset($_POST['signaturesave'])){
+if(isset($_POST['signatureedit'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -45,7 +45,8 @@ if(isset($_POST['signaturesave'])){
     $leaveReasons = $_POST['leaveReason'];
   }
 
-  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, status) VALUES ('$monthRptID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
+  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+
   if (mysqli_query($conn, $sql)) {
     if($leaveTaken == 'NO'){
       $leave = '0';
