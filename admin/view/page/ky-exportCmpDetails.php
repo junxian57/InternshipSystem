@@ -17,7 +17,7 @@ include('../../includes/db_connection.php');
                                     
                 $email = $company['cmpEmail'];
                 $phone = $company['cmpContactNumber'];
-                $cmpUsername = $company['cmpUsername'];
+                $cmpUsername = $company['cmpContactPerson'];
                 $size = $company['cmpCompanySize'];
                 $address = $company['cmpAddress'];
                 $fieldArea = $company['cmpFieldsArea'];
@@ -45,7 +45,8 @@ include('../../includes/db_connection.php');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $today = date("F j, Y g:i A", time());
         
-            $this->Cell(189, 5, 'Page '.$this->getAliasNumPage().' of '.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
+            $this->Cell(25,5,'Generate Date/Time : '.$today,0,0,'L');
+            $this->Cell(170, 5, 'Page '.$this->getAliasNumPage().' of '.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
             }
         }
         
@@ -100,59 +101,62 @@ include('../../includes/db_connection.php');
         
         $pdf->Ln(4);
 
-        $pdf->SetTextColor(255,127,80);
+        $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
-        $pdf->Cell(70, 3, 'General Company Information', 0, 1, 'C');
+        $pdf->Cell(55, 3, 'General Company Information', 0, 1, 'C');
         $pdf->Ln(5);
 
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', 'B', 13);
-        $pdf->Cell(74, 3, 'Company ID : '.$Id, 0, 1, 'C');
-        $pdf->Cell(78, 3, 'Company Name : '.$name, 0, 1, 'C');
-        $pdf->Cell(67, 3, 'Company Size : '.$size, 0, 1, 'C');
-        $pdf->Cell(94, 3, 'Company Fields : '.$fieldArea, 0, 1, 'C');
-        $pdf->Cell(73, 3, 'Date Joined : '.$dateJoined, 0, 1, 'C');
+        $pdf->Cell(48, 3, 'Company ID : '.$Id, 0, 1, 'L');
+        $pdf->Cell(52, 3, 'Company Name : '.$name, 0, 1, 'L');
+        $pdf->SetFont('times', 'B', 12);
+        $pdf->Cell(175, 3, 'Company Address : '.$address, 0, 1, 'L');
+        $pdf->SetFont('times', 'B', 13);
+        $pdf->Cell(41, 3, 'Company Size : '.$size, 0, 1, 'L');
+        $pdf->Cell(68, 3, 'Company Fields : '.$fieldArea, 0, 1, 'L');
+        $pdf->Cell(47, 3, 'Date Joined : '.$dateJoined, 0, 1, 'L');
 
         $pdf->Ln(8);
-        $pdf->SetTextColor(255,127,80);
+        $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
-        $pdf->Cell(70, 3, 'General Company Information', 0, 1, 'C');
+        $pdf->Cell(55, 3, 'Company contact information', 0, 1, 'C');
 
         $pdf->Ln(6);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', 'B', 13);
-        $pdf->Cell(74, 3, 'Company ID : '.$Id, 0, 1, 'C');
-        $pdf->Cell(78, 3, 'Company Name : '.$name, 0, 1, 'C');
-        $pdf->Cell(67, 3, 'Company Size : '.$size, 0, 1, 'C');
-        $pdf->Cell(94, 3, 'Company Fields : '.$fieldArea, 0, 1, 'C');
-        $pdf->Cell(73, 3, 'Date Joined : '.$dateJoined, 0, 1, 'C');
-        
-        $pdf->Cell(180, 3, 'From <Start Date '.$today.' To <End Date (dd/mm/yyyy)>', 0, 1, 'C');
-        $pdf->Ln(30);
-        
-        $pdf->Cell(180, 3, 'Prepared By', 0, 1, 'C');
+        $pdf->Cell(78, 3, 'Email : '.$email, 0, 1, 'L');
+        $pdf->Cell(39, 3, 'Phone : '.$phone, 0, 1, 'L');
+        $pdf->Cell(42, 3, 'Contact Person : '.$cmpUsername, 0, 1, 'L');
+
         $pdf->Ln(10);
+        $pdf->SetTextColor(0,0,255);
+        $pdf->SetFont('times', 'B', 16);
+        $pdf->Cell(62, 3, 'Company Internship information', 0, 1, 'C');
+
+        $pdf->Ln(6);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetFont('times', 'B', 13);
+        $pdf->Cell(47, 3, 'Internship Placement : '.$cmpInternshipPlacement, 0, 1, 'L');
+        $pdf->Cell(47, 3, 'Allowance : RM'.$allowance, 0, 1, 'L');
         
-        $pdf->Cell(180, 3, '<Name of Student>', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        $pdf->Cell(180, 3, '<Programme>', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        $pdf->Cell(180, 3, '<Name of University College Supervisor>', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        $pdf->Cell(180, 3, 'Faculty of Computing and Information Technology', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        $pdf->Cell(180, 3, 'Tunku Abdul Rahman University of Management and Technology', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        $pdf->Cell(180, 3, '<Branch>', 0, 1, 'C');
-        $pdf->Ln(10);
-        
-        
-        $pdf->Output('final-report.pdf', 'I');
+        $pdf->Ln(12);
+        $pdf->SetTextColor(0,0,255);
+        $pdf->SetFont('times', 'B', 16);
+        $pdf->Cell(5, 3, 'Rating', 0, 1, 'C');
+
+        $pdf->Ln(6);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetFont('times', 'B', 25);
+        $pdf->Cell(10, 3, ''.$rating,0, 0);
+        $pdf->Ln(6);
+        $pdf->SetTextColor(105,105,105);
+        $pdf->SetFont('times', 'B', 12);
+        $pdf->Cell(40, 3, 'out of 5', 0, 1,'C');
+        $imageFile = '../images/ratingStar.png';
+        $pdf->Image($imageFile, 44,176, 9, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+
+        $pdf->Output(''.$name.'.pdf', 'I');
         
     }
 
