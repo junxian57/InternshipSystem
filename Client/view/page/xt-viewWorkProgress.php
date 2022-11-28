@@ -153,7 +153,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
                   <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
-									<td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
+									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>
@@ -240,6 +240,7 @@ include('includes/dbconnection.php');
 		</div>
 	</div>
 	<script src="../../js/classie.js"></script>
+
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
 			showLeftPush = document.getElementById('showLeftPush'),
@@ -259,7 +260,15 @@ include('includes/dbconnection.php');
 		}
 	</script>
 
-<script>
+	<script>
+		function confirmationDelete(anchor){
+   		var conf = confirm('Are you sure want to delete this report?');
+   			if(conf)
+      		window.location=anchor.attr("href");
+		}
+	</script>
+
+	<script>
 		function statusType(evt, statusType) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
