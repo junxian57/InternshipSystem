@@ -1,6 +1,10 @@
 <?php
-require_once '../../includes/db_connection.php';
-require_once '../DTO/internJobDTO.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+
+require_once $systemPathPrefix.'app/DTO/internJobDTO.php';
+require_once $systemPathPrefix.'includes/db_connection.php';
+// require_once '../DTO/internJobDTO.php';
+// require_once '../includes/db_connection.php';
 
 function getLastInternJobID(){
     $db = new DBController();

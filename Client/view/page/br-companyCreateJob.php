@@ -1,65 +1,69 @@
 <?php
 session_start();
-include "../../includes/db_connection.php";
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+
+require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 //Get Company ID from Session
 //$companyID = $_SESSION['cmpID'];
 $companyID = 'CMP00008';
-$db = new DBController();
 
 if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1){
     echo "<script> 
             alert('New Internship Job Created Successfully.'); 
 
-            window.location.href='br-companyInfo.php';
+            window.location.href='br-companyJobList.php';
         </script>";
 }else if(isset($_GET['inserted']) && isset($_GET['failed']) && $_GET['failed'] == 1 && $_GET['inserted'] == 0){
     echo "<script> 
-            alert('New Internship Job Created Failed.\nPlease Try Again.');
+            alert('New Internship Job Created Failed.\\nPlease Try Again.');
 
-            window.location.href='br-companyCreateJob.php';
+            window.location.href='br-companyJobList.php';
         </script>";
 }
 
 //Get Company Info
 try{
-    $companyInfo = $db->runQuery("SELECT * FROM Company WHERE companyID = '$companyID';");
+    $companyInfo = getCompanyDetails($companyID);
     $companyFields = $companyInfo[0]['cmpFieldsArea'];
     
-    $sqlRemainQuota = "SELECT SUM(IJ.jobMaxNumberQuota) AS TotalQuota, C.cmpNumberOfInternshipPlacements 
-                        FROM InternJob IJ, Company C 
-                        WHERE IJ.companyID = C.companyID AND
-                        IJ.companyID = '$companyID'
-                        GROUP BY IJ.companyID
-                        HAVING SUM(IJ.jobMaxNumberQuota) < C.cmpNumberOfInternshipPlacements;";
+    $getCmpRemainingQuota = getRemainQuota($companyID);
 
-    $getCmpRemainingQuota = $db->runQuery($sqlRemainQuota);
+    if($getCmpRemainingQuota == null){
+        echo "<script> 
+                alert('You have NO quota left to create new internship job. \\nPlease contact TARUMT ITP Committee for further assistance.');
+
+                window.location.href = 'br-companyInfo.php';
+            </script>"; 
+    }
 
     $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
     $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
     
+    if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
+        echo "<script> 
+            alert('Something went wrong.\\nPlease Try Again.');
+
+            window.location.href = 'br-companyInfo.php';
+        </script>"; 
+
+    }else{
+
+        $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
+    
+        if($quotaLeft == 0 || $quotaLeft < 0 ){
+            echo "<script> 
+                alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for further assistance.'); 
+    
+                window.location.href='br-companyInfo.php';
+            </script>";
+        }
+    }
 }catch(PDOException $e){
     echo "<script> 
         alert('$e');
         window.location.href = 'br-companyInfo.php';
     </script>";    
-}
-
-if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null){
-    echo "<script> 
-        alert('Something went wrong.\nPlease Try Again.');
-        window.location.href = 'br-companyInfo.php';
-    /script>"; 
-}else{
-    $quotaLeft = $cmpMaxQuota - $currQuota;
-
-    if($quotaLeft == 0 || $quotaLeft < 0){
-        echo "<script> 
-            alert('You have NO internship placements left.\nPlease contact TARUMT ITP Committee for assistance.'); 
-
-            window.location.href='br-companyInfo.php';
-        </script>";
-    }
 }
 
 ?>
@@ -76,6 +80,8 @@ if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota 
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
+        
     </script>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />

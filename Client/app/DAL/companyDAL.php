@@ -1,6 +1,8 @@
 <?php
-require_once '../../includes/db_connection.php';
-require_once '../DTO/companyDTO.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+
+require_once $systemPathPrefix.'app/DTO/companyDTO.php';
+require_once $systemPathPrefix.'includes/db_connection.php';
 
 function getLastCompanyID(){
     $db = new DBController();
@@ -8,6 +10,28 @@ function getLastCompanyID(){
     $result = $db->runQuery($sql);
 
     return $result[0]['companyID'];
+}
+
+function getCompanyDetails($companyID){
+    $db = new DBController();
+    $result = $db->runQuery("SELECT * FROM Company WHERE companyID = '$companyID';");
+
+    return $result;
+}
+
+function getRemainQuota($companyID){
+    $db = new DBController();
+
+    $sql = "SELECT SUM(IJ.jobMaxNumberQuota) AS TotalQuota, C.cmpNumberOfInternshipPlacements 
+            FROM InternJob IJ, Company C 
+            WHERE IJ.companyID = C.companyID AND
+            IJ.companyID = '$companyID'
+            GROUP BY IJ.companyID
+            HAVING SUM(IJ.jobMaxNumberQuota) < C.cmpNumberOfInternshipPlacements;";
+
+    $result = $db->runQuery($sql);
+
+    return $result;
 }
 
 function cmpApplicationSubmit($companyObj){

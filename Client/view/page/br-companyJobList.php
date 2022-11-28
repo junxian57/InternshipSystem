@@ -1,6 +1,8 @@
 <?php
 session_start();
-require_once '../../includes/db_connection.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+
+require_once $systemPathPrefix.'includes/db_connection.php';
 
 //$companyID = $_SESSION['companyID'];
 $companyID = "CMP00008";

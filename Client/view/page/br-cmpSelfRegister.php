@@ -2,13 +2,13 @@
 
 if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pending"){
     echo "<script>
-    alert('Your company has been registered successfully. Please wait for the approval from the ITP Committee.');
+    alert('Your company has been registered successfully.\\nPlease wait for the approval from the ITP Committee.');
 
     window.location.href = 'br-cmpSelfRegister.php';
     </script>";
 }else if(isset($_GET['failed'])){
     echo "<script>
-    alert('Your company has NOT been registered successfully. Please try again.');
+    alert('Your company has NOT been registered successfully.\\nPlease try again.');
 
     window.location.href = 'br-cmpSelfRegister.php'
     </script>";

@@ -1,5 +1,6 @@
 <?php
-require_once '../DAL/internJobDAL.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+require_once $systemPathPrefix.'app/DAL/internJobDAL.php';
 
 class InternJob{
     private $internJobID, $companyID, $jobTitle, $jobDescription, $jobAllowance, $jobResponsibilities, $jobLocationOfWork, $jobWorkingDay, $jobWorkingHour, $jobSkillsRequired, $jobMaxNumberQuota, $jobQualificationRequired, $jobFieldsArea, $jobTrainingPeriod, $jobSupervisorContactNo, $jobSupervisorEmail, $jobCmpSupervisor;
@@ -20,6 +21,12 @@ class InternJob{
         $insertNewInternJob = insertNewInternJob($this);
 
         return $insertNewInternJob;
+    }
+
+    function getCompanyDetails($companyID){
+        $companyDetails = getCompanyDetails($companyID);
+
+        return $companyDetails;
     }
 
     //Getter

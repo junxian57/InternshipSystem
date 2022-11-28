@@ -21,14 +21,14 @@ try{
 
 if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" && $_GET['success'] == "1"){
     echo "<script>
-    alert(`Company Profile Has Been Updated Successfully.\n`);
+    alert(`Company Profile Has Been Updated Successfully.`);
     
     window.location.href = 'br-companyInfo.php';
     </script>";
     
 }else if(isset($_GET['failed']) && isset($_GET['update']) && $_GET['update'] == "0" && $_GET['failed'] == "1"){
     echo "<script>
-    alert(`Company Profile Updated Failed.\n\nContact Admin For Further Assistance.`);
+    alert(`Company Profile Updated Failed.\\n\\nContact Admin For Further Assistance.`);
     
     window.location.href = 'br-companyInfo.php'
     </script>";

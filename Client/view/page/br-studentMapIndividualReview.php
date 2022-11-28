@@ -1,5 +1,7 @@
 <?php
-require '../../includes/db_connection.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+
+require_once $systemPathPrefix.'includes/db_connection.php';
 
 // if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus'])){
 //   //! Redirect to Index page
