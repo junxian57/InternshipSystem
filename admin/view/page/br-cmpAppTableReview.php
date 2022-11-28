@@ -1,7 +1,8 @@
 <?php
 session_start();
-error_reporting(0);
-include('../../includes/db_connection.php');
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+
+require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 ?>
 <!DOCTYPE HTML>
@@ -62,11 +63,7 @@ include('../../includes/db_connection.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $db = new DBController();
-
-                                            $sql = "SELECT * FROM Company WHERE cmpAccountStatus = 'Pending'";
-
-                                            $result = $db->runQuery($sql);
+                                            $result = getCompanyWithStatus('Pending');
 
                                             if(count($result) > 0){
                                                 $i = 1;

@@ -14,6 +14,21 @@ function getLastInternJobID(){
     return $result[0]['internJobID'];
 }
 
+function getInternJobList($companyID){
+    $db = new DBController();
+
+    $sql = "SELECT * FROM InternJob WHERE companyID = '$companyID' ORDER BY CASE
+                                    WHEN jobStatus = 'Accept Student' then 1
+                                    WHEN jobStatus = 'Full' then 2 
+                                    WHEN jobStatus = 'Done' then 3
+                                    WHEN jobStatus = 'Deleted' then 4
+                                    END ASC
+                                    ";
+    $result = $db->runQuery($sql);
+
+    return $result;
+}
+
 function insertNewInternJob($internJobObject){
     $db = new DBController();
 

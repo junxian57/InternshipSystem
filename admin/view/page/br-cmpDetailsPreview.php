@@ -1,5 +1,7 @@
 <?php
-require_once '../../includes/db_connection.php';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+
+require_once $systemPathPrefix."app/DAL/companyDAL.php";
     
     if(!isset($_GET['companyID'])){
         header("Location: br-cmpAppTableReview.php");
@@ -7,11 +9,7 @@ require_once '../../includes/db_connection.php';
     else{ 
         $companyID = $_GET['companyID'];
 
-        $db = new DBController();
-
-        $sql = "SELECT * FROM Company WHERE companyID = '$companyID'";
-
-        $result = $db->runQuery($sql);
+        $result = getCompany($companyID);
 
         if(count($result) > 0){
             $companyID = $result[0]['companyID'];

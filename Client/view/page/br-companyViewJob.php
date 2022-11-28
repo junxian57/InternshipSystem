@@ -22,7 +22,10 @@ if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 
             window.location.href='br-companyJobList.php';
         </script>";
 }
-
+/**
+ * TODO: Total Quota No Need to be validate here
+ * 
+ */
 //Get Company Info
 try{
     if(isset($_GET['internJobID']) && isset($_GET['edit']) && $_GET['edit'] == 1){
@@ -51,17 +54,18 @@ try{
             window.location.href = 'br-companyInfo.php';
         /script>"; 
 
-    }else{
-        $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
-    
-        if($quotaLeft == 0 || $quotaLeft < 0 ){
-            echo "<script> 
-                alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for assistance.'); 
-    
-                window.location.href='br-companyInfo.php';
-            </script>";
-        }
     }
+    // else{
+    //     $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
+    
+    //     if($quotaLeft == 0 || $quotaLeft < 0 ){
+    //         echo "<script> 
+    //             alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for assistance.'); 
+    
+    //             window.location.href='br-companyInfo.php';
+    //         </script>";
+    //     }
+    // }
 }catch(PDOException $e){
     echo "<script> 
         alert('$e');

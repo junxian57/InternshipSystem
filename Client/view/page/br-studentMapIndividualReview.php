@@ -1,7 +1,6 @@
 <?php
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
-
-require_once $systemPathPrefix.'includes/db_connection.php';
+require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 
 // if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus'])){
 //   //! Redirect to Index page
@@ -9,22 +8,14 @@ require_once $systemPathPrefix.'includes/db_connection.php';
 //     exit();
 // }
 
-$studentID = $_GET['studentID'];
 $accountStatus = $_GET['accountStatus'];
-$db = new DBController();
 $studentArr = array();
 $sql = "";
 
-if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $accountStatus == 'Active'){
-
-  $sql = "SELECT S.studentID, S.studName, S.studContactNumber,S.studEmail, S.internshipBatchID, P.programmeAcronym, S.tutorialGroupNo, I.studentYear, I.studentSemester, S.studentCVdocument
-          FROM Student S, Programme P, InternshipBatch I
-          WHERE S.internshipBatchID = I.internshipBatchID AND
-          S.programmeID = P.programmeID AND
-          S.studentID = '$studentID' AND
-          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern');";
-
-  $result = $db->runQuery($sql);
+if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $_GET['accountStatus'] == 'Active'){
+  
+  $studentID = $_GET['studentID'];
+  $result = getStudentInfoOnly($studentID);
 
   if(count($result) > 0){
     foreach($result as $student){
@@ -45,19 +36,10 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
     echo "<script>alert('No Data Found');</script>";
   }
 
-}elseif(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $accountStatus == 'Intern'){
-
-  $sql = "SELECT S.studentID, S.studName, S.studContactNumber,S.studEmail, S.internshipBatchID, P.programmeAcronym, S.tutorialGroupNo, I.studentYear, I.studentSemester, S.studentCVdocument, C.cmpName, IAM.appInternStartDate, IAM.appInternEndDate, IJ.jobCmpSupervisor, IJ.jobSupervisorContactNo, IJ.jobSupervisorEmail 
-          FROM Student S, Programme P, InternshipBatch I, Company C, InternJob IJ, InternApplicationMap IAM
-          WHERE S.internshipBatchID = I.internshipBatchID AND
-          S.programmeID = P.programmeID AND
-          IAM.studentID = S.studentID AND
-          IAM.internJobID = IJ.internJobID AND
-          IJ.companyID = C.companyID AND
-          S.studentID = '$studentID' AND
-          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern');";
-
-  $result = $db->runQuery($sql);
+}elseif(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $_GET['accountStatus'] == 'Intern'){
+  $studentID = $_GET['studentID'];
+  
+  $result = getStudentAndInternCompany($studentID);
 
   if(count($result) > 0 ){
     foreach($result as $student){

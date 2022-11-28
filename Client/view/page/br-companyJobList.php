@@ -1,21 +1,13 @@
 <?php
 session_start();
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
-
-require_once $systemPathPrefix.'includes/db_connection.php';
+require_once $systemPathPrefix."app/DAL/internJobDAL.php";
 
 //$companyID = $_SESSION['companyID'];
 $companyID = "CMP00008";
 
-try{
-    $db = new DBController();
-    $internJobList = $db->runQuery("SELECT * FROM InternJob WHERE companyID = '$companyID' ORDER BY CASE
-                                    WHEN jobStatus = 'Accept Student' then 1
-                                    WHEN jobStatus = 'Full' then 2 
-                                    WHEN jobStatus = 'Done' then 3
-                                    WHEN jobStatus = 'Deleted' then 4
-                                    END ASC
-                                    ");
+try{  
+    $internJobList = getInternJobList($companyID);
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
