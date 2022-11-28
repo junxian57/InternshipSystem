@@ -152,7 +152,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $cmpName; ?></td>
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
+                  <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
 									<td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>

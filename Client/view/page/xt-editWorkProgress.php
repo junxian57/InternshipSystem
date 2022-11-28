@@ -62,6 +62,38 @@ include('includes/dbconnection.php');
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
+
+              <?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+                $run_month = mysqli_query($conn, $get_month);
+                $row_month = mysqli_fetch_array($run_month);
+                $cmpID = $row_month['companyID'];
+                $monthOfTraining = $row_month['monthOfTraining'];
+                $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
+                $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
+                $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
+                $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
+                $issuesEncountered = $row_month['issuesEncountered'];
+                $leaveTaken = $row_month['leaveTaken'];
+                $leaveReason = $row_month['leaveReason'];
+                if($leaveTaken != "0"){
+                  $leave = "Yes";
+                }else{
+                  $leave = "No";
+                }
+
+								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+								$row_cmp = mysqli_fetch_array($run_cmp);
+								$cmpName = $row_cmp['cmpName'];
+              ?>
               
               <div class="inputBox">
                 <div class="viewInput">
@@ -71,12 +103,12 @@ include('includes/dbconnection.php');
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName; ?>">
                 </div>
 
                 <div class="viewInput">
                   <span>Month / Year</span>
-                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo date('F Y'); ?>">
+                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo $monthOfTraining; ?>">
                 </div> 
               </div>
 
@@ -87,25 +119,25 @@ include('includes/dbconnection.php');
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
@@ -117,7 +149,7 @@ include('includes/dbconnection.php');
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"></textarea>
+                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -129,8 +161,8 @@ include('includes/dbconnection.php');
                 <div class="viewInput" style="width:100%;">
                   <span>Any leave taken?</span><br>
                   <select name="leaveTaken" id="leaveTaken">
-                    <option value="YES">Yes</option>
-                    <option value="NO" selected>No</option>
+                    <option value="YES" <?php if($leave=="Yes") echo 'selected="selected"'; ?> >Yes</option>
+                    <option value="No" <?php if($leave=="No") echo 'selected="selected"'; ?> >No</option>
                   </select>
                 </div>
 
@@ -146,12 +178,12 @@ include('includes/dbconnection.php');
 
                 <div class="viewInput">
                   <span>Number of Days Taken</span>
-                  <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
+                  <input type="text" name="leaveDays" id="leaveDays" value="<?php echo $leaveTaken; ?>" readonly>
                 </div>
 
                 <div class="viewInput">
                   <span>Reasons for taking leave</span>
-                  <input type="text" name="leaveReason" id="leaveReason" value="N/A" disabled>
+                  <input type="text" name="leaveReason" id="leaveReason" value="<?php echo $leaveReason; ?>" disabled>
                 </div>
               </div>
 
@@ -167,13 +199,15 @@ include('includes/dbconnection.php');
               </div>
 
               <input type="hidden" id="signature" name="signature">
-              <input type="hidden" name="signaturesave" value="1">
+              <input type="hidden" name="signatureedit" value="1">
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+
+  
 
   <script>
     $(document).ready(() => {
@@ -489,12 +523,10 @@ include('includes/dbconnection.php');
         document.getElementById("toDate").value = "";
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
-        document.getElementById("leaveReason").value = "N/A";
       }else{
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;
-        document.getElementById("leaveReason").value = "";
       }
     });
   </script>

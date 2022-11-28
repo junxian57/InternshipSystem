@@ -7,7 +7,7 @@ if(isset($_GET['monthlyRptID'])){
   $monthlyReportID = $_GET['monthlyRptID'];
 }
 
-if(isset($_POST['signaturesubmit'])){
+if(isset($_POST['signaturesave'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -18,26 +18,7 @@ if(isset($_POST['signaturesubmit'])){
   $monthRptID = $monthlyReportID;
   $studID = "21WMR04845";
   $cmpID = "CMP00001";
-  $monthOfTraining = $_POST['monthYear'];
-  $firstWeekDeliverables = $_POST['week1'];
-  $secondWeekDeliverables = $_POST['week2'];
-  $thirdWeekDeliverables = $_POST['week3'];
-  $forthWeekDeliverables = $_POST['week4'];
-  $issuesEncountered = $_POST['problem'];
-  $leaveTaken = $_POST['leaveTaken'];
-  $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
-
-  if($leaveTaken == 'NO'){
-    $leaveReasons = "N/A";
-  }
-  else{
-    $leaveReasons = $_POST['leaveReason'];
-  }
-
-  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, status) VALUES ('$monthRptID','$studID','$cmpID','$monthOfTraining','$firstWeekDeliverables','$secondWeekDeliverables','$thirdWeekDeliverables','$forthWeekDeliverables','$issuesEncountered','$leaveTaken','$leaveReasons', '$status')";
-  if (mysqli_query($conn, $sql)) {
-    $studName = $_POST['studName'];
+  $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
   $week1 = $_POST['week1'];
@@ -45,7 +26,9 @@ if(isset($_POST['signaturesubmit'])){
   $week3 = $_POST['week3'];
   $week4 = $_POST['week4'];
   $problem = $_POST['problem'];
-  $signature = $_POST['signature'];
+  $leaveTaken = $_POST['leaveTaken'];
+  $leaveTakens = $_POST['leaveDays'];
+  $status = "Saved";
   $signature = $_POST['signature'];
   $signatureFileName = $studName.'.jpg';
   $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -56,23 +39,31 @@ if(isset($_POST['signaturesubmit'])){
   $sign = '../../../Client/view/signature/'.$studName.'.jpg';
 
   if($leaveTaken == 'NO'){
-    $leave = '0';
-    $fromDate = "_____________________";
-    $toDate = "_____________________";
-    $leaveReason = "______________________________________________________________";
+    $leaveReasons = "N/A";
   }
   else{
-    $fromDate = $_POST['fromDate'];
-    $toDate = $_POST['toDate'];
-    $leaveDays = $_POST['leaveDays'];
-    $leaveReason = $_POST['leaveReason'];
-    $leave = $leaveDays;
+    $leaveReasons = $_POST['leaveReason'];
   }
 
-  date_default_timezone_set("Asia/Kuala_Lumpur");
-  $today = date("F j, Y", time());
+  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, status) VALUES ('$monthRptID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
+  if (mysqli_query($conn, $sql)) {
+    if($leaveTaken == 'NO'){
+      $leave = '0';
+      $fromDate = "_____________________";
+      $toDate = "_____________________";
+      $leaveReason = "______________________________________________________________";
+    }
+    else{
+      $fromDate = $_POST['fromDate'];
+      $toDate = $_POST['toDate'];
+      $leaveDays = $_POST['leaveDays'];
+      $leaveReason = $_POST['leaveReason'];
+      $leave = $leaveDays;
+    }
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    $today = date("F j, Y", time());
+    }
   }
-}
 
 class PDF extends TCPDF{
   public function Header(){
