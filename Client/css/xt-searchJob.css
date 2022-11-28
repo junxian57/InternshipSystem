@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
 
 .cmpList {
-  padding: 3rem 3%;
+  padding: 3rem 8%;
 }
 
 .cmpList .cmpList-container {
   font-family: "Nunito", sans-serif;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 3.5rem;
   padding-bottom: 30px;
 }
@@ -109,4 +109,46 @@ p {
   border: 0;
   border-radius: 6px;
   justify-content: space-between;
+}
+
+.job-pagination {
+  width: 980px;
+}
+
+.job-pagination > li {
+  display: inline;
+  font-size: 18px;
+}
+
+.job-pagination > li > a,
+.job-pagination > li > span {
+  position: relative;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #000 !important;
+  text-decoration: none;
+}
+
+.job-pagination > li:first-child > a,
+.job-pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.job-pagination > li:last-child > a,
+.job-pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.job-pagination > li > a:focus,
+.job-pagination > li > a:hover,
+.jobpagination > li > span:focus,
+.job-pagination > li > span:hover {
+  z-index: 2;
+  color: #fff !important;
+  background-color: #d3ad7f !important;
+  border-color: #d3ad7f !important;
 }
