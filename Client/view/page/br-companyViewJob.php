@@ -3,7 +3,12 @@ session_start();
 error_reporting(0);
 include "includes/db_connection.php";
 
-//prettier client\view\page\br-StudentSupervisor-Manage.php --write
+/**
+ * 
+ * TODO: If status is 'deleted / done / full', then disable all input and button, only view is available
+ * TODO: If status is 'Accept Student', then enable all input and button, edit is available
+ * 
+ */
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -166,15 +171,15 @@ include "includes/db_connection.php";
                             <div id="respon-row" class="task-row">
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                             </div>
                             <div class="row">
                                 <p>Handle Daily Bug Resolving</p>
-                                <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                             </div>
                             </div>
                             <input name="jobRespon" id="jobRespon" />
@@ -185,16 +190,16 @@ include "includes/db_connection.php";
                             <label for="jobSkills">Skills Required</label>
                             <div id="skills-row" class="task-row">
                                 <div class="row">
-                                    <p>Handle Daily Bug Resolving Handle Daily Bug Resolving Handle Daily Bug Resolving</p>              
-                                    <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                    <p>Handle Daily Bug Resolving Handle Daily Bug Resolving Handle Daily Bug Resolving Handle Daily Bug Resolving</p>              
+                                    <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                                 </div>
                                 <div class="row">
                                     <p>Handle Daily Bug Resolving</p>
-                                    <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                    <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                                 </div>
                                 <div class="row">
                                     <p>Handle Daily Bug Resolving</p>
-                                    <span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>
+                                    <span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>
                                 </div>
                             </div>
                             <input name="jobSkills" id="jobSkills" />
@@ -278,7 +283,7 @@ include "includes/db_connection.php";
         let taskRow = document.getElementById(taskGroup);
         let newTask = document.createElement("div");
         newTask.className = "row";
-        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">❌</span>`;
+        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>`;
         taskRow.appendChild(newTask);
         newTaskValue.value = "";
     }

@@ -193,6 +193,8 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -212,17 +214,21 @@ try{
     }
 
     $(document).ready(function() {
-        $('#tab1-table').DataTable({
+        let table = $('#tab1-table').DataTable({
             "bLengthChange": false,
-            "info": false,         
+            "info": false,   
+            responsive : true      
         });
+        $.fn.dataTable.FixedHeader(table);
     });
 
     $(document).ready(function() {
-        $('#tab2-table').DataTable({
+        let table = $('#tab2-table').DataTable({
             "bLengthChange": false,
             "info": false,
+            responsive : true
         });
+        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>

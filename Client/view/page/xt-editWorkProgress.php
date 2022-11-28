@@ -8,55 +8,9 @@ include('includes/dbconnection.php');
 ?>
 
 <?php
-if(isset($_POST['signaturesave'])){
-  $host = "sql444.main-hosting.eu";
-  $user = "u928796707_group34";
-  $password = "u1VF3KYO1r|";
-  $database = "u928796707_internshipWeb";
-                                
-  $conn = mysqli_connect($host, $user, $password, $database); 
-
-  $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
-	$result = mysqli_query($conn, $query);
-	$row = mysqli_fetch_array($result);
-	$lastID = $row['monthlyReportID'];
-	if($lastID == "") {
-		$monthlyReportID = "MRPT1001";
-	} else {
-		$monthlyReportID = substr($lastID, 4);
-		$monthlyReportID = intval($monthlyReportID);
-		$monthlyReportID = "MRPT".($monthlyReportID + 1);
-	}
-
-  $studID = "21WMR04845";
-  $cmpID = "CMP00001";
-  $studName = $_POST['studName'];
-  $cmpName = $_POST['cmpName'];
-  $monthYear = $_POST['monthYear'];
-  $week1 = $_POST['week1'];
-  $week2 = $_POST['week2'];
-  $week3 = $_POST['week3'];
-  $week4 = $_POST['week4'];
-  $problem = $_POST['problem'];
-  $leaveTaken = $_POST['leaveTaken'];
-  $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
-
-  if($leaveTaken == 'NO'){
-    $leaveReasons = "N/A";
+	if(isset($_GET['monthlyReportID'])){
+    $monthlyReportID = $_GET['monthlyReportID'];
   }
-  else{
-    $leaveReasons = $_POST['leaveReason'];
-  }
-
-  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
-  if (mysqli_query($conn, $sql)) {
-    echo "<script>alert('The report have been saved into database.')</script>";     
-    echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-  } else {
-    echo "Error: " . $sql . mysqli_error($conn);
-    }   
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -103,11 +57,43 @@ if(isset($_POST['signaturesave'])){
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
+
+              <?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+                $run_month = mysqli_query($conn, $get_month);
+                $row_month = mysqli_fetch_array($run_month);
+                $cmpID = $row_month['companyID'];
+                $monthOfTraining = $row_month['monthOfTraining'];
+                $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
+                $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
+                $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
+                $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
+                $issuesEncountered = $row_month['issuesEncountered'];
+                $leaveTaken = $row_month['leaveTaken'];
+                $leaveReason = $row_month['leaveReason'];
+                if($leaveTaken != "0"){
+                  $leave = "Yes";
+                }else{
+                  $leave = "No";
+                }
+
+								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+								$row_cmp = mysqli_fetch_array($run_cmp);
+								$cmpName = $row_cmp['cmpName'];
+              ?>
               
               <div class="inputBox">
                 <div class="viewInput">
@@ -117,12 +103,12 @@ if(isset($_POST['signaturesave'])){
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName; ?>">
                 </div>
 
                 <div class="viewInput">
                   <span>Month / Year</span>
-                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo date('F Y'); ?>">
+                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo $monthOfTraining; ?>">
                 </div> 
               </div>
 
@@ -133,25 +119,25 @@ if(isset($_POST['signaturesave'])){
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
@@ -163,7 +149,7 @@ if(isset($_POST['signaturesave'])){
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"></textarea>
+                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -175,8 +161,8 @@ if(isset($_POST['signaturesave'])){
                 <div class="viewInput" style="width:100%;">
                   <span>Any leave taken?</span><br>
                   <select name="leaveTaken" id="leaveTaken">
-                    <option value="YES">Yes</option>
-                    <option value="NO" selected>No</option>
+                    <option value="YES" <?php if($leave=="Yes") echo 'selected="selected"'; ?> >Yes</option>
+                    <option value="No" <?php if($leave=="No") echo 'selected="selected"'; ?> >No</option>
                   </select>
                 </div>
 
@@ -192,12 +178,12 @@ if(isset($_POST['signaturesave'])){
 
                 <div class="viewInput">
                   <span>Number of Days Taken</span>
-                  <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
+                  <input type="text" name="leaveDays" id="leaveDays" value="<?php echo $leaveTaken; ?>" readonly>
                 </div>
 
                 <div class="viewInput">
                   <span>Reasons for taking leave</span>
-                  <input type="text" name="leaveReason" id="leaveReason" value="N/A" disabled>
+                  <input type="text" name="leaveReason" id="leaveReason" value="<?php echo $leaveReason; ?>" disabled>
                 </div>
               </div>
 
@@ -213,7 +199,7 @@ if(isset($_POST['signaturesave'])){
               </div>
 
               <input type="hidden" id="signature" name="signature">
-              <input type="hidden" name="signaturesave" value="1">
+              <input type="hidden" name="signatureedit" value="1">
             </div>
           </form>
         </div>
@@ -535,12 +521,10 @@ if(isset($_POST['signaturesave'])){
         document.getElementById("toDate").value = "";
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
-        document.getElementById("leaveReason").value = "N/A";
       }else{
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;
-        document.getElementById("leaveReason").value = "";
       }
     });
   </script>

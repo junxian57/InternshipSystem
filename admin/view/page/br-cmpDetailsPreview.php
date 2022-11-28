@@ -140,7 +140,7 @@ require_once '../../includes/db_connection.php';
                 <hr>
 
                 <div class="button-group">
-                    <a class="clickable-btn approve" id="approve-btn" href="../../app/DAL/cmpAppApproval.php?companyID=<?php echo $companyID; ?>&approve=true">Approve</a>
+                    <a class="clickable-btn approve" id="approve-btn" href="../../app/DAL/cmpAppApprovalDAL.php?companyID=<?php echo $companyID; ?>&approve=true">Approve</a>
                     <a class="clickable-btn reject" id="reject-btn">Reject</a>
                     
                 </div>
@@ -183,8 +183,20 @@ require_once '../../includes/db_connection.php';
     document.getElementById('submit-btn').addEventListener('click', function(){
         let comment = document.getElementById('rejectComment').value;
         let companyID = '<?php echo $companyID; ?>';
-        let url = `../../app/DAL/cmpAppApproval.php?companyID=${companyID}&reject=true&comment=${encodeURIComponent(comment)}`;
-        window.location.href = url;
+        let url = `../../app/DAL/cmpAppApprovalDAL.php?companyID=${companyID}&reject=true&comment=${encodeURIComponent(comment)}`;
+
+        let confirmation = window.confirm('Are you sure to reject this company?');
+        
+        if(confirmation) window.location.href = url;
+    });
+
+    document.getElementById('approve-btn').addEventListener('click', function(){
+        let companyID = '<?php echo $companyID; ?>';
+        let url = `../../app/DAL/cmpAppApprovalDAL.php?companyID=${companyID}&approve=true`;
+
+        let confirmation = window.confirm('Are you sure to approve this company?');
+
+        if(confirmation) window.location.href = url;
     });
 
 

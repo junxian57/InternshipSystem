@@ -27,6 +27,8 @@ $lecturerID = 'LEC00001';
             window.scrollTo(0, 1);
         }
     </script>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -119,6 +121,8 @@ $lecturerID = 'LEC00001';
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -138,11 +142,14 @@ $lecturerID = 'LEC00001';
     }
     
     $(document).ready(function() {
-        $('#preview-table').DataTable({
+        let table = $('#preview-table').DataTable({
             "bLengthChange": false,
             "info": false,
-            "dom": 'lrtp'
+            "dom": 'lrtp',
+            responsive : true
         });
+
+        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>
@@ -159,8 +166,7 @@ $lecturerID = 'LEC00001';
         searchBtn.classList.remove('clickable-btn');
         searchBtn.classList.add('grey-btn');
 
-        let dataTable = $('#preview-table').DataTable();
-        dataTable.clear().draw();
+        $('#preview-table').DataTable().clear().draw();
 
         document.getElementById('batch-number').value = 0;
     }
@@ -170,8 +176,7 @@ $lecturerID = 'LEC00001';
         let batchNumber = document.getElementById('batch-number').value;
         let url = `../../app/DAL/ajaxStudentMapManageGetStudent.php?batchNumber=${batchNumber}&lecturerID=<?php echo $lecturerID;?>`;
 
-        let response = await fetch(url);
-        let data = await response.json();
+        let data = await fetch(url).then(response => response.json());
 
         data.forEach(student => {
             let rowNo = dataTable.context[0].aoData.length + 1;
@@ -182,8 +187,8 @@ $lecturerID = 'LEC00001';
                 student.programmeAcronym,
                 student.studentYear,
                 student.tutorialGroupNo,
-                `<a href='mailto:${student.studEmail}'>Email Student</a>`,
-                `<a class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
+                `<a href='mailto:${student.studEmail}'>Send Email</a>`,
+                `<a target="_blank" class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
             ]).draw();
         });    
     }

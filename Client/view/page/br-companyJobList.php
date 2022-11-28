@@ -1,9 +1,23 @@
 <?php
 session_start();
-error_reporting(0);
-include "includes/db_connection.php";
+require_once '../../includes/db_connection.php';
 
-//prettier client\view\page\br-StudentSupervisor-Manage.php --write
+//$companyID = $_SESSION['companyID'];
+$companyID = "CMP00008";
+
+try{
+    $db = new DBController();
+    $internJobList = $db->runQuery("SELECT * FROM InternJob WHERE companyID = '$companyID' ORDER BY CASE
+                                    WHEN jobStatus = 'Accept Student' then 1
+                                    WHEN jobStatus = 'Full' then 2 
+                                    WHEN jobStatus = 'Done' then 3
+                                    WHEN jobStatus = 'Deleted' then 4
+                                    END ASC
+                                    ");
+}catch(Exception $e){
+    echo '<script>alert("Database Connection Error")</script>';
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -19,6 +33,9 @@ include "includes/db_connection.php";
             window.scrollTo(0, 1);
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -46,114 +63,51 @@ include "includes/db_connection.php";
                 <h3 class="page-title">Company Job List</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
-                            <div class="table-title">
-                                <p>Hint: Table Below Is Scrollable</p>
+                            <div class="table-title">                             
                                 <h4>Result Table</h4>
-                                <input type="search" id="keyInput-update" onkeyup="searchInTable(document.getElementById('view-job-table'), document.getElementById(this.id))" placeholder="Enter Job Name...">
                             </div>
-                            <div class="orange-border">
+                            <div>
                                 <table id="view-job-table">
                                     <thead>
                                         <th>#</th>
                                         <th>Job ID</th>
                                         <th>Job Title</th>
-                                        <th>Post Date</th>
                                         <th>Slot Occupy</th>
+                                        <th>Supervisor</th>
+                                        <th>Supervisor Email</th>
+                                        <th>Job Status</th>
+                                        <th>Post Date</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>2</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>22InJ00001</td>
-                                            <td>Software Engineer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>22InJ00001</td>
-                                            <td>Java Developer Intern</td>
-                                            <td>1-11-2022</td>
-                                            <td><span>3</span>/4</td>
-                                            <td class="btn-td">
-                                                <div class="button-group">
-                                                    <a class="edit button" href="edit-job.php?id=<?php echo "ID"; ?>">Edit</a>
-                                                    <a class="remove button" href="delete-job.php?id=<?php echo "ID"; ?>">Delete</a>
-                                                </div>                                              
-                                            </td>
-                                        </tr>
+                                    <tbody id="view-job-tbody">
+                                        <?php
+                                            $i = 1;
+                                            foreach($internJobList as $row){
+                                                if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
+                                                    $buttonGroup = '<a class="edit button" href="br-companyViewJob.php?edit=1&id="'.$row['internJobID'].'">Edit</a>';
+                                                }elseif($row['jobCurrOccNumber'] == 0){
+                                                    $buttonGroup = '
+                                                    <a class="edit button" href="br-companyViewJob.php?edit=1&internJobID="'.$row['internJobID'].'">Edit</a>
+                                                    <button class="remove button" onclick="deleteInternJob(\''.$row['internJobID'].'\')" > Delete </button>';
+                                                }
+                                                echo '<tr>';
+                                                echo '<td>'.$i.'</td>';
+                                                echo '<td>'.$row['internJobID'].'</td>';
+                                                echo '<td>'.$row['jobTitle'].'</td>';
+                                                echo '<td>'.$row['jobCurrOccNumber'].' / '.$row['jobMaxNumberQuota'].'</td>';
+                                                echo '<td>'.$row['jobCmpSupervisor'].'</td>';
+                                                echo '<td>'.$row['jobSupervisorEmail'].'</td>';
+                                                echo '<td>'.$row['jobStatus'].'</td>';
+                                                echo '<td>'.$row['jobPostDate'].'</td>';
+                                                echo '<td class="btn-td">
+                                                    <div class="button-group">
+                                                        '.$buttonGroup.'
+                                                    </div>  
+                                                </td>';
+                                                echo '</tr>';
+                                                $i++;
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -168,6 +122,10 @@ include "includes/db_connection.php";
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -186,22 +144,30 @@ include "includes/db_connection.php";
         }
     }
 
-    function searchInTable(tableID, inputID) {
-        let input, filter, table, tr, td, i, txtValue;
-        input = inputID;
-        filter = input.value.toUpperCase();
-        table = tableID;
-        tr = table.getElementsByTagName("tr");
+    $(document).ready(function() {
+        let table = $('#view-job-table').DataTable({
+            "bLengthChange": false,
+            "info": false,
+            responsive : true
+        });
 
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+        $.fn.dataTable.FixedHeader(table);
+    });
+
+    async function deleteInternJob(job){
+        let confirmation = confirm("Are you sure you want to delete this job?");
+
+        if(confirmation){
+            let url = `../../app/DAL/ajaxDeleteInternJob.php?internJobID=${job}&companyID=<?php echo $companyID; ?>&delete=1`;
+            let response = await fetch(url).then(response => response.json());
+    
+            if(response == "Success"){
+                alert("Delete Success");
+                location.reload();
+            }else if(response == 'Failed'){
+                alert("Delete Failed, Please Try Again");
+            }else if(response == 'InternshipMapIsNotEmpty'){
+                alert("Delete Failed, There are students applied for the job");
             }
         }
     }

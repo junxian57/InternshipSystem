@@ -13,29 +13,25 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 
 	}*/
 $rubricAssmtBllObj = new rubricAssessmentBLL();
-
-if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
-    date_default_timezone_set("Asia/Kuala_Lumpur");
-    $date = date('Y-m-d');
-    $assessmentID = $_POST['assessmentID'];
-    $internshipBatchID = $_POST['internshipBatchID'];
-    $Title = $_POST['Title'];
-    $Instructions = $_POST['Instructions'];
-    $TotalWeight = $_POST['TotalWeight'];
-    $RoleForMark = $_POST['RoleForMark'];
-    $CreateByID = $_POST['CreateByID'];
-    $CreateDate = $date;
-    $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
-
-    if (count($_POST['criterionID']) == count($_POST['criteriaTitle'])) {
-        $countRow = count($_POST['criterionID']);
-        for ($i = 0; $i < $countRow; $i++) {
-            $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['criterionID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
-        }
+if ($_GET['act'] == "edit") {
+    $id = str_replace("'", "", $_GET['id']);
+    $id = str_replace("'", "", $_GET['id']);
+    $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
+        $assessmentID = $aRubricAssmt->getAssmtId();
+        echo $assessmentID;
+        $internshipBatchID = $_POST['internshipBatchID'];
+        $Title = $_POST['Title'];
+        $Instructions = $_POST['Instructions'];
+        $TotalWeight = $_POST['TotalWeight'];
+        $RoleForMark = $_POST['RoleForMark'];
+        $CreateByID = $_POST['CreateByID'];
+        $CreateDate = $_POST['createDate'];
+        $updRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+        $rubricAssmtBllObj->UpdRubricAssmt($updRubricAssmt);
     }
-
-    $rubricAssmtBllObj->AddRubricAssmt($newRubricAssmt, $newOfRubricCriteriaDto);
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -261,27 +257,26 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         <div id="page-wrapper">
             <div class="main-page">
                 <?php
-
-                if ($_GET['status'] == 'failed') {
-                    echo "<script> warning('Record cant be added. Operation failed.');</script>";
-                } elseif ($_GET['status'] == 'success') {
-                    echo "<script> addSuccess('Add Rubric Assessment successful'); </script>";
-                } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                    echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                if ($_GET['act'] == "edit") {
+                    if ($_GET['status'] == 'failed') {
+                        echo "<script> warning('Record cant be Update. Operation failed.');</script>";
+                    } elseif ($_GET['status'] == 'success') {
+                        echo "<script> addSuccess('Update Rubric Assessment successful'); </script>";
+                    } elseif ($rubricAssmtBllObj->errorMessage != '') {
+                        echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                    }
                 }
-
                 ?>
                 <div class="forms ">
-
-                    <h3 class="title1">Add Rubric Assessment</h3>
+                    <h3 class="title1">Edit Rubric Assessment</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Rubric Assessment</h4>
                         </div>
                         <div class="form-body">
                             <form method="post">
-                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo $rubricAssessmentDALObj->generateID() ?>" readonly="readonly"></div>
-                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Assessment ID</label><input type="text" id="assessmentID" name="assessmentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $rubricAssessmentDALObj->generateID() ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-6"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" placeholder="INDUSTRIAL TRAINING SUPERVISOR’S EVALUATION ON STUDENT" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTitle() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Role for Mark</label>
                                     <select id="RoleForMark" name="RoleForMark" class="form-control" onchange="insertRubricCriteriaTitle();" required>
@@ -302,7 +297,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTotalWeight() : "" ?>" onchange="changeHandler(this)" required="true"> </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -328,11 +323,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                         ?>
                                     </select>
                                 </div>
-                                <input id="createDate" name="createDate" value="" hidden></input>
+                                <input id="createDate" name="createDate" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getCreateDate() : "" ?>" hidden></input>
                                 <div class="form-group col-md-3"> <label>Intern End Day</label> <input type="text" id="InternEndDate" name="InternEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
-                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required></textarea></div>
+                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getInstructions() : "" ?></textarea></div>
 
                                 <div class="form-group col-md-12 checkbox-group">
 
@@ -385,10 +380,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                 </div>
                                 <div class="button-group">
                                     <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                    <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('rubric-assessment-criteria-table'), document.getElementById('selected-rubric-assessment-criteria-table'))">
+                                    <a type="text" class="clickable-btn" onclick="resetSelect(document.getElementById('rubric-assessment-criteria-table'), document.getElementById('selected-rubric-assessment-criteria-table'))">Reset All Selected</a>
                                 </div>
 
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add rubric assessment" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Edit rubric assessment" class="form-group btn btn-default">Save</button></div>
 
                             </form>
                         </div>
@@ -396,32 +391,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 </div>
 
             </div>
-            <div class="main-page" style="padding-top:30px ;">
-                <div class="forms ">
-                    <h3 class="title1">Select Rubric Component Criteria</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Criteria</h4>
-                        </div>
-                        <!--form method="post">
-                                <div class='form-group col-md-12 text-right'> <text class='btn btn-default' id='btnAddNewRow' onclick='clone()'>Add More Rubric Criteria </text></div>
-                                <div id="Clone">
-                                    <div id="CloneRow">
-                                        <div class="form-group col-md-4">
-                                            <label for="inputState">Intern Start Day</label>
-                                            <select id="Assmt_Criteria_Title" name="Assmt_Criteria_Title" class="form-control" onchange="insertCriteria(this.value,this.parentNode.nextElementSibling.childNodes[3].id,this.parentNode.nextElementSibling.nextElementSibling.childNodes[3].id);" required>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Session</label> <input type="text" id="Assmt_Criteria_Session_1" value="None" name="InternEndDate" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Title</label> <input type="text" id="Assmt_Criteria_Title_1" value="None" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "" : "" ?>" class="form-group btn btn-default hide">Save</button></div>
-                                    </div>
-                                </div>
-                            </form-->
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!--footer-->
@@ -460,6 +429,12 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
             checkScoreIsMatch(countScore);
         }
 
+        window.onload = function() {
+            insertDate();
+            insertRubricCriteriaTitle();
+            InsertSelectedRubricCriteriaTable();
+        }
+
         async function fetchInternDate() {
             const internBatchID = document.getElementById('InternStartDate').value;
             const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
@@ -469,6 +444,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
             return internObj;
         }
 
+        //Calling async function need to be async as well
         async function insertDate() {
             const internObj = await fetchInternDate();
             if (internObj.length != 0) {
@@ -487,26 +463,46 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
             return CmpLvlObj;
         }
 
-        let countScore = 0;
-
-        async function insertRubricCriteriaTitle() {
-            InsertCriteriaTable();
-            const selectedRubricAssessmentCriteriaTable = document.getElementById("selected-rubric-assessment-criteria-table");
-            if (selectedRubricAssessmentCriteriaTable.hasChildNodes()) {
-                removeAllChildNodes(selectedRubricAssessmentCriteriaTable);
-                countScore = 0;
-                const testTable = document.getElementById("test-table");
-                if (testTable.hasChildNodes()) {
-                    removeAllChildNodes(testTable);
-                }
-            }
-
+        async function fetchSelectedRubricCriteria() {
+            const assessmentID = document.getElementById("assessmentID").value;
+            const getRubricCriteriaPhp = '../../app/DAL/ajaxGetRubricCriteria.php?assessmentID=' + assessmentID;
+            let getRubricCriteriaPhpRespond = await fetch(getRubricCriteriaPhp);
+            let RubricCriteriaObj = await getRubricCriteriaPhpRespond.json();
+            return RubricCriteriaObj;
         }
 
-        async function InsertCriteriaTable() {
-            const criteriaResult = await fetchRubricCriteriaTitle();
-            const supervisorTable = document.getElementById("rubric-assessment-criteria-table");
+        async function insertRubricCriteriaTitle() {
+            const CmpLvlObj = await fetchRubricCriteriaTitle();
+            tab3InsertTable();
+            let CmpLvlSelect = document.querySelectorAll("#Assmt_Criteria_Title");
+            CmpLvlSelect.forEach(i => {
+                //console.log(i)
+                i.parentNode.nextElementSibling.childNodes[3].value = "None";
+                i.parentNode.nextElementSibling.nextElementSibling.childNodes[3].value = "None";
+                if (Object.keys(CmpLvlObj).length != 0) {
+                    i.innerHTML = "";
+                    i.innerHTML += "<option selected disabled value=''>Choose...</option>";
+                    for (let j = 0; j < CmpLvlObj.length; j++) {
+                        i.innerHTML += "<option value='" + CmpLvlObj[j].criterionID + "'>" + CmpLvlObj[j].Title + "</option>";
+                    }
+                } else {
+                    i.innerHTML = "<option value='None'>None</option>";
+                }
+            });
+            //console.log(CmpLvlSelect);
+            //console.log($('[id^=ComponentLevel_]').attr('id'));
+            //document.getElementById('Assmt_Criteria_Title');
+            //console.log($('[id^=Assmt_Criteria_Title]').attr('id'));
+            //console.log(CmpLvlObj);
+        }
 
+        count = 2;
+
+        async function tab3InsertTable() {
+            const criteriaResult = await fetchRubricCriteriaTitle();
+            const selectedCriteriaResult = await fetchSelectedRubricCriteria();
+            const supervisorTable = document.getElementById("rubric-assessment-criteria-table");
+            const getSpan = document.getElementsByClassName("facAcronym-span");
 
             if (supervisorTable.hasChildNodes()) {
                 removeAllChildNodes(supervisorTable);
@@ -522,15 +518,33 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                     } else {
                         var maxScore = str;
                     }
-
                     let trLeft = document.createElement("tr");
-                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
-                    trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
-                    trLeft.setAttribute("data-Title", criteriaResult[i].Title);
-                    trLeft.setAttribute("data-score", criteriaResult[i].score);
-                    trLeft.setAttribute("data-maxScore", maxScore);
+                    if (selectedCriteriaResult.length != i && selectedCriteriaResult != "No Data Found") {
+                        if (criteriaResult[i].criterionID == selectedCriteriaResult[i].criterionID) {
+                            trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
+                            trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
+                            trLeft.setAttribute("data-Title", criteriaResult[i].Title);
+                            trLeft.setAttribute("data-score", criteriaResult[i].score);
+                            trLeft.setAttribute("data-maxScore", maxScore);
 
-                    trLeft.innerHTML = `
+                            trLeft.innerHTML = `
+                    <td>${criteriaResult[i].criterionID}</td>
+                    <td>${criteriaResult[i].CriteriaSession}
+                    </td>
+                    <td>${criteriaResult[i].Title}</td>
+                    <td>${maxScore}</td>
+                    <td>
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox" checked>
+                    </td>
+                `;
+                        } else {
+                            trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
+                            trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
+                            trLeft.setAttribute("data-Title", criteriaResult[i].Title);
+                            trLeft.setAttribute("data-score", criteriaResult[i].score);
+                            trLeft.setAttribute("data-maxScore", maxScore);
+
+                            trLeft.innerHTML = `
                     <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
@@ -540,8 +554,85 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                         <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
                     </td>
                 `;
+                        }
+                    } else {
+                        trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
+                        trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
+                        trLeft.setAttribute("data-Title", criteriaResult[i].Title);
+                        trLeft.setAttribute("data-score", criteriaResult[i].score);
+                        trLeft.setAttribute("data-maxScore", maxScore);
+
+                        trLeft.innerHTML = `
+                    <td>${criteriaResult[i].criterionID}</td>
+                    <td>${criteriaResult[i].CriteriaSession}
+                    </td>
+                    <td>${criteriaResult[i].Title}</td>
+                    <td>${maxScore}</td>
+                    <td>
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
+                    </td>
+                `;
+                    }
+
+
                     supervisorTable.appendChild(trLeft);
                 }
+
+            } else {
+                //alert("No Data Found");
+                return;
+            }
+        }
+
+        async function InsertSelectedRubricCriteriaTable() {
+            const criteriaResult = await fetchSelectedRubricCriteria();
+            const table = document.getElementById("selected-rubric-assessment-criteria-table");
+            if (table.hasChildNodes()) {
+                removeAllChildNodes(table);
+            }
+
+            if (criteriaResult !== "No Data Found") {
+                for (let i = 0; i < criteriaResult.length; i++) {
+                    var str = criteriaResult[i].score;
+                    if (typeof str.split('-')[1] != "undefined") {
+                        var maxScore = str.split('-')[1];
+                    } else {
+                        var maxScore = str;
+                    }
+                    let trLeft = document.createElement("tr");
+                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
+                    trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
+                    trLeft.setAttribute("data-Title", criteriaResult[i].Title);
+                    trLeft.setAttribute("data-score", criteriaResult[i].score);
+                    trLeft.setAttribute("data-maxScore", maxScore);
+                    trLeft.innerHTML = `
+                    <td>${criteriaResult[i].criterionID}</td>
+                    <td>${criteriaResult[i].CriteriaSession}
+                    </td>
+                    <td>${criteriaResult[i].Title}</td>
+                    <td>${maxScore}</td>
+                    <td>
+                    <button type="button" onClick="deleteFrmdb(this,${maxScore},${criteriaResult[i].criterionID});">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				    </button>
+                `;
+
+                    table.appendChild(trLeft);
+                    countScore += Number.parseInt(maxScore);
+                }
+
+                const testTable = document.getElementById("test-table");
+                let trRight = document.createElement("tr");
+                if (testTable.hasChildNodes()) {
+                    removeAllChildNodes(testTable);
+                }
+
+                trRight.innerHTML = `
+            
+            <td style="width:35%">Total Score</td>
+            <td>${countScore}</td>
+            `;
+                testTable.appendChild(trRight);
             } else {
                 //alert("No Data Found");
                 return;
@@ -553,8 +644,30 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 parent.removeChild(parent.firstChild);
             }
         }
+        let countScore = 0;
 
-        function assign() {
+        //when edit click remove selected will ask confirm if confirm will direct delete the selected database
+        async function deleteFrmdb(currentRow, currentScore, criterionID) {
+            let text = "This will direct delete your selected Rubric Criteria!\nEither OK or Cancel.";
+            assessmentID = document.getElementById('assessmentID').value;
+            if (confirm(text) == true) {
+                removeChildNode(currentRow, currentScore);
+                let url = `../../app/DAL/ajaxDelSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${criterionID.name}`;
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if (data == "Success") {
+                    alert("Update Successfully");
+                } else {
+                    alert("Update Failed");
+                }
+            } else {
+
+            }
+        }
+        //when click assign will store the selected criteria to database
+        async function assign() {
+            assessmentID = document.getElementById('assessmentID').value;
             var table = document.getElementById("rubric-assessment-criteria-table");
             const studentTable = document.getElementById("selected-rubric-assessment-criteria-table");
             const rCount = table.rows.length;
@@ -566,19 +679,20 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                         trRight.setAttribute("data-Title", table.rows[i].getAttribute('data-Title'));
                         trRight.setAttribute("data-maxScore", table.rows[i].getAttribute('data-maxScore'));
                         trRight.innerHTML = `
-                    <td>${table.rows[i].getAttribute('data-criterionID')}<input hidden name="criterionID[]" value="${table.rows[i].getAttribute('data-criterionID')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-criterionID')}</td>
                     <td>${table.rows[i].getAttribute('data-CriteriaSession')}</td>
-                    <td>${table.rows[i].getAttribute('data-Title')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
-                    <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-Title')}</td>
+                    <td>${table.rows[i].getAttribute('data-maxScore')}</td>
                     <td>
-                    <button type="button" onClick="removeChildNode(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}));">
+                    <button type="button" onClick="deleteFrmdb(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}),${table.rows[i].getAttribute('data-criterionID')});">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                     
                     </td>
                 `;
                         studentTable.appendChild(trRight);
-
+                        let url = `../../app/DAL/ajaxInsertSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${table.rows[i].getAttribute('data-criterionID')}&title=${table.rows[i].getAttribute('data-Title')}&score=${table.rows[i].getAttribute('data-maxScore')}`;
+                        await fetch(url);
                         countScore += Number.parseInt(table.rows[i].getAttribute('data-maxScore'));
                     }
                 }
@@ -601,6 +715,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         }
 
         function removeChildNode(currentRow, currentScore) {
+            //countScore-= Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}); $(this).closest('tr').remove();
             $(currentRow).closest('tr').remove();
             countScore -= Number.parseInt(currentScore)
             checkScoreIsMatch(countScore);
@@ -648,21 +763,35 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
             return true;
         }
 
-        function resetSelect(table1, table2) {
-            if (table2.hasChildNodes()) {
-                removeAllChildNodes(table2);
-            }
-            const testTable = document.getElementById("test-table");
-            if (testTable.hasChildNodes()) {
-                removeAllChildNodes(testTable);
-            }
-            var rCount = table1.rows.length;
-            for (var i = 0; i < table1.rows.length; i++) {
-                if (table1.rows[i].cells[4].children[0].checked) {
-                    table1.rows[i].cells[4].children[0].checked = false;
+        async function resetSelect(table1, table2) {
+            let text = "This will direct delete your all selected Rubric Criteria!\nEither OK or Cancel.";
+            assessmentID = document.getElementById('assessmentID').value;
+            if (confirm(text) == true) {
+                if (table2.hasChildNodes()) {
+                    removeAllChildNodes(table2);
+                }
+                const testTable = document.getElementById("test-table");
+                let trRight = document.createElement("tr");
+                if (testTable.hasChildNodes()) {
+                    removeAllChildNodes(testTable);
+                }
+                var rCount = table1.rows.length;
+                for (var i = 0; i < table1.rows.length; i++) {
+                    if (table1.rows[i].cells[4].children[0].checked) {
+                        table1.rows[i].cells[4].children[0].checked = false;
+                    }
+                }
+                countScore = 0;
+                let url = `../../app/DAL/ajaxDelSelectedRubricCriteria.php?assessmentID=${assessmentID}&reset=true`;
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if (data == "Success") {
+                    alert("All Selected Rubric Critera Successfully Reset");
+                } else {
+                    alert("Reset Failed");
                 }
             }
-            countScore = 0;
         }
     </script>
 
