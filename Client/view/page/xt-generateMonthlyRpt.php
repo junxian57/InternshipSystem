@@ -3,6 +3,10 @@ require_once('../../../TCPDF-main/tcpdf.php');
 
 extract($_POST);
 
+if(isset($_GET['monthlyRptID'])){
+  $monthlyReportID = $_GET['monthlyRptID'];
+}
+
 if(isset($_POST['signaturesubmit'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
@@ -11,7 +15,7 @@ if(isset($_POST['signaturesubmit'])){
                                 
   $conn = mysqli_connect($host, $user, $password, $database); 
 
-  $monthRptID = $_POST['studName'];
+  $monthRptID = $monthlyReportID;
   $studID = "21WMR04845";
   $cmpID = "CMP00001";
   $monthOfTraining = $_POST['monthYear'];
@@ -22,6 +26,7 @@ if(isset($_POST['signaturesubmit'])){
   $issuesEncountered = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
   $leaveTakens = $_POST['leaveDays'];
+  $status = "Saved";
 
   if($leaveTaken == 'NO'){
     $leaveReasons = "N/A";
@@ -30,7 +35,7 @@ if(isset($_POST['signaturesubmit'])){
     $leaveReasons = $_POST['leaveReason'];
   }
 
-  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason) VALUES ('$monthRptID','$studID','$cmpID','$monthOfTraining','$firstWeekDeliverables','$secondWeekDeliverables','$thirdWeekDeliverables','$forthWeekDeliverables','$issuesEncountered','$leaveTaken','$leaveReasons')";
+  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, status) VALUES ('$monthRptID','$studID','$cmpID','$monthOfTraining','$firstWeekDeliverables','$secondWeekDeliverables','$thirdWeekDeliverables','$forthWeekDeliverables','$issuesEncountered','$leaveTaken','$leaveReasons', '$status')";
   if (mysqli_query($conn, $sql)) {
     $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];

@@ -13,7 +13,7 @@ include('includes/dbconnection.php');
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-companiesList.css" rel="stylesheet">
+	<link href="../../css/xt-companyResponse.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
@@ -25,8 +25,8 @@ include('includes/dbconnection.php');
 	<script src="../../js/custom.js"></script>
 
   <style>
-    h3 .title1{
-      width: 180px;
+    h3.title1{
+      padding-right: 30px;
       float: left;
     }
 
@@ -76,19 +76,107 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tables">
 					<h3 class="title1">View Work Progress</h3><?php echo "<a href='xt-recordWorkProgress.php?monthlyReportID=$monthlyReportID' class='btn btn-success' id='btn-save' name='record'>";?>Record Work Progress</a>
-					<div class="table-responsive bs-example widget-shadow" style="background: transparent; border: 1px solid #797d7a;">
-					<div class="panel-body">
-            <div class="input-group">
-							<input type="text" class="form-control" id="filterMonthRptList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
-							<a class="input-group-addon" style="border: 1px solid #797d7a;">
-								<i class="fa fa-search"></i>
-							</a>
-						</div>
+					<hr>
+					<div class="tab">
+						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
+						<button class="tablinks" onclick="statusType(event, 'Submitted')">Submitted</button>
 					</div>
-						<table id="monthRptListTable" class="sortable">
+
+					<div id="Saved" class="tabcontent">
+						<div class="panel-body">
+            	<div class="input-group">
+								<input type="text" class="form-control" id="filterProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<a class="input-group-addon" style="border: 1px solid #797d7a;">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
+						</div>
+						<table id="progressTable" class="sortable">
 							<thead>
 								<tr>
-									<th>Monthly Report ID</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Monthly Report ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Company ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Company Name</span>
+										</button>
+									</th>
+                  <th>
+										<button>
+											<span aria-hidden="true">Month of Training</span>
+										</button>
+									</th>
+                  <th>
+										<button>
+											<span aria-hidden="true">Status</span>
+										</button>
+									</th>
+                  <th style="border-right: 0;">Action</th>
+									<th style="border-left: 0;"></th>
+								</tr>
+							</thead>
+
+							<tbody>
+							<?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND status = 'Saved'";
+                $run_month = mysqli_query($conn, $get_month);
+                while($row_month = mysqli_fetch_array($run_month)){
+                  $monthlyRptID = $row_month['monthlyReportID'];
+                  $cmpID = $row_month['companyID'];
+                  $monthOfTraining = $row_month['monthOfTraining'];
+									$status = $row_month['status'];
+
+									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                	$run_cmp = mysqli_query($conn, $get_cmp);
+									$row_cmp = mysqli_fetch_array($run_cmp);
+									$cmpName = $row_cmp['cmpName'];
+              ?>
+								<tr>
+									<td><?php echo $monthlyRptID; ?></td>
+									<td><?php echo $cmpID; ?></td>
+									<td><?php echo $cmpName; ?></td>
+									<td><?php echo $monthOfTraining; ?></td>
+                  <td><?php echo $status; ?></td>
+                  <td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
+									<td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
+                </tr>
+                <?php } ?>
+							</tbody>
+						</table>
+					</div>
+
+					<div id="Submitted" class="tabcontent">
+						<div class="panel-body">
+            	<div class="input-group">
+								<input type="text" class="form-control" id="filterProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<a class="input-group-addon" style="border: 1px solid #797d7a;">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
+						</div>
+						<table id="progressTable" class="sortable">
+							<thead>
+								<tr>
+									<th>
+										<button>
+											<span aria-hidden="true">Monthly Report ID</span>
+										</button>
+									</th>
 									<th>
 										<button>
 											<span aria-hidden="true">Company ID</span>
@@ -113,29 +201,35 @@ include('includes/dbconnection.php');
 								</tr>
 							</thead>
 
-              <?php
-                    $host = "sql444.main-hosting.eu";
-                    $user = "u928796707_group34";
-                    $password = "u1VF3KYO1r|";
-                    $database = "u928796707_internshipWeb";
-                                              
-                    $conn = mysqli_connect($host, $user, $password, $database); 
-
-                    $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845'";
-                    $run_month = mysqli_query($conn, $get_month);
-                    while($row_month = mysqli_fetch_array($run_month)){
-                      $monthlyRptID = $row_month['monthlyReportID'];
-                      $cmpID = $row_month['companyID'];
-                      $monthOfTraining= $row_month['monthOfTraining'];
-                ?>
 							<tbody>
+							<?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND status='Submitted'";
+                $run_month = mysqli_query($conn, $get_month);
+                while($row_month = mysqli_fetch_array($run_month)){
+                  $monthlyRptID = $row_month['monthlyReportID'];
+                  $cmpID = $row_month['companyID'];
+                  $monthOfTraining = $row_month['monthOfTraining'];
+									$status = $row_month['status'];
+
+									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                	$run_cmp = mysqli_query($conn, $get_cmp);
+									$row_cmp = mysqli_fetch_array($run_cmp);
+									$cmpName = $row_cmp['cmpName'];
+              ?>
 								<tr>
-									<td><?php echo "$monthlyRptID";?></td>
-									<td><?php echo "$cmpID";?></td>
-									<td><?php echo "$cmpID";?></td>
-									<td><?php echo "$monthOfTraining";?></td>
-                  <td>Pending Review</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+									<td><?php echo $monthlyRptID; ?></td>
+									<td><?php echo $cmpID; ?></td>
+									<td><?php echo $cmpName; ?></td>
+									<td><?php echo $monthOfTraining; ?></td>
+                  <td><?php echo $status; ?></td>
+                  <td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">View</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>
@@ -166,17 +260,34 @@ include('includes/dbconnection.php');
 	</script>
 
 <script>
-		function filterMonthRptTable(event) {
+		function statusType(evt, statusType) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+  		for (i = 0; i < tabcontent.length; i++) {
+    		tabcontent[i].style.display = "none";
+  		}
+  		tablinks = document.getElementsByClassName("tablinks");
+  		for (i = 0; i < tablinks.length; i++) {
+    		tablinks[i].className = tablinks[i].className.replace(" active", "");
+  		}
+  		document.getElementById(statusType).style.display = "block";
+  		evt.currentTarget.className += " active";
+		}
+		document.getElementById("activeTab").click();
+	</script>
+
+	<script>
+		function filterProgressTable(event) {
     	var filter = event.target.value.toUpperCase();
-    	var rows = document.querySelector("#monthRptListTable tbody").rows;
+    	var rows = document.querySelector("#progressTable tbody").rows;
     
     	for (var i = 0; i < rows.length; i++) {
-				var firstCol = rows[i].cells[1].textContent.toUpperCase();
-      	var secondCol = rows[i].cells[2].textContent.toUpperCase();
-				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
-      	var forthCol = rows[i].cells[4].textContent.toUpperCase();
-        var fifthCol = rows[i].cells[5].textContent.toUpperCase();
-      	var sixthCol = rows[i].cells[6].textContent.toUpperCase();
+				var firstCol = rows[i].cells[0].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[1].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[3].textContent.toUpperCase();
+				var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+      	var sixthCol = rows[i].cells[5].textContent.toUpperCase();
       	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
 					rows[i].style.display = "";
 				} else {
@@ -184,7 +295,7 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterMonthRptList').addEventListener('keyup', filterMonthRptListTable, false);
+		document.querySelector('#filterProgress').addEventListener('keyup', filterProgressTable, false);
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>

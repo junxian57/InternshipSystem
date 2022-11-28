@@ -57,7 +57,7 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="xt-generateMonthlyRpt.php" enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
