@@ -27,10 +27,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $CreateDate = $date;
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
 
-    if (count($_POST['componentID']) == count($_POST['criteriaTitle'])) {
-        $countRow = count($_POST['componentID']);
+    if (count($_POST['criterionID']) == count($_POST['criteriaTitle'])) {
+        $countRow = count($_POST['criterionID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['componentID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
+            $newOfRubricCriteriaDto[] = new rubricAssessmentCriteriaDTO($assessmentID, $_POST['criterionID'][$i], $_POST['criteriaTitle'][$i], $_POST['maxScore'][$i]);
         }
     }
 
@@ -65,8 +65,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
         border: 1px solid gray;
         padding: 15px;
         margin: 10px 0;
-        min-height: 360px;
-        max-height: 360px;
+        min-height: 600px;
+        max-height: 600px;
     }
 
     .checkbox-group fieldset legend {
@@ -197,7 +197,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     .checkbox-group table tbody,
     .checkbox-group table tfoot {
         display: block;
-        max-height: 250px;
+        max-height: 435px;
         overflow-y: scroll;
     }
 
@@ -517,22 +517,27 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
 
                 for (let i = 0; i < criteriaResult.length; i++) {
                     var str = criteriaResult[i].score;
-                    var maxScore = str.substr(-1);
+                    if (typeof str.split('-')[1] != "undefined") {
+                        var maxScore = str.split('-')[1];
+                    } else {
+                        var maxScore = str;
+                    }
+
                     let trLeft = document.createElement("tr");
-                    trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
+                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
                     trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                     trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                     trLeft.setAttribute("data-score", criteriaResult[i].score);
                     trLeft.setAttribute("data-maxScore", maxScore);
 
                     trLeft.innerHTML = `
-                    <td>${criteriaResult[i].componentID}</td>
+                    <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].componentID}" class="tab-3-checkbox">
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
                     </td>
                 `;
                     supervisorTable.appendChild(trLeft);
@@ -561,9 +566,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                         trRight.setAttribute("data-Title", table.rows[i].getAttribute('data-Title'));
                         trRight.setAttribute("data-maxScore", table.rows[i].getAttribute('data-maxScore'));
                         trRight.innerHTML = `
-                    <td>${table.rows[i].getAttribute('data-componentID')}<input hidden name="componentID[]" value="${table.rows[i].getAttribute('data-componentID')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-criterionID')}<input hidden name="criterionID[]" value="${table.rows[i].getAttribute('data-criterionID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-CriteriaSession')}</td>
-                    <td>${table.rows[i].getAttribute('data-componentID')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-Title')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
                     <td>
                     <button type="button" onClick="removeChildNode(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}));">
