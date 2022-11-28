@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
 
     $id = $_POST['id'];
     $username = $_POST['username'];
-    $query = "UPDATE Student SET studAccountStatus ='initialPass' WHERE studentID='$id' ";
+    $query = "UPDATE Student SET studAccountStatus ='InitialPass' WHERE studentID='$id' ";
     $query_run = mysqli_query($conn, $query);
 
     $mailConfig = new EmailConfig();
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
     $y=date('y');
     $d=date('d');
     $pass=$a.$m.$y.$d;
-    //link has problem
+    
     $passMessage='<html>
     <p>Dear '.$username.', You have been invited to register in ITP system.</p>
     <p>Your id is '.$id.' and initial password is '.$pass.'</p>

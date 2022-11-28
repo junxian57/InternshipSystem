@@ -53,3 +53,36 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 .tables .bs-example {
   padding: 50px 25px;
 }
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #797d7a;
+  background-color: #e5e2ff;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: 1px solid #797d7a;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  display: none;
+  padding: 50px 25px;
+  border: 1px solid #797d7a;
+  border-top: none;
+  width: 100%;
+}

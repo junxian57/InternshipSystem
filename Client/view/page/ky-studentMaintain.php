@@ -84,7 +84,7 @@ include('../../includes/db_connection.php');
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                             <div class="content">
-                                <form action="#">
+                                <form action="ky-createCV.php" method="post">
                                     <div class="user-details">
                                     <div class="title">
                                         <h2 class="title-1">Student Name & Contact</h2>
@@ -177,19 +177,35 @@ include('../../includes/db_connection.php');
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" style="width: 100%;" placeholder="Work Experience" name="workExperience" required readonly>         
+                                        <input type="text" style="width: 100%;" placeholder="Career objectives" name="objectives" required>         
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <textarea type="text" name="skill" placeholder="Skills" cols="30" rows="4" required readonly></textarea>
+                                        <input type="text" style="width: 100%;" placeholder="Work Experience" name="workExperience" required >         
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <textarea type="text" name="Language" placeholder="Languages" cols="30" rows="4" required readonly></textarea>
+                                        <textarea type="text" name="skill" placeholder="Skills" cols="30" rows="4" required></textarea>
                                     </div>
 
                                     <div class="input-style name-address-group">
-                                        <input type="text" style="width: 100%;" placeholder="School or University" name="school" required readonly>         
+                                        <textarea type="text" name="Language" placeholder="Languages" cols="30" rows="4" required></textarea>
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="Education" name="education" required>         
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="School or University" name="school" required>         
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="CGPA" name="cgpa" required>         
+                                    </div>
+
+                                    <div class="input-style name-address-group">
+                                        <input type="text" style="width: 100%;" placeholder="EXTRACURRICULAR ACTIVITIES" name="extraActivities" required>         
                                     </div>
 
                                     <div class="title" style="margin-top: 30px;">
@@ -202,11 +218,11 @@ include('../../includes/db_connection.php');
                                             
                                         </form>
                                     </div>
-                                            
-                                   
+                                        
                                     <div class="button-group">
                                         <a class="clickable-btn Update" href="">Update</a>
                                         <a class="clickable-btn Export" href="">Cancel</a>
+                                        <button type = "submit" name="createCV" class="submit-btn">Create</button>
                                     </div>
 
 

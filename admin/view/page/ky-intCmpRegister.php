@@ -48,7 +48,7 @@ include('../../includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="page-title">Student Invitation</h3>
+                    <h3 class="page-title">Company Invitation</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
@@ -58,13 +58,12 @@ include('../../includes/db_connection.php');
                             <table  class="table-view" id="myTable">
                             <thead>
                                 <tr>
-                                <th>User Id</th>
-                                <th>Name</th>
-                                <th>Gender</th>
+                                <th>Company Id</th>
+                                <th>Company Name</th>
                                 <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Programme</th> 
-                                <th>Status</th>
+                                <th>Contact No</th>
+                                <th>Account Status</th>
+                                <th>Date Joined</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
@@ -74,30 +73,28 @@ include('../../includes/db_connection.php');
                                     
                                     $db = new DBController();
                                         
-                                    $sql = "select * from Student where studAccountStatus ='Pending Invite' "; 
+                                    $sql = "select * from Company where cmpAccountStatus ='Pending' "; 
                                     $result = $db->runQuery($sql);
 
                                     if(count($result) > 0){
-                                         foreach ($result as $student) {
-                                        
-                                            $Id = $student['studentID'];
-                                            $username = $student['studName'];
-                                            $gender = $student['studGender'];
-                                            $email = $student['studEmail'];
-                                            $phone = $student['studContactNumber'];
-                                            $programme = $student['programmeID'];
-                                            $status = $student['studAccountStatus'];
-                                        
+                                         foreach ($result as $company) {
+                                          
+                                            $Id = $company['companyID'];
+                                            $username = $company['cmpName'];
+                                            $email = $company['cmpEmail'];
+                                            $phone = $company['cmpContactNumber'];
+                                            $status = $company['cmpAccountStatus'];
+                                            $dateJoined = $company['cmpDateJoined'];
+
                                             echo '<tr>
                                                 <td>' .$Id. '</td>
                                                 <td>' .$username. '</td>
-                                                <td>' .$gender. '</td>
                                                 <td>' .$email. '</td>
                                                 <td>' .$phone. '</td>
-                                                <td>' .$programme. '</td>
                                                 <td>' .$status. '</td>
+                                                <td>' .$dateJoined. '</td>
                                                 <td>
-                                                <form action="ky-sendStud.php" method="post">
+                                                <form action="ky-sendCmp.php" method="post">
                                                 <input type="hidden" name="email" id="email" value="'.$email.'">
                                                 <input type="hidden" name="username" id="username" value="'.$username.'">
                                                 <input type="hidden" name="id" id="id" value="'.$Id.'">

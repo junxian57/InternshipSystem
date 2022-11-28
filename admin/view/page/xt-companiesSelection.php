@@ -150,7 +150,7 @@
 		}
 	</script>
 
-<script>
+	<script>
 		function filterCmpTable(event) {
     	var filter = event.target.value.toUpperCase();
     	var rows = document.querySelector("#cmpTable tbody").rows;

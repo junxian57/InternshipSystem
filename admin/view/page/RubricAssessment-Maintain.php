@@ -61,8 +61,8 @@ if ($_GET['act'] == "edit") {
         border: 1px solid gray;
         padding: 15px;
         margin: 10px 0;
-        min-height: 360px;
-        max-height: 360px;
+        min-height: 600px;
+        max-height: 600px;
     }
 
     .checkbox-group fieldset legend {
@@ -193,7 +193,7 @@ if ($_GET['act'] == "edit") {
     .checkbox-group table tbody,
     .checkbox-group table tfoot {
         display: block;
-        max-height: 250px;
+        max-height: 435px;
         overflow-y: scroll;
     }
 
@@ -513,59 +513,63 @@ if ($_GET['act'] == "edit") {
 
                 for (let i = 0; i < criteriaResult.length; i++) {
                     var str = criteriaResult[i].score;
-                    var maxScore = str.substr(-1);
+                    if (typeof str.split('-')[1] != "undefined") {
+                        var maxScore = str.split('-')[1];
+                    } else {
+                        var maxScore = str;
+                    }
                     let trLeft = document.createElement("tr");
                     if (selectedCriteriaResult.length != i && selectedCriteriaResult != "No Data Found") {
-                        if (criteriaResult[i].componentID == selectedCriteriaResult[i].componentID) {
-                            trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
+                        if (criteriaResult[i].criterionID == selectedCriteriaResult[i].criterionID) {
+                            trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
                             trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                             trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                             trLeft.setAttribute("data-score", criteriaResult[i].score);
                             trLeft.setAttribute("data-maxScore", maxScore);
 
                             trLeft.innerHTML = `
-                    <td>${criteriaResult[i].componentID}</td>
+                    <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].componentID}" class="tab-3-checkbox" checked>
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox" checked>
                     </td>
                 `;
                         } else {
-                            trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
+                            trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
                             trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                             trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                             trLeft.setAttribute("data-score", criteriaResult[i].score);
                             trLeft.setAttribute("data-maxScore", maxScore);
 
                             trLeft.innerHTML = `
-                    <td>${criteriaResult[i].componentID}</td>
+                    <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].componentID}" class="tab-3-checkbox">
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
                     </td>
                 `;
                         }
                     } else {
-                        trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
+                        trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
                         trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                         trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                         trLeft.setAttribute("data-score", criteriaResult[i].score);
                         trLeft.setAttribute("data-maxScore", maxScore);
 
                         trLeft.innerHTML = `
-                    <td>${criteriaResult[i].componentID}</td>
+                    <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].componentID}" class="tab-3-checkbox">
+                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
                     </td>
                 `;
                     }
@@ -590,21 +594,25 @@ if ($_GET['act'] == "edit") {
             if (criteriaResult !== "No Data Found") {
                 for (let i = 0; i < criteriaResult.length; i++) {
                     var str = criteriaResult[i].score;
-                    var maxScore = str.substr(-1);
+                    if (typeof str.split('-')[1] != "undefined") {
+                        var maxScore = str.split('-')[1];
+                    } else {
+                        var maxScore = str;
+                    }
                     let trLeft = document.createElement("tr");
-                    trLeft.setAttribute("data-componentID", criteriaResult[i].componentID);
+                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
                     trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
                     trLeft.setAttribute("data-Title", criteriaResult[i].Title);
                     trLeft.setAttribute("data-score", criteriaResult[i].score);
                     trLeft.setAttribute("data-maxScore", maxScore);
                     trLeft.innerHTML = `
-                    <td>${criteriaResult[i].componentID}</td>
+                    <td>${criteriaResult[i].criterionID}</td>
                     <td>${criteriaResult[i].CriteriaSession}
                     </td>
                     <td>${criteriaResult[i].Title}</td>
                     <td>${maxScore}</td>
                     <td>
-                    <button type="button" onClick="deleteFrmdb(this,${maxScore},${criteriaResult[i].componentID});">
+                    <button type="button" onClick="deleteFrmdb(this,${maxScore},${criteriaResult[i].criterionID});">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                 `;
@@ -639,12 +647,12 @@ if ($_GET['act'] == "edit") {
         let countScore = 0;
 
         //when edit click remove selected will ask confirm if confirm will direct delete the selected database
-        async function deleteFrmdb(currentRow, currentScore, componentID) {
+        async function deleteFrmdb(currentRow, currentScore, criterionID) {
             let text = "This will direct delete your selected Rubric Criteria!\nEither OK or Cancel.";
             assessmentID = document.getElementById('assessmentID').value;
             if (confirm(text) == true) {
                 removeChildNode(currentRow, currentScore);
-                let url = `../../app/DAL/ajaxDelSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${componentID.name}`;
+                let url = `../../app/DAL/ajaxDelSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${criterionID.name}`;
                 let response = await fetch(url);
                 let data = await response.json();
 
@@ -671,19 +679,19 @@ if ($_GET['act'] == "edit") {
                         trRight.setAttribute("data-Title", table.rows[i].getAttribute('data-Title'));
                         trRight.setAttribute("data-maxScore", table.rows[i].getAttribute('data-maxScore'));
                         trRight.innerHTML = `
-                    <td>${table.rows[i].getAttribute('data-componentID')}</td>
+                    <td>${table.rows[i].getAttribute('data-criterionID')}</td>
                     <td>${table.rows[i].getAttribute('data-CriteriaSession')}</td>
                     <td>${table.rows[i].getAttribute('data-Title')}</td>
                     <td>${table.rows[i].getAttribute('data-maxScore')}</td>
                     <td>
-                    <button type="button" onClick="deleteFrmdb(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}),${table.rows[i].getAttribute('data-componentID')});">
+                    <button type="button" onClick="deleteFrmdb(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}),${table.rows[i].getAttribute('data-criterionID')});">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                     
                     </td>
                 `;
                         studentTable.appendChild(trRight);
-                        let url = `../../app/DAL/ajaxInsertSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${table.rows[i].getAttribute('data-componentID')}&title=${table.rows[i].getAttribute('data-Title')}&score=${table.rows[i].getAttribute('data-maxScore')}`;
+                        let url = `../../app/DAL/ajaxInsertSelectedRubricCriteria.php?assessmentID=${assessmentID}&criterionID=${table.rows[i].getAttribute('data-criterionID')}&title=${table.rows[i].getAttribute('data-Title')}&score=${table.rows[i].getAttribute('data-maxScore')}`;
                         await fetch(url);
                         countScore += Number.parseInt(table.rows[i].getAttribute('data-maxScore'));
                     }

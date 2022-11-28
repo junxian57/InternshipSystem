@@ -84,7 +84,8 @@ include('../../includes/db_connection.php');
                             <tbody>
                                 <?php
                                     $db = new DBController();
-
+                                    $sql = "select * from Company"; 
+                                    $result = $db->runQuery($sql);
                                     
                                     // $server = "localhost";
                                     // $username = "root";
@@ -95,10 +96,6 @@ include('../../includes/db_connection.php');
                                     // if (!$conn){
                                     //     die("Error". mysqli_connect_error());
                                     // }
-
-                                    $sql = "select * from Company"; 
-                                    $result = $db->runQuery($sql);
-                                    
                                     // while($row=mysqli_fetch_assoc($result)) {
                                     //     $Id = $row['companyID'];
                                     //     $name = $row['cmpName'];
@@ -149,8 +146,7 @@ include('../../includes/db_connection.php');
                                                   
                                                     <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
                                                     <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                    <button><i class="uil uil-file-export" style="color:green"></i>
-                                                    <!-- Export file --></button>
+                                               
                                                 </div>
                                             </td>
                                         </tr>
@@ -285,7 +281,7 @@ include('../../includes/db_connection.php');
             </div>
             <div class="login-form">
                 <div class="content">
-                    <form action="">
+                    <form action="ky-exportCmpDetails.php" method="POST">
                         <div class="user-details">
                             
                         <div class="pass-box">
@@ -366,6 +362,7 @@ include('../../includes/db_connection.php');
                                 <i class="uil uil-star icon"></i>
                             </div>
 
+                            <button type = "submit" name="Exportpdf" class="submit-btn">Export</button>
                             <button id="close-modal" type="button" class="submit-btn">Cancel</button>
                            
                         </div> 

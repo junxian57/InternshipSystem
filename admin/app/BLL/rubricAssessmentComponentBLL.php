@@ -65,7 +65,18 @@ class rubricAssessmentComponentBLL
             $all_rubricCmpCriteria_html .= '</tbody>';
             $all_rubricCmpCriteria_html .= '</table>';
         } else {
-            //$all_rubricCmpCriteria_html = '<div class="alert alert-warning" role="alert">No student found. Try <a href="add.php">add</a> some.</div>';
+            $all_rubricCmpCriteria_html .= '<table id="RubricCmpCriteriaTbl" class="table-view ">';
+            $all_rubricCmpCriteria_html .= '<thead>';
+            $all_rubricCmpCriteria_html .= '<tr>';
+            $all_rubricCmpCriteria_html .= '<th>#</th>';
+            $all_rubricCmpCriteria_html .= '<th>Assessment Criteria ID</th>';
+            $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Title</th>';
+            $all_rubricCmpCriteria_html .= '<th>Role of Mark</th>';
+            $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Session</th>';
+            $all_rubricCmpCriteria_html .= '<th>Action</th>';
+            $all_rubricCmpCriteria_html .= '</tr>';
+            $all_rubricCmpCriteria_html .= '</thead>';
+            $all_rubricCmpCriteria_html .= '</table>';
         }
 
         return $all_rubricCmpCriteria_html;
