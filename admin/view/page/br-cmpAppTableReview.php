@@ -1,26 +1,9 @@
 <?php
 session_start();
-error_reporting(0);
-include('includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
 
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
+require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -36,6 +19,9 @@ include('includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
@@ -60,116 +46,40 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="page-title">Company Self Application Review</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <!-- Tab Content 1-->
-                        <div id="StudentToSupervisor" class="tabcontent">
-                            <div class="table-title">
-                                <input type="search" id="keyInput" onkeyup="searchInTable()" placeholder="Enter Keyword of Company Name...">
-                                <p>Hint: Table Below Is Scrollable</p>
-                            </div>
-                            <div class="table-responsive black-border">
-                                <table id="myTable">
+                    <h3 class="page-title">Company Application Review</h3>
+                    <div class="form-grids row widget-shadow custom-padding" data-example-id="basic-forms">
+                        <div id="StudentToSupervisor" class="tab-content">
+                            <div>
+                                <table id="review-table">
                                     <thead>
-                                        <th>#</th>
-                                        <th>Company ID</th>
-                                        <th>Company Name</th>
-                                        <th>Application Date</th>
-                                        <th>Fields Area</th>
-                                        <th>Action</th>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Company ID</th>
+                                            <th>Company Name</th>
+                                            <th>Application Date</th>
+                                            <th>Fields Area</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>CMP00001</td>
-                                            <td>ABC Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <!-- 
-                                                // TODO : Add Action Button with ID 
-                                            -->
-                                            <td><a target="_blank" class="view" href="br-cmpDetailsPreview.php?=<?php echo "ID"?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>CMP00002</td>
-                                            <td>XYZ Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00003</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00004</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00005</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00006</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00007</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00008</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00009</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00010</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>CMP00011</td>
-                                            <td>EFG Group</td>
-                                            <td>12/9/2022</td>
-                                            <td>IT - Accounting</td>
-                                            <td><a class="view" href="edit-services.php?editid=<?php echo "ID"; ?>">View</a></td>
-                                        </tr>
+                                        <?php
+                                            $result = getCompanyWithStatus('Pending');
+
+                                            if(count($result) > 0){
+                                                $i = 1;
+                                                foreach($result as $row){
+                                                    echo "<tr>";
+                                                    echo "<td>".$i."</td>";
+                                                    echo "<td>".$row['companyID']."</td>";
+                                                    echo "<td>".$row['cmpName']."</td>";
+                                                    echo "<td>".$row['cmpDateJoined']."</td>";
+                                                    echo "<td>".$row['cmpFieldsArea']."</td>";
+                                                    echo "<td><a target='_blank' href='br-cmpDetailsPreview.php?companyID=".$row['companyID']."'>View</a></td>";
+                                                    echo "</tr>";
+                                                    $i++;
+                                                }
+                                            }
+                                        ?>                           
                                     </tbody>
                                 </table>
                             </div>
@@ -184,6 +94,10 @@ include('includes/db_connection.php');
 
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
@@ -201,99 +115,46 @@ include('includes/db_connection.php');
             classie.toggle(showLeftPush, 'disabled');
         }
     }
+
+    $(document).ready(function() {
+      let table = $('#review-table').DataTable({
+            "bLengthChange": false,
+            "info": false,
+            "dom": 'lrtp',
+            responsive : true
+        });
+        $.fn.dataTable.FixedHeader(table);
+    });
 </script>
-<script>
-    function searchInTable() {
-        let input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("keyInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+<?php
+if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyName'])){
+    $decodeName = urldecode($_GET['companyName']);
+    $companyID = $_GET['companyID'];
 
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    echo "<script> 
+    alert(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Rejected Successfully\n`)
+    window.location.href = 'br-cmpAppTableReview.php';
+    </script>";
 
-    //Search Result on Search Bar
-    function inputSearchResult() {
-        const getSearchResultArr = document.getElementsByClassName('search-result');
-        const getSearchBar = document.getElementById('searchBar');
-        const getResultBox = document.querySelector('.result-box');
+}elseif(isset($_GET['companyID']) && isset($_GET['approve']) && isset($_GET['companyName'])){
+    $decodeName = urldecode($_GET['companyName']);
+    $companyID = $_GET['companyID'];
 
-        if (getSearchResultArr.length > 0) {
-            for (let i = 0; i < getSearchResultArr.length; i++) {
-                getSearchResultArr[i].addEventListener('click', (btn) => {
-                    getSearchBar.value = btn.target.innerText;
-                    getResultBox.style.display = 'none';
-                });
-            }
-        } else {
-            return;
-        }
-    }
+    echo "<script> 
+    alert(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Approved Successfully`)
+    window.location.href = 'br-cmpAppTableReview.php';
+    </script>";
 
-    function removeAllChildNodes(parent) {
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
-        }
-    }
+}elseif(isset($_GET['companyID']) && isset($_GET['failed']) && isset($_GET['companyName'])){
+    $decodeName = urldecode($_GET['companyName']);
+    $companyID = $_GET['companyID'];
 
-    async function displaySearchResult() {
-        const getResultBox = document.querySelector('.result-box');
-        const respondResult = await searchBarData();
-        let resultArr = [];
-
-        if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
-            getResultBox.style.display = 'none';
-            return;
-        }
-        //Clear the existing box
-        removeAllChildNodes(getResultBox);
-
-        if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
-            for (let i = 0; i < Object.keys(respondResult).length; i++) {
-                resultArr[i] =
-                    `<li class='search-result'>${respondResult[i].employeeID}: ${respondResult[i].fullName}</li>`;
-            }
-        } else {
-            getResultBox.style.display = 'none';
-            return;
-        }
-
-        getResultBox.style.display = 'block';
-        getResultBox.innerHTML = resultArr.join('');
-        inputSearchResult();
-    }
-
-    async function searchBarData() {
-        const getSearchInput = document.getElementById('searchBar').value;
-        const getResultBox = document.querySelector('.result-box');
-        let url;
-
-        if (getSearchInput == '') {
-            getResultBox.style.display = 'none';
-            return;
-        } else {
-            if (Number.isInteger(parseInt(getSearchInput))) {
-                url = '../php-inc/ajaxSearchEmployee.php?icNo=' + getSearchInput;
-            } else {
-                url = '../php-inc/ajaxSearchEmployee.php?fullName=' + getSearchInput;
-            }
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-        }
-    }
-</script>
+    echo "<script> 
+    alert('Company ID: $companyID\nCompany Name: $decodeName\nStatus: Update Failed\n')
+    window.location.href = 'br-cmpAppTableReview.php';
+    </script>";
+}
+?>
 
 
 </html>

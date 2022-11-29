@@ -1,27 +1,9 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/db_connection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
-
-	if (isset($_POST['submit'])) {
-		$sername = $_POST['sername'];
-		$cost = $_POST['cost'];
-
-
-
-		$query = mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
-		if ($query) {
-			echo "<script>alert('Service has been added.');</script>";
-			echo "<script>window.location.href = 'add-services.php'</script>";
-			$msg = "";
-		} else {
-			echo "<script>alert('Something Went Wrong. Please try again.');</script>";
-		}
-	}*/
+include('../../includes/db_connection.php');
 ?>
+
 <!DOCTYPE HTML>
 <html lang="en" dir="ltr">
 <head>
@@ -66,7 +48,7 @@ include('includes/db_connection.php');
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="page-title">Student Maintenance</h3>
+                    <h3 class="page-title">Student Invitation</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
                         <div id="StudentToSupervisor" class="tabcontent">
@@ -82,35 +64,29 @@ include('includes/db_connection.php');
                                 <th>Email</th>
                                 <th>Phone Number</th>
                                 <th>Programme</th> 
-                                <th>Address</th>
+                                <th>Status</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                    <?php
+                                <?php
                                     
-                                        $server = "localhost";
-                                        $username = "root";
-                                        $password = "";
-                                        $database = "westorn";
-
-                                        $conn = mysqli_connect($server, $username, $password, $database);
-                                        if (!$conn){
-                                            die("Error". mysqli_connect_error());
-                                        }
-
-                                        $sql = "select * from student"; 
-                                        $result = mysqli_query($conn, $sql);
+                                    $db = new DBController();
                                         
-                                        while($row=mysqli_fetch_assoc($result)) {
-                                            $Id = $row['studentID'];
-                                            $username = $row['studName'];
-                                            $gender = $row['studGender'];
-                                            $email = $row['studEmail'];
-                                            $phone = $row['studContactNumber'];
-                                            $programme = $row['programmeID'];
-                                            $address = $row['studHomeAddress'];
+                                    $sql = "select * from Student where studAccountStatus ='Pending Invite' "; 
+                                    $result = $db->runQuery($sql);
+
+                                    if(count($result) > 0){
+                                         foreach ($result as $student) {
+                                        
+                                            $Id = $student['studentID'];
+                                            $username = $student['studName'];
+                                            $gender = $student['studGender'];
+                                            $email = $student['studEmail'];
+                                            $phone = $student['studContactNumber'];
+                                            $programme = $student['programmeID'];
+                                            $status = $student['studAccountStatus'];
                                         
                                             echo '<tr>
                                                 <td>' .$Id. '</td>
@@ -119,9 +95,9 @@ include('includes/db_connection.php');
                                                 <td>' .$email. '</td>
                                                 <td>' .$phone. '</td>
                                                 <td>' .$programme. '</td>
-                                                <td>' .$address. '</td>
+                                                <td>' .$status. '</td>
                                                 <td>
-                                                <form action="send.php" method="post">
+                                                <form action="ky-sendStud.php" method="post">
                                                 <input type="hidden" name="email" id="email" value="'.$email.'">
                                                 <input type="hidden" name="username" id="username" value="'.$username.'">
                                                 <input type="hidden" name="id" id="id" value="'.$Id.'">
@@ -132,8 +108,11 @@ include('includes/db_connection.php');
                                                     
                                                 </td>
                                             </tr>';
+                                                                                                                     
                                         }
-                                    ?>
+                                    }
+                                    
+                                ?>
                                     
                             </tbody>
                         </table>
@@ -144,118 +123,6 @@ include('includes/db_connection.php');
         </div>
         <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
-
-    <div id="login-modal">
-        <div class="model">
-            <div class="top-form">
-                <h2>Student Details</h2>
-                <div class="close-modal">
-                    &#10006;
-                </div>  
-            </div>
-            <div class="login-form">
-                <div class="content">
-                    <form action="">
-                        <div class="user-details">
-                            
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your name" required>
-                                <i class="uil uil-user-circle icon"></i>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your email" required>
-                                <i class="uil uil-envelope icon"></i>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your address" required>
-                                <i class="uil uil-estate icon"></i>
-                                
-                            </div>
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter contact number" required>
-                                <i class="uil uil-phone icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">
-                                    <option selected disabled>Choose Faculty</option>
-                                    <option>FOCS</option>
-                                    <option>FAFB</option>
-                                    <option>FOET</option>
-                                    <option>FOAS</option>
-                                </select>
-                                <i class="uil uil-graduation-cap icon"></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <select name="student-group" id="student-group" required="true">                             
-                                    <option selected disabled>Choose Programme</option>    
-                                    <option>REI</option>
-                                    <option>RIS</option>
-                                    <option>RIT</option>
-                                    <option>RDS</option>
-                                </select>
-                                <i class="uil uil-book-open icon"></i>
-                            </div>
-                            
-                            <div class="input-box">
-                                <input type="radio" name="gender" id="dot-1">
-                                <input type="radio" name="gender" id="dot-2">
-                                <input type="radio" name="gender" id="dot-3">
-                                
-                                <div class="category">
-                                    <label>Gender :</label>
-                                    <i class="fa fa-venus-mars icon"></i>
-                                    <label for="dot-1">
-                                    <span class="dot one"></span>
-                                    <span class="gender">Male</span>
-                                    </label>
-                                    <label for="dot-2">
-                                        <span class="dot two"></span>
-                                        <span class="gender">Female</span>
-                                    </label>
-                                    <label for="dot-3">
-                                        <span class="dot three"></span>
-                                        <span class="gender">Prefer not to say</span>
-                                    </label>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="radio" name="status" id="dot-4">
-                                <input type="radio" name="status" id="dot-5">
-                                <input type="radio" name="status" id="dot-6">
-                                <div class="category">
-                                    <label>Account Status :</label>
-                                    <i class="fa fa-venus-mars icon"></i>
-                                    <label for="dot-4">
-                                    <span class="dot four"></span>
-                                    <span class="status">Withdraw</span>
-                                    </label>
-                                    <label for="dot-5">
-                                        <span class="dot five"></span>
-                                        <span class="status">Active</span>
-                                    </label>
-                                    <label for="dot-6">
-                                        <span class="dot six"></span>
-                                        <span class="status">Deactive</span>
-                                    </label>
-                                    
-                                </div>
-                            </div>
-
-                            <button type = "button" class="submit-btn">Update</button>
-                            <button type = "button" class="submit-btn">Cancel</button>
-                        </div> 
-                    </form>
-                </div>
-            </div>
-        </div>  
-    </div>
-
     
     <script type="text/javascript">
         $(function(){

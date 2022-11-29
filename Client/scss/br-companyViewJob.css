@@ -21,7 +21,7 @@ body {
   align-items: center;
   text-align: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 10px 0;
   width: 100%;
   background-color: white;
 }
@@ -38,8 +38,8 @@ body {
   width: 100%;
 }
 .wrapper form {
-  width: 90%;
-  padding: 10px 0;
+  width: 84%;
+  padding: 5px 0;
 }
 .wrapper .title {
   text-align: left;
@@ -65,7 +65,7 @@ body {
   }
 }
 .wrapper .input-style label {
-  font-size: calc(1vw + 0.3rem);
+  font-size: calc(1vw + 0.1rem);
   letter-spacing: 1px;
 }
 @media only screen and (max-width: 1260px) {
@@ -76,9 +76,9 @@ body {
 .wrapper .input-style input,
 .wrapper .input-style select {
   width: 100%;
-  padding: 5px 0;
+  padding: 15px 0 5px 0;
   outline: none;
-  transition: 0.1s ease-in;
+  transition: 0.2s ease-in;
   border: none;
   border-bottom: 2px dashed #fbbb7b;
   word-wrap: break-word;
@@ -93,6 +93,9 @@ body {
 .wrapper .width-45 {
   width: 45%;
 }
+.wrapper .width-45-Imp {
+  width: 45% !important;
+}
 .wrapper .select-style {
   margin: 5px 0;
   border: 2px solid #fbbb7b;
@@ -104,8 +107,8 @@ body {
   }
 }
 .wrapper .select-style label {
-  font-size: calc(1vw + 0.5rem);
-  color: #313e85;
+  font-size: calc(1vw + 0.3rem);
+  color: #f2891f;
   letter-spacing: 1px;
   position: relative;
 }
@@ -123,7 +126,7 @@ body {
   transition: 0.1s ease-in;
   border: none;
   border: 2px dashed #fbbb7b;
-  margin-top: 5px;
+  margin-top: 5x;
   word-wrap: break-word;
 }
 .wrapper .select-style select:focus,
@@ -150,40 +153,44 @@ body {
   background: #535ea6;
 }
 .wrapper .task-row {
-  margin: 10px 0;
-  width: 100%;
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 .wrapper .task-row .row {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  min-width: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 8px 15px;
-  margin: 7px 0;
+  padding: 5px 6px 5px 10px;
+  margin: 5px 15px 0px 0px;
   text-align: left;
-  background-color: #707cc8;
-  color: rgb(245, 245, 245);
-  border-radius: 15px;
-  transition: all 0.2s ease-in;
-}
-.wrapper .task-row .row:hover {
-  background-color: #828ac2;
+  background-color: #ea9d50;
+  border-radius: 13px;
 }
 .wrapper .task-row .deleteRow {
   cursor: pointer;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  background: #fcd9bb;
-  padding: 4px;
-  margin-left: 8px;
+  text-align: center;
+  background: #4e5db0;
+  padding: 5px 10px;
+  margin-left: 10px;
   border-radius: 50%;
+  font-size: 1.2em;
+  color: #ffffff;
+  transition: all 0.2s ease-in;
+}
+.wrapper .task-row .deleteRow:hover {
+  background-color: #6674be;
 }
 .wrapper .task-row p {
   word-wrap: break-word;
-  width: 90%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90%;
+  color: #ffffff;
+  font-size: 16px;
+  margin-top: 0;
 }
 .wrapper .selection-group {
   display: flex;
@@ -210,13 +217,19 @@ body {
   }
 }
 .wrapper .horizon-wrap .arrow-icon {
-  font-size: 2vw;
+  font-size: 1.5vw;
   color: #313e85;
 }
 @media only screen and (max-width: 1260px) {
   .wrapper .horizon-wrap .arrow-icon {
-    display: none;
+    font-size: 2.6vw;
   }
+}
+.wrapper .horizon-wrap-maintain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .wrapper .vertical-wrap {
   display: flex;
@@ -224,14 +237,14 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
 }
-.wrapper .vertical-wrap p {
+.wrapper .charCountHint {
   font-size: 0.8em;
   width: 100%;
   text-align: left;
   color: #228b22;
   margin-top: 5px;
 }
-.wrapper .vertical-wrap p span {
+.wrapper .charCountHint span {
   color: red;
 }
 .wrapper .name-address-group {
@@ -274,8 +287,20 @@ body {
   background-color: #f5ae67;
   color: #fff;
 }
+.wrapper .button-group .clickable-btn:nth-child(2) {
+  margin-left: 20px;
+  background-color: #313e85;
+  color: #fff;
+  border: 1px solid #313e85;
+  transition: all 0.1s ease-in-out;
+}
 @media only screen and (max-width: 912px) {
-  .wrapper {
-    width: 80%;
+  .wrapper .button-group .clickable-btn:nth-child(2) {
+    margin: 5px 0 0 0;
   }
+}
+.wrapper .button-group .clickable-btn:nth-child(2):hover {
+  background-color: #535ea6;
+  color: #fff;
+  border: 1px solid #535ea6;
 }/*# sourceMappingURL=br-companyViewJob.css.map */

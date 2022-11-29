@@ -1,0 +1,61 @@
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: 1px solid #797d7a;
+  outline: none;
+  cursor: pointer;
+  padding: 9px 10px;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  display: block;
+  padding: 20px;
+  border: 1px solid #797d7a;
+  border-top: none;
+  width: 100%;
+  animation: fadeEffect 1s;
+  min-height: 1050px;
+}
+
+#myiframe {
+  width: 600px;
+  height: 100%;
+}
+
+#progressRpt {
+  height: 1000px;
+}
+
+#finalRpt {
+  height: 1000px;
+}
+
+h3.title1 {
+  margin-bottom: 0.8em;
+}
+
+.btn-success {
+  float: right;
+  margin-bottom: 20px;
+}
+
+#btn-save {
+  float: right;
+  margin-bottom: 20px;
+}

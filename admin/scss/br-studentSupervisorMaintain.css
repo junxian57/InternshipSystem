@@ -91,7 +91,7 @@
   font-size: 2vw;
   color: #f2891f;
 }
-.tabcontent .result-box {
+.tabcontent :is(#result-box-1, #result-box-2) {
   min-height: 200px;
   max-height: 130px;
   max-width: 43%;
@@ -104,12 +104,12 @@
   display: none;
   position: absolute;
 }
-.tabcontent .result-box li {
+.tabcontent :is(#result-box-1, #result-box-2) li {
   padding: 5px;
   list-style-type: none;
   text-align: left;
 }
-.tabcontent .result-box li:hover {
+.tabcontent :is(#result-box-1, #result-box-2) li:hover {
   background-color: #d8d7d6;
   cursor: pointer;
 }
@@ -168,7 +168,7 @@
   display: flex;
   justify-content: flex-end;
 }
-.tabcontent .update-group .clickable-btn {
+.tabcontent .clickable-btn {
   cursor: pointer;
   background-color: #f2891f;
   padding: 10px 15px;
@@ -178,12 +178,12 @@
   letter-spacing: 1px;
   transition: all 0.1s ease-in-out;
 }
-.tabcontent .update-group .clickable-btn:hover {
+.tabcontent .clickable-btn:hover {
   background-color: #f5ae67;
   color: #fff;
   border: 1px solid #f5ae67;
 }
-.tabcontent .update-group .grey-btn {
+.tabcontent .grey-btn {
   background-color: grey;
   padding: 10px 15px;
   color: #fff;
@@ -196,9 +196,6 @@
   margin-top: 10px;
   font-size: 1.1em;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 .tabcontent .table-title p {
   font-size: 0.8em;
@@ -214,9 +211,25 @@
 .tabcontent .bs-example {
   margin-top: 1em;
 }
-.tabcontent .orange-border {
-  border: 1px solid #f2891f;
-  margin-top: 1em;
+.tabcontent :is(#tab1-table_wrapper, #tab2-table_wrapper) .row:first-child {
+  margin-top: 1em !important;
+}
+.tabcontent .table-title ~ div {
+  width: 100%;
+}
+.tabcontent table {
+  width: 100% !important;
+}
+.tabcontent table th, .tabcontent table td {
+  text-align: center;
+  padding: 12px;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  word-wrap: break-word;
+}
+.tabcontent table th {
+  background-color: #eeeded;
 }
 .tabcontent table tbody tr {
   transition: all 0.5s;
@@ -224,18 +237,20 @@
 .tabcontent table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table tbody .btn-td .button {
+.tabcontent table tbody .button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.3em 1em;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #ffffff;
   font-size: 16px;
   outline: none;
+  border: none;
+  transition: ease-in-out 0.2s;
 }
 @media only screen and (max-width: 1260px) {
-  .tabcontent table tbody .btn-td .button {
+  .tabcontent table tbody .button {
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
@@ -243,10 +258,10 @@
     padding: 0.3em 0.5em;
   }
 }
-.tabcontent table tbody .btn-td .remove {
+.tabcontent table tbody .remove {
   background-color: #ff4500;
 }
-.tabcontent table tbody .btn-td .remove:hover {
-  background-color: #f5ae67;
+.tabcontent table tbody .remove:hover {
+  background-color: #f5891d;
   color: #fff;
 }/*# sourceMappingURL=br-studentSupervisorMaintain.css.map */

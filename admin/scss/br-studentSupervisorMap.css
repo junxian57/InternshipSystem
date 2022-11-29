@@ -28,6 +28,11 @@
   transition: 0.3s;
   font-size: 1vw;
 }
+@media only screen and (max-width: 1260px) {
+  .tab button {
+    font-size: calc(1vw + 0.4em);
+  }
+}
 .tab button span {
   font-size: 1vw;
 }
@@ -91,6 +96,11 @@
   font-size: 2vw;
   color: #f2891f;
 }
+@media only screen and (max-width: 1260px) {
+  .tabcontent .search-group .arrow-icon {
+    font-size: 1.7em;
+  }
+}
 .tabcontent .result-box {
   min-height: 200px;
   max-height: 130px;
@@ -152,7 +162,7 @@
   color: #f2891f;
 }
 .tabcontent .checkbox-group form {
-  max-width: 43%;
+  width: 43%;
 }
 .tabcontent .checkbox-group fieldset {
   border: 1px solid gray;
@@ -184,6 +194,9 @@
     max-height: 300px;
   }
 }
+.tabcontent .checkbox-group table {
+  width: 100%;
+}
 .tabcontent .checkbox-group table th, .tabcontent .checkbox-group table td {
   font-size: calc(1vw + 0.1em);
 }
@@ -209,7 +222,6 @@
   width: 20%;
 }
 .tabcontent .checkbox-group table tbody {
-  display: block;
   max-height: 250px;
   overflow-y: scroll;
 }
@@ -240,6 +252,9 @@
   font-weight: 600;
   font-size: 1.2rem;
 }
+.tabcontent .info-group .orange-font {
+  color: #f2891f;
+}
 .tabcontent a.remove {
   color: red;
 }
@@ -264,6 +279,7 @@
 }
 .tabcontent .table-title {
   margin-top: 10px;
+  margin-bottom: 1em;
   font-size: 1.1em;
   text-align: center;
   position: relative;
@@ -276,7 +292,6 @@
   margin-top: 1em;
 }
 .tabcontent .grey-btn {
-  cursor: pointer;
   background-color: #b9b7b4;
   padding: 10px 15px;
   color: #474747;
@@ -290,18 +305,20 @@
   color: #474747;
   border: 1px solid #b9b7b4;
 }
-.tabcontent table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
+.tabcontent .blue-btn {
+  background-color: #313e85 !important;
+  border-color: #313e85 !important;
+  margin-right: 20px;
 }
-.tabcontent table thead {
+.tabcontent .blue-btn:hover {
+  background-color: #535ea6 !important;
+  border-color: #535ea6 !important;
+}
+.tabcontent .table-title ~ div {
+  width: 100%;
+  margin-top: 10px;
   font-size: 1.1em;
-}
-.tabcontent table thead, .tabcontent table tbody, .tabcontent table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+  text-align: center;
 }
 .tabcontent table th, .tabcontent table td {
   text-align: center;
@@ -313,9 +330,6 @@
 }
 .tabcontent table th {
   background-color: #eeeded;
-}
-.tabcontent table tbody {
-  display: block;
 }
 .tabcontent table tbody tr {
   transition: all 0.5s;

@@ -4,8 +4,16 @@
   font-weight: 600;
 }
 
-.tabcontent {
-  padding: 30px 30px 50px 30px;
+body {
+  position: relative;
+}
+
+#review-table_paginate {
+  margin-top: 20px;
+}
+
+.tab-content {
+  padding: 20px;
   border: 1px solid #ccc;
   border-top: none;
   -webkit-animation: fadeEffect 1s;
@@ -28,85 +36,10 @@
     opacity: 1;
   }
 }
-.tabcontent .hint {
-  color: #ff4500;
-  font-size: 0.9rem;
-  text-align: center;
+.tab-content table {
+  width: 100% !important;
 }
-.tabcontent .form-group {
-  min-width: 43%;
-}
-.tabcontent .form-group .required-star {
-  color: red;
-}
-.tabcontent .form-group .form-control {
-  font-size: 16px;
-  margin-top: 5px;
-}
-.tabcontent .update-group {
-  display: flex;
-  justify-content: flex-end;
-}
-.tabcontent .update-group .clickable-btn {
-  cursor: pointer;
-  background-color: #f2891f;
-  padding: 10px 15px;
-  color: #fff;
-  outline: none;
-  border: 1px solid #f2891f;
-  letter-spacing: 1px;
-  transition: all 0.1s ease-in-out;
-}
-.tabcontent .update-group .clickable-btn:hover {
-  background-color: #f5ae67;
-  color: #fff;
-  border: 1px solid #f5ae67;
-}
-.tabcontent .table-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.tabcontent .table-title p {
-  font-size: 0.9em;
-  color: #ff4500;
-}
-.tabcontent .table-title input {
-  width: 200px;
-  min-width: 30%;
-  text-indent: 5px;
-  padding: 5px 0;
-}
-.tabcontent .black-border {
-  border: 1px solid #000;
-  margin-top: 20px;
-}
-.tabcontent table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-.tabcontent table thead {
-  font-size: 1.1em;
-}
-.tabcontent table thead, .tabcontent table tbody, .tabcontent table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-.tabcontent table th:first-child,
-.tabcontent table td:first-child,
-.tabcontent table th:nth-child(6),
-.tabcontent table td:nth-child(6) {
-  width: 10%;
-}
-.tabcontent table th:nth-child(2),
-.tabcontent table td:nth-child(2),
-.tabcontent table th:nth-child(4),
-.tabcontent table td:nth-child(4) {
-  width: 15%;
-}
-.tabcontent table th, .tabcontent table td {
+.tab-content table th, .tab-content table td {
   text-align: center;
   padding: 12px;
   vertical-align: middle;
@@ -114,56 +47,28 @@
   border-collapse: collapse;
   word-wrap: break-word;
 }
-.tabcontent table th {
+.tab-content table th {
   background-color: #eeeded;
 }
-.tabcontent table tbody {
-  display: block;
-  max-height: 420px;
-  overflow-y: scroll;
-}
-.tabcontent table tbody tr {
+.tab-content table tbody tr {
   transition: all 0.5s;
 }
-.tabcontent table tbody tr:hover {
+.tab-content table tbody tr:hover {
   background-color: rgb(235, 235, 235);
 }
-.tabcontent table tbody .column-max-width {
-  max-width: 80px;
-  line-height: 1.2em;
-}
-.tabcontent table tbody .description {
-  max-width: 150px;
-  line-height: 1.2em;
-  padding: 5px;
-}
-.tabcontent table .table-btn-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.tabcontent table .table-btn-group button {
-  width: 100%;
-  padding: 5px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  background-color: #f2891f;
+.tab-content table tbody a {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.3em 1em;
+  border-radius: 5px;
   color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid white;
+  background-color: #313e85;
+  font-size: 16px;
   outline: none;
-  cursor: pointer;
+  border: none;
   transition: ease-in-out 0.2s;
 }
-.tabcontent table .table-btn-group .table-delete-btn {
-  background-color: #ff4500;
-  margin-top: 3px;
-}
-.tabcontent table .table-btn-group .table-delete-btn:hover {
-  background-color: #f95f27;
-}
-.tabcontent table .table-btn-group .table-edit-btn:hover {
-  background-color: #6c2de9;
+.tab-content table tbody a:hover {
+  background-color: #535ea6;
 }/*# sourceMappingURL=br-cmpAppReview.css.map */

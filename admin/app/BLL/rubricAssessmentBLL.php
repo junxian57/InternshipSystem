@@ -49,7 +49,7 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
                 //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
                 $all_rubricAssessment_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/RubricAssessment-Maintain.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">
                 
                 </a>
 				<button type="button" class="btn btn-danger btn-xs dt-delete">
@@ -68,7 +68,7 @@ class rubricAssessmentBLL
         return $all_rubricAssessment_html;
     }
 
-    public function AddRubricAssmt($rubricAssmtDto)
+    public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
 
         if ($rubricAssmtDto->getTitle() == '' || $rubricAssmtDto->getInstructions() == '' || $rubricAssmtDto->getTotalWeight() == '') {
@@ -77,7 +77,7 @@ class rubricAssessmentBLL
         }
 
         if ($this->IsValidRubric($rubricAssmtDto)) {
-            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto);
+            $this->rubricAssessmentDal->AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto);
             return true;
         }
         return false;

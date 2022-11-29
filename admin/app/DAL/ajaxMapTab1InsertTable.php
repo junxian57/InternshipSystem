@@ -18,7 +18,8 @@ if(isset($_GET['lectureID']) && isset($_GET['internshipBatch']) && isset($_GET['
             S.tutorialGroupNo = $tutorialGroupNo AND
             S.programmeID LIKE '$programmeID' AND
             S.lecturerID IS NULL AND
-            L.lecturerID LIKE '$lectureID';";
+            L.lecturerID LIKE '$lectureID' AND
+            S.studAccountStatus LIKE 'Pending Map';";
 
     $result = $db->runQuery($sql);
 
@@ -34,8 +35,7 @@ if(isset($_GET['lectureID']) && isset($_GET['internshipBatch']) && isset($_GET['
     }else{
         echo json_encode("No Data Found");
     }
-
-   
+ 
     exit();
 }
 ?>

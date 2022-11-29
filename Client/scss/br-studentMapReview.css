@@ -145,6 +145,21 @@ header .page-title * {
 .wrapper .select-style button:hover {
   background: #535ea6;
 }
+.wrapper .select-style .grey-btn {
+  background-color: #b9b7b4;
+  padding: 10px 15px;
+  color: #474747;
+  outline: none;
+  border: 1px solid #b9b7b4;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+  margin-right: 20px;
+}
+.wrapper .select-style .grey-btn:hover {
+  background-color: #b9b7b4;
+  color: #474747;
+  border: 1px solid #b9b7b4;
+}
 .wrapper .horizon-wrap {
   display: flex;
   justify-content: space-between;

@@ -27,3 +27,9 @@ function warning(message){
     toastr["warning"](message);
 
 }
+
+function info(message){
+    option()
+    toastr["info"](message);
+
+}

@@ -31,50 +31,12 @@ body {
   margin-top: 10px;
   font-size: 1.1em;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
-.wrapper .table-title p {
-  font-size: 0.8em;
-  color: #313e85;
-}
-.wrapper .table-title input {
-  width: 25%;
-  padding: 5px;
-  border: 1px solid #f2891f;
-  outline: none;
-  font-size: 0.8em;
-}
-.wrapper .bs-example {
-  margin-top: 1em;
-}
-.wrapper .orange-border {
-  border: 1px solid #f2891f;
-  margin-top: 1em;
-}
-.wrapper table {
+.wrapper .table-title ~ div {
   width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-.wrapper table thead {
+  margin-top: 10px;
   font-size: 1.1em;
-}
-.wrapper table thead,
-.wrapper table tbody,
-.wrapper table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-.wrapper table th:first-child,
-.wrapper table td:first-child {
-  width: 7%;
-}
-.wrapper table th:nth-child(6),
-.wrapper table td:nth-child(6) {
-  width: 15%;
+  text-align: center;
 }
 .wrapper table th,
 .wrapper table td {
@@ -88,25 +50,11 @@ body {
 .wrapper table th {
   background-color: #eeeded;
 }
-.wrapper table tbody {
-  display: block;
-  max-height: 420px;
-  overflow-y: scroll;
-}
 .wrapper table tbody tr {
   transition: all 0.5s;
 }
 .wrapper table tbody tr:hover {
   background-color: rgb(235, 235, 235);
-}
-.wrapper table tbody .column-max-width {
-  max-width: 80px;
-  line-height: 1.2em;
-}
-.wrapper table tbody .description {
-  max-width: 150px;
-  line-height: 1.2em;
-  padding: 5px;
 }
 .wrapper table tbody .btn-td .button {
   width: -webkit-fit-content;
@@ -117,6 +65,8 @@ body {
   color: #ffffff;
   font-size: 16px;
   outline: none;
+  border: none;
+  transition: all 0.5s;
 }
 @media only screen and (max-width: 1260px) {
   .wrapper table tbody .btn-td .button {
@@ -126,6 +76,7 @@ body {
 }
 .wrapper table tbody .btn-td .remove {
   background-color: #f2891f;
+  margin-top: 5px;
 }
 .wrapper table tbody .btn-td .remove:hover {
   background-color: #f5ae67;
@@ -145,7 +96,7 @@ body {
 }
 .wrapper table tbody .btn-td .button-group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }

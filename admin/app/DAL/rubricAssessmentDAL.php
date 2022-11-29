@@ -3,7 +3,7 @@
 /**
  * Class for database interaction
  */
-require("../../includes/db_connection.php");
+require_once("../../includes/db_connection.php");
 class rubricAssessmentDAL
 {
 
@@ -100,7 +100,7 @@ class rubricAssessmentDAL
      *
      * @param object $rubricAssmtDto
      */
-    public function AddRubricAssmt($rubricAssmtDto)
+    public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
         $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`CreateByID`,`CreateDate`)
                 VALUES (
@@ -114,8 +114,18 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
+        foreach ($rubricAssmtCriteriaDto as $rubricAssmtCriteriaDto1) {
+            $sql1 = "INSERT INTO RubricAssessmentCriteria (`assessmentID`,`criterionID`,`Title`,`TotalWeight`)
+                    VALUES (
+                      '" . $rubricAssmtCriteriaDto1->getAssmtId() . "',
+                      '" . $rubricAssmtCriteriaDto1->getcriterionID() . "',
+                      '" . $rubricAssmtCriteriaDto1->getTitle() . "',
+                      '" . $rubricAssmtCriteriaDto1->getscore() . "'
+                    )";
+            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        }
+        if ($result &&  $result2) {
 
-        if ($result) {
             header("Location: ../../view/page/addRubricAssessment.php?status=success");
             exit();
         } else {
@@ -140,10 +150,10 @@ class rubricAssessmentDAL
             WHERE assessmentID ='" . $rubricAssmtDto->getAssmtId() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
         if ($result) {
-            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=success&id='" . $rubricAssmtDto->getAssmtId() . "'");
+            header("Location: ../../view/page/RubricAssessment-Maintain.php?act=edit&status=success&id='" . $rubricAssmtDto->getAssmtId() . "'");
             exit();
         } else {
-            header("Location: ../../view/page/addRubricAssessment.php?act=edit&status=failed&id='" . $rubricAssmtDto->getAssmtId() . "'");
+            header("Location: ../../view/page/RubricAssessment-Maintain.php?act=edit&status=failed&id='" . $rubricAssmtDto->getAssmtId() . "'");
             exit();
         }
     }
