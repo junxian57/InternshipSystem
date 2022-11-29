@@ -2,76 +2,9 @@
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
 
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
+require_once $systemPathPrefix."app/DTO/internJobDTO.php";
 
 session_start();
-
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
-$companyID = 'CMP00008';
-
-if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1){
-    echo "<script> 
-            alert('New Internship Job Created Successfully.'); 
-
-            window.location.href='br-companyJobList.php';
-        </script>";
-}else if(isset($_GET['inserted']) && isset($_GET['failed']) && $_GET['failed'] == 1 && $_GET['inserted'] == 0){
-    echo "<script> 
-            alert('New Internship Job Created Failed.\\nPlease Try Again.');
-
-            window.location.href='br-companyJobList.php';
-        </script>";
-}
-/**
- * TODO: Total Quota No Need to be validate here
- * 
- */
-//Get Company Info
-try{
-    if(isset($_GET['internJobID']) && isset($_GET['edit']) && $_GET['edit'] == 1){
-        $internJobID = $_GET['internJobID'];
-
-        $companyInfo = getCompanyDetails($companyID);
-        $companyFields = $companyInfo[0]['cmpFieldsArea'];
-    }
-
-    $getCmpRemainingQuota = getRemainQuota($companyID);
-
-    if($getCmpRemainingQuota == null){
-        echo "<script> 
-            alert('You have insufficient quota to accept more internship.\\nPlease contact TARUMT ITP Committee for more information.');
-
-            window.location.href = 'br-companyJobList.php';
-        </script>"; 
-    }
-
-    $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
-    $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
-    
-    if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
-        echo "<script> 
-            alert('Something went wrong.\\nPlease Try Again.');
-            window.location.href = 'br-companyInfo.php';
-        /script>"; 
-
-    }
-    // else{
-    //     $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
-    
-    //     if($quotaLeft == 0 || $quotaLeft < 0 ){
-    //         echo "<script> 
-    //             alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for assistance.'); 
-    
-    //             window.location.href='br-companyInfo.php';
-    //         </script>";
-    //     }
-    // }
-}catch(PDOException $e){
-    echo "<script> 
-        alert('$e');
-        window.location.href = 'br-companyInfo.php';
-    </script>";    
-}
 
 ?>
 <!DOCTYPE HTML>
@@ -104,7 +37,73 @@ try{
     <link href="../../css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="../../scss/br-companyCreateJob.css">
 </head>
+<?php
+    //TODO: Check if user is logged in, get company ID from session
+    //Get Company ID from Session
+    //$companyID = $_SESSION['cmpID'];
+    $companyID = 'CMP00008';
 
+    try{
+        if(isset($_GET['internJobID']) && isset($_GET['edit']) || isset($_GET['view'])){
+            $internJobID = $_GET['internJobID'];
+
+            $companyInfo = getCompanyDetails($companyID);
+            $companyFields = $companyInfo[0]['cmpFieldsArea'];
+
+            $getCmpRemainingQuota = getRemainQuota($companyID);
+
+            $getInternJob = getInternJobDetails($internJobID, $companyID);
+
+            $jobTitle = $getInternJob[0]['jobTitle'];
+            $jobDescription = $getInternJob[0]['jobDescription'];
+            $jobFieldsArea = $getInternJob[0]['jobFieldsArea'];
+            $jobAllowance = $getInternJob[0]['jobAllowance'];
+            $jobResponsibilities = $getInternJob[0]['jobResponsibilities'];
+            $jobLocationOfWork = $getInternJob[0]['jobLocationOfWork'];
+            $jobWorkingDay = $getInternJob[0]['jobWorkingDay'];
+            $jobWorkingHour = $getInternJob[0]['jobWorkingHour'];
+            $jobSkillsRequired = $getInternJob[0]['jobSkillsRequired'];
+            $jobMaxNumberQuota = $getInternJob[0]['jobMaxNumberQuota'];
+            $jobQualificationRequired = $getInternJob[0]['jobQualificationRequired'];
+            $jobTrainingPeriod = $getInternJob[0]['jobTrainingPeriod'];
+            $jobCurrOccNumber = $getInternJob[0]['jobCurrOccNumber'];
+            $jobSupervisorContactNo = $getInternJob[0]['jobSupervisorContactNo'];
+            $jobSupervisorEmail = $getInternJob[0]['jobSupervisorEmail'];
+            $jobCmpSupervisor = $getInternJob[0]['jobCmpSupervisor'];
+            
+            if($_GET['view'] == 1){
+                $editable = false;
+                echo "<script> 
+                        alert('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
+                    </script>";
+            }elseif($_GET['edit'] == 1){
+                $editable = true;
+                echo "<script> 
+                        alert('You are ABLE to edit this Internship Job Details.'); 
+                    </script>";
+            }
+
+            $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
+            $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
+            
+            if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
+                echo "<script> 
+                    alert('Something went wrong.\\nPlease Try Again.');
+                    window.location.href = 'br-companyInfo.php';
+                /script>"; 
+    
+            }else{
+                $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
+            }
+        }
+
+    }catch(PDOException $e){
+        echo "<script> 
+            alert('$e');
+            window.location.href = 'br-companyInfo.php';
+        </script>";    
+    }
+?>
 <body class="cbp-spmenu-push">
     <div class="main-content">
         <?php include_once "../../includes/sidebar.php"; ?>
@@ -116,8 +115,8 @@ try{
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                 <div class="wrapper">
-                    <form action="../../app/BLL/cmpCreateJobBLL.php" onsubmit="setHiddenInputValue()" method="GET">
-                        <input type="hidden" name="companyID" value="<?php echo $companyID; ?>">
+                    <form action="../../app/BLL/cmpViewJobBLL.php" onsubmit="setHiddenInputValue()" method="GET">
+                        <input type="hidden" name="internJobID" value="<?php echo $internJobID; ?>">
                         <div class="title">
                             <h2 class="margin-top-20">
                                 Job's Details
@@ -128,11 +127,12 @@ try{
                             <label for="jobTitle">Job Title</label>
                             <input
                                 type="text"
-                                name="jobTitle"
                                 placeholder="e.g. Java Programmer Internship"
                                 pattern="[a-zA-Z ]{1,}"
                                 title="Only Alphabets Is Allowed"
+                                value = "<?php echo $jobTitle; ?>"
                                 required
+                                disabled
                             />
                             </div>
 
@@ -154,7 +154,9 @@ try{
                                 max="<?php echo $quotaLeft; ?>"              
                                 pattern="[0-100]{1,}"
                                 title="Only Number Is Allowed"
+                                value="<?php echo $jobMaxNumberQuota; ?>"
                                 required
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             />
                             </div>
                         </div>
@@ -169,9 +171,11 @@ try{
                                 pattern="[a-zA-Z ]{1,}"
                                 title="Only Alphabets Is Allowed"
                                 onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" 
+                                value="<?php echo $jobDescription; ?>"
                                 required />
                             <p class="charCountHint">
-                                <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc">0</span>/250)
+                                <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc"><?php echo strlen($jobDescription) ?></span>/250)
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             </p>
                             </div>
 
@@ -186,10 +190,12 @@ try{
                                 maxlength="250"
                                 onkeyup="countCharacter(this, document.getElementById('maxCharsQual'))"
                                 required
+                                value="<?php echo $jobQualificationRequired; ?>"
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             />
                             <p class="charCountHint">
                                 <span>* </span>Maximum 250 Characters (<span id="maxCharsQual"
-                                >0</span
+                                ><?php echo strlen($jobQualificationRequired) ?></span
                                 >/250)
                             </p>
                             </div>
@@ -205,6 +211,8 @@ try{
                                 pattern="[a-zA-Z ,-]{1,}"
                                 title="Only Alphabets, ',' and '-' Is Allowed"
                                 required
+                                value="<?php echo $jobLocationOfWork; ?>"
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             />
                             </div>
 
@@ -218,6 +226,8 @@ try{
                                 title="Only Number Is Allowed"
                                 min="0"
                                 required
+                                value="<?php echo $jobAllowance; ?>"
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             />
                             </div>
                         </div>
@@ -226,24 +236,28 @@ try{
                             <div class="input-style width-45 name-address-group">
                             <label for="jobWorkingDay">Job Working Day</label>
                             <div class="horizon-wrap-maintain">
-                                <select id="workingDayStart" class="width-45-Imp" onchange="checkDayDiff()">
-                                    <option value="Monday"  selected>Monday</option>
-                                    <option value="Tuesday" >Tuesday</option>
-                                    <option value="Wednesday" >Wednesday</option>
-                                    <option value="Thursday" >Thursday</option>
-                                    <option value="Friday" >Friday</option>
-                                    <option value="Saturday" >Saturday</option>
-                                    <option value="Sunday" >Sunday</option>
+                                <?php
+                                    $startDay = explode("-", $jobWorkingDay)[0];
+                                    $endDay = explode("-", $jobWorkingDay)[1];
+                                ?>
+                                <select id="workingDayStart" class="width-45-Imp" onchange="checkDayDiff()" <?php echo ($editable == true) ? "" : "disabled"; ?>>
+                                    <option value="Monday" <?php echo ($startDay == 'Monday') ? 'selected' : '' ?>>Monday</option>
+                                    <option value="Tuesday" <?php echo ($startDay == 'Tuesday') ? 'selected' : '' ?>>Tuesday</option>
+                                    <option value="Wednesday" <?php echo ($startDay == 'Wednesday') ? 'selected' : '' ?>>Wednesday</option>
+                                    <option value="Thursday" <?php echo ($startDay == 'Thursday') ? 'selected' : '' ?>>Thursday</option>
+                                    <option value="Friday" <?php echo ($startDay == 'Friday') ? 'selected' : '' ?>>Friday</option>
+                                    <option value="Saturday" <?php echo ($startDay == 'Saturday') ? 'selected' : '' ?>>Saturday</option>
+                                    <option value="Sunday" <?php echo ($startDay == 'Sunday') ? 'selected' : '' ?>>Sunday</option>
                                 </select>
                                 <span class="arrow-icon">&#129050</span>
-                                <select id="workingDayEnd" class="width-45-Imp" onchange="checkDayDiff()">
-                                    <option value="Monday" >Monday</option>
-                                    <option value="Tuesday" >Tuesday</option>
-                                    <option value="Wednesday" >Wednesday</option>
-                                    <option value="Thursday" >Thursday</option>
-                                    <option value="Friday"  selected>Friday</option>
-                                    <option value="Saturday" >Saturday</option>
-                                    <option value="Sunday" >Sunday</option>
+                                <select id="workingDayEnd" class="width-45-Imp" onchange="checkDayDiff()" <?php echo ($editable == true) ? "" : "disabled"; ?>>
+                                <option value="Monday" <?php echo ($endDay == 'Monday') ? 'selected' : '' ?>>Monday</option>
+                                    <option value="Tuesday" <?php echo ($endDay == 'Tuesday') ? 'selected' : '' ?>>Tuesday</option>
+                                    <option value="Wednesday" <?php echo ($endDay == 'Wednesday') ? 'selected' : '' ?>>Wednesday</option>
+                                    <option value="Thursday" <?php echo ($endDay == 'Thursday') ? 'selected' : '' ?>>Thursday</option>
+                                    <option value="Friday" <?php echo ($endDay == 'Friday') ? 'selected' : '' ?>>Friday</option>
+                                    <option value="Saturday" <?php echo ($endDay == 'Saturday') ? 'selected' : '' ?>>Saturday</option>
+                                    <option value="Sunday" <?php echo ($endDay == 'Sunday') ? 'selected' : '' ?>>Sunday</option>
                                 </select>
                                 <input type="hidden" name="jobWorkingDay" id="jobWorkingDay">
                             </div>
@@ -252,11 +266,16 @@ try{
                             <div class="input-style width-45 name-address-group">
                             <label for="jobWorkingHour">Job Working Hour</label>
                             <div class="horizon-wrap-maintain">
-                                <input type="time" id="startWorkingHour" min="07:30" max="22:00" value="09:00" class="width-45-Imp" onchange="checkTimeDiff()">
+                                <?php
+                                    $startHour = explode("-", $jobWorkingHour)[0];
+                                    $endHour = explode("-", $jobWorkingHour)[1];
+                                ?>
+                                <input type="time" id="startWorkingHour" min="07:30" max="22:00" value=<?php echo $startHour; ?> class="width-45-Imp" onchange="checkTimeDiff()" <?php echo ($editable == true) ? "" : "disabled"; ?>
+                                >
 
                                 <span class="arrow-icon">&#129050</span>
 
-                                <input type="time" id="endWorkingHour" min="07:30" max="22:00" value="18:00" class="width-45-Imp" onchange="checkTimeDiff()">
+                                <input type="time" id="endWorkingHour" min="07:30" max="22:00" value=<?php echo $endHour; ?>  class="width-45-Imp" onchange="checkTimeDiff()" <?php echo ($editable == true) ? "" : "disabled"; ?>>
                                 <input type="hidden" name="jobWorkingHour" id="jobWorkingHour">
                             </div>
                             
@@ -266,13 +285,18 @@ try{
                         <div class="horizon-wrap">
                             <div class="name-address-group input-style width-45">
                             <label for="fieldAreaSelection">Job Field Area</label>
-                            <select name="fieldAreaSelection" id="fieldAreaSelection">
+                            <select name="fieldAreaSelection" id="fieldAreaSelection" <?php echo ($editable == true) ? "" : "disabled"; ?>>
                                 <?php
                                     $fieldsArray = explode("-", $companyFields);
 
                                     foreach($fieldsArray as $fields){
                                         if($fields == "") continue;
-                                        echo '<option value="'.$fields.'">'.$fields.'</option>';
+
+                                        if($jobFieldsArea == $fields){
+                                            echo "<option value='$fields' selected>$fields</option>";
+                                        }else{
+                                            echo '<option value="'.$fields.'">'.$fields.'</option>';
+                                        }
                                     }
                                 ?>
                             </select>
@@ -289,6 +313,8 @@ try{
                                 title="Only Number Is Allowed"
                                 min="4"
                                 required
+                                value="<?php echo $jobTrainingPeriod; ?>"
+                                <?php echo ($editable == true) ? "" : "disabled"; ?>
                             />
                             </div>
                         </div>
@@ -310,10 +336,13 @@ try{
                             name="jobSupervisor"
                             maxlength="50"
                             onkeyup="countCharacter(this, document.getElementById('jobSupervisorChar'))"
-                            required />
+                            required 
+                            value="<?php echo $jobCmpSupervisor; ?>"
+                            <?php echo ($editable == true) ? "" : "disabled"; ?>
+                            />
                             <p class="charCountHint">
                                 <span>* </span>Maximum 50 Characters (<span id="jobSupervisorChar"
-                                >0</span>/50)
+                                ><?php echo strlen($jobCmpSupervisor)?></span>/50)
                             </p>
                             </div>                       
                         </div>
@@ -326,6 +355,8 @@ try{
                                     name="jobSupervisorEmail"
                                     placeholder="e.g. Supervisor Email"
                                     required
+                                    value="<?php echo $jobSupervisorEmail; ?>"
+                                    <?php echo ($editable == true) ? "" : "disabled"; ?>
                                 />
                                 </div>
 
@@ -338,6 +369,8 @@ try{
                                     pattern="[0-9]{10,11}"
                                     title="Only Number Is Allowed"
                                     required
+                                    value="<?php echo $jobSupervisorContactNo; ?>"
+                                    <?php echo ($editable == true) ? "" : "disabled"; ?>
                                 />
                             </div>
                         </div>
@@ -353,33 +386,65 @@ try{
                         <div class="selection-group margin-top-20 select-style">
                             <label for="jobRespon">Job Responsibilities</label>
                             <div id="respon-row" class="task-row">
-                                
+                                <?php  
+                                    $respon = explode("-", $jobResponsibilities);
+                                    $responStr = implode('', $respon);
+                                    foreach($respon as $responContent){
+                                        if($responContent == "") continue;
+                                        echo "<div class='row'>
+                                                <p>$responContent</p>
+                                                <span class='deleteRow' onclick='deleteTaskRow(this)'>✖</span>
+                                            </div>";
+                                    }
+                                ?>
                             </div>
                             <input type="hidden" name="jobResponStr" id="jobResponStr">
-                            <input id="jobRespon"/>
+                            <input id="jobRespon" <?php echo ($editable == true) ? "" : "disabled"; ?>/>
                             <p class="charCountHint">
-                                <span>* </span>Maximum 1500 Characters (<span id="maxCharRespon">0</span>/1500)
+                                <span>* </span>Maximum 1500 Characters (<span id="maxCharRespon"><?php echo strlen($responStr)?></span>/1500)
                             </p>
-                            <input type="button" id="addNewJobRespon" value="Add New">
+                            <input 
+                            type="button" 
+                            id="addNewJobRespon" value="Add New"  
+                            <?php echo ($editable == true) ? "" : "disabled style='background-color:grey; border:none;'"; ?>
+                            >
                         </div>
 
                         <div class="selection-group margin-top-20 select-style width-100">
                             <label for="jobSkills">Skills Required</label>
                             <div id="skills-row" class="task-row">
-                                
+                                <?php
+                                    $skills = explode("-", $jobSkillsRequired);
+                                    $skillsStr = implode('', $skills);
+                                    foreach($skills as $skillsContent){
+                                        if($skillsContent == "") continue;
+                                        echo "<div class='row'>
+                                                <p>$skillsContent</p>
+                                                <span class='deleteRow' onclick='deleteTaskRow(this)'>✖</span>
+                                            </div>";
+                                    }
+                                ?>
                             </div>
                             <input type="hidden" name="jobSkillsStr" id="jobSkillsStr">
-                            <input id="jobSkills" />
+                            <input id="jobSkills" <?php echo ($editable == true) ? "" : "disabled"; ?>/>
                             <p class="charCountHint">
-                                <span>* </span>Maximum 250 Characters (<span id="maxCharSkill">0</span>/1500)
+                                <span>* </span>Maximum 250 Characters (<span id="maxCharSkill"><?php echo strlen($skillsStr)?></span>/1500)
                             </p>
-                            <input type="button" id="addNewJobSkills" value="Add New">
+                            <input
+                            type="button" 
+                            id="addNewJobSkills" value="Add New" 
+                            <?php echo ($editable == true) ? "" : "disabled style='background-color:grey; border:none;'"; ?>>
                         </div>
                         <hr />
-                        <div class="button-group">
-                            <input type="submit" class="clickable-btn" value="Create" />
-                            <input type="reset" class="clickable-btn" value="Reset All" />
-                        </div>
+                        <?php
+                            if($editable){
+                        ?>
+                            <div class="button-group">
+                                <input type="submit" name="amend" class="clickable-btn" value="Create" />
+                            </div>
+                        <?php
+                            }
+                        ?>
                     </form>
                 </div>
 
@@ -478,8 +543,8 @@ try{
       return regex.test(value);
     }
 
-    let maxCharRespon = 0;
-    let maxCharSkill = 0;
+    let maxCharRespon = <?php echo strlen($responStr)?>;
+    let maxCharSkill = <?php echo strlen($skillsStr)?>;
 
     function addNewRow(taskGroup, newTaskValue){
         let inputValue = newTaskValue.value;

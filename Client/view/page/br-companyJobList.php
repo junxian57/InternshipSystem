@@ -77,12 +77,18 @@ try{
                                         <?php
                                             $i = 1;
                                             foreach($internJobList as $row){
+                                                $internJobID = $row['internJobID'];
+                                                $buttonGroup = '';
                                                 if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
-                                                    $buttonGroup = '<a class="edit button" href="br-companyViewJob.php?edit=1&id="'.$row['internJobID'].'">Edit</a>';
+
+                                                    $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
+
                                                 }elseif($row['jobCurrOccNumber'] == 0){
-                                                    $buttonGroup = '
-                                                    <a class="edit button" href="br-companyViewJob.php?edit=1&internJobID="'.$row['internJobID'].'">Edit</a>
-                                                    <button class="remove button" onclick="deleteInternJob(\''.$row['internJobID'].'\')" > Delete </button>';
+
+                                                    $buttonGroup = "
+                                                    <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
+                                                    <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
+
                                                 }
                                                 echo '<tr>';
                                                 echo '<td>'.$i.'</td>';

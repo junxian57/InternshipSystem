@@ -4,7 +4,7 @@ $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
 
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-//Get Company ID from Session
+//TODO: Check if user is logged in, get company ID
 //$companyID = $_SESSION['cmpID'];
 $companyID = 'CMP00008';
 

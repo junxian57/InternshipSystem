@@ -3,10 +3,7 @@ $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
 
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
     
-    if(!isset($_GET['companyID'])){
-        header("Location: br-cmpAppTableReview.php");
-    }
-    else{ 
+    if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action']) && $_GET['status'] == 1 && $_GET['action'] == 1){
         $companyID = $_GET['companyID'];
 
         $result = getCompany($companyID);
@@ -24,6 +21,11 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
             $companyContactPerson = $result[0]['cmpContactPerson'];
             $companySize = $result[0]['cmpCompanySize'];
         }
+    }else{ 
+         echo "<script>
+                alert('Restricted Action!!!\\nKindly use the formal way for accessing.');
+                window.location.href = 'br-cmpAppTableReview.php';
+            </script>";
     }
 ?>
 <!DOCTYPE html>
@@ -128,6 +130,7 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
                         <?php
                             $fields = explode("-", $companyFields);
                             foreach($fields as $field){
+                                if($field == "") continue;
                                 echo "<div class='row'>";
                                 echo "<p>$field</p>";
                                 echo "</div>";

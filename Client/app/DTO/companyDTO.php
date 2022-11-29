@@ -37,6 +37,12 @@ class Company{
         return $updateCompany;
     }
 
+    function updateAmendedCompany(){
+        $updateCompany = cmpUpdateAmendInfo($this);
+
+        return $updateCompany;
+    }
+
     //Create Company Application Notification Email
     function sendCompanyAppEmail($updateSuccess){
         $email = new EmailConfig();

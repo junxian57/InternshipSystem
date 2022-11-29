@@ -29,6 +29,18 @@ class InternJob{
         return $companyDetails;
     }
 
+    function getInternJob($internJobID, $companyID){
+        $internJob = getInternJobDetails($internJobID, $companyID);
+
+        return $internJob;
+    }
+
+    function updateInternJob(){
+        $updateInternJob = updateInternJobDetails($this);
+
+        return $updateInternJob;
+    }
+
     //Getter
     public function getInternJobID(){
         return $this->internJobID;

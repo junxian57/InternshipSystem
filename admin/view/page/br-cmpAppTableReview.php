@@ -58,12 +58,15 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
                                             <th>Company Name</th>
                                             <th>Application Date</th>
                                             <th>Fields Area</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $result = getCompanyWithStatus('Pending');
+                                        $statusArr = ["Pending", "Amended Info"];
+                                       // echo $statusArr;
+                                            $result = getCompanyWithStatus($statusArr);
 
                                             if(count($result) > 0){
                                                 $i = 1;
@@ -74,7 +77,8 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
                                                     echo "<td>".$row['cmpName']."</td>";
                                                     echo "<td>".$row['cmpDateJoined']."</td>";
                                                     echo "<td>".$row['cmpFieldsArea']."</td>";
-                                                    echo "<td><a target='_blank' href='br-cmpDetailsPreview.php?companyID=".$row['companyID']."'>View</a></td>";
+                                                    echo "<td>".$row['cmpAccountStatus']."</td>";
+                                                    echo "<td><a target='_blank' href='br-cmpDetailsPreview.php?companyID=".$row['companyID']."&status=1&action=1'>View</a></td>";
                                                     echo "</tr>";
                                                     $i++;
                                                 }
