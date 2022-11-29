@@ -220,11 +220,8 @@ if ($_GET['id']) {
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                    <h3 class="title1">Edit Rubric Assessment</h3>
+                    <h3 class="title1">Lecture Evaluation Form</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Assessment</h4>
-                        </div>
                         <div class="form-body">
                             <div class="form-group col-md-2">
                                 <label>Assessment ID</label>

@@ -19,7 +19,7 @@ function option() {
 }
 function addSuccess(message) {
     option()
-    toastr["success"](message, "Scuccess!");
+    toastr["success"](message, "Success!");
 }
 
 function warning(message){
