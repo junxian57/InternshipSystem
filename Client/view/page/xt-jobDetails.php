@@ -6,6 +6,13 @@ include('includes/dbconnection.php');
 	//header('location:logout.php');
 } else {*/
 ?>
+
+<?php
+	if(isset($_GET['internJobID'])){
+    $internJobID = $_GET['internJobID'];
+  }
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -67,6 +74,45 @@ function  confirmationMsgBox(){
 				<div class="tables">
 					<section class="details" id="details">
 						<div class="details-row">
+						<?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+                $run_intern = mysqli_query($conn, $get_intern);
+                $row_intern = mysqli_fetch_array($run_intern);
+                $internJobID = $row_intern['internJobID'];
+                $cmpID = $row_intern['companyID'];
+                $jobTitle = $row_intern['jobTitle'];
+								$jobDescription = $row_intern['jobDescription'];
+								$jobAllowance = $row_intern['jobAllowance'];
+								$jobResponsibilities = $row_intern['jobResponsibilities'];
+								$jobLocationOfWork = $row_intern['jobLocationOfWork'];
+								$jobWorkingDay = $row_intern['jobWorkingDay'];
+								$jobWorkingHour = $row_intern['jobWorkingHour'];
+								$jobSkillsRequired = $row_intern['jobSkillsRequired'];
+								$jobMaxNumberQuota = $row_intern['jobMaxNumberQuota'];
+								$jobQualificationRequired = $row_intern['jobQualificationRequired'];
+                $jobFieldsArea = $row_intern['jobFieldsArea'];
+								$jobTrainingPeriod = $row_intern['jobTrainingPeriod'];
+								$jobSupervisorContactNo = $row_intern['jobSupervisorContactNo'];
+								$jobSupervisorEmail = $row_intern['jobSupervisorEmail'];
+								$jobCmpSupervisor = $row_intern['jobCmpSupervisor'];
+
+								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+								$row_cmp = mysqli_fetch_array($run_cmp);
+								$cmpName = $row_cmp['cmpName'];
+								$cmpCompanySize = $row_cmp['cmpCompanySize'];
+								$cmpAddress = $row_cmp['cmpAddress'];
+								$cmpEmail = $row_cmp['cmpEmail'];
+								$cmpContactNumber= $row_cmp['cmpContactNumber'];
+								$cmpDateJoined = $row_cmp['cmpDateJoined'];
+              ?>
 							<div class="detailsimage">
 								<img src='../images/taruc-logo.jpg'>
 							</div> 
@@ -83,35 +129,29 @@ function  confirmationMsgBox(){
 						<h1 class="heading"> <span>Job</span> Description </h1>
 						<div class="jobdetails-row">
 							<div class="jobdetails-content" style="border-right: 1px solid #CCCCCC;">
-							<h3>Job Details</h3>
-								<p>• Support the IT team in maintaining hardware, software, and IT resources<br>
-								• Assist with troubleshooting issues and provide technical support<br>
-								• Assist in any duties assigned by the immediate superior.<br>
-								• Assist in create and update documentations.<br>
-								• Working closely with an IT team and immediate superior.<br>
-								• Get hands-on experience in building a website from scratch (wordpress or non wordpress)<br>
-								• Learn to communicate with clients and help to solve their issue.</p><br>
+								<h3>Job Details</h3>
+								<p><?php echo $jobDescription; ?></p><br>
             		<h3>Responsibilities</h3>
-            		<p>• Candidate must be currently pursuing Bachelor's Degree in Information Technology or equivalent.<br>
-								• Good hands-on skills, excellent analytical and problem-solving capabilities.<br>
-								• Able to work collaboratively with others.<br>
-								• Good personality, positive mindset and independent.<br>
-								• Experiences in Wordpress or PHP Laravel framework is a plus.</p><br>
+            		<p><?php echo $jobResponsibilities; ?></p><br>
+								<h3>Skills Required</h3>
+            		<p><?php echo $jobSkillsRequired; ?></p><br>
+								<h3>Qualification Required</h3>
+            		<p><?php echo $jobQualificationRequired; ?></p><br>
 							</div>
 							<div class="jobdetails-content">
 								<h3>Job Title</h3>
-								<p>Software Developer Intern (6 months)-Kuala Lumpur</p><br>
+								<p><?php echo $jobTitle; ?></p><br>
             		<h3>Working Day</h3>
-            		<p>Monday - Friday</p><br>
+            		<p><?php echo $jobWorkingDay; ?></p><br>
             		<h3>Working Hour</h3>
-            		<p>8:00 AM - 6:00 PM</p><br>
+            		<p><?php echo $jobWorkingHour; ?></p><br>
 								<h3>Allowance</h3>
-            		<p>RM 1,500 - RM 1,500</p><br>
+            		<p>RM <?php echo $jobAllowance; ?></p><br>
 								<h3>Training Period</h3>
-            		<p>February 2023 - July 2023</p><br>
+            		<p><?php echo $jobTrainingPeriod; ?> Months</p><br>
         			</div>   
 							<div class="button-group">
-								<button type="submit" class="backBtn">Back</button>
+								<button type="submit" class="backBtn"><a href='xt-searchJob.php'>Back</button>
               	<button type="submit" class="applyBtn"><a href="javascript:openulr('xt-studentJobApp.php');">Apply</button>
             	</div>
 						</div>
@@ -126,15 +166,15 @@ function  confirmationMsgBox(){
 							
 							<div class="cmpdetails-content">
 								<h3><i class="fa-regular fa-envelope"></i>&nbsp Email</h3>
-								<p>hr@guidewire.com.my</p><br>
+								<p><?php echo $cmpEmail; ?></p><br>
             		<h3><i class="fa-regular fa-address-book"></i>&nbsp Contact Number</h3>
-            		<p>011-27322988</p><br>
+            		<p><?php echo $cmpContactNumber; ?></p><br>
             		<h3><i class="fa-regular fa-building"></i>&nbsp Company Size</h3>
-            		<p>50 - 100</p><br>
+            		<p><?php echo $cmpCompanySize; ?></p><br>
             		<h3><i class="fa-solid fa-signs-post"></i>&nbsp Location</h3>
-            		<p>1, Jalan Sin Chew Kee, Bukit Bintang, 50150 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</p><br>
+            		<p><?php echo $cmpAddress; ?></p><br>
 								<h3><i class="fa-solid fa-calendar-days"></i>&nbsp Date Joined</h3>
-            		<p>30/07/2009</p>
+            		<p><?php echo $cmpDateJoined; ?></p>
         			</div>   
 						</div>
 					</section>

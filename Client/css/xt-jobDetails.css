@@ -138,3 +138,7 @@ h1.heading {
   color: #f2891f;
   text-transform: uppercase;
 }
+
+a {
+  color: white;
+}
