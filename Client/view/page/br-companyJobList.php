@@ -1,21 +1,13 @@
 <?php
 session_start();
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
-
-require_once $systemPathPrefix.'includes/db_connection.php';
+require_once $systemPathPrefix."app/DAL/internJobDAL.php";
 
 //$companyID = $_SESSION['companyID'];
 $companyID = "CMP00008";
 
-try{
-    $db = new DBController();
-    $internJobList = $db->runQuery("SELECT * FROM InternJob WHERE companyID = '$companyID' ORDER BY CASE
-                                    WHEN jobStatus = 'Accept Student' then 1
-                                    WHEN jobStatus = 'Full' then 2 
-                                    WHEN jobStatus = 'Done' then 3
-                                    WHEN jobStatus = 'Deleted' then 4
-                                    END ASC
-                                    ");
+try{  
+    $internJobList = getInternJobList($companyID);
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
@@ -85,12 +77,18 @@ try{
                                         <?php
                                             $i = 1;
                                             foreach($internJobList as $row){
+                                                $internJobID = $row['internJobID'];
+                                                $buttonGroup = '';
                                                 if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
-                                                    $buttonGroup = '<a class="edit button" href="br-companyViewJob.php?edit=1&id="'.$row['internJobID'].'">Edit</a>';
+
+                                                    $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
+
                                                 }elseif($row['jobCurrOccNumber'] == 0){
-                                                    $buttonGroup = '
-                                                    <a class="edit button" href="br-companyViewJob.php?edit=1&internJobID="'.$row['internJobID'].'">Edit</a>
-                                                    <button class="remove button" onclick="deleteInternJob(\''.$row['internJobID'].'\')" > Delete </button>';
+
+                                                    $buttonGroup = "
+                                                    <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
+                                                    <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
+
                                                 }
                                                 echo '<tr>';
                                                 echo '<td>'.$i.'</td>';

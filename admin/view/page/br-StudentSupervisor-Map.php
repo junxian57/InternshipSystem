@@ -1,11 +1,11 @@
 <?php
 session_start();
-error_reporting(0);
-include('../../includes/db_connection.php');
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+
+require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
 
     try{
-        $db = new DBController();
-        $getInternBatch = $db->runQuery("SELECT * FROM InternshipBatch");
+        $getInternBatch = getInternshipBatch();
     }catch(Exception $e){
         echo '<script>alert("Database Connection Error")</script>';
     }
@@ -90,7 +90,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="button-group">
-                                <button class="clickable-btn" id="tab1-assign-btn" onclick="tab1MapTable()">Assign</button>
+                                <button class="grey-btn" id="tab1-assign-btn" onclick="tab1MapTable()" disabled>Assign</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab1-supervisor'), document.getElementById('tab1-internBatch-group'), document.getElementById('tab1-student-group'))">
                             </div>
                             <hr>
@@ -154,7 +154,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="button-group">
-                                <a class="clickable-btn" id="tab2-assign-btn">Assign</a>
+                                <button class="grey-btn" id="tab2-assign-btn" disabled>Assign</button>
 
                                 <input type="reset" class="clickable-btn" value="Reset Field" onclick="resetInput(document.getElementById('tab2-student'), document.getElementById('tab2-internBatch-group'), document.getElementById('tab2-supervisor-group'))">
                             </div>
@@ -257,7 +257,7 @@ include('../../includes/db_connection.php');
 
                             </div>
                             <div class="button-group">
-                                <a class="clickable-btn" id="tab3-assign-btn">Assign</a>
+                                <button class="grey-btn" id="tab3-assign-btn" disabled>Assign</button>
                                 <input type="reset" class="clickable-btn" href="#" value="Reset All" onclick="resetInput(document.getElementById('tab3-programme'), document.getElementById('tab3-internBatch-group'), null, true)">
                             </div>
                             <hr>
@@ -323,10 +323,7 @@ include('../../includes/db_connection.php');
             "bLengthChange": false,
             "info": false,
             "dom": 'lrtp',
-            responsive : true
         });
-
-        $.fn.dataTable.FixedHeader(table);
     });
 
     $(document).ready(function() {
@@ -334,8 +331,7 @@ include('../../includes/db_connection.php');
             "searching": false,
             "bLengthChange": false,
             "info": false,
-            "dom": 'lrtp',
-            responsive : true,
+            "dom": 'lrtp',       
             "columnDefs": [{
                 "targets" : 5,
                 "createdCell": function (td, cellData, rowData, row, col){
@@ -343,10 +339,8 @@ include('../../includes/db_connection.php');
                         return document.getElementById('tab2-supervisor-group').value;
                     });
                 }
-            }] 
+            }],
         });
-
-        $.fn.dataTable.FixedHeader(table);
     })
 
     $(document).ready(function() {
@@ -355,7 +349,6 @@ include('../../includes/db_connection.php');
             "bLengthChange": false,
             "info": false,
             "dom": 'lrtp',
-            responsive : true,
             "columnDefs": [{
                 "targets" : 6,
                 "createdCell": function (td, cellData, rowData, row, col){
@@ -363,10 +356,8 @@ include('../../includes/db_connection.php');
                         return tab3StoreLectureID;
                     });
                 }
-            }] 
+            }],
         });
-
-        $.fn.dataTable.FixedHeader(table);
     })
 
 
@@ -405,6 +396,10 @@ include('../../includes/db_connection.php');
             updateBtn.classList.add('grey-btn');
             dataTableClear('#tab1-top-table');
 
+            document.getElementById('tab1-assign-btn').disabled = true;
+            document.getElementById('tab1-assign-btn').classList.remove('clickable-btn');
+            document.getElementById('tab1-assign-btn').classList.add('grey-btn');
+
         }else if(valueInput.id == "tab2-student"){
             valueInput.disabled = true;
             selectionInput1.disabled = false;
@@ -420,6 +415,10 @@ include('../../includes/db_connection.php');
             updateBtn.classList.remove('clickable-btn');
 
             dataTableClear("#tab2-top-table");
+
+            document.getElementById('tab2-assign-btn').disabled = true;
+            document.getElementById('tab2-assign-btn').classList.remove('clickable-btn');
+            document.getElementById('tab2-assign-btn').classList.add('grey-btn');
 
         }else if(valueInput.id == "tab3-programme"){
             valueInput.disabled = true;
@@ -442,9 +441,9 @@ include('../../includes/db_connection.php');
                 item.textContent = "";
             });
 
-            document.getElementById('tab3-assign-btn').disabled = false;
-            document.getElementById('tab3-assign-btn').classList.add('clickable-btn');
-            document.getElementById('tab3-assign-btn').classList.remove('grey-btn');
+            document.getElementById('tab3-assign-btn').disabled = true;
+            document.getElementById('tab3-assign-btn').classList.remove('clickable-btn');
+            document.getElementById('tab3-assign-btn').classList.add('grey-btn');
         }
         
         if(selectionInput2 != null){
@@ -548,6 +547,9 @@ include('../../includes/db_connection.php');
                     }else if(tabID == "tab3-programme"){
                         getSearchBar.setAttribute("data-programmeid", list.target.dataset.programmeid);
                         tab3InsertTable(list.target.dataset.facultyid, list.target.dataset.programmeid);
+                        document.getElementById('tab3-assign-btn').disabled = false;
+                        document.getElementById('tab3-assign-btn').classList.add('clickable-btn');
+                        document.getElementById('tab3-assign-btn').classList.remove('grey-btn');
                     }                
                 });
             }
@@ -608,7 +610,7 @@ include('../../includes/db_connection.php');
 
         getResultBox.style.display = 'block';
         getResultBox.innerHTML = resultArr.join('');
-       inputSearchResult(tabID, resultBoxNo);
+        inputSearchResult(tabID, resultBoxNo);
     }
 
     //Fetch Search Bar Data from DB
@@ -681,6 +683,10 @@ include('../../includes/db_connection.php');
                 studentSelect.appendChild(option);
             }
             changeStudentSlotNo();
+
+            document.getElementById('tab1-assign-btn').disabled = false;
+            document.getElementById('tab1-assign-btn').classList.add('clickable-btn');
+            document.getElementById('tab1-assign-btn').classList.remove('grey-btn');
         }else{
             const option = document.createElement("option");
             option.value = "No Data";
@@ -689,7 +695,6 @@ include('../../includes/db_connection.php');
             studentSelect.disabled = true;
 
             studentSlot.textContent = "0 / 0";
-
         }
     }
 
@@ -725,6 +730,10 @@ include('../../includes/db_connection.php');
                 option.setAttribute("data-ableMapCount", respondResult[i].maxNoOfStudents - respondResult[i].currNoOfStudents);
 
                 supervisorSelect.appendChild(option);
+
+            document.getElementById('tab2-assign-btn').disabled = false;
+            document.getElementById('tab2-assign-btn').classList.add('clickable-btn');
+            document.getElementById('tab2-assign-btn').classList.remove('grey-btn');
             }
         }else{
             const option = document.createElement("option");

@@ -1,11 +1,11 @@
 <?php
 session_start();
-error_reporting(0);
-include('../../includes/db_connection.php');
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+
+require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
 
 try{
-    $db = new DBController();
-    $getFaculty = $db->runQuery("SELECT * FROM Faculty");
+    $getFaculty = getFaculty();
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }

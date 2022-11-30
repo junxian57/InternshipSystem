@@ -100,6 +100,12 @@ function createHTMLEmailForSuccess($companyName, $companyAccount, $initialPasswo
 }
 
 function createHTMLEmailForFailed($companyName, $rejectReason){
+    $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+    $companyID = $_GET['companyID'];
+
+   // $amendLink = 'http://'.$systemPathPrefix."view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
+    $amendLink = "localhost/internshipSystem/client/view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
+
     $html = "
     <html>
     <head>
@@ -112,7 +118,7 @@ function createHTMLEmailForFailed($companyName, $rejectReason){
         <p>Your company <span style='font-weight: bold;'>($companyName)</span> application as our internship partner has been <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>Rejected</span>.</p>
         <br>
         <p>Rejected Reason: <span style='font-weight: bold;'>$rejectReason</span></p>
-        <p>Please click on this <a href='#' style='font-weight: bold; text-decoration:underline;'>Link</a> to amend the requirement and submit the application again.</p><br>
+        <p>Please click on this <a href='$amendLink' style='font-weight: bold; text-decoration:underline;'>Link</a> to amend the requirement and submit the application again.</p><br>
         <br>
         <p>Thank you.</p>
     </body>

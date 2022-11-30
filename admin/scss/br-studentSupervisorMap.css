@@ -162,7 +162,7 @@
   color: #f2891f;
 }
 .tabcontent .checkbox-group form {
-  max-width: 43%;
+  width: 43%;
 }
 .tabcontent .checkbox-group fieldset {
   border: 1px solid gray;
@@ -194,6 +194,9 @@
     max-height: 300px;
   }
 }
+.tabcontent .checkbox-group table {
+  width: 100%;
+}
 .tabcontent .checkbox-group table th, .tabcontent .checkbox-group table td {
   font-size: calc(1vw + 0.1em);
 }
@@ -219,7 +222,6 @@
   width: 20%;
 }
 .tabcontent .checkbox-group table tbody {
-  display: block;
   max-height: 250px;
   overflow-y: scroll;
 }

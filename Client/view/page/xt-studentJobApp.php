@@ -6,6 +6,48 @@ include('includes/dbconnection.php');
 	//header('location:logout.php');
 } else {*/
 ?>
+
+<?php
+if(isset($_GET['internJobID'])){
+	$internJobID = $_GET['internJobID'];
+	$internStart = $_POST['internStart'];
+	$internEnd = $_POST['internEnd'];
+
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $query = "SELECT * FROM InternApplicationMap ORDER BY internAppID DESC LIMIT 1";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_array($result);
+	$lastID = $row['internAppID'];
+	if($lastID == "") {
+		$internAppID = "InAM10001";
+	} else {
+		$internAppID = substr($lastID, 4);
+		$internAppID = intval($internAppID);
+		$internAppID = "InAM".($internAppID + 1);
+	}
+
+  $studID = "21REI00003";
+	$appStatus = "Pending Review";
+
+	$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+	$run_stud = mysqli_query($conn, $get_stud);
+  $row_stud = mysqli_fetch_array($run_stud);
+  $studentCVdocument = $row_stud['studentCVdocument'];
+
+  $sql = "INSERT INTO InternApplicationMap (internAppID, studentID, internJobID, appStatus, appStudentCV, appInternStartDate, appInternEndDate) VALUES ('$internAppID', '$studID', '$internJobID','$appStatus','$studentCVdocument', '$internStart', '$internEnd')";
+  if (mysqli_query($conn, $sql)) {
+    echo "<script>alert('Your application have been sent to the company')</script>"; 
+  } else {
+    echo "Error: " . $sql . mysqli_error($conn);
+    }   
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -95,27 +137,49 @@ include('includes/dbconnection.php');
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Guidewire Software Sdn. Bhd.</td>
-									<td>Software Developer Intern (6 months)-Kuala Lumpur</td>
-									<td>IT - Software</td>
-									<td>Suite 29-2, Level 29, Vertical Corporate Tower B, Avenue 10, Bangsar South City, No.8 Jalan Kerinchi Kuala Lumpur, Malaysia., 59200, Kuala Lumpur</td>
-                  <td>1,500.00 - 1,500.00</td>
-                  <td>Pending Review</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
-                </tr>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
+						
+								$get_internApp = "SELECT * FROM InternApplicationMap WHERE studentID = '21REI00003'";
+								$run_internApp = mysqli_query($conn, $get_internApp);
+								while($row_internApp = mysqli_fetch_array($run_internApp)){
+									$internApp_ID = $row_internApp['internAppID'];
+									$internJob_ID = $row_internApp['internJobID'];
+									$app_Status = $row_internApp['appStatus'];
+									
+									$get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJob_ID'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									$row_intern = mysqli_fetch_array($run_intern);
+									$cmpID = $row_intern['companyID'];
+									$jobTitle = $row_intern['jobTitle'];
+									$jobAllowance = $row_intern['jobAllowance'];
+									$jobFieldsArea = $row_intern['jobFieldsArea'];
+								
+									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+									$run_cmp = mysqli_query($conn, $get_cmp);
+									$row_cmp = mysqli_fetch_array($run_cmp);
+									$cmpName = $row_cmp['cmpName'];
+									$cmpAddress = $row_cmp['cmpAddress'];
+									$cmpEmail = $row_cmp['cmpEmail'];
 
-                <tr>
-									<td>2</td>
-									<td>Fovty Tech Sdn Bhd</td>
-									<td>IT Intern</td>
-									<td>IT - Software</td>
-									<td>V02-07-01, V Office, Lingkaran SV, Sunway Velocity, 55100, Kuala Lumpur</td>
-                  <td>1,000.00 - 1,000.00</td>
-                  <td>Rejected</td>
+									$i++;
+              ?>
+								<tr>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $cmpName; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+									<td><?php echo $jobFieldsArea; ?></td>
+									<td><?php echo $cmpAddress; ?></td>
+                  <td><?php echo $jobAllowance; ?></td>
+                  <td><?php echo $app_Status; ?></td>
                   <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
                 </tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>

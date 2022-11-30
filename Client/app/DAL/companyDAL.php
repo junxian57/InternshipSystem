@@ -90,5 +90,32 @@ function cmpUpdateInfo($companyObj){
     }
 }
 
+function cmpUpdateAmendInfo($companyObj){
+    $db = new DBController();
+
+    $companyID = $companyObj->getCompanyID();
+    $companyAddress = $companyObj->getCompanyAddress();
+    $companyEmail = $companyObj->getCompanyEmail();
+    $companyContact = $companyObj->getCompanyContact();
+    $companyContactPerson = $companyObj->getCompanyContactPerson();
+    $companyState = $companyObj->getCompanyState();
+    $companyCity = $companyObj->getCompanyCity();
+    $companyPostcode = $companyObj->getCompanyPostcode();
+    $companySize = $companyObj->getCompanySize();
+    $companyFieldsArea = $companyObj->getCompanyFieldsArea();
+    $companyStatus = $companyObj->getCompanyStatus();
+    $cmpNumberOfInternshipPlacements = $companyObj->getCompanyNumberOfInternshipPlacements();
+
+    $sqlUpdateAmendedCmpInfo = "UPDATE Company SET cmpEmail = '$companyEmail', cmpContactNumber = '$companyContact', cmpState = '$companyState', cmpAddress = '$companyAddress', cmpCompanySize = '$companySize', cmpFieldsArea = '$companyFieldsArea', cmpPostcode = '$companyPostcode', cmpCity = '$companyCity', cmpContactPerson = '$companyContactPerson', cmpAccountStatus = '$companyStatus', cmpNumberOfInternshipPlacements = $cmpNumberOfInternshipPlacements WHERE companyID = '$companyID';";
+
+    $result = $db->executeQuery($sqlUpdateAmendedCmpInfo);
+
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
 ?>

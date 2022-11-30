@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "../../includes/db_connection.php";
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 //Get Company ID from Session
 //$companyID = $_SESSION['cmpID'];
@@ -10,7 +11,7 @@ $db = new DBController();
 
 //Get Company Info
 try{
-    $companyInfo = $db->runQuery("SELECT * FROM Company WHERE companyID = '$companyID';");
+    $companyInfo = getCompanyDetails($companyID);
     $companyName = $companyInfo[0]['cmpName'];
 }catch(Exception $e){
     echo "<script> 
