@@ -12,7 +12,7 @@ require_once("../../app/DAL/documentManagementDAL.php");
 } else {*/
 
 $documentManagementBLLObj  = new documentManagementBLL();
-/* $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument(); */
+$all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
 
 ?>
 <!DOCTYPE HTML>
@@ -60,7 +60,7 @@ $documentManagementBLLObj  = new documentManagementBLL();
                     <h3 class="page-title">Documents</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                        <div id="documentTbl" class="tabcontent">
+                        <div id="documentTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
                                     <h4>Preview Document Table</h4>
@@ -68,7 +68,7 @@ $documentManagementBLLObj  = new documentManagementBLL();
                             </div>
 
                             <?php
-/*                            echo $all_document; */
+                            echo $all_document;
                             ?>
 
                             <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,63 +83,56 @@ $documentManagementBLLObj  = new documentManagementBLL();
             </div>
         </div>
 
-            <script>
-                let menuLeft = document.getElementById('cbp-spmenu-s1'),
-                    showLeftPush = document.getElementById('showLeftPush'),
-                    body = document.body;
+        <script>
+            let menuLeft = document.getElementById('cbp-spmenu-s1'),
+                showLeftPush = document.getElementById('showLeftPush'),
+                body = document.body;
 
-                showLeftPush.onclick = function() {
-                    classie.toggle(this, 'active');
-                    classie.toggle(body, 'cbp-spmenu-push-toright');
-                    classie.toggle(menuLeft, 'cbp-spmenu-open');
-                    disableOther('showLeftPush');
-                };
+            showLeftPush.onclick = function() {
+                classie.toggle(this, 'active');
+                classie.toggle(body, 'cbp-spmenu-push-toright');
+                classie.toggle(menuLeft, 'cbp-spmenu-open');
+                disableOther('showLeftPush');
+            };
 
-                function disableOther(button) {
-                    if (button !== 'showLeftPush') {
-                        classie.toggle(showLeftPush, 'disabled');
-                    }
+            function disableOther(button) {
+                if (button !== 'showLeftPush') {
+                    classie.toggle(showLeftPush, 'disabled');
                 }
-            </script>
+            }
+        </script>
 
-            <!--Table JS sorting,searchinh,pagination-->
-            <script>
-                $(document).ready(function() {
-                    $('#documentTbl').DataTable({
-                        //custom search bar 
-                        "language": {
-                            searchPlaceholder: "Search"
-                        },
-                        "searchBox": {
-                            "addClass": 'form-control input-lg col-xs-12'
-                        },
+        <!--Table JS sorting,searchinh,pagination-->
+        <script>
+            $(document).ready(function() {
+                $('#documentCmpTbl').DataTable({
+                    //custom search bar 
+                    "language": {
+                        searchPlaceholder: "Search"
+                    },
+                    "searchBox": {
+                        "addClass": 'form-control input-lg col-xs-12'
+                    },
 
-                        "fnDrawCallback": function() {
-                            $("input[type='search']").attr("id", "searchBox");
-                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
-                            //$('#searchBox').css("width", "250px");
-                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+                    "fnDrawCallback": function() {
+                        $("input[type='search']").attr("id", "searchBox");
+                        $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                        $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                        $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                        //$('#searchBox').css("width", "250px");
+                        $('#dialPlanListTable_filter').removeClass('dataTables_filter');
 
-                            $('.sorting').css("width", "");
-                            //$('#test1').style.remove('width');
-                        },
-                    });
+                        $('.sorting').css("width", "");
+                        //$('#test1').style.remove('width');
+                    },
                 });
-            </script>
-            <!--dispose modal when close the modal -->
-            <script>
-                $("#theModal").on('hidden.bs.modal', function() {
-                    $(this).data('bs.modal', null);
-                });
-            </script>
+            });
+        </script>
+        <script src="../../js/classie.js"></script>
+        <script src="../../js/bootstrap.js"> </script>
 
-            <script src="../../js/classie.js"></script>
-            <script src="../../js/bootstrap.js"> </script>
-
-            <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 </body>
 <footer><?php include_once('includes/footer.php'); ?></footer>
 

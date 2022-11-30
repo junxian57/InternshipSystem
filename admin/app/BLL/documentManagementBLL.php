@@ -42,7 +42,7 @@ class documentManagementBLL
             $all_documentManagement_html .= '</tr>';
             $all_documentManagement_html .= '</thead>';
             $all_documentManagement_html .= '<tbody>';
-            foreach ($all_documentManagement as $documentManagement) {
+            foreach ($all_document as $documentManagement) {
                 $all_documentManagement_html .= '<tr>';
                 $all_documentManagement_html .= '<td>' . $i++ . '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getdocumentID() . '</td>';
@@ -67,7 +67,22 @@ class documentManagementBLL
             $all_documentManagement_html .= '</tbody>';
             $all_documentManagement_html .= '</table>';
         } else {
-            //$all_rubricAssessment_html = '<div class="alert alert-warning" role="alert">No student found. Try <a href="add.php">add</a> some.</div>';
+            $all_documentManagement_html .= '<table id="documentCmpTbl" class="table-view">';
+            $all_documentManagement_html .= '<thead>';
+            $all_documentManagement_html .= '<tr>';
+            $all_documentManagement_html .= '<th id="test1">#</th>';
+            $all_documentManagement_html .= '<th>Document ID</th>';
+            $all_documentManagement_html .= '<th>Document Title</th>';
+            $all_documentManagement_html .= '<th>Uploader</th>';
+            $all_documentManagement_html .= '<th>Upload Date</th>';
+            $all_documentManagement_html .= '<th>Upload Document</th>';
+            $all_documentManagement_html .= '<th>Document Information</th>';
+            $all_documentManagement_html .= '<th>Location</th>';
+            $all_documentManagement_html .= '</tr>';
+            $all_documentManagement_html .= '</thead>';
+            $all_documentManagement_html .= '<tbody>';
+            $all_documentManagement_html .= '</tbody>';
+            $all_documentManagement_html .= '</table>';
         }
 
         return $all_documentManagement_html;
@@ -76,7 +91,7 @@ class documentManagementBLL
     public function AddDocumentMngt($documentManagementDTO)
     {
 
-        if ($documentManagementDTO->getdocumentTitle() == '' || $documentManagementDTO->getInformation() == '' ) {
+        if ($documentManagementDTO->getdocumentTitle() == '' || $documentManagementDTO->getInformation() == '') {
             $this->errorMessage = 'Document Title and Information are required.';
             return false;
         }
@@ -91,7 +106,7 @@ class documentManagementBLL
     public function UpdDocumentMngt($documentManagementDTO)
     {
 
-        if ($documentManagementDTO->getdocumentTitle() == '' || $documentManagementDTO->getInformation() == '' ) {
+        if ($documentManagementDTO->getdocumentTitle() == '' || $documentManagementDTO->getInformation() == '') {
             $this->errorMessage = 'Document Title and Information are required.';
             return false;
         }

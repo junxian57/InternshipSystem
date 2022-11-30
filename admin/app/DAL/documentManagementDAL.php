@@ -186,7 +186,7 @@ class documentManagementDAL
      * @param string $documentID
      * @return bool
      */
-    public function IsDocumentExists($documentTitle, $documentID, $id)
+    public function IsDocumentExists($documentTitle, $documentID)
     {
         $sql = "SELECT * FROM DocumentManagement WHERE Title='" . $documentTitle . "' AND documentID = $documentID ";
         $result = $this->databaseConnectionObj->runQuery($sql);
