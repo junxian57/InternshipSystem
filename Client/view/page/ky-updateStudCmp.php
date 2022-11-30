@@ -165,10 +165,6 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
     }
 }
 
-
-
-
-
 ?>
 
 

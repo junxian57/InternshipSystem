@@ -45,7 +45,7 @@ include('../../includes/db_connection.php');
  //}
 
  //testing purpose
- $companyID = 'CMP00007';
+$companyID = 'CMP00007';
 $db = new DBController();
 
 //Get Company Info
@@ -55,7 +55,7 @@ try{
 }catch(Exception $e){
     echo "<script> 
     alert('$e');
-    window.location.href = 'ky-enterCmpDetails.php';
+    window.location.href = 'ky-maintainCmp.php';
     </script>";    
 }
 
@@ -63,14 +63,14 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     echo "<script>
     alert(`Company Profile Has Been Updated Successfully.`);
     
-    window.location.href = 'ky-enterCmpDetails.php';
+    window.location.href = 'ky-maintainCmp.php';
     </script>";
     
 }else if(isset($_GET['failed']) && isset($_GET['update']) && $_GET['update'] == "0" && $_GET['failed'] == "1"){
     echo "<script>
     alert(`Company Profile Updated Failed.\\n\\nContact Admin For Further Assistance.`);
     
-    window.location.href = 'ky-enterCmpDetails.php'
+    window.location.href = 'ky-maintainCmp.php'
     </script>";
 }
 
@@ -87,7 +87,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                 <h3 class="page-title">Company Information</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
-                        <form action="ky-updateStudCmp.php" onsubmit="formTaskArray()" method="GET">                  
+                        <form action="ky-maintainStudCmp.php" onsubmit="formTaskArray()" method="GET">                  
                         <input type="hidden" value="<?php echo $companyID; ?>" name="companyID">
                             <div class="title">
                                 <h2>Company Name & Contact</h2>
@@ -154,21 +154,21 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 <label for="cmpContactPerson">Initial Password</label>
                                 <input 
                                 class="grey-bg" 
-                                type="text"
+                                type="Password"
                                 placeholder="Please enter initial password" 
                                 name="iniPass" 
                                 readonly
-                                required/>
+                                />
                                 </div>
 
                                 <div class="input-style width-45 name-address-group">
                                 <label for="cmpDateJoin">New Password</label>
                                 <input class="grey-bg" 
-                                type="text"
+                                type="Password"
                                 placeholder="Please enter new password"  
                                 name="newPass" 
                                 readonly
-                                required/>
+                               />
                                 </div>
                             </div>
 
@@ -273,8 +273,8 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             </div>
                             <hr>
                             <div class="button-group">
-                                    <button type = "submit" name="update" class="clickable-btn Update">Update</button>
-                                    <a href="#" class="clickable-btn Export">Cancel</a>
+                                <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
+                                <a href="#" class="clickable-btn Export">Cancel</a>
                                 <!--
                                 //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
                                 -->
@@ -296,29 +296,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     <footer><?php include_once "../../includes/footer.php"; ?></footer>
 </body>
     
-<script>
-    var state= false;
-    function toggle(){
-        if (state){
-            document.getElementById(
-                "passsword").
-                setAttribute("type",
-                "password");
-                document.getElementById(
-                    "eye").style.color='#7a797e';
-                state = false;
-        }
-        else{
-            document.getElementById(
-                "password").
-                setAttribute("type",
-                "text");
-                document.getElementById(
-                    "eye").style.color='#5887ef';
-                    state = true;
-        }
-    }
-</script>
 <script src="../../js/classie.js"></script>
 <script src="../../js/bootstrap.js"> </script>
 <script>
@@ -340,95 +317,99 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     }
 </script>
 <script>
-    function searchInTable() {
-        let input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("keyInput");
-        filter = input.value;
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+    document.getElementById('addNewField').addEventListener('click',() => {
+        addNewRow('fields-row', document.getElementById('cmpFieldArea'))
+    });
 
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    function addNewRow(taskGroup, newTaskValue){
+        let value = newTaskValue.value;
 
-    //Search Result on Search Bar
-    function inputSearchResult() {
-        const getSearchResultArr = document.getElementsByClassName('search-result');
-        const getSearchBar = document.getElementById('searchBar');
-        const getResultBox = document.querySelector('.result-box');
-
-        if (getSearchResultArr.length > 0) {
-            for (let i = 0; i < getSearchResultArr.length; i++) {
-                getSearchResultArr[i].addEventListener('click', (btn) => {
-                    getSearchBar.value = btn.target.innerText;
-                    getResultBox.style.display = 'none';
-                });
-            }
-        } else {
-            return;
-        }
-    }
-
-    function removeAllChildNodes(parent) {
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
-        }
-    }
-
-    async function displaySearchResult() {
-        const getResultBox = document.querySelector('.result-box');
-        const respondResult = await searchBarData();
-        let resultArr = [];
-
-        if (respondResult === null || respondResult === undefined || respondResult.length == 0) {
-            getResultBox.style.display = 'none';
-            return;
-        }
-        //Clear the existing box
-        removeAllChildNodes(getResultBox);
-
-        if (respondResult !== null || respondResult !== undefined || respondResult.length != 0) {
-            for (let i = 0; i < Object.keys(respondResult).length; i++) {
-                resultArr[i] =
-                    `<li class='search-result'>${respondResult[i].employeeID}: ${respondResult[i].fullName}</li>`;
-            }
-        } else {
-            getResultBox.style.display = 'none';
+        if (value === ""){
+            alert("Please Enter a Task");
             return;
         }
 
-        getResultBox.style.display = 'block';
-        getResultBox.innerHTML = resultArr.join('');
-        inputSearchResult();
+        //Entering Alphabet Only
+        if(!checkIsAlphabet(newTaskValue.value)){
+        alert('Please Enter Alphabet and Space Only');
+        newTaskValue.value = '';
+        return;
+        }
+
+        let taskRow = document.getElementById(taskGroup);
+        let newTask = document.createElement("div");
+        newTask.className = "row";
+        newTask.innerHTML = `<p>${value}</p><span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>`;
+        taskRow.appendChild(newTask);
+        newTaskValue.value = "";
     }
 
-    async function searchBarData() {
-        const getSearchInput = document.getElementById('searchBar').value;
-        const getResultBox = document.querySelector('.result-box');
-        let url;
+    function checkIsAlphabet(value){
+      let regex = /^[a-zA-Z ]+$/;
+      return regex.test(value);
+    }
+    
+    function deleteTaskRow(taskGroup){
+        taskGroup.parentElement.remove();
+    };
+    
+    function removeDisable(){
+        let input = document.querySelectorAll("input");
+        let select = document.querySelectorAll("select");
+        let allTaskRowSpanButton = document.querySelectorAll(".deleteRow");
 
-        if (getSearchInput == '') {
-            getResultBox.style.display = 'none';
-            return;
-        } else {
-            if (Number.isInteger(parseInt(getSearchInput))) {
-                url = '../php-inc/ajaxSearchEmployee.php?icNo=' + getSearchInput;
-            } else {
-                url = '../php-inc/ajaxSearchEmployee.php?fullName=' + getSearchInput;
-            }
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-        }
+        input.forEach((item) => {
+            if(item.id == 'cmpName' || item.id == 'cmpDateJoin') return;
+            if(item.id=='addNewField') item.removeAttribute('style');
+
+            item.removeAttribute("readonly");
+            item.removeAttribute("disabled");
+            item.classList.remove("grey-bg");
+        });
+    
+        select.forEach((item) => {
+            item.removeAttribute("disabled");
+            item.classList.remove("grey-bg");
+        });
+
+        allTaskRowSpanButton.forEach((item) => {
+            item.setAttribute('onclick', 'deleteTaskRow(this)');
+        });
+
+        let buttonGroup = document.getElementsByClassName("button-group");
+
+        //Create Update Button For Update Company Details
+        let updateButton = document.createElement("input");
+        updateButton.setAttribute("type", "submit");
+        updateButton.setAttribute("value", "Update");
+        updateButton.setAttribute("name", "submit");
+        updateButton.id = "update-form-btn";
+        updateButton.className = "clickable-btn";
+
+        buttonGroup[0].replaceChild(updateButton, buttonGroup[0].children[0]);
+
+    }
+
+    function formTaskArray(){
+      let taskValue = "";
+      let fieldsRow = document.querySelectorAll('#fields-row .row p');
+
+      fieldsRow.forEach((task) => {
+        taskValue += task.innerHTML + "-";
+      });
+
+      document.getElementById('cmpHiddenFieldsArea').value = taskValue;
+
+      if(document.getElementById('cmpSize').value == 0){
+        alert('Please select a company size');
+        return false;
+      }else if(document.getElementById('cmpState').value == 0){
+        alert('Please select a state');
+        return false;
+      }else if(fieldsRow.length == 0){
+        alert('Please enter a field area');
+        return false;
+      }
     }
 </script>
 

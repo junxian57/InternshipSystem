@@ -142,7 +142,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 <label for="cmpContactPerson">Initial Password</label>
                                 <input 
                                 class="grey-bg" 
-                                type="text"
+                                type="Password"
                                 placeholder="Please enter initial password" 
                                 name="iniPass" 
                                 readonly
@@ -152,7 +152,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 <div class="input-style width-45 name-address-group">
                                 <label for="cmpDateJoin">New Password</label>
                                 <input class="grey-bg" 
-                                type="text"
+                                type="Password"
                                 placeholder="Please enter new password"  
                                 name="newPass" 
                                 readonly
