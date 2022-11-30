@@ -202,61 +202,61 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Contact No :</label>
-                                <input type="text" placeholder="Enter programme" name="ContactNo" id="input_phone" required>
+                                <input type="text" placeholder="Enter contact No" name="ContactNo" id="input_phone" required>
                                 <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" placeholder="Enter programme" name="cmpAddress" id="input_address" required>
+                                <input type="text" placeholder="Enter Address" name="cmpAddress" id="input_address" required>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Internship Placement :</label>
-                                <input type="text" placeholder="Enter programme" name="cmpPlacement" id="input_placement" required >
+                                <input type="text" placeholder="Enter internship placement" name="cmpPlacement" id="input_placement" required >
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company User Name :</label>
-                                <input type="text" placeholder="Enter your address" name="cmpUserName" id="input_username" >
+                                <input type="text" placeholder="Enter your user name" name="cmpUserName" id="input_username" >
                                 <i class="uil uil-chat-bubble-user icon"></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Company Size :</label>
-                                <input type="text" placeholder="Enter your email" name="cmpSize" id="input_size" >
+                                <input type="text" placeholder="Enter your company size" name="cmpSize" id="input_size" >
                                 <i class='far fa-building icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" placeholder="Enter contact number" name="cmpFields" id="input_field" required>
+                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" required>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Average Allowance :</label>
-                                <input type="text" placeholder="Enter programme" name="allowance" id="input_allowance" required>
+                                <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance" required>
                                 <i class="uil uil-usd-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" name ="dateJoined" id="input_dateJoined" required readonly>
+                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" required readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" name="status" id="input_status" required>
+                                <input type="text" placeholder="Enter status" name="status" id="input_status" required>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
-                                <input type="text" name="rating" id="input_rating" required >
+                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating" required >
                                 <i class="uil uil-star icon"></i>
                             </div>
 
@@ -286,67 +286,67 @@ include('../../includes/db_connection.php');
                             
                         <div class="pass-box">
                                 <label>Company ID :</label>
-                                <input type="text" placeholder="Enter your id" name="update_id" id="input_id2" required readonly>
+                                <input type="text" name="update_id" id="input_id2" required readonly>
                                 <i class="uil uil-user icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Name :</label>
-                                <input type="text" placeholder="Enter your name" name="cmpName" id="input_name2" required readonly>
+                                <input type="text" name="cmpName" id="input_name2" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" placeholder="Enter programme" name="email" id="input_email2" required readonly>
+                                <input type="text" name="email" id="input_email2" required readonly>
                                 <i class="uil uil-envelope icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Contact No :</label>
-                                <input type="text" placeholder="Enter programme" name="ContactNo" id="input_phone2" required readonly>
+                                <input type="text" name="ContactNo" id="input_phone2" required readonly>
                                 <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" placeholder="Enter programme" name="cmpAddress" id="input_address2" required readonly>
+                                <input type="text" name="cmpAddress" id="input_address2" required readonly>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Internship Placement :</label>
-                                <input type="text" placeholder="Enter programme" name="cmpPlacement" id="input_placement2" required readonly>
+                                <input type="text" name="cmpPlacement" id="input_placement2" required readonly>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company User Name :</label>
-                                <input type="text" placeholder="Enter your address" name="cmpUserName" id="input_username2" required readonly>
+                                <input type="text" name="cmpUserName" id="input_username2" required readonly>
                                 <i class="uil uil-chat-bubble-user icon"></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Company Size :</label>
-                                <input type="text" placeholder="Enter your email" name="cmpSize" id="input_size2" required readonly>
+                                <input type="text" name="cmpSize" id="input_size2" required readonly>
                                 <i class='far fa-building icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" placeholder="Enter contact number" name="cmpFields" id="input_field2" required readonly>
+                                <input type="text" name="cmpFields" id="input_field2" required readonly>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Average Allowance :</label>
-                                <input type="text" placeholder="Enter programme" name="allowance" id="input_allowance2" required readonly>
+                                <input type="text" name="allowance" id="input_allowance2" required readonly>
                                 <i class="uil uil-usd-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" name ="dateJoined" id="input_dateJoined2" required readonly>
+                                <input type="text" name ="dateJoined" id="input_dateJoined2" required readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
 

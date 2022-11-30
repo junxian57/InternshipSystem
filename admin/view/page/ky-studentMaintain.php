@@ -128,7 +128,6 @@ include('../../includes/db_connection.php');
 </body>
      
 
-
 <!-- VIEW MODAL -->
     <div id="view-modal">
         <div class="model">
@@ -151,73 +150,73 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Student Name :</label>
-                                <input type="text" placeholder="Enter your name" id="input_name2" required>
+                                <input type="text" placeholder="Enter your name" id="input_name2" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Programme :</label>
-                                <input type="text" placeholder="Enter programme" id="input_programme2" required>
+                                <input type="text" placeholder="Enter programme id" id="input_programme2" required readonly>
                                 <i class="uil uil-graduation-cap icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Lecturer ID :</label>
-                                <input type="text" placeholder="Enter programme" id="input_lecturer2" required>
+                                <input type="text" placeholder="Enter lecturer id" id="input_lecturer2" required readonly>
                                 <i class="uil uil-book-reader icon"></i>
                             </div>
                     
                             <div class="pass-box">
                                 <label>Internship Batch ID :</label>
-                                <input type="text" placeholder="Enter programme" id="input_internBatch2" required>
+                                <input type="text" placeholder="Enter internship batch" id="input_internBatch2" required readonly>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Gender :</label>
-                                <input type="text" placeholder="Enter programme" id="input_gender2" required >
+                                <input type="text" placeholder="Enter gender" id="input_gender2" required readonly>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
  
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" placeholder="Enter your email" id="input_email2" required>
+                                <input type="text" placeholder="Enter email" id="input_email2" required readonly>
                                 <i class="uil uil-envelope icon"></i>
                             </div> 
                             
                             <div class="pass-box">
                                 <label>Contact Number:</label>
-                                <input type="text" placeholder="Enter contact number" id="input_phone2" required>
+                                <input type="text" placeholder="Enter contact number" id="input_phone2" required readonly>
                                 <i class="uil uil-phone icon"></i>
                             </div>
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" placeholder="Enter your address" id="input_address2" required>
+                                <input type="text" placeholder="Enter address" id="input_address2" required readonly>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" id="input_dateJoined2" required>
+                                <input type="text" id="input_dateJoined2" required readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Application Quota :</label>
-                                <input type="text" placeholder="Enter programme" id="input_applicationQuota2" required>
+                                <input type="text" placeholder="Enter programme" id="input_applicationQuota2" required readonly>
                                 <i class="fa fa-address-card icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Current No Application :</label>
-                                <input type="text" placeholder="Enter programme" id="input_currentApplication2" required>
+                                <input type="text" placeholder="Enter no application" id="input_currentApplication2" required readonly>
                                 <i class="fa fa-address-card-o icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" placeholder="Enter programme" id="input_status2" required>
+                                <input type="text" placeholder="Enter account status" id="input_status2" required readonly>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
 
@@ -253,7 +252,7 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Student Name :</label>
-                                <input type="text" placeholder="Enter your name" name="studName" id="input_name" required>
+                                <input type="text" placeholder="Enter student name" name="studName" id="input_name" required>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
@@ -265,25 +264,25 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Lecturer ID :</label>
-                                <input type="text" placeholder="Enter programme" name="lecturer" id="input_lecturer" required>
+                                <input type="text" placeholder="Enter Lecturer ID" name="lecturer" id="input_lecturer" required>
                                 <i class="uil uil-book-reader icon"></i>
                             </div>
                     
                             <div class="pass-box">
                                 <label>Internship Batch ID :</label>
-                                <input type="text" placeholder="Enter programme" name="internBatch" id="input_internBatch" required>
+                                <input type="text" placeholder="Enter Internship Batch ID" name="internBatch" id="input_internBatch" required>
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Gender :</label>
-                                <input type="text" placeholder="Enter programme" name="gender" id="input_gender" required >
+                                <input type="text" placeholder="Enter gender" name="gender" id="input_gender" required >
                                 <i class="uil uil-book-open icon"></i>
                             </div>
  
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" placeholder="Enter your email" name="email" id="input_email" required>
+                                <input type="text" placeholder="Enter email" name="email" id="input_email" required>
                                 <i class="uil uil-envelope icon"></i>
                             </div> 
                             
@@ -295,31 +294,31 @@ include('../../includes/db_connection.php');
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" placeholder="Enter your address" name="address" id="input_address" required>
+                                <input type="text" placeholder="Enter address" name="address" id="input_address" required>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Enter programme" name="dateJoined" id="input_dateJoined" required>
+                                <input type="text" name="dateJoined" id="input_dateJoined" required readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Application Quota :</label>
-                                <input type="text" placeholder="Enter programme" name="appQuota" id="input_applicationQuota" required>
+                                <input type="text" placeholder="Enter Application Quota" name="appQuota" id="input_applicationQuota" required>
                                 <i class="fa fa-address-card icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Current No Application :</label>
-                                <input type="text" placeholder="Enter programme"  name="currentApp" id="input_currentApplication" required>
+                                <input type="text" placeholder="Enter Current No Application"  name="currentApp" id="input_currentApplication" required>
                                 <i class="fa fa-address-card-o icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" placeholder="Enter programme" name="status" id="input_status" required>
+                                <input type="text" placeholder="Enter status" name="status" id="input_status" required>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
                             
