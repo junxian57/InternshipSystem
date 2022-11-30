@@ -11,6 +11,25 @@ include('includes/dbconnection.php');
 	if(isset($_GET['internJobID'])){
     $internJobID = $_GET['internJobID'];
   }
+
+	$host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $query = "SELECT * FROM InternApplicationMap ORDER BY internAppID DESC LIMIT 1";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_array($result);
+	$lastID = $row['internAppID'];
+	if($lastID == "") {
+		$internAppID = "InAM10001";
+	} else {
+		$internAppID = substr($lastID, 4);
+		$internAppID = intval($internAppID);
+		$internAppID = "InAM".($internAppID + 1);
+	}
 ?>
 
 <!DOCTYPE HTML>
@@ -151,8 +170,8 @@ function  confirmationMsgBox(){
             		<p><?php echo $jobTrainingPeriod; ?> Months</p><br>
         			</div>   
 							<div class="button-group">
-								<button type="submit" class="backBtn"><a href='xt-searchJob.php'>Back</button>
-              	<button type="submit" class="applyBtn"><a href="javascript:openulr('xt-studentJobApp.php');">Apply</button>
+								<button type="submit" class="backBtn"><a href='xt-searchJob.php';></a>Back</button>
+              	<button type="submit" class="applyBtn" id="applyBtn">Apply</button>
             	</div>
 						</div>
 					</section>
@@ -182,6 +201,29 @@ function  confirmationMsgBox(){
 			</div>
 		</div>
 	</div>
+	
+	<div class="applicationForm">
+    <div class="formContent">
+      <div class="formWidget">
+        <h1 id="heading1" class="apply-header title">Intern Application - <?php echo $internAppID; ?></h1>
+        <div class="close">+</div>
+      </div> 
+      <form id="applicationForm" method="POST" action="xt-studentJobApp.php?internJobID=<?php echo $internJobID; ?>">
+				<label for="internStart">Intern Start Date:</label><br>
+				<input type="date" id="internStart" name="internStart" required>
+
+				<br>
+
+				<label for="internEnd">Intern End Date:</label><br>
+				<input type="date" id="internEnd" name="internEnd" required>
+
+				<br>
+
+        <button type="submit" id="applyButton" class="applyButton" name="apply">Apply</button>
+      </form>
+    </div>
+  </div>
+
 	<script src="../../js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -201,6 +243,18 @@ function  confirmationMsgBox(){
 			}
 		}
 	</script>
+
+	<script>
+    document.getElementById('applyBtn').addEventListener('click',
+      function(){
+        document.querySelector('.applicationForm').style.display = 'flex';
+      });
+      
+      document.querySelector('.close').addEventListener('click',
+        function(){
+          document.querySelector('.applicationForm').style.display = 'none';
+        })
+  </script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>
 	<script src="../../js/scripts.js"></script>
