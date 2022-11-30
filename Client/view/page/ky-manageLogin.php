@@ -30,7 +30,7 @@ if (!$conn){
                     echo "
                     <script>
                         alert('You Have Successfully Logged in');
-                        document.location.href = 'ky-studentMaintain.php';
+                        document.location.href = 'ky-enterStudDetails.php';
                     </script>
                     ";
 
@@ -44,7 +44,6 @@ if (!$conn){
                         document.location.href = 'ky-studLogin.php';
                     </script>
                     ";
-
                 }
         }
 
