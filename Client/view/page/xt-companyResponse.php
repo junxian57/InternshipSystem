@@ -139,7 +139,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>
@@ -233,7 +233,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>
@@ -327,7 +327,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>
@@ -421,7 +421,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>

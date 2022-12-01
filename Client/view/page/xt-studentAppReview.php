@@ -6,6 +6,13 @@ include('includes/dbconnection.php');
 	//header('location:logout.php');
 } else {*/
 ?>
+
+<?php
+	if(isset($_GET['InternAppID'])){
+    $internAppID = $_GET['InternAppID'];
+  }
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -52,30 +59,81 @@ include('includes/dbconnection.php');
               <h2 class="sub-1">Student General Information</h2>
             </div>
             
+              <?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_app = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+                $run_app = mysqli_query($conn, $get_app);
+                $row_app = mysqli_fetch_array($run_app);
+                $internJobID = $row_app['internJobID'];
+                $studentID = $row_app['studentID'];
+
+                $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+								$run_intern = mysqli_query($conn, $get_intern);
+								$row_intern = mysqli_fetch_array($run_intern);
+                $cmpID = $row_intern['companyID'];
+								$jobTitle = $row_intern['jobTitle'];
+
+                $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+								$run_cmp = mysqli_query($conn, $get_cmp);
+								$row_cmp = mysqli_fetch_array($run_cmp);
+                $cmpName = $row_cmp['cmpName'];
+
+								$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+								$runStud = mysqli_query($conn, $getStud);
+								$rowStud = mysqli_fetch_array($runStud);
+                $programmeID = $rowStud['programmeID'];
+								$studName = $rowStud['studName'];
+                $studEmail = $rowStud['studEmail'];
+                $studContactNumber = $rowStud['studContactNumber'];
+                $studHomeAddress = $rowStud['studHomeAddress'];
+
+                $getProgramme = "SELECT * FROM Programme WHERE programmeID = '$programmeID'";
+                $runProgramme = mysqli_query($conn, $getProgramme);
+                $rowProgramme = mysqli_fetch_array($runProgramme);
+                $programmeName = $rowProgramme['programmeName'];
+                $departmentID = $rowProgramme['departmentID'];
+
+                $getDept = "SELECT * FROM Department WHERE departmentID = '$departmentID'";
+                $runDept = mysqli_query($conn, $getDept);
+                $rowDept = mysqli_fetch_array($runDept);
+                $facultyID = $rowDept['facultyID'];
+
+                $getFac = "SELECT * FROM Faculty WHERE facultyID = '$facultyID'";
+                $runFac = mysqli_query($conn, $getFac);
+                $rowFac = mysqli_fetch_array($runFac);
+                $facName = $rowFac['facName'];
+              ?>
+
             <div class="inputBox">
               <div class="viewInput">
                 <span>Student ID</span>
-                <input type="text" name="studID" readonly value="<?php echo$studID; ?>">
+                <input type="text" name="studID" readonly value="<?php echo $studentID; ?>">
               </div>
             
               <div class="viewInput">
                 <span>Student Name</span>
-                <input type="text" name="studName" readonly value="<?php echo$studName; ?>">
+                <input type="text" name="studName" readonly value="<?php echo $studName; ?>">
               </div>
 
               <div class="viewInput">
                 <span>Email</span>
-                <input type="text" name="studEmail" readonly value="<?php echo$studEmail; ?>">
+                <input type="text" name="studEmail" readonly value="<?php echo $studEmail; ?>">
               </div>
             
               <div class="viewInput">
                 <span>Contact Number</span>
-                <input type="text" name="studContactNumber" readonly value="<?php echo$studContactNumber; ?>">
+                <input type="text" name="studContactNumber" readonly value="<?php echo $studContactNumber; ?>">
               </div>
 
               <div class="viewInput" style="width:100%;">
                 <span>Address</span>
-                <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
+                <textarea type="text" name="studHomeAddress" readonly><?php echo $studHomeAddress; ?></textarea>
               </div> 
             </div>
             
@@ -86,12 +144,12 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput">
                 <span>Faculty</span>
-                <input type="text" name="studFaculty" readonly value="<?php echo$studFaculty; ?>">
+                <input type="text" name="studFaculty" readonly value="<?php echo $facName; ?>">
               </div>
             
               <div class="viewInput">
                 <span>Programme</span>
-                <input type="text" name="studProgramme" readonly value="<?php echo$studProgramme; ?>">
+                <input type="text" name="studProgramme" readonly value="<?php echo $programmeName; ?>">
               </div>
             </div>
 
@@ -102,12 +160,12 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput">
                 <span>Job ID</span>
-                <input type="text" name="jobID" readonly value="<?php echo$jobID; ?>">
+                <input type="text" name="jobID" readonly value="<?php echo $internJobID; ?>">
               </div>
 
               <div class="viewInput">
                 <span>Job Title</span>
-                <input type="text" name="jobTitle" readonly value="<?php echo$jobTitle; ?>">
+                <input type="text" name="jobTitle" readonly value="<?php echo $jobTitle; ?>">
               </div>
             </div>
 
@@ -184,10 +242,66 @@ include('includes/dbconnection.php');
       </div> 
       <form id="rejectForm" method="POST">
         <textarea id="reason" name="reason" rows="4" placeholder="Reason of Reject*" required></textarea>
-        <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
+        <button type="submit" id="confirmBtn" class="confirmBtn" name="reject">Confirm</button>
       </form>
     </div>
   </div>
+
+  <?php
+    if(isset($_POST['reject'])){
+      require '../../../config/email.php';
+      $mailConfig = new EmailConfig();
+      $name = $_POST['studName'];
+      $email = $_POST['studEmail'];
+      $reason = $_POST['reason'];
+      $subject = "Internship Applicant Immediate Rejection";
+
+      $success = $mailConfig->singleEmail(
+        '$studEmail', 
+        $subject, 
+        rejectApp($name, $cmpName, $internAppID, $reason)
+      );
+    }
+    function rejectApp($name, $cmpName, $internAppID, $reason){
+        $html = "
+        <html>
+          <head>
+            <title>Internship Applicant Immediate Rejection</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>Thank you for your application to $cmpName.</p>
+            <p>We have evaluated your resume and determined that your experience and coursework do not match our hiring criteria for this position. Your intern job application <span style='font-weight: bold; color: blue;'>[$internAppID]</span> has been <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected</span>.</p>
+            <p>Reject reason: <span style='font-weight: bold;'>$reason</span></p>
+            <p>Your interest in our organization is greatly appreciated and we wish you success in your future endeavors.</p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
+      }
+      
+      function acceptApp($name, $cmpName, $internAppID, $reason){
+        $html = "
+        <html>
+          <head>
+            <title>Internship Applicant Immediate Rejection</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>Thank you for your application to $cmpName.</p>
+            <p>We have evaluated your resume and determined that your experience and coursework do not match our hiring criteria for this position. Your intern job application <span style='font-weight: bold; color: blue;'>[$internAppID]</span> has been <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected</span>.</p>
+            <p>Reject reason: <span style='font-weight: bold;'>$reason</span></p>
+            <p>Your interest in our organization is greatly appreciated and we wish you success in your future endeavors.</p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
+      }
+  ?>
 
   <script>
     document.getElementById('approveBtn').addEventListener('click',
