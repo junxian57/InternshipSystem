@@ -2,10 +2,11 @@
 session_start();
 error_reporting(0);
 include('includes/db_connection.php');
-require_once('../../app/BLL/rubricAssessmentBLL.php');
-require_once("../../app/DTO/rubricAssessmentDTO.php");
-require_once("../../app/DTO/rubricAssessmentCriteriaDTO.php");
-require_once("../../app/DAL/rubricAssessmentDAL.php");
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/internshipSystem/admin/';
+require_once $systemPathPrefix . "/app/BLL/rubricAssessmentBLL.php";
+require_once $systemPathPrefix . "/app/DTO/rubricAssessmentDTO.php";
+require_once $systemPathPrefix . "/app/DTO/rubricAssessmentCriteriaDTO.php";
+require_once $systemPathPrefix . "/app/DAL/rubricAssessmentDAL.php";
 $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
