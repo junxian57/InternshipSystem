@@ -170,23 +170,18 @@ include('includes/dbconnection.php');
             </div>
 
             <div class="subtitle">
-              <h2 class="sub-2">Skill & Experience</h2>
+              <h2 class="sub-2">Internship Details</h2>
             </div>
-            
+
             <div class="inputBox">
-              <div class="viewInput" style="width:100%;">
-                <span>Skills</span>
-                <textarea type="text" name="studSkill" readonly value="<?php echo$studSkill; ?>"></textarea>
-              </div> 
-
-              <div class="viewInput" style="width:100%;">
-                <span>Working Experiences</span>
-                <textarea type="text" name="studWorkExpc" readonly value="<?php echo$studWorkExpc; ?>"></textarea>
-              </div> 
-
-              <div class="viewInput" style="width:100%;">
-                <span>Languages Proficiency</span>
-                <input type="text" name="studLanguage" readonly value="<?php echo$studLanguage; ?>">
+              <div class="viewInput">
+                <span>Internship Start Date</span>
+                <input type="date" name="internStart" readonly value=" ">
+              </div>
+            
+              <div class="viewInput">
+                <span>Internship End Date</span>
+                <input type="date" name="internEnd" readonly value=" ">
               </div>
             </div>
 
@@ -229,7 +224,7 @@ include('includes/dbconnection.php');
         </select>
         <textarea id="address" name="address" rows="4" placeholder="Location for Inteview*" required></textarea>
         <textarea id="things" name="things" rows="4" placeholder="Things to prepare or bring*" required></textarea>
-        <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
+        <button type="submit" id="confirmBtn" class="confirmBtn" name="shortlisted">Confirm</button>
       </form>
     </div>
   </div>
@@ -251,29 +246,52 @@ include('includes/dbconnection.php');
     if(isset($_POST['reject'])){
       require '../../../config/email.php';
       $mailConfig = new EmailConfig();
-      $name = $_POST['studName'];
-      $email = $_POST['studEmail'];
       $reason = $_POST['reason'];
       $subject = "Internship Applicant Immediate Rejection";
 
       $success = $mailConfig->singleEmail(
-        '$studEmail', 
+        $studEmail, 
         $subject, 
-        rejectApp($name, $cmpName, $internAppID, $reason)
+        rejectApp($studName, $cmpName, $internAppID, $reason)
       );
     }
-    function rejectApp($name, $cmpName, $internAppID, $reason){
+
+    if(isset($_POST['shortlisted'])){
+      require '../../../config/email.php';
+      $mailConfig = new EmailConfig();
+      $start = $_POST['start'];
+      $duration = $_POST['duration'];
+      $address = $_POST['address'];
+      $things = $_POST['things'];
+      $subject = "Invitation to Interview at $cmpName";
+
+      $success = $mailConfig->singleEmail(
+        $studEmail, 
+        $subject, 
+        shortlistedApp($cmpName, $studName, $internAppID, $start, $duration, $address, $things)
+      );
+    }
+
+    function shortlistedApp($cmpName, $name, $internAppID, $start, $duration, $address, $things){
         $html = "
         <html>
           <head>
-            <title>Internship Applicant Immediate Rejection</title>
+            <title>Invitation to Interview at $cmpName</title>
           </head>
           <body>
             <p>Dear $name,</p>
-            <p>Thank you for your application to $cmpName.</p>
-            <p>We have evaluated your resume and determined that your experience and coursework do not match our hiring criteria for this position. Your intern job application <span style='font-weight: bold; color: blue;'>[$internAppID]</span> has been <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected</span>.</p>
-            <p>Reject reason: <span style='font-weight: bold;'>$reason</span></p>
-            <p>Your interest in our organization is greatly appreciated and we wish you success in your future endeavors.</p>
+            <p>Thank you for your application to $cmpName. Your intern job application <span style='font-weight: bold; color: blue;'>[$internAppID]</span> has been <span style='color:green; font-weight: bold; text-decoration:underline;'>shortlisted</span>.</p>
+            <br>
+            <p>After reviewing your application, we would like to invite you to the next interview round. Please let us know if you are available in date and time slot below and we will send you a calendar invitation.</p>
+            <br>
+            <p><span style='font-weight: bold;'>Date & Time: $start</span></p>
+            <p><span style='font-weight: bold;'>Duration: $duration</span></p>
+            <p><span style='font-weight: bold;'>Location: $address</span></p>
+            <p><span style='font-weight: bold;'>Things to bring: $things</span></p>
+            <br>
+            <p>If the time slot not work with your schedule, please let me know and we will make other arrangements.</p>
+            <br>
+            <p>I am looking forward to hearing from you soon.</p>
             <br>
             <p>Thank you.</p>
           </body>
@@ -282,7 +300,7 @@ include('includes/dbconnection.php');
         return $html;
       }
       
-      function acceptApp($name, $cmpName, $internAppID, $reason){
+      function rejectApp($name, $cmpName, $internAppID, $reason){
         $html = "
         <html>
           <head>
