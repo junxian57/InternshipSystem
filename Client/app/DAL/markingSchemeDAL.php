@@ -73,6 +73,9 @@ class markingSchemeDAL
         $sql = " UPDATE StudentResult SET
         finalScore = '" . $studResultDTO->getfinalScore() . "',
         feedback = '" . $studResultDTO->getfeedback() . "',
+        traineeInfo = '" . $studResultDTO->gettraineeInfo() . "',
+        absentAttendance = '" . $studResultDTO->getabsentAttendance() . "',
+        withoutPermissionAbsentAttendance = '" . $studResultDTO->getwithoutPermissionabsentAttendance() . "',
         signature = '" . $studResultDTO->getsignature() . "',
         markByID = '" . $studResultDTO->getmarkByid() . "',
         markDate = '" . $studResultDTO->getmarkDate() . "'
@@ -94,10 +97,10 @@ class markingSchemeDAL
 
         //location
         if ($result && $result2) {
-            header("Location: listStudEvaluationByLecture.php?status=success&lectureID=" . $studResultDTO->getmarkByid() . "");
+            header("Location: jx-listStudEvaluationByCompany.php?status=success&companyID=" . $studResultDTO->getmarkByid() . "");
             exit();
         } else {
-            header("Location: listStudEvaluationByLecture.php?status=failed&lectureID=" . $studResultDTO->getmarkByid() . "");
+            header("Location: jx-listStudEvaluationByCompany.php?status=failed&companyID=" . $studResultDTO->getmarkByid() . "");
             exit();
         }
     }
@@ -110,12 +113,16 @@ class markingSchemeDAL
     public function UpdMarkingScheme($studResultDTO, $markingSchemeDTO)
     {
         $sql = " UPDATE StudentResult SET
-        finalScore = '" . $studResultDTO->getfinalScore() . "',
+       finalScore = '" . $studResultDTO->getfinalScore() . "',
         feedback = '" . $studResultDTO->getfeedback() . "',
+        traineeInfo = '" . $studResultDTO->gettraineeInfo() . "',
+        absentAttendance = '" . $studResultDTO->getabsentAttendance() . "',
+        withoutPermissionAbsentAttendance = '" . $studResultDTO->getwithoutPermissionabsentAttendance() . "',
         signature = '" . $studResultDTO->getsignature() . "',
         markByID = '" . $studResultDTO->getmarkByid() . "',
         markDate = '" . $studResultDTO->getmarkDate() . "'
         WHERE studResultID ='" . $studResultDTO->getstudResultID() . "'";
+        
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         foreach ($markingSchemeDTO as $markingSchemeDTO1) {
@@ -126,10 +133,10 @@ class markingSchemeDAL
         }
         //lectureID='${lectureID.value}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}
         if ($result && $result2) {
-            header("Location: listStudEvaluationByLecture.php?status=success&lectureID=" . $studResultDTO->getmarkByid() . "");
+            header("Location: jx-listStudEvaluationByCompany.php?status=success&companyID=" . $studResultDTO->getmarkByid() . "");
             exit();
         } else {
-            header("Location: listStudEvaluationByLecture.php?status=failed&lectureID=" . $studResultDTO->getmarkByid() . "");
+            header("Location: jx-listStudEvaluationByCompany.php?status=failed&companyID=" . $studResultDTO->getmarkByid() . "");
             exit();
         }
     }
