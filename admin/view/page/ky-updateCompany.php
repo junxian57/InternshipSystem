@@ -17,16 +17,19 @@ if (!$conn){
         $phone = $_POST['ContactNo'];
         $address = $_POST['cmpAddress'];
         $placement = $_POST['cmpPlacement'];
-        $username = $_POST['cmpUserName'];
+        $username = $_POST['cmpContactPerson'];
         $size = $_POST['cmpSize'];
         $fields = $_POST['cmpFields'];
         $allowance = $_POST['allowance'];
         $dateJoined = $_POST['dateJoined'];
         $status = $_POST['status'];
         $rating = $_POST['rating'];
+        $cmpCity = $_POST['cmpCity'];
+        $cmpPostCode = $_POST['cmpPostCode'];
+        $cmpState = $_POST['cmpState'];
         
 
-        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpUsername=' $username', cmpCompanySize=' $size', cmpAddress=' $address', cmpFieldsArea=' $fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating' WHERE companyID='$id'  ";
+        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpContactPerson=' $username', cmpCompanySize=' $size', cmpAddress=' $address', cmpFieldsArea=' $fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating', cmpCity='$cmpCity', cmpPostCode='$cmpPostCode', cmpState='$cmpState' WHERE companyID='$id'  ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)
