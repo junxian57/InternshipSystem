@@ -1,12 +1,21 @@
 <?php
-session_start();
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-$companyID = 'CMP00008';
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        alert('You are not permitted to enter this page.\\nPlease login as a company.');
+        //window.location.href = 'br-login.php';
+    </script>";
+}else{
+    //TODO: Check if user is logged in, get company ID from session
+    //Get Company ID from Session
+    //$companyID = $_SESSION['companyID'];
+    $companyID = 'CMP00008';
+}
+
 $db = new DBController();
 
 //Get Company Info
@@ -122,7 +131,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 class="grey-bg" 
                                 type="text" 
                                 name="cmpContactPerson" 
-                                value="<?php echo $companyInfo[0]['cmpContactPerson']; ?>" 
+                                value="<?php echo trim($companyInfo[0]['cmpContactPerson']); ?>" 
                                 pattern="[a-zA-Z ]{1,}"
                                 readonly
                                 required/>
