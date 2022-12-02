@@ -23,20 +23,6 @@ class documentManagementDTO
        
     }
 
-//Use when retrieve data
-    public function __construct($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location)
-    {
-        $this->documentID = $documentID;
-        $this->documentTitle = $documentTitle;
-        $this->Uploader = $Uploader;
-        $this->uploadDate = $uploadDate;
-        $this->uploadDocument = $uploadDocument;
-        $this->Information = $Information;
-        $this->location = $location;
-       
-    }
-
-
     public function getdocumentID()
     {
         return $this->documentID;

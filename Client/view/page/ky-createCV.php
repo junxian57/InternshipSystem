@@ -1,7 +1,7 @@
 <?php
-include('../../includes/db_connection.php');
-if(isset($_POST['createCV'])){
 
+if(isset($_POST['createCV'])){
+include('../../includes/db_connection.php');
     $id = $_POST['stdID'];
     $objective = $_POST['objectives'];
     $workExperience = $_POST['workExperience'];
@@ -219,4 +219,102 @@ if(isset($_POST['createCV'])){
         
     }
 
+    if(isset($_POST['update'])){
+
+        $host = "sql444.main-hosting.eu";
+        $user = "u928796707_group34";
+        $password = "u1VF3KYO1r|";
+        $database = "u928796707_internshipWeb";
+        
+        $conn = mysqli_connect($host, $user, $password, $database);
+        if (!$conn){
+            die("Error". mysqli_connect_error());
+        }
+
+        $id = $_POST['stdID'];
+        $name = $_POST['stdName'];
+        $phone = $_POST['stdContactNo'];
+        $email = $_POST['stdEmail'];
+        $gender = $_POST['gender'];
+        $oldpass = $_POST['Pass'];
+        $newpass = $_POST['conPass'];
+        $address = $_POST['stdAddress'];
+        $programme = $_POST['programmeID'];
+        $lecturer = $_POST['lecturerID'];
+        $internBatch = $_POST['internshipBatchID'];
+        $tutorial = $_POST['tutorialGroup'];
+
+        if(empty($oldpass)){
+            $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+            studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial' WHERE studentID='$id' ";
+            $query_run = mysqli_query($conn, $query);
+
+            if($query_run)
+            {
+                echo "
+                <script>
+                    alert('Student details update successfully');
+                    document.location.href = 'ky-enterStudDetails.php';
+                </script>
+                ";
+            }
+            else
+            {
+                echo "
+                <script>
+                    alert('Student details update failed, please try again.');
+                    document.location.href = 'ky-enterStudDetails.php';
+                </script>
+                ";
+            }
+        }
+
+        else{
+
+            $sql="select * from Student where studentID='$id'";
+            $result = mysqli_query($conn, $sql);
+            
+            $row=mysqli_fetch_assoc($result);
+                    if (password_verify($oldpass, $row['studPassword'])){ 
+                        if(empty($newpass)){
+                            echo '<script>alert("New password is empty. Please enter new password");
+                            window.history.back(1);
+                            </script>';
+                        }
+                        else{
+                            $hash = password_hash($newpass, PASSWORD_DEFAULT);
+                            $query2 = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+                            studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial', studPassword = '$hash', studAccountStatus = 'Pending Map' WHERE studentID='$id' ";
+                            $result2 = mysqli_query($conn, $query2);
+                            if($result2)
+                            {
+                                echo "
+                                <script>
+                                    alert('Student details update successfully');
+                                    document.location.href = 'ky-enterStudDetails.php';
+                                </script>
+                                ";
+                            }
+                            else
+                            {
+                                echo "
+                                <script>
+                                    alert('Student details update failed, please try again.');
+                                    document.location.href = 'ky-enterStudDetails.php';
+                                </script>
+                                ";
+                            }
+                        }
+                    } 
+                    else{
+                        echo '<script>alert("Initial password is incorrect. Password update unsuccessful");
+                            window.history.back(1);
+                        </script>';
+                    }
+                
+        }
+    }
 ?>
+
+
+                       

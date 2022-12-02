@@ -1,0 +1,29 @@
+.allowance-range-block {
+  padding: 3rem 10%;
+  margin: 2% 0%;
+  border: 1px solid #b7b7b7;
+}
+
+.ui-slider-horizontal {
+  width: 100%;
+}
+
+.ui-widget-header {
+  background: #d8d8d8;
+}
+
+.allowance-range-field {
+  width: 40%;
+  min-width: 16%;
+  background-color: #f9f9f9;
+  border: 1px solid #6e6666;
+  color: black;
+  border-radius: 5px;
+  height: 26px;
+  padding: 5px;
+}
+.search-results-block {
+  position: relative;
+  display: block;
+  clear: both;
+}

@@ -193,9 +193,15 @@
   padding: 10px 0px 20px 0;
   border-radius: 10px;
   width: 700px;
-
+  height: 730px;
 }
 
+.scroll-bg{
+  height: 550px;
+  width: 6800px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 .top-form{
     display: flex;
     justify-content: flex-end;
@@ -241,7 +247,8 @@
     font-size: 18px;
      font-weight: 500;
      letter-spacing: 1px;  
-     margin-top: 35px;
+     margin-top: 25px;
+     
 }
 
 form{
@@ -261,7 +268,7 @@ form{
     position: relative;
     height: 43px;
     width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
   width: calc(100% / 2 - 20px);  
  
   }
@@ -298,20 +305,18 @@ form{
     }
     
     .pass-box label{
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         height: 10px;
-        color: #f2891f;
+        color: black;
         font-size: 18px;
-        font-weight: bold;
         padding-top: 10px;
     }
 
     .input-box label{
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       height: 10px;
-      color: #f2891f;
+      color: black;
       font-size: 18px;
-      font-weight: bold;
       padding-top: 10px;
     }
 
@@ -333,7 +338,7 @@ form{
       position: relative;
       height: 45px;
       width: 100%;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
   }
   
   form .input-box span.details{
@@ -436,6 +441,7 @@ form{
      cursor: pointer;
      transition: all 0.3s ease;
      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  
    }
    form .button input:hover{
     /* transform: scale(0.99); */
@@ -460,5 +466,22 @@ form{
       width: 5px;
     }
    }
-
   
+   .title {
+    text-align: left;
+  }
+  .title h2 {
+    font-size: calc(1vw + 0.8em);
+    color: #f2891f;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    position: relative;
+    font-size: 25px;
+    width: 500px;
+  }
+  @media only screen and (max-width: 912px) {
+    .title h2 {
+      font-size: calc(1vw + 1.1em);
+    }
+  }

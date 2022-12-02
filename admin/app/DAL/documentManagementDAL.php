@@ -3,7 +3,7 @@
 /**
  * Class for database interaction
  */
-require("../../includes/db_connection.php");
+require_once("../../includes/db_connection.php");
 class documentManagementDAL
 {
 
@@ -42,7 +42,7 @@ class documentManagementDAL
     /**
      * Get a student
      *
-     * @param string $assessmentID
+     * @param string $documentID
      * @return bool|\documentManagementDTO
      */
     public function GetDocument($documentID)
@@ -72,7 +72,7 @@ class documentManagementDAL
         //Will be descending order
         $sql = "SELECT * FROM DocumentManagement ORDER BY documentID DESC";
         $result = $db->runQuery($sql);
-        $prefix = 'DM';
+        $prefix = 'D';
 
         if (empty($result)) {
             $prefix .= '000001';
@@ -111,8 +111,23 @@ class documentManagementDAL
                   '" . $documentManagementDTO->getlocation() . "'
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
+        
+        //for loop
+        foreach($documentManagementDTO as $documentManagementDTO1){
+            $sql1 = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
+            VALUES (
+                '" . $documentManagementDTO1->getdocumentID() . "',
+                '" . $documentManagementDTO1->getdocumentTitle() . "',
+                '" . $documentManagementDTO1->getUploader() . "',
+                '" . $documentManagementDTO1->getuploadDate() . "',
+                '" . $documentManagementDTO1->getuploadDocument() . "',
+                '" . $documentManagementDTO1->getInformation() . "',
+                '" . $documentManagementDTO1->getlocation() . "'
+            )";
+            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        }
 
-        if ($result) {
+        if ($result && $result2) {
             header("Location: ../../view/page/ty-createDocument.php?status=success");
             exit();
         } else {
@@ -137,7 +152,23 @@ class documentManagementDAL
             location ='" . $documentManagementDTO->getlocation() . "'
             WHERE documentID ='" . $documentManagementDTO->getdocumentID() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
-        if ($result) {
+
+        //for loop
+        foreach($documentManagementDTO as $documentManagementDTO1){
+            $sql1 = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
+            VALUES (
+                '" . $documentManagementDTO1->getdocumentID() . "',
+                '" . $documentManagementDTO1->getdocumentTitle() . "',
+                '" . $documentManagementDTO1->getUploader() . "',
+                '" . $documentManagementDTO1->getuploadDate() . "',
+                '" . $documentManagementDTO1->getuploadDocument() . "',
+                '" . $documentManagementDTO1->getInformation() . "',
+                '" . $documentManagementDTO1->getlocation() . "'
+            )";
+            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        }
+
+        if ($result && $result2) {
             header("Location: ../../view/page/ty-createDocument.php?act=edit&status=success&id='" . $documentManagementDTO->getdocumentID() . "'");
             exit();
         } else {
@@ -150,14 +181,14 @@ class documentManagementDAL
     /**
      * Checks whether given Document Title exists in this session or not
      *
-     * @param string $title
+     * @param string $documentTitle
      * @param int $id
      * @param string $documentID
      * @return bool
      */
-    public function IsRubricExists($title, $id, $documentID)
+    public function IsDocumentExists($documentTitle, $documentID)
     {
-        $sql = "SELECT * FROM DocumentManagement WHERE Title='" . $title . "' AND documentID <>'" . $documentID . "'AND internshipBatchID = $id ";
+        $sql = "SELECT * FROM DocumentManagement WHERE Title='" . $documentTitle . "' AND documentID = $documentID ";
         $result = $this->databaseConnectionObj->runQuery($sql);
 
         if (!empty($result)) {

@@ -55,7 +55,7 @@ if(isset($_POST['signaturesave'])){
     echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
   } else {
     echo "Error: " . $sql . mysqli_error($conn);
-    }   
+  }   
 }
 ?>
 

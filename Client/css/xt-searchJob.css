@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
 
 .cmpList {
-  padding: 3rem 8%;
+  padding: 3rem 1%;
 }
 
 .cmpList .cmpList-container {
   font-family: "Nunito", sans-serif;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  gap: 3.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
   padding-bottom: 30px;
 }
 
@@ -112,7 +112,7 @@ p {
 }
 
 .job-pagination {
-  width: 980px;
+  width: 820px;
 }
 
 .job-pagination > li {
@@ -151,4 +151,19 @@ p {
   color: #fff !important;
   background-color: #d3ad7f !important;
   border-color: #d3ad7f !important;
+}
+
+select#state {
+  width: 100%;
+  height: 30px;
+}
+
+input#jobName {
+  width: 100%;
+  height: 30px;
+}
+
+input#cmpName {
+  width: 100%;
+  height: 30px;
 }
