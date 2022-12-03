@@ -75,12 +75,18 @@ include('includes/dbconnection.php');
                 $appInternStartDate = $row_app['appInternStartDate'];
                 $appInternEndDate = $row_app['appInternEndDate'];
                 $appInterviewDateTime = $row_app['appInterviewDateTime'];
+                $appInterviewLocation = $row_app['appInterviewLocation'];
 
                 $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
 								$run_intern = mysqli_query($conn, $get_intern);
 								$row_intern = mysqli_fetch_array($run_intern);
                 $cmpID = $row_intern['companyID'];
 								$jobTitle = $row_intern['jobTitle'];
+                $jobLocationOfWork = $row_intern['jobLocationOfWork'];
+                $jobAllowance = $row_intern['jobAllowance'];
+                $jobCmpSupervisor = $row_intern['jobCmpSupervisor'];
+                $jobSupervisorEmail = $row_intern['jobSupervisorEmail'];
+                $jobSupervisorContactNo = $row_intern['jobSupervisorContactNo'];
 
                 $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
 								$run_cmp = mysqli_query($conn, $get_cmp);
@@ -111,22 +117,24 @@ include('includes/dbconnection.php');
                 $runFac = mysqli_query($conn, $getFac);
                 $rowFac = mysqli_fetch_array($runFac);
                 $facName = $rowFac['facName'];
+
+                $date1 = $appInternStartDate;
+                $date2 = $appInternEndDate;
+                $d1=new DateTime($date2); 
+                $d2=new DateTime($date1);                                  
+                $months = $d2->diff($d1); 
+                $monthDuration = (($months->y) * 12) + ($months->m);
               ?>
 
             <div class="inputBox">
               <div class="viewInput">
-                <span>Interview Date</span>
-                <input type="text" name="studID" readonly value="<?php echo $appInterviewDateTime; ?>">
-              </div>
-            
-              <div class="viewInput">
-                <span>Interview Time</span>
-                <input type="text" name="studName" readonly value="<?php echo$studName; ?>">
+                <span>Interview Date & Time</span>
+                <input type="text" name="inDateTime" readonly value="<?php echo $appInterviewDateTime; ?>">
               </div>
 
               <div class="viewInput" style="width:100%;">
                 <span>Location</span>
-                <textarea type="text" name="cmpAddress" readonly value="<?php echo$cmpAddress; ?>"></textarea>
+                <textarea type="text" name="inLocation" readonly><?php echo $appInterviewLocation; ?></textarea>
               </div> 
             </div>
 
@@ -232,29 +240,23 @@ include('includes/dbconnection.php');
   <div class="acceptForm">
     <div class="formContent">
       <div class="formWidget">
-        <h1 id="heading1" class="accept-header title">Offer Letter Details - <?php echo $cmpName; ?></h1>
+        <h1 id="heading1" name="cmpName" class="accept-header title">Offer Letter Details - <?php echo $cmpName; ?></h1>
         <div class="close">+</div>
       </div> 
-      <form action="xt-offerLetter.php" id="acceptForm" method="POST">
+      <form action="xt-offerLetter.php?internAppID=<?php echo $internAppID;?>" id="acceptForm" method="POST">
         <span>Student Details</span><br>
-        <input type="text" id="studName" name="studName" placeholder="Student Name*" value="<?php echo $studName; ?>" required>
-        <input type="text" id="nric" name="nric" placeholder="NRIC*" required>
+        <input type="text" id="studName" name="studName" placeholder="Student Name*" value="<?php echo $studName; ?>" readonly>
+        <input type="text" id="studID" name="studID" placeholder="Student ID*" value="<?php echo $studentID; ?>" readonly>
         <span>Intern Job Details</span><br>
-        <input type="text" id="allowance" name="allowance" placeholder="Allowance*" required>
-        <input type="text" id="position" name="position" placeholder="Intern Position*" required>
-        <textarea id="location" name="location" rows="4" placeholder="Working Location*" required></textarea>
-        <select id="period" name="period" style="width: 91.5%" required>
-          <option selected disabled value="period">Intern Period*</option>
-          <option value="3">3 Months</option>
-          <option value="6">6 Months</option>
-          <option value="9">9 Months</option>
-          <option value="12">12 Months</option>
-        </select>
-        <input type="date" value="2022-12-01" name="start" style="margin-right: 5px" required>to<input type="date" value="2022-12-01" name="end" style="margin-left: 5px" required>
+        <input type="text" id="allowance" name="allowance" placeholder="Allowance*" value="<?php echo "$jobAllowance"; ?>" readonly>
+        <input type="text" id="position" name="position" placeholder="Intern Position*" value="<?php echo $jobTitle; ?>" readonly>
+        <textarea id="location" name="location" rows="4" placeholder="Working Location*" readonly><?php echo $jobLocationOfWork; ?></textarea>
+        <input type="text" id="period" name="period" placeholder="Intern Period*" value="<?php echo "$monthDuration months"?>" style="width: 91.5%;" readonly>
+        <input type="date" name="start" style="margin-right: 5px" value="<?php echo $appInternStartDate; ?>" readonly>to<input type="date" name="end" style="margin-left: 5px" value="<?php echo $appInternEndDate; ?>" readonly>
         <span>Supervisor Details</span><br>
-        <input type="text" id="supName" name="supName" placeholder="Supervisor Name*" required>
-        <input type="tel" id="supContact" name="supContact" placeholder="Contact*" required>
-        <input type="email" id="supEmail" name="supEmail" placeholder="Email*" required><br>
+        <input type="text" id="supName" name="supName" placeholder="Supervisor Name*" value="<?php echo $jobCmpSupervisor; ?>" readonly>
+        <input type="tel" id="supContact" name="supContact" placeholder="Contact*" value="<?php echo $jobSupervisorContactNo; ?>" readonly>
+        <input type="email" id="supEmail" name="supEmail" placeholder="Email*" value="<?php echo $jobSupervisorEmail; ?>" readonly><br>
         <button type="submit" id="confirmBtn" class="confirmBtn" name="create">Confirm</button>
       </form>
     </div>
@@ -268,10 +270,51 @@ include('includes/dbconnection.php');
       </div> 
       <form id="rejectForm" method="POST">
         <textarea id="reason" name="reason" rows="4" placeholder="Reason of Reject*" required></textarea>
-        <button type="submit" id="confirmBtn" class="confirmBtn">Confirm</button>
+        <button type="submit" id="confirmBtn" class="confirmBtn" name="reject">Confirm</button>
       </form>
     </div>
   </div>
+
+  <?php
+    if(isset($_POST['reject'])){
+      require '../../../config/email.php';
+      $mailConfig = new EmailConfig();
+      $reason = $_POST['reason'];
+      $subject = "Internship Applicant Immediate Rejection";
+
+      $sql = "UPDATE InternApplicationMap SET appRejectReason='$reason', appStatus='Rejected' WHERE internAppID='$internAppID'";
+      $result = mysqli_query($conn, $sql);
+
+      if($result){
+        $success = $mailConfig->singleEmail(
+          $studEmail, 
+          $subject, 
+          rejectApp($studName, $cmpName, $internAppID, $reason)
+        );
+      }
+    }
+
+    function rejectApp($name, $cmpName, $internAppID, $reason){
+      $html = "
+      <html>
+        <head>
+          <title>Internship Applicant Immediate Rejection</title>
+        </head>
+        <body>
+          <p>Dear $name,</p>
+          <p>Thank you for your application to $cmpName.</p>
+          <p>We have evaluated your resume and determined that your experience and coursework do not match our hiring criteria for this position. Your intern job application <span style='font-weight: bold; color: blue;'>[$internAppID]</span> has been <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected</span>.</p>
+          <p>Reject reason: <span style='font-weight: bold;'>$reason</span></p>
+          <p>Your interest in our organization is greatly appreciated and we wish you success in your future endeavors.</p>
+          <br>
+          <p>Thank you.</p>
+        </body>
+      </html>";
+
+      return $html;
+    }
+  ?>
+
 
   <script>
     document.getElementById('acceptBtn').addEventListener('click',
