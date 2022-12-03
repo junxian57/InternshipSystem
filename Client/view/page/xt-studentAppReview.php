@@ -254,7 +254,7 @@ include('includes/dbconnection.php');
       $sql = "UPDATE InternApplicationMap SET appRejectReason='$reason', appStatus='Rejected' WHERE internAppID='$internAppID'";
       $result = mysqli_query($conn, $sql);
 
-      if(result){
+      if($result){
         $success = $mailConfig->singleEmail(
           $studEmail, 
           $subject, 
