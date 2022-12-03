@@ -41,6 +41,15 @@ class EmailConfig{
         }
     }
 
+    private function setAttachment($attachment){
+        if(empty($attachment)){
+            return false;
+        }else{
+            $this->mail->addAttachment($attachment);
+            return true;
+        }
+    }
+
     /**
      * Send Email to Single User
      * @param $senderEmail = email of sender
@@ -48,11 +57,12 @@ class EmailConfig{
      * @param $content = content of email
      * @return boolean
      */
-    function singleEmail($senderEmail, $subject, $content){
+    function singleEmail($senderEmail, $subject, $content, $attachment){
       $checkEmail = $this->checkEmailFormat($senderEmail);
       $checkEmpty = $this->setAndCheckEmpty($subject, $content);
+      $checkAttachment = $this->setAttachment($attachment);
 
-      if ($checkEmail && $checkEmpty){
+      if ($checkEmail && $checkEmpty && $checkAttachment){
         $success = $this->mail->send();
       }else{
         return false;
