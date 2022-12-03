@@ -4,7 +4,19 @@ $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 require_once $systemPathPrefix."app/DTO/internJobDTO.php";
 
-session_start();
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        alert('You are not permitted to enter this page.\\nPlease login as a company.');
+        //window.location.href = 'br-login.php';
+    </script>";
+}else{
+    //TODO: Check if user is logged in, get company ID from session
+    //Get Company ID from Session
+    //$companyID = $_SESSION['companyID'];
+    $companyID = 'CMP00008';
+}
 
 ?>
 <!DOCTYPE HTML>
@@ -38,10 +50,7 @@ session_start();
     <link rel="stylesheet" href="../../scss/br-companyCreateJob.css">
 </head>
 <?php
-    //TODO: Check if user is logged in, get company ID from session
-    //Get Company ID from Session
-    //$companyID = $_SESSION['cmpID'];
-    $companyID = 'CMP00008';
+    
 
     try{
         if(isset($_GET['internJobID']) && isset($_GET['edit']) || isset($_GET['view'])){

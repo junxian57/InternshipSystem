@@ -2,15 +2,29 @@
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
 require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 
-// if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus'])){
-//   //! Redirect to Index page
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(!isset($_SESSION['lecturerID'])){
+  //TODO: Check if user is logged in, get company ID from session
+    echo "<script>
+        alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
+        //window.location.href = 'br-login.php';
+    </script>";
+}
+
+// if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus']) && !isset($_SESSION['lecturerID'])){
+//   //! Redirect to lecturer page?
+//     echo "<script> 
+//         alert('You are not permitted to enter this page.\\nPlease login as an supervisor.'); 
+
+//       //  window.location.href='br-companyJobList.php';
+//     </script>";
 //     header("Location: ../../index.php");
 //     exit();
 // }
 
 $accountStatus = $_GET['accountStatus'];
 $studentArr = array();
-$sql = "";
 
 if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $_GET['accountStatus'] == 'Active'){
   

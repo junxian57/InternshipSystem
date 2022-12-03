@@ -4,8 +4,17 @@ $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
 
 require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
 
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
 try{
     $getFaculty = getFaculty();
+
+    // if(!isset($_SESSION['lecturerID'])){
+    //     echo "<script>
+    //         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
+    //         //window.location.href = 'br-login.php';
+    //     </script>";
+    // }
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
