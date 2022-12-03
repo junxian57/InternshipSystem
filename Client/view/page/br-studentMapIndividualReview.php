@@ -309,6 +309,4 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
       </div>
     </div>
   </body>
-
-  <script></script>
 </html>
