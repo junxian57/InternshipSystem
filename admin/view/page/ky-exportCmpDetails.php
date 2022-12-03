@@ -25,6 +25,10 @@ include('../../includes/db_connection.php');
                 $allowance = $company['cmpAverageAllowanceGiven'];
                 $status = $company['cmpAccountStatus'];
                 $rating= $company['cmpRating'];
+                $cmpState = $company['cmpState'];
+                $cmpCity = $company['cmpCity'];
+                $cmpPostCode = $company['cmpPostCode'];
+
             }
         }
 
@@ -103,46 +107,60 @@ include('../../includes/db_connection.php');
 
         $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
-        $pdf->Cell(55, 3, 'General Company Information', 0, 1, 'C');
+        $pdf->Cell(50, 3, 'Company Name & Contact', 0, 1, 'C');
         $pdf->Ln(5);
 
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', 'B', 13);
         $pdf->Cell(48, 3, 'Company ID : '.$Id, 0, 1, 'L');
+        $pdf->Ln(1);
         $pdf->Cell(52, 3, 'Company Name : '.$name, 0, 1, 'L');
-        $pdf->SetFont('times', 'B', 12);
-        $pdf->Cell(175, 3, 'Company Address : '.$address, 0, 1, 'L');
+        $pdf->Ln(1);
         $pdf->SetFont('times', 'B', 13);
-        $pdf->Cell(41, 3, 'Company Size : '.$size, 0, 1, 'L');
-        $pdf->Cell(68, 3, 'Company Fields : '.$fieldArea, 0, 1, 'L');
-        $pdf->Cell(47, 3, 'Date Joined : '.$dateJoined, 0, 1, 'L');
+        $pdf->Cell(78, 3, 'Email : '.$email, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(39, 3, 'Phone : '.$phone, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(42, 3, 'Contact Person : '.$cmpUsername, 0, 1, 'L');
 
         $pdf->Ln(8);
         $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
-        $pdf->Cell(55, 3, 'Company contact information', 0, 1, 'C');
-
-        $pdf->Ln(6);
+        $pdf->Cell(8, 3, 'Address', 0, 1, 'C');
+        $pdf->Ln(5);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', 'B', 13);
-        $pdf->Cell(78, 3, 'Email : '.$email, 0, 1, 'L');
-        $pdf->Cell(39, 3, 'Phone : '.$phone, 0, 1, 'L');
-        $pdf->Cell(42, 3, 'Contact Person : '.$cmpUsername, 0, 1, 'L');
+        $pdf->Cell(175, 3, 'Company Address : '.$address, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(116, 3, 'City                          : '.$cmpCity, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(104, 3, 'Post Code                : '.$cmpPostCode, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(119, 3, 'State                         : '.$cmpState, 0, 1, 'L');
 
-        $pdf->Ln(10);
+        $pdf->Ln(8);
         $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
-        $pdf->Cell(62, 3, 'Company Internship information', 0, 1, 'C');
+        $pdf->Cell(28, 3, 'Company Details', 0, 1, 'C');
 
-        $pdf->Ln(6);
+        $pdf->Ln(5);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', 'B', 13);
+        $pdf->Cell(41, 3, 'Company Size : '.$size, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(68, 3, 'Company Fields : '.$fieldArea, 0, 1, 'L');
+        $pdf->Ln(1);
         $pdf->Cell(47, 3, 'Internship Placement : '.$cmpInternshipPlacement, 0, 1, 'L');
+        $pdf->Ln(1);
         $pdf->Cell(47, 3, 'Allowance : RM'.$allowance, 0, 1, 'L');
+        $pdf->Ln(1);
+        $pdf->Cell(47, 3, 'Date Joined : '.$dateJoined, 0, 1, 'L');
+
         
-        $pdf->Ln(12);
+        $pdf->Ln(8);
         $pdf->SetTextColor(0,0,255);
         $pdf->SetFont('times', 'B', 16);
+        $pdf->Ln(1);
         $pdf->Cell(5, 3, 'Rating', 0, 1, 'C');
 
         $pdf->Ln(6);
@@ -154,7 +172,7 @@ include('../../includes/db_connection.php');
         $pdf->SetFont('times', 'B', 12);
         $pdf->Cell(40, 3, 'out of 5', 0, 1,'C');
         $imageFile = '../images/ratingStar.png';
-        $pdf->Image($imageFile, 44,176, 9, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $pdf->Image($imageFile, 44,198, 9, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
         $pdf->Output(''.$name.'.pdf', 'I');
         

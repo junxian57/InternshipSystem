@@ -65,7 +65,8 @@ include('../../includes/db_connection.php');
                                 <th>Email</th>
                                 <th>Phone Number</th>
                                 <th>Programme</th> 
-                                <th>Address</th>
+                                <th>Resume</th>
+                                <th>Status</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
@@ -94,6 +95,9 @@ include('../../includes/db_connection.php');
                                             $currentApplication = $student['studCurrentNoOfApp'];
                                             $status = $student['studAccountStatus'];
                                             $tutorial = $student['tutorialGroupNo'];
+                                            $pdf = $student['studentCVdocument'];
+    
+        
                                 ?>
 
                                         <tr>
@@ -103,6 +107,7 @@ include('../../includes/db_connection.php');
                                             <td><a href="mailto:<?php echo $email ?>">Email</td>
                                             <td><?php echo $phone ?></td>
                                             <td><?php echo $programme ?></td>
+                                            <td><a href="../../../Client/app/BLL/downloadCV.php?path=<?php echo $pdf; ?>" download>Download</a></td>
                                             <td><?php echo $status ?></td>
                                             <td>
                                                 <div class="button-group">
@@ -158,7 +163,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Gender :</label>
                                 <input type="text" placeholder="Enter gender" id="input_gender2" required readonly>
-                                <i class="uil uil-book-open icon"></i>
+                                <i class="fa fa-venus-mars icon"></i>
                             </div>
  
                             <div class="pass-box">
@@ -281,10 +286,14 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Gender :</label>
-                                <input type="text" placeholder="Enter gender" name="gender" id="input_gender" required >
-                                <i class="uil uil-book-open icon"></i>
+                                <select type="text" name="gender" id="input_gender">
+                                    <option value="0">Select gender</option>
+                                    <option value="Male" <?php echo ($gender1 == 'Male') ? 'selected' : '' ?> >Male</option>
+                                    <option value="Female" <?php echo ($gender1 == 'Female') ? 'selected' : '' ?> >Female</option>   
+                                </select>
+                                <i class="fa fa-venus-mars icon"></i>
                             </div>
- 
+
                             <div class="pass-box">
                                 <label>Email :</label>
                                 <input type="text" placeholder="Enter email" name="email" id="input_email" required>
@@ -358,8 +367,19 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" placeholder="Enter status" name="status" id="input_status" required>
+                                <select type="text" name="status" id="input_status">
+                                    <!--<option value="0">Select Status</option>-->
+                                    <option value="Pending Invite" <?php echo ($status1 == 'Pending Invite') ? 'selected' : '' ?> >Pending Invite</option>
+                                    <option value="InitialPass" <?php echo ($status1 == 'InitialPass') ? 'selected' : '' ?> >InitialPass</option>  
+                                    <option value="Pending Map" <?php echo ($status1 == 'Pending Map') ? 'selected' : '' ?> >Pending Map</option>   
+                                    <option value="Active" <?php echo ($status1 == 'Active') ? 'selected' : '' ?> >Active</option>   
+                                    <option value="Intern" <?php echo ($status1 == 'Intern') ? 'selected' : '' ?> >Intern</option>   
+                                    <option value="Withdrawal" <?php echo ($status1 == 'Withdrawal') ? 'selected' : '' ?> >Withdrawal</option>   
+                                </select>
+                                
                                 <i class='far fa-lightbulb icon'></i>
+
+                                
                             </div>
                             
                             <!--<div class="input-box">
@@ -463,6 +483,7 @@ include('../../includes/db_connection.php');
             input_internBatch = document.getElementById('input_internBatch').value = internBatch;
             input_name = document.getElementById('input_name').value = username;
             input_gender = document.getElementById('input_gender').value = gender;
+            $gender1=gender;
             input_email = document.getElementById('input_email').value = email;
             input_phone = document.getElementById('input_phone').value = phone;
             input_address = document.getElementById('input_address').value = address;
@@ -470,6 +491,7 @@ include('../../includes/db_connection.php');
             input_applicationQuota = document.getElementById('input_applicationQuota').value = applicationQuota;
             input_currentApplication = document.getElementById('input_currentApplication').value = currentApplication;
             input_status = document.getElementById('input_status').value = status;
+            $status1=status;
             input_tutorial = document.getElementById('input_tutorial').value = tutorial;
 
             $('.close-modal').click(function(){
