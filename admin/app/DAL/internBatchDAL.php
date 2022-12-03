@@ -1,5 +1,6 @@
 <?php
 include_once("../../includes/db_connection.php");
+
 if (isset($_GET['internshipBatchID'])) {
     $internshipBatchID = $_GET['internshipBatchID'];
     $db_handle1 = new DBController();

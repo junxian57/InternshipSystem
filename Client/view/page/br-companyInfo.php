@@ -1,5 +1,5 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();

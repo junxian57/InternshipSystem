@@ -1,5 +1,5 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 
 require_once $systemPathPrefix.'app/DTO/companyDTO.php';
 require_once $systemPathPrefix.'includes/db_connection.php';
