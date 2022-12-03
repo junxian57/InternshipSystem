@@ -98,7 +98,6 @@ include('includes/dbconnection.php');
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th>Action</th>
 								</tr>
 							</thead>
 
@@ -140,7 +139,6 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>
@@ -328,7 +326,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
+                  <td><a class="view" href="xt-studAppResponse.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
 							</tbody>
