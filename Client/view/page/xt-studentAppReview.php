@@ -72,6 +72,8 @@ include('includes/dbconnection.php');
                 $row_app = mysqli_fetch_array($run_app);
                 $internJobID = $row_app['internJobID'];
                 $studentID = $row_app['studentID'];
+                $appInternStartDate = $row_app['appInternStartDate'];
+                $appInternEndDate = $row_app['appInternEndDate'];
 
                 $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
 								$run_intern = mysqli_query($conn, $get_intern);
@@ -176,12 +178,12 @@ include('includes/dbconnection.php');
             <div class="inputBox">
               <div class="viewInput">
                 <span>Internship Start Date</span>
-                <input type="date" name="internStart" readonly value=" ">
+                <input type="date" name="internStart" readonly value="<?php echo $appInternStartDate; ?>" style="height: 41.5px;">
               </div>
             
               <div class="viewInput">
                 <span>Internship End Date</span>
-                <input type="date" name="internEnd" readonly value=" ">
+                <input type="date" name="internEnd" readonly value="<?php echo $appInternEndDate; ?>" style="height: 41.5px;">
               </div>
             </div>
 
@@ -249,11 +251,16 @@ include('includes/dbconnection.php');
       $reason = $_POST['reason'];
       $subject = "Internship Applicant Immediate Rejection";
 
-      $success = $mailConfig->singleEmail(
-        $studEmail, 
-        $subject, 
-        rejectApp($studName, $cmpName, $internAppID, $reason)
-      );
+      $sql = "UPDATE InternApplicationMap SET appRejectReason='$reason', appStatus='Rejected' WHERE internAppID='$internAppID'";
+      $result = mysqli_query($conn, $sql);
+
+      if(result){
+        $success = $mailConfig->singleEmail(
+          $studEmail, 
+          $subject, 
+          rejectApp($studName, $cmpName, $internAppID, $reason)
+        );
+      }
     }
 
     if(isset($_POST['shortlisted'])){
@@ -265,11 +272,16 @@ include('includes/dbconnection.php');
       $things = $_POST['things'];
       $subject = "Invitation to Interview at $cmpName";
 
-      $success = $mailConfig->singleEmail(
-        $studEmail, 
-        $subject, 
-        shortlistedApp($cmpName, $studName, $internAppID, $start, $duration, $address, $things)
-      );
+      $sql = "UPDATE InternApplicationMap SET appInterviewDateTime='$start', appInterviewDuration='$duration', appInterviewLocation='$address', appStatus='Shortlisted' WHERE internAppID='$internAppID'";
+      $result = mysqli_query($conn, $sql);
+
+      if($result){
+        $success = $mailConfig->singleEmail(
+          $studEmail, 
+          $subject, 
+          shortlistedApp($cmpName, $studName, $internAppID, $start, $duration, $address, $things)
+        );
+      }
     }
 
     function shortlistedApp($cmpName, $name, $internAppID, $start, $duration, $address, $things){
