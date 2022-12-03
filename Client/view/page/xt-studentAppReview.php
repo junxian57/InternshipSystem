@@ -94,6 +94,8 @@ include('includes/dbconnection.php');
                 $studEmail = $rowStud['studEmail'];
                 $studContactNumber = $rowStud['studContactNumber'];
                 $studHomeAddress = $rowStud['studHomeAddress'];
+                $studApplicationQuota = $rowStud['studApplicationQuota'];
+                $applicationQuota = intval($studApplicationQuota);
 
                 $getProgramme = "SELECT * FROM Programme WHERE programmeID = '$programmeID'";
                 $runProgramme = mysqli_query($conn, $getProgramme);
@@ -251,10 +253,11 @@ include('includes/dbconnection.php');
       $reason = $_POST['reason'];
       $subject = "Internship Applicant Immediate Rejection";
 
-      $sql = "UPDATE InternApplicationMap SET appRejectReason='$reason', appStatus='Rejected' WHERE internAppID='$internAppID'";
-      $result = mysqli_query($conn, $sql);
+      $sql = "UPDATE InternApplicationMap SET appRejectReason ='$reason', appStatus='Rejected' WHERE internAppID='$internAppID'";
+      $applicationQuota = $applicationQuota + 1;
+      $query = "UPDATE Student SET studApplicationQuota ='$applicationQuota' WHERE studentID='$studentID'";
 
-      if($result){
+      if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
         $success = $mailConfig->singleEmail(
           $studEmail, 
           $subject, 
