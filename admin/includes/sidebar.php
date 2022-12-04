@@ -1,3 +1,15 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) session_start();
+
+if(isset($_SESSION)){
+    $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
+    $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
+    $adminID = isset($_SESSION['adminID']) ? $_SESSION['adminID'] : false;
+}else{
+  //header("Location: ../index.php");
+}
+?>
+
 <div class=" sidebar" role="navigation">
   <div class="navbar-collapse">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
@@ -18,21 +30,30 @@
           </ul>
         </li>
 
-        <li>
-          <a href="#"><i class="fa fa-building-o nav_icon"></i>Companies<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Companies</a>
-            </li>
-            <li>
-              <a href="#">Manage Companies</a>
-            </li>
-            <li>
-              <a href="#">Companies Application</a>
-            </li>
-          </ul>
-        </li>
+        <?php if($adminID || $committeeID) { ?>
+          <li>
+            <a href="#"><i class="fa fa-building-o nav_icon"></i>Company<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/br-cmpAppTableReview.php">Company Application List</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
 
+        <?php if($adminID || $committeeID) { ?>
+          <li>
+            <a href="#"><i class="fa fa-building-o nav_icon"></i>Student-Supervisor Mapping<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/br-StudentSupervisor-Map.php">Map Assignment</a>
+              </li>
+              <li>
+                <a href="../page/br-StudentSupervisor-Maintain.php">Map Maintenance</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
         <li class="">
           <a href="about-us.php"><i class="fa fa-book nav_icon"></i>About <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">

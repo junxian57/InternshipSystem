@@ -8,7 +8,7 @@ if(isset($_GET['internJobID']) && isset($_GET['delete']) && isset($_GET['company
     $internJobID = $_GET['internJobID'];
     $companyID = $_GET['companyID'];
 
-    $sqlCheckInternshipMapIsNon = "SELECT * FROM InternApplicationMap WHERE internJobID = '22InJ00002' AND appInternEndDate > NOW();";
+    $sqlCheckInternshipMapIsNon = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appInternEndDate > NOW();";
     $resultCheckInternshipMapIsNon = $db->runQuery($sqlCheckInternshipMapIsNon);
 
     if($resultCheckInternshipMapIsNon == null){
