@@ -584,7 +584,7 @@ function generateMarkingSchemeID($markingSchemeID)
                     trLeft.setAttribute("data-score", criteriaResult[i].score);
                     trLeft.setAttribute("data-maxScore", "");
                     trLeft.innerHTML = `
-                    <td>${criteriaResult[i].Title}</td>
+                    <td>${criteriaResult[i].Title}<input type="hidden" name="criteriaID[]" value="${criteriaResult[i].criterionID}" ></input></td>
                     <td>${criteriaResult[i].description.split(',')[0]}</td>
                     <td>${criteriaResult[i].description.split(',')[1]}</td>
                     <td>${criteriaResult[i].description.split(',')[2]}</td>
