@@ -32,7 +32,10 @@ class documentManagementDAL
                 $uploadDate = $result[$i]['uploadDate'];
                 $uploadDocument = $result[$i]['uploadDocument'];
                 $Information = $result[$i]['Information'];
-                $listOfdocumentManagementDTO[] = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information);
+                $listOfdocumentManagementDTO[] = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDocument, $Information);
+
+                //Set uploadDate
+                $listOfdocumentManagementDTO[$i]->setUploadDate($uploadDate);
             }
         }
         return $listOfdocumentManagementDTO;
