@@ -283,20 +283,20 @@ $maxNumQuota = $jobMaxNumberQuota - 1;
 $numberOfInternshipPlacements = $cmpNumberOfInternshipPlacements - 1;
 if($maxNumQuota >= 1){
   $query = "UPDATE InternJob SET jobMaxNumberQuota='$maxNumQuota' WHERE internJobID = '$internJobID'";
-  $query = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
+  $query2 = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
 }
 else{
   $query = "UPDATE InternJob SET jobMaxNumberQuota='$maxNumQuota', jobStatus = 'Full' WHERE internJobID = '$internJobID'";
-  $query = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
+  $query2 = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
 }
 
-  if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
-    $success = $mailConfig->singleEmail(
+  if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query)) && (mysqli_query($conn, $query2))){
+    /*$success = $mailConfig->singleEmailWithAttachment(
       $studEmail, 
       $subject, 
       acceptApp($studName, $internAppID, $position, $allowance),
       'offerLetter/offerLetter_'.$studName.'.pdf'
-    );
+    );*/
   }
 
 function acceptApp($studName, $internAppID, $position, $allowance){
