@@ -1,16 +1,27 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 try{
     $getInternBatch = getInternshipBatch();
+
+    if(!isset($_SESSION['lecturerID'])){
+        echo "<script>
+            alert('You are not permitted to enter this page.\\nPlease login as a lecturer.');
+            //window.location.href = 'br-login.php';
+        </script>";
+    }else{
+        //TODO: Check if user is logged in, get company ID from session
+        //Get Company ID from Session
+        //$lecturerID = $_SESSION['lecturerID'];
+        $lecturerID = 'LEC00001';
+    }
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
 
-//Session get logged in LECTURER ID
-$lecturerID = 'LEC00001';
 
 ?>
 <!DOCTYPE HTML>

@@ -18,7 +18,6 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
-    <link rel="stylesheet" href="../../scss/ky-maintain.css" type='text/css' >
     
     <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
@@ -36,6 +35,12 @@ include('../../includes/db_connection.php');
       type="text/css"
       media="all"
     />
+    <link 
+        href="../../scss/ky-Maintain.css"
+        rel="stylesheet"  
+        type='text/css' 
+    />
+    
     <script src="../../js/wow.min.js"></script>
     <script>
       new WOW().init();
@@ -125,8 +130,12 @@ include('../../includes/db_connection.php');
                                         $email = $company['cmpEmail'];
                                         $phone = $company['cmpContactNumber'];
                                         $cmpUsername = $company['cmpUsername'];
+                                        $cmpContactPerson = $company['cmpContactPerson'];
                                         $size = $company['cmpCompanySize'];
                                         $address = $company['cmpAddress'];
+                                        $cmpState = $company['cmpState'];
+                                        $cmpCity = $company['cmpCity'];
+                                        $cmpPostCode = $company['cmpPostCode'];
                                         $fieldArea = $company['cmpFieldsArea'];
                                         $cmpInternshipPlacement = $company['cmpNumberOfInternshipPlacements'];
                                         $allowance = $company['cmpAverageAllowanceGiven'];
@@ -144,8 +153,8 @@ include('../../includes/db_connection.php');
                                             <td>
                                                 <div class="button-group">
                                                   
-                                                    <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
-                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpUsername ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
                                                
                                                 </div>
                                             </td>
@@ -178,17 +187,16 @@ include('../../includes/db_connection.php');
             </div>
             <div class="login-form">
                 <div class="content">
-
                     <form action="ky-updateCompany.php" method="POST">
-                        <div class="user-details">
-        
-                            <div class="pass-box">
-                                <label>Company ID :</label>
-                                <input type="text" placeholder="Enter your id" name="update_id" id="input_id" required readonly>
-                                <i class="uil uil-user icon"></i>
+                        <div class="scroll-bg">
+                            <div class="user-details">
+                            
+                            <input type="hidden" placeholder="Enter your id" name="update_id" id="input_id" required readonly>
+                            
+                            <div class="title">
+                                <h2>Company Name & Contact</h2>
                             </div>
-
-                            <div class="pass-box">
+                            <div class="input-box">
                                 <label>Company Name :</label>
                                 <input type="text" placeholder="Enter your name" name="cmpName" id="input_name" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
@@ -202,8 +210,26 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Contact No :</label>
-                                <input type="text" placeholder="Enter contact No" name="ContactNo" id="input_phone" required>
+                                <input type="text"  pattern="[0-9]{10,11}" placeholder="Enter contact No" name="ContactNo" id="input_phone" required>
                                 <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Company Contact Person :</label>
+                                <input type="text" placeholder="Enter contact person" name="cmpContactPerson" id="input_username" >
+                                <i class="uil uil-chat-bubble-user icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Date Jioned :</label>
+                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" required readonly>
+                                <i class='far fa-calendar-check icon'></i>
+                            </div>
+
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
+
+                            <div class="title">
+                                <h2>Company Address</h2>
                             </div>
 
                             <div class="input-box">
@@ -213,20 +239,39 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
+                                <label>City :</label>
+                                <input type="text" placeholder="Enter City" name="cmpCity" id="input_city" required>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Post Code :</label>
+                                <input type="text" placeholder="Enter Post Code" name="cmpPostCode" id="input_postCode" required>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+                            
+                            <div class="pass-box">
+                                <label>State :</label>
+                                <input type="text" placeholder="Enter City" name="cmpState" id="input_state" required>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
+
+                            <div class="title">
+                                <h2>Company Details</h2>
+                            </div>
+
+                            <div class="pass-box">
                                 <label>Company Internship Placement :</label>
                                 <input type="text" placeholder="Enter internship placement" name="cmpPlacement" id="input_placement" required >
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
-                            <div class="pass-box">
-                                <label>Company User Name :</label>
-                                <input type="text" placeholder="Enter your user name" name="cmpUserName" id="input_username" >
-                                <i class="uil uil-chat-bubble-user icon"></i>
-                            </div>
                             
                             <div class="pass-box">
                                 <label>Company Size :</label>
-                                <input type="text" placeholder="Enter your company size" name="cmpSize" id="input_size" >
+                                <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size"required >
                                 <i class='far fa-building icon'></i>
                             </div>
 
@@ -243,28 +288,24 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
-                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
+                                <label> Company Rating :</label>
+                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating" required >
+                                <i class="uil uil-star icon"></i>
                             </div>
-
+                            
                             <div class="pass-box">
                                 <label>Account Status :</label>
                                 <input type="text" placeholder="Enter status" name="status" id="input_status" required>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
-                            <div class="pass-box">
-                                <label> Company Rating :</label>
-                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating" required >
-                                <i class="uil uil-star icon"></i>
                             </div>
-
-                            <button type = "submit" name="updatedata" class="submit-btn">Update</button>
-                            
                         </div> 
+                        <button type = "submit" name="updatedata" style="margin-left:200px;">Update</button>
                     </form>
-                    
+                
+           
                 </div>
             </div>
         </div>  
@@ -282,90 +323,123 @@ include('../../includes/db_connection.php');
             <div class="login-form">
                 <div class="content">
                     <form action="ky-exportCmpDetails.php" method="POST">
+                    <div class="scroll-bg">
                         <div class="user-details">
                             
-                        <div class="pass-box">
-                                <label>Company ID :</label>
-                                <input type="text" name="update_id" id="input_id2" required readonly>
-                                <i class="uil uil-user icon"></i>
+                            <input type="hidden" placeholder="Enter your id" name="update_id" id="input_id2" required readonly>
+                            
+                            <div class="title">
+                                <h2>Company Name & Contact</h2>
                             </div>
-
-                            <div class="pass-box">
+                            <div class="input-box">
                                 <label>Company Name :</label>
-                                <input type="text" name="cmpName" id="input_name2" required readonly>
+                                <input type="text" placeholder="Enter your name" name="cmpName" id="input_name2" required readonly>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
                             
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" name="email" id="input_email2" required readonly>
+                                <input type="text" placeholder="Enter programme" name="email" id="input_email2" required readonly>
                                 <i class="uil uil-envelope icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Contact No :</label>
-                                <input type="text" name="ContactNo" id="input_phone2" required readonly>
+                                <input type="text"  pattern="[0-9]{10,11}" placeholder="Enter contact No" name="ContactNo" id="input_phone2" required readonly>
                                 <i class="uil uil-phone icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Company Contact Person :</label>
+                                <input type="text" placeholder="Enter contact person" name="cmpContactPerson" id="input_username2" readonly>
+                                <i class="uil uil-chat-bubble-user icon"></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Date Jioned :</label>
+                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined2" required readonly>
+                                <i class='far fa-calendar-check icon'></i>
+                            </div>
+
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
+
+                            <div class="title">
+                                <h2>Company Address</h2>
                             </div>
 
                             <div class="input-box">
                                 <label>Address :</label>
-                                <input type="text" name="cmpAddress" id="input_address2" required readonly>
+                                <input type="text" placeholder="Enter Address" name="cmpAddress" id="input_address2" required readonly>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <label>Company Internship Placement :</label>
-                                <input type="text" name="cmpPlacement" id="input_placement2" required readonly>
-                                <i class="uil uil-book-open icon"></i>
+                                <label>City :</label>
+                                <input type="text" placeholder="Enter City" name="cmpCity" id="input_city2" required readonly>
+                                <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <label>Company User Name :</label>
-                                <input type="text" name="cmpUserName" id="input_username2" required readonly>
-                                <i class="uil uil-chat-bubble-user icon"></i>
+                                <label>Post Code :</label>
+                                <input type="text" placeholder="Enter Post Code" name="cmpPostCode" id="input_postCode2" required readonly>
+                                <i class="uil uil-estate icon"></i>
                             </div>
                             
                             <div class="pass-box">
+                                <label>State :</label>
+                                <input type="text" placeholder="Enter City" name="cmpState" id="input_state2" required readonly>
+                                <i class="uil uil-estate icon"></i>
+                            </div>
+
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
+
+                            <div class="title">
+                                <h2>Company Details</h2>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Company Internship Placement :</label>
+                                <input type="text" placeholder="Enter internship placement" name="cmpPlacement" id="input_placement2" required readonly>
+                                <i class="uil uil-book-open icon"></i>
+                            </div>
+
+                            
+                            <div class="pass-box">
                                 <label>Company Size :</label>
-                                <input type="text" name="cmpSize" id="input_size2" required readonly>
+                                <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size2" readonly>
                                 <i class='far fa-building icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" name="cmpFields" id="input_field2" required readonly>
+                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field2" required readonly>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Average Allowance :</label>
-                                <input type="text" name="allowance" id="input_allowance2" required readonly>
+                                <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance2" required readonly>
                                 <i class="uil uil-usd-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
-                                <input type="text" name ="dateJoined" id="input_dateJoined2" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
-                            </div>
-
-                            <div class="pass-box">
-                                <label>Account Status :</label>
-                                <input type="text" name="status" id="input_status2" required readonly>
-                                <i class='far fa-lightbulb icon'></i>
-                            </div>
-
-                            <div class="pass-box">
                                 <label> Company Rating :</label>
-                                <input type="text" name="rating" id="input_rating2" required readonly>
+                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating2" required readonly>
                                 <i class="uil uil-star icon"></i>
                             </div>
-
-                            <button type = "submit" name="Exportpdf" class="submit-btn">Export</button>
+                            
+                            <div class="pass-box">
+                                <label>Account Status :</label>
+                                <input type="text" placeholder="Enter status" name="status" id="input_status2" required readonly>
+                                <i class='far fa-lightbulb icon'></i>
+                            </div>
+                            <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
+  
+                        </div> 
+                        </div>
+                            <button type = "submit" name="Exportpdf"  style=" margin-left: 70px; margin-right: 40px;">Export</button>
                             <button id="close-modal" type="button" class="submit-btn">Cancel</button>
                            
-                        </div> 
                     </form>
                 </div>
             </div>
@@ -373,14 +447,14 @@ include('../../includes/db_connection.php');
     </div>
 
     <script type="text/javascript">
-        function toModal(Id, name, email , phone , cmpUsername , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating){
+        function toModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#login-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id').value = Id;
             document.getElementById('input_name').value = name;
             document.getElementById('input_email').value = email;
             document.getElementById('input_phone').value = phone;
-            document.getElementById('input_username').value = cmpUsername;
+            document.getElementById('input_username').value = cmpContactPerson;
             document.getElementById('input_size').value = size;
             document.getElementById('input_address').value = address;
             document.getElementById('input_field').value = fieldArea;
@@ -389,7 +463,11 @@ include('../../includes/db_connection.php');
             document.getElementById('input_dateJoined').value = dateJoined;
             document.getElementById('input_status').value = status;
             document.getElementById('input_rating').value = rating;
+            document.getElementById('input_city').value = cmpCity;
+            document.getElementById('input_postCode').value = cmpPostCode;
+            document.getElementById('input_state').value = cmpState;
 
+          
             //console.log(input_name, email)
             
 
@@ -405,14 +483,14 @@ include('../../includes/db_connection.php');
     </script>
 
     <script type="text/javascript">
-        function viewModal(Id, name, email , phone , cmpUsername , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating){
+        function viewModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#view-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id2').value = Id;
             document.getElementById('input_name2').value = name;
             document.getElementById('input_email2').value = email;
             document.getElementById('input_phone2').value = phone;
-            document.getElementById('input_username2').value = cmpUsername;
+            document.getElementById('input_username2').value = cmpContactPerson;
             document.getElementById('input_size2').value = size;
             document.getElementById('input_address2').value = address;
             document.getElementById('input_field2').value = fieldArea;
@@ -421,6 +499,9 @@ include('../../includes/db_connection.php');
             document.getElementById('input_dateJoined2').value = dateJoined;
             document.getElementById('input_status2').value = status;
             document.getElementById('input_rating2').value = rating;
+            document.getElementById('input_city2').value = cmpCity;
+            document.getElementById('input_postCode2').value = cmpPostCode;
+            document.getElementById('input_state2').value = cmpState;
 
             $('.close-modal').click(function(){
                 $('#view-modal').fadeOut();
@@ -455,31 +536,7 @@ include('../../includes/db_connection.php');
         });
     </script>
 
-<script>
-        $(document).ready(function(){
-            $('.editbtn').on('click', function () {
-                $('#login-modal').fadeIn().css("display", "flex");
-                $tr=$(this).closest('tr');
-                var data = $tr.children("td").map(function(){
-                    return $(this).text();
-                }).get();
 
-                console.log(data);
-                $('#update_id').val(data[0]);
-                $('#cmpName').val(data[1]);
-                $('#email').val(data[2]);
-                $('#ContactNo').val(data[3]);
-                $('#cmpAddress').val(data[4]);
-                $('#cmpInternPlacement').val(data[5]);
-                $('#cmpAccountStatus').val(data[6]);
-                $('#cmpRejectReason').val(data[7]);
-                $('#cmpUserName').val(data[8]);
-                $('#cmpSize').val(data[10]);
-                $('#cmpFields').val(data[11]);
-            });
-        
-        });
-    </script>
 
 <script>
         $(document).ready(function(){

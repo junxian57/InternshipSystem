@@ -1,32 +1,41 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/admin/';
 
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+// if(!isset($_SESSION['adminID'])){
+//     echo "<script>
+//         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
+//         //window.location.href = 'br-login.php';
+//     </script>";
+// }
     
-    if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action']) && $_GET['status'] == 1 && $_GET['action'] == 1){
-        $companyID = $_GET['companyID'];
+if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action']) && $_GET['status'] == 1 && $_GET['action'] == 1){
+    $companyID = $_GET['companyID'];
 
-        $result = getCompany($companyID);
+    $result = getCompany($companyID);
 
-        if(count($result) > 0){
-            $companyID = $result[0]['companyID'];
-            $companyName = $result[0]['cmpName'];
-            $companyFields = $result[0]['cmpFieldsArea'];
-            $companyAddress = $result[0]['cmpAddress'];
-            $companyEmail = $result[0]['cmpEmail'];
-            $companyPhone = $result[0]['cmpContactNumber'];
-            $companyState = $result[0]['cmpState'];
-            $companyCity = $result[0]['cmpCity'];
-            $companyPostcode = $result[0]['cmpPostCode'];
-            $companyContactPerson = $result[0]['cmpContactPerson'];
-            $companySize = $result[0]['cmpCompanySize'];
-        }
-    }else{ 
-         echo "<script>
-                alert('Restricted Action!!!\\nKindly use the formal way for accessing.');
-                window.location.href = 'br-cmpAppTableReview.php';
-            </script>";
+    if(count($result) > 0){
+        $companyID = $result[0]['companyID'];
+        $companyName = $result[0]['cmpName'];
+        $companyFields = $result[0]['cmpFieldsArea'];
+        $companyAddress = $result[0]['cmpAddress'];
+        $companyEmail = $result[0]['cmpEmail'];
+        $companyPhone = $result[0]['cmpContactNumber'];
+        $companyState = $result[0]['cmpState'];
+        $companyCity = $result[0]['cmpCity'];
+        $companyPostcode = $result[0]['cmpPostCode'];
+        $companyContactPerson = $result[0]['cmpContactPerson'];
+        $companySize = $result[0]['cmpCompanySize'];
     }
+}else{ 
+        echo "<script>
+            alert('Restricted Action!!!\\nKindly use the formal way for accessing.');
+            window.location.href = 'br-cmpAppTableReview.php';
+        </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

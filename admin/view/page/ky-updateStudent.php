@@ -25,9 +25,10 @@ if (!$conn){
         $appQuota = $_POST['appQuota'];
         $currentApp = $_POST['currentApp'];
         $status = $_POST['status'];
+        $tutorial = $_POST['tutorial'];
 
         $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
-        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', studDateJoined='$dateJoined', studApplicationQuota='$appQuota', studCurrentNoOfApp='$currentApp', studAccountStatus='$status' WHERE studentID='$id' ";
+        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', studDateJoined='$dateJoined', studApplicationQuota='$appQuota', studCurrentNoOfApp='$currentApp', studAccountStatus='$status', tutorialGroupNo='$tutorial' WHERE studentID='$id' ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)

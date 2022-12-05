@@ -1,12 +1,21 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-$companyID = 'CMP00008';
+// if(!isset($_SESSION['companyID'])){
+//     echo "<script>
+//         alert('You are not permitted to enter this page.\\nPlease login as a company.');
+//         //window.location.href = 'br-login.php';
+//     </script>";
+// }else{
+    //TODO: Check if user is logged in, get company ID from session
+    //Get Company ID from Session
+    //$companyID = $_SESSION['companyID'];
+    $companyID = 'CMP00008';
+//}
+
 $db = new DBController();
 
 //Get Company Info
@@ -122,7 +131,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 class="grey-bg" 
                                 type="text" 
                                 name="cmpContactPerson" 
-                                value="<?php echo $companyInfo[0]['cmpContactPerson']; ?>" 
+                                value="<?php echo trim($companyInfo[0]['cmpContactPerson']); ?>" 
                                 pattern="[a-zA-Z ]{1,}"
                                 readonly
                                 required/>
@@ -215,7 +224,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
 
                             <div class="name-address-group margin-top-20 select-style width-45">
                                 <label for="cmpSize">Company Size</label>
-                                <select name="cmpSize" id="cmpSize" disabled>
+                                <select name="cmpSize" id="cmpSize" onchange="checkCmpSizeDownGrade()" disabled>
                                 <option value="0" disabled>Company Size</option>
                                     <option value="Micro" <?php echo ($companyInfo[0]['cmpCompanySize'] == 'Micro') ? 'selected' : '' ?> >Micro: 1 - 4</option>
 
@@ -366,6 +375,49 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         return false;
       }
     }
+
+    async function checkCmpSizeDownGrade(){
+        let response = await fetch('../../app/DAL/ajaxCheckCmpSizeDownGrade.php?companyID=<?php echo $companyID;?>').then(response => response.json());
+
+        let cmpSize = document.getElementById('cmpSize').value;
+        let cmpConvertToPlacementNo = 0;
+
+        let defaultValue = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
+        let defaultOption = 1;
+
+        if(defaultValue == 'Small'){
+            defaultOption = 2;
+        }else if(defaultValue == 'Medium'){
+            defaultOption = 3;
+        }else if(defaultValue == 'Large'){
+            defaultOption = 4;
+        }
+
+        if(cmpSize == 'Micro'){
+            cmpConvertToPlacementNo = 2;          
+        }else if(cmpSize == 'Small'){
+            cmpConvertToPlacementNo = 8;         
+        }else if(cmpSize == 'Medium'){
+            cmpConvertToPlacementNo = 20;           
+        }else if(cmpSize == 'Large'){
+            cmpConvertToPlacementNo = 50;           
+        }
+
+        console.log(response[0]['totalMaxQuota'])
+
+        if(response == 'Failed'){
+            alert('Unable To Proceed Current Operation');
+            document.getElementById('cmpSize').value = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
+        }else{
+            if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
+                alert('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+cmpConvertToPlacementNo+' Internship Placement');
+
+                document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
+            }
+        }
+
+    }
+
 </script>
 
 

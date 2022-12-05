@@ -1,5 +1,5 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/admin/';
 require_once $systemPathPrefix.'includes/db_connection.php';
 
 function getCompany($companyID){
