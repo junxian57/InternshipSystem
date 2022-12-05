@@ -60,6 +60,7 @@ try{
             <div class="main-page">
                 <div class="forms">
                     <h3 class="page-title">Student & Supervisor Mapping</h3>
+
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                         <!-- Tab Button -->
@@ -292,7 +293,7 @@ try{
                             </div>
                             <hr>
                             <div class="update-group">
-                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>Update Mapping</button>
+                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled></div>Update Mapping</button>
                             </div>
                         </div>
                     </div>

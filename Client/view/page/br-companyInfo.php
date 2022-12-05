@@ -238,6 +238,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
+                                <a href=""></a>
                                 
                                 <!--
                                 //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
@@ -415,7 +416,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                 document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
             }
         }
-
     }
 
 </script>
