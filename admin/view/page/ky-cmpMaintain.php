@@ -252,9 +252,28 @@ include('../../includes/db_connection.php');
                             
                             <div class="pass-box">
                                 <label>State :</label>
-                                <input type="text" placeholder="Enter City" name="cmpState" id="input_state" required>
+                                <select type="text" name="cmpState" id="input_state">
+                                    <option value="0">Select a State</option>
+                                    <option value="Johor" <?php echo ($cmpState1 == 'Johor') ? 'selected' : '' ?> >Johor</option>
+                                    <option value="Kuala Lumpur" <?php echo ($cmpState1 == 'Kuala Lumpur') ? 'selected' : '' ?> >Kuala Lumpur</option>
+                                    <option value="Kedah" <?php echo ($cmpState1 == 'Kedah') ? 'selected' : '' ?> >Kedah</option>
+                                    <option value="Kelantan" <?php echo ($cmpState1 == 'Kelantan') ? 'selected' : '' ?>>Kelantan</option>
+                                    <option value="Melaka" <?php echo ($cmpState1 == 'Melaka') ? 'selected' : '' ?>>Melaka</option>
+                                    <option value="Negeri Sembilan" <?php echo ($cmpState1 == 'Negeri Sembilan') ? 'selected' : '' ?> >Negeri Sembilan</option>
+                                    <option value="Pahang" <?php echo ($cmpState1 == 'Pahang') ? 'selected' : '' ?>>Pahang</option>
+                                    <option value="Penang" <?php echo ($cmpState1 == 'Penang') ? 'selected' : '' ?>>Penang</option>
+                                    <option value="Perak" <?php echo ($cmpState1 == 'Perak') ? 'selected' : '' ?>>Perak</option>
+                                    <option value="Perlis" <?php echo ($cmpState1 == 'Perlis') ? 'selected' : '' ?>>Perlis</option>
+                                    <option value="Sabah" <?php echo ($cmpState1 == 'Sabah') ? 'selected' : '' ?>>Sabah</option>
+                                    <option value="Sarawak" <?php echo ($cmpState1 == 'Sarawak') ? 'selected' : '' ?>>Sarawak</option>
+                                    <option value="Selangor" <?php echo ($cmpState1 == 'Selangor') ? 'selected' : '' ?>>Selangor</option>
+                                    <option value="Terengganu" <?php echo ($cmpState1 == 'Terengganu') ? 'selected' : '' ?>>Terengganu</option>
+                                </select>
                                 <i class="uil uil-estate icon"></i>
                             </div>
+
+                            
+
 
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
@@ -268,18 +287,25 @@ include('../../includes/db_connection.php');
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
-                            
-                            <div class="pass-box">
-                                <label>Company Size :</label>
-                                <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size"required >
-                                <i class='far fa-building icon'></i>
-                            </div>
-
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
                                 <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" required>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
+
+                            <div class="pass-box">
+                                <label>Company Size :</label>
+                                <select type="text" name="cmpSize" id="input_size">
+                                    <option value="0">Company Size</option>
+                                    <option value="Micro" <?php echo ($cmpSize1 == 'Micro') ? 'selected' : '' ?> >Micro: 1 - 4</option>
+                                    <option value="Small" <?php echo ($cmpSize1 == 'Small') ? 'selected' : '' ?> >Small: 5 - 74</option>
+                                    <option value="Medium" <?php echo ($cmpSize1 == 'Medium') ? 'selected' : '' ?>>Medium: 75 - 200</option>
+                                    <option value="Large" <?php echo ($cmpSize1 == 'Large') ? 'selected' : '' ?>>Large: > 200</option>
+                                </select>
+                                <i class='far fa-building icon'></i>
+                            </div>
+                            
+
 
                             <div class="pass-box">
                                 <label>Company Average Allowance :</label>
@@ -295,9 +321,18 @@ include('../../includes/db_connection.php');
                             
                             <div class="pass-box">
                                 <label>Account Status :</label>
-                                <input type="text" placeholder="Enter status" name="status" id="input_status" required>
+                                <select type="text" name="status" id="input_status">
+                                    <option value="0">Select Status</option>
+                                    <option value="Pending" <?php echo ($status1 == 'Pending') ? 'selected' : '' ?> >Pending</option>
+                                    <option value="InitialPass" <?php echo ($status1 == 'InitialPass') ? 'selected' : '' ?> >InitialPass</option>  
+                                    <option value="Rejected" <?php echo ($status1 == 'Rejected') ? 'selected' : '' ?> >Rejected</option>   
+                                    <option value="Approved" <?php echo ($status1 == 'Approved') ? 'selected' : '' ?> >Approved</option>   
+                                    <option value="Successful" <?php echo ($status1 == 'Successful') ? 'selected' : '' ?> >Successful</option>   
+                                </select>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
+                            
+
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
                             </div>
@@ -403,17 +438,16 @@ include('../../includes/db_connection.php');
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
-                            
-                            <div class="pass-box">
-                                <label>Company Size :</label>
-                                <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size2" readonly>
-                                <i class='far fa-building icon'></i>
-                            </div>
-
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
                                 <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field2" required readonly>
                                 <i class='fas fa-briefcase icon'></i>
+                            </div>
+
+                            <div class="pass-box">
+                                <label>Company Size :</label>
+                                <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size2" readonly>
+                                <i class='far fa-building icon'></i>
                             </div>
 
                             <div class="pass-box">
@@ -466,6 +500,9 @@ include('../../includes/db_connection.php');
             document.getElementById('input_city').value = cmpCity;
             document.getElementById('input_postCode').value = cmpPostCode;
             document.getElementById('input_state').value = cmpState;
+            $cmpSize1=size;
+            $cmpState1=cmpState;
+            $status1=status;
 
           
             //console.log(input_name, email)

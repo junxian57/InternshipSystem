@@ -368,7 +368,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Account Status :</label>
                                 <select type="text" name="status" id="input_status">
-                                    <!--<option value="0">Select Status</option>-->
+                                    <option value="0">Select Status</option>
                                     <option value="Pending Invite" <?php echo ($status1 == 'Pending Invite') ? 'selected' : '' ?> >Pending Invite</option>
                                     <option value="InitialPass" <?php echo ($status1 == 'InitialPass') ? 'selected' : '' ?> >InitialPass</option>  
                                     <option value="Pending Map" <?php echo ($status1 == 'Pending Map') ? 'selected' : '' ?> >Pending Map</option>   
