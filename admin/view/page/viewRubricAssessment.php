@@ -86,20 +86,13 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                                     <h4>Preview Table</h4>
                                 </div>
                                 <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='addRubricAssessment.php'">Add New Rubric Assessment</button>
                                 </div>
                             </div>
 
                             <?php
                             echo $all_rubricAssessment;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div id="RubricCmpCriteriaTab" class="tabcontent">
@@ -108,29 +101,17 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                                     <h4>Preview Table</h4>
                                 </div>
                                 <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='addRubricComponentCriteria.php'">Add New Rubric Criteria</button>
                                 </div>
                             </div>
 
                             <?php
                             echo $all_rubricCmpCriteria;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
 
                         <div id="RubricCmpLvlTab" class="tabcontent">
-                            <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
-                            <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
-                            <?php elseif ($rubricCmpLvlBLLObj->errorMessage != '') : echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>"; ?>
-                            <?php endif; ?>
+
                             <div class="row">
                                 <div class="table-title">
                                     <h4>Preview Table</h4>
@@ -144,12 +125,7 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                             echo $all_rubricCmpLvl;
                             ?>
 
-                            <div class="modal fade text-center" id="cmpLvlModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -265,12 +241,6 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                             //$('#test1').style.remove('width');
                         },
                     });
-                });
-            </script>
-            <!--dispose modal when close the modal -->
-            <script>
-                $("#theModal").on('hidden.bs.modal', function() {
-                    $(this).data('bs.modal', null);
                 });
             </script>
 
