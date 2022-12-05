@@ -38,7 +38,7 @@ if(isset($_POST['signatureedit'])){
   file_put_contents($file, $data);
   $sign = '../../../Client/view/signature/'.$studName.'.jpg';
 
-  if($leaveTaken == 'NO'){
+  if($leaveTaken == 'NO' || $leaveTaken == 'No'){
     $leaveReasons = "N/A";
   }
   else{
@@ -48,7 +48,7 @@ if(isset($_POST['signatureedit'])){
   $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
 
   if (mysqli_query($conn, $sql)) {
-    if($leaveTaken == 'NO'){
+    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
       $leave = '0';
       $fromDate = "_____________________";
       $toDate = "_____________________";

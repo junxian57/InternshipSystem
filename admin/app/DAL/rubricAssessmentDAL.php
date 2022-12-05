@@ -102,7 +102,7 @@ class rubricAssessmentDAL
      */
     public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
-        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricAssmtDto->getAssmtId() . "',
                   '" . $rubricAssmtDto->getInternshipBatchID() . "',
@@ -110,6 +110,7 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getInstructions() . "',
                   '" . $rubricAssmtDto->getTotalWeight() . "',
                   '" . $rubricAssmtDto->getRoleForMark() . "',
+                  'activate',
                   '" . $rubricAssmtDto->getCreateByID() . "',
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";

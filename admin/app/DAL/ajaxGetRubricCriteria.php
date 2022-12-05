@@ -5,7 +5,7 @@ if (isset($_GET['RoleForMark'])) {
     $db_handle1 = new DBController();
     //$query = "SELECT * FROM RubricComponentCriteria WHERE RoleForMark = '$RoleForMark'";
     $query = "SELECT * from RubricComponentCriteria rcc left JOIN RubricComponent rc on rcc.criterionID=rc.criterionID WHERE 
-    rc.valueName='Excellent' AND rcc.RoleForMark= '$RoleForMark' ORDER BY rcc.criterionID ASC";
+    rc.valueName='Excellent' AND rcc.RoleForMark= '$RoleForMark' AND rcc.status = 'activate'ORDER BY rcc.criterionID ASC";
     $results = $db_handle1->runQuery($query);
     $array = array();
 
