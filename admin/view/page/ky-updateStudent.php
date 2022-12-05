@@ -33,12 +33,19 @@ if (!$conn){
 
         if($query_run)
         {
-            echo '<script> alert("Data Updated"); </script>';
-            header("Location:ky-studentMaintain.php");
+            echo "<script> 
+            alert('Company details Updated'); 
+            window.location.href = 'ky-studentMaintain.php';
+           
+            </script>";
         }
         else
         {
-            echo '<script> alert("Data Not Updated"); </script>';
+            echo "<script> 
+            alert('Company details Update failed'); 
+            window.location.href = 'ky-studentMaintain.php';
+           
+            </script>";
         }
     }
 ?>

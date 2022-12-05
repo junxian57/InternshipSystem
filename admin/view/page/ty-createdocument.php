@@ -16,44 +16,32 @@ $documentManagementDALObj  = new documentManagementDAL();
 	} */
 
 $documentManagementBLLObj = new documentManagementBLL(); 
-if ($_GET['act'] == "edit") {
-    $id = str_replace("'", "", $_GET['id']);
-    $id = str_replace("'", "", $_GET['id']);
-    $aDocumentMngt = $documentManagementBLLObj->GetDocument($id);
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Document') {
-        $documentID = $aDocumentMngt->getdocumentID();
-        echo $documentID;
-        $documentID = $_POST['documentID'];
-        $documentTitle = $_POST['documentTitle'];
-        $Uploader = $_POST['Uploader'];
-        $uploadDate = $_POST['uploadDate'];
-        $uploadDocument = $_POST['uploadDocument'];
-        $Information = $_POST['Information'];
-        $location = $_POST['location'];       
-        $CreateByID = $_POST['CreateByID'];
-        $CreateDate = $_POST['createDate'];
-        $UpdDocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location, $CreateByID, $CreateDate);
-        $documentManagementBLLObj->UpdDocumentMngt($UpdDocumentMngt); 
-    }
-} else {
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Document') {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date = date('Y-m-d');
-        $documentID = $_POST['documentID'];
-        $documentTitle = $_POST['documentTitle'];
-        $Uploader = $_POST['Uploader'];
-        $uploadDate = $_POST['uploadDate'];
-        $uploadDocument = $_POST['uploadDocument'];
-        $Information = $_POST['Information'];
-        $location = $_POST['location'];       
-        $CreateByID = $_POST['CreateByID'];
-        $CreateDate = $date;
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location, $CreateByID, $CreateDate);
+ 
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Document') {
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    $date = date('Y-m-d');
+    $documentID = $_POST['documentID'];
+    $documentTitle = $_POST['documentTitle'];
+    $uploader = $_POST['uploader'];
+    $information = $_POST['information'];
+    
+    $uploadDocument = $_FILES['uploadDocument'];
 
-        print_r($newdocumentMngt); 
-        $documentManagementBLLObj->AddDocumentMngt($newdocumentMngt);
-    } 
+    $fileName = $uploadDocument['name'];
+
+    $localPath = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/admin/view/document/documentManagement/';
+
+    $newFilePath = $localPath.$fileName;
+    
+    move_uploaded_file($uploadDocument['tmp_name'], $newFilePath);
+    
+    $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $uploader, $newFilePath, $information);
+
+    print_r($newdocumentMngt); 
+
+    $documentManagementBLLObj->AddDocumentMngt($newdocumentMngt);
 } 
+
 
 ?>
 <!DOCTYPE HTML>
@@ -145,14 +133,20 @@ if ($_GET['act'] == "edit") {
                             <h4>Documents Management</h4>
                         </div>
                         <div class="form-body">
-                            <form method="post">
-                                <div class="form-group col-md-2"> <label for="exampleInput">Document ID</label><input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $documentManagementDALObj->generateID() ?>" readonly="readonly"></div>
-                                <div class="form-group col-md-6"> <label for="exampleInput">Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" placeholder="TITLE" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle() : "" ?>" required="true"> </div>
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="form-group col-md-2"> 
+                                    <label for="exampleInput">Document ID</label>
+                                    <input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $documentManagementDALObj->generateID() ?>" readonly>
+                                </div>
+                                <div class="form-group col-md-6"> 
+                                    <label for="exampleInput">Document Title</label>
+                                    <input type="text" id="documentTitle" name="documentTitle" class="form-control" placeholder="TITLE" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle() : "" ?>" required="true"> 
+                                </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Uploader</label>
                                     <!--Change option to array for Uploader-->
-                                    <select id="inputState" name="Uploader" class="form-control" required>
-                                        <option selected disabled value="">Options</option>
+                                    <select id="inputState" name="uploader" class="form-control" required>
+                                        <option selected disabled value="0">Options</option>
                                         <?php
                                         $options = array('ITP Supervisor', 'ITP Committee');
                                         foreach ($options as $option) {
@@ -169,7 +163,10 @@ if ($_GET['act'] == "edit") {
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2"> <label for="exampleInput">Upload Date</label><input type="text" id="uploadDate" name="uploadDate" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $date ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-2"> 
+                                    <label for="exampleInput">Upload Date</label>
+                                    <input type="text" id="uploadDate" name="uploadDate" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $date ?>" readonly>
+                                </div>
 
                                 <label for="input-folder-3">Select Files</label>
 
@@ -178,8 +175,12 @@ if ($_GET['act'] == "edit") {
                                     <a type="button" id="previewDocument" target="_blank">Preview</a>
                                 </div>
                             
-                                <div class="form-group col-md-12"> <label>Document Information</label><textarea rows="5" class="form-control" id="Information" name="Information" placeholder="INSTRUCTION/INFORMATION" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?></textarea></div>
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Document" : "Create Document" ?>" class="form-group btn btn-default">Upload</button></div>
+                                <div class="form-group col-md-12"> 
+                                    <label>Document Information</label>
+                                    <textarea rows="5" class="form-control" id="Information" name="information" placeholder="INSTRUCTION/INFORMATION" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?></textarea>
+                                </div>
+
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value= "Create Document" class="form-group btn btn-default">Upload</button></div>
 
                             </form>
                         </div>
@@ -217,25 +218,12 @@ if ($_GET['act'] == "edit") {
         <script src="../../js/bootstrap.js"> </script>
 </body>
     <script>
-        // $(document).ready(function() {
-        //     $("#uploadDocument").fileinput({
-        //         uploadUrl: "/file-upload-batch/2",
-        //         hideThumbnailContent: true // hide image, pdf, text or other content in the thumbnail preview
-        //     });
-        //     });
-        //function previewDocument(){
-        //     let getDocument = document.getElementByID('uploadDocument').files[0];
-        //     console.log(getDocument);
-        // }
-
         document.getElementById('uploadDocument').addEventListener('change', e => {
             let getDocument = e.target.files[0];
             let url = URL.createObjectURL(getDocument);
 
             document.querySelector('#previewDocument').setAttribute('href', url);
         })
-
-        
     </script>
 
 </html>

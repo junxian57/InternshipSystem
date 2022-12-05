@@ -29,17 +29,24 @@ if (!$conn){
         $cmpState = $_POST['cmpState'];
         
 
-        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpContactPerson=' $username', cmpCompanySize=' $size', cmpAddress=' $address', cmpFieldsArea=' $fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating', cmpCity='$cmpCity', cmpPostCode='$cmpPostCode', cmpState='$cmpState' WHERE companyID='$id'  ";
+        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpContactPerson='$username', cmpCompanySize='$size', cmpAddress='$address', cmpFieldsArea='$fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating', cmpCity='$cmpCity', cmpPostCode='$cmpPostCode', cmpState='$cmpState' WHERE companyID='$id'  ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)
         {
-            echo '<script> alert("Data Updated"); </script>';
-            header("Location:ky-cmpMaintain.php");
+            echo "<script> 
+            alert('Company details Updated'); 
+            window.location.href = 'ky-cmpMaintain.php';
+           
+            </script>";
         }
         else
         {
-            echo '<script> alert("Data Not Updated"); </script>';
+            echo "<script> 
+            alert('Company details Update failed'); 
+            window.location.href = 'ky-cmpMaintain.php';
+           
+            </script>";
         }
     }
 ?>
