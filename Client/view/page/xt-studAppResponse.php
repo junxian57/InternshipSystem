@@ -250,8 +250,9 @@ include('includes/dbconnection.php');
         <input type="text" id="studName" name="studName" placeholder="Student Name*" value="<?php echo $studName; ?>" readonly>
         <input type="text" id="studID" name="studID" placeholder="Student ID*" value="<?php echo $studentID; ?>" readonly>
         <span>Intern Job Details</span><br>
-        <input type="text" id="allowance" name="allowance" placeholder="Allowance*" value="<?php echo "$jobAllowance"; ?>" readonly>
+        <input type="text" id="internJobID" name="internJobID" placeholder="Intern Job ID*" value="<?php echo "$internJobID"; ?>" readonly>
         <input type="text" id="position" name="position" placeholder="Intern Position*" value="<?php echo $jobTitle; ?>" readonly>
+        <input type="text" id="allowance" name="allowance" placeholder="Allowance*" value="<?php echo "$jobAllowance"; ?>" readonly>
         <textarea id="location" name="location" rows="4" placeholder="Working Location*" readonly><?php echo $jobLocationOfWork; ?></textarea>
         <input type="text" id="period" name="period" placeholder="Intern Period*" value="<?php echo "$monthDuration months"?>" style="width: 91.5%;" readonly>
         <input type="date" name="start" style="margin-right: 5px" value="<?php echo $appInternStartDate; ?>" readonly>to<input type="date" name="end" style="margin-left: 5px" value="<?php echo $appInternEndDate; ?>" readonly>

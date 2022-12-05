@@ -22,18 +22,17 @@ class documentManagementDAL
     {
         //$db = new DBController();
         $listOfdocumentManagementDTO = array();
-        $sql = "SELECT * FROM DocumentManagement";
+        $sql = "SELECT * FROM Document";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
                 $documentID = $result[$i]['documentID'];
                 $documentTitle = $result[$i]['documentTitle'];
-                $Uploader = $result[$i]['Uploader'];
+                $Uploader = $result[$i]['uploader'];
                 $uploadDate = $result[$i]['uploadDate'];
                 $uploadDocument = $result[$i]['uploadDocument'];
                 $Information = $result[$i]['Information'];
-                $location = $result[$i]['location'];
-                $listOfdocumentManagementDTO[] = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location);
+                $listOfdocumentManagementDTO[] = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information);
             }
         }
         return $listOfdocumentManagementDTO;
@@ -70,12 +69,12 @@ class documentManagementDAL
     {
         $db = new DBController();
         //Will be descending order
-        $sql = "SELECT * FROM DocumentManagement ORDER BY documentID DESC";
+        $sql = "SELECT * FROM Document ORDER BY documentID DESC";
         $result = $db->runQuery($sql);
         $prefix = 'D';
 
         if (empty($result)) {
-            $prefix .= '000001';
+            $prefix .= '00001';
             return $prefix;
         }
 
@@ -85,9 +84,9 @@ class documentManagementDAL
         $numberPart = substr($lastID, 5, 6);
 
         if ((int) $numberPart < 9) {
-            $prefix .= '00000' . ((int) $numberPart + 1);
-        } else if ((int) $numberPart >= 9) {
             $prefix .= '0000' . ((int) $numberPart + 1);
+        } else if ((int) $numberPart >= 9) {
+            $prefix .= '000' . ((int) $numberPart + 1);
         }
 
         return $prefix;
@@ -100,34 +99,33 @@ class documentManagementDAL
      */
     public function AddDocumentMngt($documentManagementDTO)
     {
-        $sql = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
+        $sql = "INSERT INTO Document (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`)
                 VALUES (
                   '" . $documentManagementDTO->getdocumentID() . "',
                   '" . $documentManagementDTO->getdocumentTitle() . "',
                   '" . $documentManagementDTO->getUploader() . "',
                   '" . $documentManagementDTO->getuploadDate() . "',
                   '" . $documentManagementDTO->getuploadDocument() . "',
-                  '" . $documentManagementDTO->getInformation() . "',
-                  '" . $documentManagementDTO->getlocation() . "'
+                  '" . $documentManagementDTO->getInformation() . "'
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
         
         //for loop
-        foreach($documentManagementDTO as $documentManagementDTO1){
-            $sql1 = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
-            VALUES (
-                '" . $documentManagementDTO1->getdocumentID() . "',
-                '" . $documentManagementDTO1->getdocumentTitle() . "',
-                '" . $documentManagementDTO1->getUploader() . "',
-                '" . $documentManagementDTO1->getuploadDate() . "',
-                '" . $documentManagementDTO1->getuploadDocument() . "',
-                '" . $documentManagementDTO1->getInformation() . "',
-                '" . $documentManagementDTO1->getlocation() . "'
-            )";
-            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
-        }
+        // foreach($documentManagementDTO as $documentManagementDTO1){
+        //     $sql1 = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
+        //     VALUES (
+        //         '" . $documentManagementDTO1->getdocumentID() . "',
+        //         '" . $documentManagementDTO1->getdocumentTitle() . "',
+        //         '" . $documentManagementDTO1->getUploader() . "',
+        //         '" . $documentManagementDTO1->getuploadDate() . "',
+        //         '" . $documentManagementDTO1->getuploadDocument() . "',
+        //         '" . $documentManagementDTO1->getInformation() . "',
+        //         '" . $documentManagementDTO1->getlocation() . "'
+        //     )";
+        //     $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        // }
 
-        if ($result && $result2) {
+        if ($result) {
             header("Location: ../../view/page/ty-createDocument.php?status=success");
             exit();
         } else {
@@ -188,13 +186,14 @@ class documentManagementDAL
      */
     public function IsDocumentExists($documentTitle, $documentID)
     {
-        $sql = "SELECT * FROM DocumentManagement WHERE Title='" . $documentTitle . "' AND documentID = $documentID ";
-        $result = $this->databaseConnectionObj->runQuery($sql);
+        // $sql = "SELECT * FROM Document WHERE Title='" . $documentTitle . "' AND documentID = $documentID ";
+        // $result = $this->databaseConnectionObj->runQuery($sql);
 
-        if (!empty($result)) {
-            return true;
-        } else {
-            return false;
-        }
+        // if (!empty($result)) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return false;
     }
 }

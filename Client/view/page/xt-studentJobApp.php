@@ -42,22 +42,27 @@ if(isset($_GET['internJobID'])){
 	$studApplicationQuota = $row_stud['studApplicationQuota'];
 	$applicationQuota = intval($studApplicationQuota);
 
-	if($applicationQuota >= 1){
-		$sql = "INSERT INTO InternApplicationMap (internAppID, studentID, internJobID, appStatus, appStudentCV, appInternStartDate, appInternEndDate) VALUES ('$internAppID', '$studID', '$internJobID','$appStatus','$studentCVdocument', '$internStart', '$internEnd')";
-  	
-		$applicationQuota = $applicationQuota - 1;
-
-		$query = "UPDATE Student SET studApplicationQuota ='$applicationQuota' WHERE studentID='$studID'";
-		if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
-    	echo "<script>alert('Your application have been sent to the company')</script>"; 
-  	} else {
-    	echo "Error: " . $sql . mysqli_error($conn);
-		}   
-	}else{
-		echo "<script>alert('You have reach your maximum application quota!')</script>"; 
+	$get_app = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND internJobID = '$internJobID'";
+	$run_app = mysqli_query($conn, $get_app);
+  if($row_app = mysqli_fetch_array($run_app)){
+		echo "<script>alert('Your have applied for this company before.')</script>";
 	}
-
-  
+	else{
+		if($applicationQuota >= 1){
+			$sql = "INSERT INTO InternApplicationMap (internAppID, studentID, internJobID, appStatus, appStudentCV, appInternStartDate, appInternEndDate) VALUES ('$internAppID', '$studID', '$internJobID','$appStatus','$studentCVdocument', '$internStart', '$internEnd')";
+			
+			$applicationQuota = $applicationQuota - 1;
+	
+			$query = "UPDATE Student SET studApplicationQuota ='$applicationQuota' WHERE studentID='$studID'";
+			if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
+				echo "<script>alert('Your application have been sent to the company.')</script>"; 
+			} else {
+				echo "Error: " . $sql . mysqli_error($conn);
+			}   
+		}else{
+			echo "<script>alert('You have reach your maximum application quota!')</script>"; 
+		}
+	}  
 }
 ?>
 <!DOCTYPE HTML>

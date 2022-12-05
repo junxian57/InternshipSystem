@@ -8,7 +8,7 @@ if(isset($_GET['internJobID']) && isset($_GET['delete']) && isset($_GET['company
     $internJobID = $_GET['internJobID'];
     $companyID = $_GET['companyID'];
 
-    $sqlCheckInternshipMapIsNon = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID'";
+    $sqlCheckInternshipMapIsNon = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appInternEndDate > NOW();";
     $resultCheckInternshipMapIsNon = $db->runQuery($sqlCheckInternshipMapIsNon);
 
     if($resultCheckInternshipMapIsNon == null){
@@ -22,6 +22,7 @@ if(isset($_GET['internJobID']) && isset($_GET['delete']) && isset($_GET['company
             echo json_encode("Failed");
         }  
     }else{
+        //Do not allowed to delete if not empty
         echo json_encode("InternshipMapIsNotEmpty");
     }
 

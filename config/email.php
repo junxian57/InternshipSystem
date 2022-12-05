@@ -55,9 +55,10 @@ class EmailConfig{
      * @param $senderEmail = email of sender
      * @param $subject = subject of email
      * @param $content = content of email
+     * @param $attachment = attachment of email
      * @return boolean
      */
-    function singleEmail($senderEmail, $subject, $content, $attachment){
+    function singleEmailWithAttachment($senderEmail, $subject, $content, $attachment){
       $checkEmail = $this->checkEmailFormat($senderEmail);
       $checkEmpty = $this->setAndCheckEmpty($subject, $content);
       $checkAttachment = $this->setAttachment($attachment);
@@ -68,6 +69,26 @@ class EmailConfig{
         return false;
       }
 
+        return $success;
+    }
+
+    /**
+     * Send Email to Single User
+     * @param $senderEmail = email of sender
+     * @param $subject = subject of email
+     * @param $content = content of email
+     * @return boolean
+     */
+    function singleEmail($senderEmail, $subject, $content){
+        $checkEmail = $this->checkEmailFormat($senderEmail);
+        $checkEmpty = $this->setAndCheckEmpty($subject, $content);
+  
+        if($checkEmail && $checkEmpty){
+          $success = $this->mail->send();
+        }else{
+          return false;
+        }
+  
         return $success;
     }
 

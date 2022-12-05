@@ -1,8 +1,6 @@
 <?php
 class documentManagementDTO
 {
-
-
     private $documentID;
     private $documentTitle;
     private $Uploader;
@@ -12,12 +10,12 @@ class documentManagementDTO
     private $location;
 
 
-    public function __construct($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information)
+    public function __construct($documentID, $documentTitle, $Uploader, $uploadDocument, $Information)
     {
         $this->documentID = $documentID;
         $this->documentTitle = $documentTitle;
         $this->Uploader = $Uploader;
-        $this->uploadDate = $uploadDate;
+        $this->uploadDate = date('Y-m-d');
         $this->uploadDocument = $uploadDocument;
         $this->Information = $Information;
        

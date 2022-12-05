@@ -108,6 +108,7 @@ if(isset($_POST['create'])){
   $start = $_POST['start'];
   $end = $_POST['end'];
   $supName = $_POST['supName'];
+  $internJobID = $_POST['internJobID'];
   $position = $_POST['position'];
   $supContact = $_POST['supContact'];
   $supEmail = $_POST['supEmail'];
@@ -141,6 +142,17 @@ if(isset($_POST['create'])){
 	$runStud = mysqli_query($conn, $getStud);
 	$rowStud = mysqli_fetch_array($runStud);
   $studEmail = $rowStud['studEmail'];
+
+  $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+	$run_intern = mysqli_query($conn, $get_intern);
+	$row_intern = mysqli_fetch_array($run_intern);
+  $companyID = $row_intern['companyID'];
+  $jobMaxNumberQuota = $row_intern['jobMaxNumberQuota'];
+
+  $get_cmp = "SELECT * FROM Company WHERE companyID = '$companyID'";
+	$run_cmp = mysqli_query($conn, $get_cmp);
+	$row_cmp = mysqli_fetch_array($run_cmp);
+  $cmpNumberOfInternshipPlacements = $row_cmp['cmpNumberOfInternshipPlacements'];
 }
 
 class PDF extends TCPDF{
@@ -267,9 +279,18 @@ $pdf->Cell(180, 1, '____________________________________________________________
 $pdf->Output(__DIR__ . '/offerLetter/offerLetter_'.$studName.'.pdf', 'FI');
 
 $sql = "UPDATE InternApplicationMap SET appStatus='Accepted', appStudentCV='offerLetter_$studName.pdf' WHERE internAppID='$internAppID'";
-$result = mysqli_query($conn, $sql);
+$maxNumQuota = $jobMaxNumberQuota - 1;
+$numberOfInternshipPlacements = $cmpNumberOfInternshipPlacements - 1;
+if($maxNumQuota >= 1){
+  $query = "UPDATE InternJob SET jobMaxNumberQuota='$maxNumQuota' WHERE internJobID = '$internJobID'";
+  $query = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
+}
+else{
+  $query = "UPDATE InternJob SET jobMaxNumberQuota='$maxNumQuota', jobStatus = 'Full' WHERE internJobID = '$internJobID'";
+  $query = "UPDATE Company SET cmpNumberOfInternshipPlacements='$numberOfInternshipPlacements' WHERE companyID = '$companyID'";
+}
 
-  if($result){
+  if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
     $success = $mailConfig->singleEmail(
       $studEmail, 
       $subject, 
