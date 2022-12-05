@@ -38,7 +38,7 @@ class documentManagementBLL
             $all_documentManagement_html .= '<th>Upload Date</th>';
             $all_documentManagement_html .= '<th>Upload Document</th>';
             $all_documentManagement_html .= '<th>Document Information</th>';
-            $all_documentManagement_html .= '<th>Location</th>';
+            $all_documentManagement_html .= '<th>Action</th>';
             $all_documentManagement_html .= '</tr>';
             $all_documentManagement_html .= '</thead>';
             $all_documentManagement_html .= '<tbody>';
@@ -49,9 +49,8 @@ class documentManagementBLL
                 $all_documentManagement_html .= '<td>' . $documentManagement->getdocumentTitle() . '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getUploader() . '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getuploadDate() . '</td>';
-                $all_documentManagement_html .= '<td>' . $documentManagement->getuploadDocument() . '</td>';
+                $all_documentManagement_html .= '<td><a href="'.$documentManagement->getuploadDocument().'" '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getInformation() . '</td>';
-                $all_documentManagement_html .= '<td>' . $documentManagement->getlocation() . '</td>';
                 //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
                 $all_documentManagement_html .= '<td>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/ty-createDocument.php?act=edit&id=' . $documentManagement->getdocumentId() . '">
@@ -130,5 +129,9 @@ class documentManagementBLL
     public function IsDocumentExists($documentTitle, $documentID)
     {
         return $this->documentManagementDAL->IsDocumentExists($documentTitle, $documentID);
+    }
+
+    public function uploadDocument(){
+
     }
 }
