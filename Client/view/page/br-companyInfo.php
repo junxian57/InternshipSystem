@@ -410,8 +410,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
             document.getElementById('cmpSize').value = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
         }else{
             if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
-                alert('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+cmpConvertToPlacementNo+' Internship Placement');
-
+                alert('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
                 document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
             }
         }

@@ -1,7 +1,6 @@
 <?php
-session_start();
-error_reporting(0);
 include('../../includes/db_connection.php');
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 ?>
 <!DOCTYPE HTML>
@@ -295,12 +294,12 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Company Size :</label>
-                                <select type="text" name="cmpSize" id="input_size">
+                                <select type="text" name="cmpSize" onchange=" checkCmpSizeDownGrade()" id="input_size">
                                     <option value="0">Company Size</option>
-                                    <option value="Micro" <?php echo ($cmpSize1 == 'Micro') ? 'selected' : '' ?> >Micro: 1 - 4</option>
-                                    <option value="Small" <?php echo ($cmpSize1 == 'Small') ? 'selected' : '' ?> >Small: 5 - 74</option>
-                                    <option value="Medium" <?php echo ($cmpSize1 == 'Medium') ? 'selected' : '' ?>>Medium: 75 - 200</option>
-                                    <option value="Large" <?php echo ($cmpSize1 == 'Large') ? 'selected' : '' ?>>Large: > 200</option>
+                                    <option value="Micro" <?php echo ($size == 'Micro') ? 'selected' : '' ?> >Micro: 1 - 4</option>
+                                    <option value="Small" <?php echo ($size == 'Small') ? 'selected' : '' ?> >Small: 5 - 74</option>
+                                    <option value="Medium" <?php echo ($size == 'Medium') ? 'selected' : '' ?>>Medium: 75 - 200</option>
+                                    <option value="Large" <?php echo ($size == 'Large') ? 'selected' : '' ?>>Large: > 200</option>
                                 </select>
                                 <i class='far fa-building icon'></i>
                             </div>
@@ -490,6 +489,7 @@ include('../../includes/db_connection.php');
             document.getElementById('input_phone').value = phone;
             document.getElementById('input_username').value = cmpContactPerson;
             document.getElementById('input_size').value = size;
+            document.getElementById('input_size').setAttribute('onchange',`checkCmpSizeDownGrade('${Id}', '${size}', this)`);
             document.getElementById('input_address').value = address;
             document.getElementById('input_field').value = fieldArea;
             document.getElementById('input_placement').value = cmpInternshipPlacement;
@@ -516,7 +516,7 @@ include('../../includes/db_connection.php');
                 $('#view-modal').fadeOut();
             });
         }
-           
+  
     </script>
 
     <script type="text/javascript">
@@ -716,6 +716,46 @@ include('../../includes/db_connection.php');
             const data = await response.json();
             return data;
         }
+    }
+
+    async function checkCmpSizeDownGrade(companyID, currSize, inputObject){
+        let response = await fetch(`../../app/DAL/ajaxCheckCmpSizeDownGrade.php?companyID=${companyID}`).then(response => response.json());
+
+        let cmpSize = inputObject.value;
+        let cmpConvertToPlacementNo = 0;
+
+        let defaultValue = `${currSize}`;
+        let defaultOption = 1;
+
+        if(defaultValue == 'Small'){
+            defaultOption = 2;
+        }else if(defaultValue == 'Medium'){
+            defaultOption = 3;
+        }else if(defaultValue == 'Large'){
+            defaultOption = 4;
+        }
+
+        if(cmpSize == 'Micro'){
+            cmpConvertToPlacementNo = 2;          
+        }else if(cmpSize == 'Small'){
+            cmpConvertToPlacementNo = 8;         
+        }else if(cmpSize == 'Medium'){
+            cmpConvertToPlacementNo = 20;           
+        }else if(cmpSize == 'Large'){
+            cmpConvertToPlacementNo = 50;           
+        }
+
+        if(response == 'Failed'){
+            alert('Unable To Proceed Current Operation');
+            inputObject.value = `${currSize}`;
+        }else{
+            if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
+                alert('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
+
+                inputObject.getElementsByTagName('option')[defaultOption].selected = 'selected';
+            }
+        }
+
     }
 </script>
 
