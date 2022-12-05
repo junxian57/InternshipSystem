@@ -22,7 +22,7 @@ class documentManagementDAL
     {
         //$db = new DBController();
         $listOfdocumentManagementDTO = array();
-        $sql = "SELECT * FROM DocumentManagement";
+        $sql = "SELECT * FROM Document";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
@@ -70,12 +70,12 @@ class documentManagementDAL
     {
         $db = new DBController();
         //Will be descending order
-        $sql = "SELECT * FROM DocumentManagement ORDER BY documentID DESC";
+        $sql = "SELECT * FROM Document ORDER BY documentID DESC";
         $result = $db->runQuery($sql);
         $prefix = 'D';
 
         if (empty($result)) {
-            $prefix .= '000001';
+            $prefix .= '00001';
             return $prefix;
         }
 
@@ -85,9 +85,9 @@ class documentManagementDAL
         $numberPart = substr($lastID, 5, 6);
 
         if ((int) $numberPart < 9) {
-            $prefix .= '00000' . ((int) $numberPart + 1);
-        } else if ((int) $numberPart >= 9) {
             $prefix .= '0000' . ((int) $numberPart + 1);
+        } else if ((int) $numberPart >= 9) {
+            $prefix .= '000' . ((int) $numberPart + 1);
         }
 
         return $prefix;

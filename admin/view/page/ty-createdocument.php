@@ -8,7 +8,7 @@ $date = date('Y-m-d');
 require_once('../../app/BLL/documentManagementBLL.php');
 require_once("../../app/DTO/documentManagementDTO.php");
 require_once("../../app/DAL/documentManagementDAL.php");
-$documentManagementDALObj  = new documentManagementDAL(); 
+$documentManagementDALObj  = new documentManagementDAL();
 
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
@@ -51,7 +51,7 @@ if ($_GET['act'] == "edit") {
         $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location, $CreateByID, $CreateDate);
 
         print_r($newdocumentMngt); 
-        $documentManagementBLLObj->AddDocument($newdocumentMngt);
+        $documentManagementBLLObj->AddDocumentMngt($newdocumentMngt);
     } 
 } 
 
@@ -60,7 +60,7 @@ if ($_GET['act'] == "edit") {
 <html>
 
 <head>
-    <title>ITP SYSTEM</title>
+    <title>ITP SYSTEM | Create Document</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -146,7 +146,7 @@ if ($_GET['act'] == "edit") {
                         </div>
                         <div class="form-body">
                             <form method="post">
-                                <div class="form-group col-md-2"> <label for="exampleInput">Document ID</label><input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : /* $documentManagementDALObj->generateID() */ "" ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-2"> <label for="exampleInput">Document ID</label><input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $documentManagementDALObj->generateID() ?>" readonly="readonly"></div>
                                 <div class="form-group col-md-6"> <label for="exampleInput">Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" placeholder="TITLE" value="<?php echo  isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle() : "" ?>" required="true"> </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputState">Uploader</label>
@@ -170,18 +170,14 @@ if ($_GET['act'] == "edit") {
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2"> <label for="exampleInput">Upload Date</label><input type="text" id="uploadDate" name="uploadDate" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $date ?>" readonly="readonly"></div>
-                                &nbsp;&nbsp;&nbsp;&nbsp;<label for="input-folder-3">Select Files</label>
+
+                                <label for="input-folder-3">Select Files</label>
+
                                 <div class="file-loading">
-                                <input id="uploadDocument" name="uploadDocument[]" type="file" multiple><br>
-                            </div>
-                            <script>
-                            $(document).ready(function() {
-                                $("#uploadDocument").fileinput({
-                                    uploadUrl: "/file-upload-batch/2",
-                                    hideThumbnailContent: true // hide image, pdf, text or other content in the thumbnail preview
-                                });
-                                });
-                                </script>
+                                    <input id="uploadDocument" name="uploadDocument" type="file" accept=".pdf"><br>
+                                    <a type="button" id="previewDocument" target="_blank">Preview</a>
+                                </div>
+                            
                                 <div class="form-group col-md-12"> <label>Document Information</label><textarea rows="5" class="form-control" id="Information" name="Information" placeholder="INSTRUCTION/INFORMATION" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?></textarea></div>
                                 <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Document" : "Create Document" ?>" class="form-group btn btn-default">Upload</button></div>
 
@@ -200,16 +196,16 @@ if ($_GET['act'] == "edit") {
 
         <script>
             var menuLeft = document.getElementById('cbp-spmenu-s1'),
-                showLeftPush = document.getElementById('showLeftPush'),
-                body = document.body;
-
+            showLeftPush = document.getElementById('showLeftPush'),
+            body = document.body;
+            
             showLeftPush.onclick = function() {
                 classie.toggle(this, 'active');
                 classie.toggle(body, 'cbp-spmenu-push-toright');
                 classie.toggle(menuLeft, 'cbp-spmenu-open');
                 disableOther('showLeftPush');
             };
-
+            
             function disableOther(button) {
                 if (button !== 'showLeftPush') {
                     classie.toggle(showLeftPush, 'disabled');
@@ -220,6 +216,27 @@ if ($_GET['act'] == "edit") {
         <!-- Bootstrap Core JavaScript -->
         <script src="../../js/bootstrap.js"> </script>
 </body>
+    <script>
+        // $(document).ready(function() {
+        //     $("#uploadDocument").fileinput({
+        //         uploadUrl: "/file-upload-batch/2",
+        //         hideThumbnailContent: true // hide image, pdf, text or other content in the thumbnail preview
+        //     });
+        //     });
+        //function previewDocument(){
+        //     let getDocument = document.getElementByID('uploadDocument').files[0];
+        //     console.log(getDocument);
+        // }
+
+        document.getElementById('uploadDocument').addEventListener('change', e => {
+            let getDocument = e.target.files[0];
+            let url = URL.createObjectURL(getDocument);
+
+            document.querySelector('#previewDocument').setAttribute('href', url);
+        })
+
+        
+    </script>
 
 </html>
 <?php //} 
