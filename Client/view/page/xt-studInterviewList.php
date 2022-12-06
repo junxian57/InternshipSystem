@@ -121,7 +121,7 @@ include('includes/dbconnection.php');
                                 <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
                                 <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
                               </div>";
-                            }elseif ($appStudFeedback <> 'Accept Interview'){
+                            }elseif ($appStudFeedback == 'Accept Interview'){
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
@@ -170,20 +170,114 @@ include('includes/dbconnection.php');
     </div>
 
     <?php
+      require '../../../config/email.php';
+      $mailConfig = new EmailConfig();
+
       if(isset($_GET['acceptInterview'])){
         $internAppID = $_GET['acceptInterview'];
+        $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+        $run_intvw = mysqli_query($conn, $sql);
+        $row_intvw = mysqli_fetch_array($run_intvw);
+        $internJobID = $row_intvw['internJobID'];
+        $studentID = $row_intvw['studentID'];
+        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
+        $appInterviewDuration = $row_intvw['appInterviewDuration'];
+        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+
+        $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
+        $run_job = mysqli_query($conn, $get_job);
+        $row_job = mysqli_fetch_array($run_job);
+        $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
+        $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
+
+        $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+        $run_stud = mysqli_query($conn, $get_stud);
+				$row_stud = mysqli_fetch_array($run_stud);
+				$studentName = $row_stud['studName'];
+
         $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Interview' WHERE internAppID='$internAppID'";
         if ((mysqli_query($conn, $query))){
-          echo "<script>alert('You have accepted the interview session.')</script>";
+            $success = $mailConfig->singleEmail(
+              $jobSupervisorEmail, 
+              'Accept Interview Session', 
+              acceptInterview($jobCmpSupervisor, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation)
+            );
+            if($success){
+              echo "<script>alert('You have accepted the interview session.')</script>";
+            }
         }
       }
 
       if(isset($_GET['rejectInterview'])){
         $internAppID = $_GET['rejectInterview'];
+        $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+        $run_intvw = mysqli_query($conn, $sql);
+        $row_intvw = mysqli_fetch_array($run_intvw);
+        $internJobID = $row_intvw['internJobID'];
+        $studentID = $row_intvw['studentID'];
+        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
+        $appInterviewDuration = $row_intvw['appInterviewDuration'];
+        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+
+        $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
+        $run_job = mysqli_query($conn, $get_job);
+        $row_job = mysqli_fetch_array($run_job);
+        $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
+        $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
+
+        $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+        $run_stud = mysqli_query($conn, $get_stud);
+				$row_stud = mysqli_fetch_array($run_stud);
+				$studentName = $row_stud['studName'];
+
         $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
         if ((mysqli_query($conn, $query))){
-          echo "<script>alert('You have rejected the interview session.')</script>";
+          $success = $mailConfig->singleEmail(
+            $jobSupervisorEmail, 
+            'Reject Interview Session', 
+            rejectInterview($jobCmpSupervisor, $studentName)
+          );
+          if($success){
+            echo "<script>alert('You have rejected the interview session.')</script>";
+          }
         }
+      }
+
+      function acceptInterview($name, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation){
+        $html = "
+        <html>
+          <head>
+            <title>Accept Interview Session</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>accepted </span>the interview session.</p>
+            <p>Interview Date & Time: <span style='font-weight: bold;'>$appInterviewDateTime</span></p>
+            <p>Interview Duration: <span style='font-weight: bold;'>$appInterviewDuration</span></p>
+            <p>Interview Location: <span style='font-weight: bold;'>$appInterviewLocation</span></p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
+      }
+
+      function rejectInterview($name, $studentName){
+        $html = "
+        <html>
+          <head>
+            <title>Reject Interview Session</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected </span>the interview session.</p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
       }
     ?>
 

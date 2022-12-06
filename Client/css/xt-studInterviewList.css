@@ -106,6 +106,8 @@ p {
 
 .job-pagination {
   width: 820px;
+  position: relative;
+  left: 75px;
 }
 
 .job-pagination > li {
