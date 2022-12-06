@@ -45,6 +45,10 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
+    
     <link rel="stylesheet" href="../../scss/br-cmpAppReview.css">
 </head>
 
@@ -138,6 +142,7 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
         });
         $.fn.dataTable.FixedHeader(table);
     });
+
 </script>
 <?php
 if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyName'])){
@@ -145,7 +150,7 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
     $companyID = $_GET['companyID'];
 
     echo "<script> 
-    alert(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Rejected Successfully\n`)
+    info(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Rejected\n`)
     window.location.href = 'br-cmpAppTableReview.php';
     </script>";
 
@@ -154,7 +159,7 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
     $companyID = $_GET['companyID'];
 
     echo "<script> 
-    alert(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Approved Successfully`)
+    addSuccess(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Approved\n`)
     window.location.href = 'br-cmpAppTableReview.php';
     </script>";
 
@@ -163,7 +168,7 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
     $companyID = $_GET['companyID'];
 
     echo "<script> 
-    alert('Company ID: $companyID\nCompany Name: $decodeName\nStatus: Update Failed\n')
+    warning('Company ID: $companyID\nCompany Name: $decodeName\nStatus: Update Failed\n')
     window.location.href = 'br-cmpAppTableReview.php';
     </script>";
 }
