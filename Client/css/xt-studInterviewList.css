@@ -65,20 +65,12 @@
   margin-top: 1rem;
   display: inline-block;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: bold;
   color: #000;
-  background: #fff3a6c9;
   border-radius: 0.5rem;
   cursor: pointer;
   padding: 0.8rem 2rem;
   float: left;
-}
-
-.cmpL-btn:hover {
-  background: #000;
-  color: #fff3a6c9;
-  text-decoration: none;
-  font-size: 12px;
 }
 
 .table {
