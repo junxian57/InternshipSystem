@@ -74,7 +74,9 @@ include('includes/dbconnection.php');
                     $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted' LIMIT $start_from, $per_page";
                     $run_interview = mysqli_query($conn, $get_interview);
                     while($row_interview = mysqli_fetch_array($run_interview)){
+                      $internAppID = $row_interview['internAppID'];
                       $internJobID = $row_interview['internJobID'];
+                      $appStudFeedback = $row_interview['appStudentFeedback'];
                       $appInterviewDateTime = $row_interview['appInterviewDateTime'];
                       $appInterviewDuration = $row_interview['appInterviewDuration'];
                       $appInterviewLocation = $row_interview['appInterviewLocation'];
@@ -111,16 +113,29 @@ include('includes/dbconnection.php');
                             <th>Interview Location</th>
                             <td><?php echo $appInterviewLocation; ?></td>
                           </tr>
-                        </tbody>
-                      </table>
-                      <div class="cmpLFooter">
-                        <p></p>
-                        <a class="cmpL-btn" href=" ">Accept</a>
-                      </div>
-                      <div class="cmpLFooter">
-                        <p></p>
-                        <a class="cmpL-btn" href=" ">Reject</a>
-                      </div>
+                          <?php
+                            if(($appStudFeedback <> 'Accept Interview') && ($appStudFeedback <> 'Reject Interview')){
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
+                                <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
+                              </div>";
+                            }elseif ($appStudFeedback <> 'Accept Interview'){
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' style='background: #6af071;'>Accepted</a>
+                              </div>";
+                            }else{
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' style='background: tomato;'>Rejected</a>
+                              </div>";
+                            }
+                          ?>
+                       
                     </div>
                   </div>
                   <?php } ?>
@@ -153,6 +168,24 @@ include('includes/dbconnection.php');
         </div>
       </div>
     </div>
+
+    <?php
+      if(isset($_GET['acceptInterview'])){
+        $internAppID = $_GET['acceptInterview'];
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Interview' WHERE internAppID='$internAppID'";
+        if ((mysqli_query($conn, $query))){
+          echo "<script>alert('You have accepted the interview session.')</script>";
+        }
+      }
+
+      if(isset($_GET['rejectInterview'])){
+        $internAppID = $_GET['rejectInterview'];
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
+        if ((mysqli_query($conn, $query))){
+          echo "<script>alert('You have rejected the interview session.')</script>";
+        }
+      }
+    ?>
 
   <script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
@@ -228,116 +261,6 @@ include('includes/dbconnection.php');
       });
     });
   </script>
-	
-  <script type="text/javascript">
-    $(document).ready(function(){
 
-      function filterCmp(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var cmpName = $("#cmpName").val();
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {cmpName:cmpName},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterJob(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var jobTitle = $("#jobName").val();
-
-        //alert(jobTitle);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {jobTitle:jobTitle},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterAllowance(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var min_allowance = $("#min_allowance").val();
-        var max_allowance = $("#max_allowance").val();
-
-        //alert(min_allowance + max_allowance);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {min_allowance:min_allowance, max_allowance:max_allowance},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterState(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var state = $("#state").val();
-
-        //alert(state);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {state:state},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      $("#cmpName").on('keyup', function(){
-        filterCmp();
-      });
-
-      $("#jobName").on('keyup', function(){
-        filterJob();
-      });
-
-      $("#min_allowance, #max_allowance").on('keyup', function(){
-        filterAllowance();
-      });
-
-      $("#state").on('change', function(){
-        filterState();
-      });
-
-      $("#slider-range").slider({
-        range: true,
-        orientation: "horizontal",
-        min: 0,
-        max: 10000,
-        values: [0, 10000],
-        step: 100,
-
-        slide: function (event, ui) {
-          if (ui.values[0] == ui.values[1]) {
-            return false;
-          }
-
-          $("#min_allowance").val(ui.values[0]);
-          $("#max_allowance").val(ui.values[1]);
-
-          filterAllowance();
-        }
-      });
-
-      $("#min_allowance").val($("#slider-range").slider("values", 0));
-      $("#max_allowance").val($("#slider-range").slider("values", 1));
-    });
-  </script>
 </body>
 </html>
