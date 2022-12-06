@@ -22,10 +22,13 @@ class rubricAssessmentComponentDAL
                 $RoleForMark = $result[$i]['RoleForMark'];
                 $assessmentCriteriaSession = $result[$i]['CriteriaSession'];
                 $assessmentCriteriaDesc = $result[$i]['description'];
+                $Status = $result[$i]['status'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
 
                 $listOfRubricCmptCriteriaDto[] = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
+                //Set status
+                $listOfRubricCmptCriteriaDto[$i]->setStatus($Status);
             }
         }
         return $listOfRubricCmptCriteriaDto;

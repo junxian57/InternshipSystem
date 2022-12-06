@@ -8,6 +8,7 @@ class rubricAssessmentComponentDTO
     private $RoleForMark;
     private $CriteriaSession;
     private $Desc;
+    private $status;
     private $CreateID;
     private $CreateDate;
 
@@ -23,6 +24,16 @@ class rubricAssessmentComponentDTO
         $this->CreateDate = $CreateDate;
     }
 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
+    
     public function getcriterionID()
     {
         return $this->criterionID;

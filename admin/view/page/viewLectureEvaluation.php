@@ -526,6 +526,10 @@ if ($_GET['id']) {
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.js"> </script>
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 </body>
 
 </html>

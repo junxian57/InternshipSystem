@@ -396,32 +396,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 </div>
 
             </div>
-            <div class="main-page" style="padding-top:30px ;">
-                <div class="forms ">
-                    <h3 class="title1">Select Rubric Component Criteria</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Criteria</h4>
-                        </div>
-                        <!--form method="post">
-                                <div class='form-group col-md-12 text-right'> <text class='btn btn-default' id='btnAddNewRow' onclick='clone()'>Add More Rubric Criteria </text></div>
-                                <div id="Clone">
-                                    <div id="CloneRow">
-                                        <div class="form-group col-md-4">
-                                            <label for="inputState">Intern Start Day</label>
-                                            <select id="Assmt_Criteria_Title" name="Assmt_Criteria_Title" class="form-control" onchange="insertCriteria(this.value,this.parentNode.nextElementSibling.childNodes[3].id,this.parentNode.nextElementSibling.nextElementSibling.childNodes[3].id);" required>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Session</label> <input type="text" id="Assmt_Criteria_Session_1" value="None" name="InternEndDate" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Title</label> <input type="text" id="Assmt_Criteria_Title_1" value="None" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "" : "" ?>" class="form-group btn btn-default hide">Save</button></div>
-                                    </div>
-                                </div>
-                            </form-->
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!--footer-->

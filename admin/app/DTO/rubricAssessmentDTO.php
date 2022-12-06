@@ -9,6 +9,7 @@ class rubricAssessmentDTO
     private $instructions;
     private $totalWeight;
     private $roleForMark;
+    private $status;
     private $createByID;
     private $createDate;
 
@@ -25,6 +26,15 @@ class rubricAssessmentDTO
         $this->createDate = $createDate;
     }
 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
 
     public function getAssmtId()
     {

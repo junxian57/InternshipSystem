@@ -32,9 +32,13 @@ class rubricAssessmentDAL
                 $Instructions = $result[$i]['Instructions'];
                 $TotalWeight = $result[$i]['TotalWeight'];
                 $RoleForMark = $result[$i]['RoleForMark'];
+                $Status = $result[$i]['status'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
                 $listOfRubricAssessmentDto[] = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+
+                //Set status
+                $listOfRubricAssessmentDto[$i]->setStatus($Status);
             }
         }
         return $listOfRubricAssessmentDto;
