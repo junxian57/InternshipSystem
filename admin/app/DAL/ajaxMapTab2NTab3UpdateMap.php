@@ -21,7 +21,7 @@ if(isset($_GET['studentLecMap'])){
             $result = $db->executeQuery($sqlUpdateCurrStud);
         }
        
-        if($result){
+       if($result){
             //Send Email to student
             $getEmailSql = "SELECT S.studEmail, L.lecName, L.lecEmail FROM Student S, Lecturer L  WHERE S.studentID = '$studentID' AND S.lecturerID = L.lecturerID;";
 
@@ -30,17 +30,30 @@ if(isset($_GET['studentLecMap'])){
             $lectureName = $studentEmail[0]['lecName'];
             $lectureEmail = $studentEmail[0]['lecEmail'];
 
+            //Store into an array for unique lecturer ID
+            $tempArray[$lectureID] = array(
+                'lectureName' => $lectureName,
+                'lectureEmail' => $lectureEmail
+            );
+
             $sent = $mailConfig->singleEmail(
                 $studentEmail[0]['studEmail'], 
                 "Internship Supervisor Has Been Assigned", 
-                createHTMLmail($lectureName, $lectureEmail)
-            );
-
+                createHTMLmailForStudent($lectureName, $lectureEmail)
+            );            
         }else{
             echo json_encode($studentID);
             break;
         }
-        
+    }
+
+    //Send Email to lecturer
+    foreach($tempArray as $lectureID => $lectureInfo){
+        $sent = $mailConfig->singleEmail(
+            $lectureInfo['lectureEmail'], 
+            "Internship Student Has Been Assigned", 
+            createHTMLmailForLecturer($lectureInfo['lectureName'])
+        );
     }
 
     if($result){
@@ -50,7 +63,7 @@ if(isset($_GET['studentLecMap'])){
     exit(0);
 }
 
-function createHTMLmail($lectureName, $lectureEmail){
+function createHTMLmailForStudent($lectureName, $lectureEmail){
     $html = "
     <html>
         <head>
@@ -62,6 +75,28 @@ function createHTMLmail($lectureName, $lectureEmail){
             <span style='color:#ff4500; font-weight: bold;'>$lectureName</span>.
             </p>
             <p>Please contact your supervisor at email: <span style='color:#313e85; font-weight: bold;'>$lectureEmail</span> for further information.</p>
+        </body>
+    </html>
+    ";
+
+    return $html;
+}
+
+function createHTMLmailForLecturer($lectureName){
+    $link = 'http://localhost/InternshipSystem/Client/view/page/br-StudentSupervisor-Manage.php';
+
+    $html = "";
+
+    $html .= "
+    <html>
+        <head>
+            <title>Internship Supervisor Has Been Assigned</title>
+        </head>
+        <body>
+            <p>Dear $lectureName,</p>
+            <p>Your internship students have been assigned to you.</p>
+            <p>Please click this <a href='$link' style='color:#313e85; font-weight: bold;'>link</a> below to review your students.</p>
+            <p>
         </body>
     </html>
     ";

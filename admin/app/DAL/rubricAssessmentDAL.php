@@ -32,9 +32,13 @@ class rubricAssessmentDAL
                 $Instructions = $result[$i]['Instructions'];
                 $TotalWeight = $result[$i]['TotalWeight'];
                 $RoleForMark = $result[$i]['RoleForMark'];
+                $Status = $result[$i]['status'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
                 $listOfRubricAssessmentDto[] = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+
+                //Set status
+                $listOfRubricAssessmentDto[$i]->setStatus($Status);
             }
         }
         return $listOfRubricAssessmentDto;
@@ -102,7 +106,7 @@ class rubricAssessmentDAL
      */
     public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
-        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricAssmtDto->getAssmtId() . "',
                   '" . $rubricAssmtDto->getInternshipBatchID() . "',
@@ -110,6 +114,7 @@ class rubricAssessmentDAL
                   '" . $rubricAssmtDto->getInstructions() . "',
                   '" . $rubricAssmtDto->getTotalWeight() . "',
                   '" . $rubricAssmtDto->getRoleForMark() . "',
+                  'activate',
                   '" . $rubricAssmtDto->getCreateByID() . "',
                   '" . $rubricAssmtDto->getCreateDate() . "'
                 )";

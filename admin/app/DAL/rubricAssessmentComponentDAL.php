@@ -22,10 +22,13 @@ class rubricAssessmentComponentDAL
                 $RoleForMark = $result[$i]['RoleForMark'];
                 $assessmentCriteriaSession = $result[$i]['CriteriaSession'];
                 $assessmentCriteriaDesc = $result[$i]['description'];
+                $Status = $result[$i]['status'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
 
                 $listOfRubricCmptCriteriaDto[] = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
+                //Set status
+                $listOfRubricCmptCriteriaDto[$i]->setStatus($Status);
             }
         }
         return $listOfRubricCmptCriteriaDto;
@@ -138,13 +141,14 @@ class rubricAssessmentComponentDAL
      */
     public function AddRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
-        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `Title`, `RoleForMark`,`CriteriaSession`,`description`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `Title`, `RoleForMark`,`CriteriaSession`,`description`,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricCmpCriteriaDto->getcriterionID() . "',
                   '" . $rubricCmpCriteriaDto->getTitle() . "',
                   '" . $rubricCmpCriteriaDto->getRoleForMark() . "',
                   '" . $rubricCmpCriteriaDto->getCriteriaSession() . "',
                   '" . $rubricCmpCriteriaDto->getDesc() . "',
+                  'activate',
                   '" . $rubricCmpCriteriaDto->getCreateID() . "',
                   '" . $rubricCmpCriteriaDto->getCreateDate() . "'
                 )";

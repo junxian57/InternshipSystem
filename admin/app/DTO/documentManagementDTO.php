@@ -9,7 +9,6 @@ class documentManagementDTO
     private $Information;
     private $location;
 
-
     public function __construct($documentID, $documentTitle, $Uploader, $uploadDocument, $Information)
     {
         $this->documentID = $documentID;
@@ -18,7 +17,41 @@ class documentManagementDTO
         $this->uploadDate = date('Y-m-d');
         $this->uploadDocument = $uploadDocument;
         $this->Information = $Information;
-       
+    }
+
+    public function setDocumentID($documentID)
+    {
+        $this->documentID = $documentID;
+    }
+
+    public function setDocumentTitle($documentTitle)
+    {
+        $this->documentTitle = $documentTitle;
+    }
+
+    public function setUploader($Uploader)
+    {
+        $this->Uploader = $Uploader;
+    }
+
+    public function setUploadDate($uploadDate)
+    {
+        $this->uploadDate = $uploadDate;
+    }
+
+    public function setUploadDocument($uploadDocument)
+    {
+        $this->uploadDocument = $uploadDocument;
+    }
+
+    public function setInformation($Information)
+    {
+        $this->Information = $Information;
+    }
+
+    public function setLocation($location)
+    {
+        $this->location = $location;
     }
 
     public function getdocumentID()
