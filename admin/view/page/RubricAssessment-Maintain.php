@@ -17,10 +17,11 @@ if ($_GET['act'] == "edit") {
     $id = str_replace("'", "", $_GET['id']);
     $id = str_replace("'", "", $_GET['id']);
     $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
+    print_r($aRubricAssmt);
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
         $assessmentID = $aRubricAssmt->getAssmtId();
-        echo $assessmentID;
         $internshipBatchID = $_POST['internshipBatchID'];
+        $facultyID = $_POST['facultyID'];
         $Title = $_POST['Title'];
         $Instructions = $_POST['Instructions'];
         $TotalWeight = $_POST['TotalWeight'];
@@ -28,6 +29,7 @@ if ($_GET['act'] == "edit") {
         $CreateByID = $_POST['CreateByID'];
         $CreateDate = $_POST['createDate'];
         $updRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+        $updRubricAssmt->setfacultyID($facultyID);
         $rubricAssmtBllObj->UpdRubricAssmt($updRubricAssmt);
     }
 }
@@ -328,7 +330,31 @@ if ($_GET['act'] == "edit") {
                                 <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getInstructions() : "" ?></textarea></div>
+                                <div class="form-group col-md-12">
+                                <label for="inputState">Selected Faculty</label>
+                                    <select id="facultyID" name="facultyID" class="form-control" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM Faculty";
+                                        $results = $db_handle->runQuery($query);
 
+                                        for ($i = 0; $i < count($results); $i++) {
+
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricAssmt->getfacultyID() == $results[$i]['facultyID']) {
+                                                    echo "<option selected='selected' value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-12 checkbox-group">
 
                                     <fieldset>
