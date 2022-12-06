@@ -1,0 +1,304 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+body {
+  width: 100%;
+  background-color: #f2efef;
+}
+
+.outerBox {
+  max-width: 70%;
+  height: 450px;
+  margin: 0px auto;
+  margin-top: 150px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.outerBox .tab {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 0 0 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tab .button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.outerBox .tab .button-group .coverSpan {
+  width: 100px;
+  transition: all 0.3s ease-in-out;
+  -webkit-animation: fadeEffect 1s;
+          animation: fadeEffect 1s;
+}
+.outerBox .tab .button-group span {
+  color: #313e85;
+  font-size: 1.7rem;
+  font-weight: 800;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tab .button-group .span-1 {
+  -webkit-animation: moveLeftToRight 1s infinite;
+          animation: moveLeftToRight 1s infinite;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+.outerBox .tab .button-group .span-2 {
+  -webkit-animation: moveLeftToRight 1s infinite;
+          animation: moveLeftToRight 1s infinite;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.outerBox .tab .button-group .span-3 {
+  -webkit-animation: moveLeftToRight 1s infinite;
+          animation: moveLeftToRight 1s infinite;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.outerBox .tab .button-group .span-4 {
+  -webkit-animation: moveLeftToRight 1s infinite;
+          animation: moveLeftToRight 1s infinite;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+@-webkit-keyframes moveLeftToRight {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes moveLeftToRight {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.outerBox .tab button {
+  width: 50%;
+  height: 50px;
+  background-color: #f2891f;
+  border: none;
+  outline: none;
+  letter-spacing: 5px;
+  border: #f2891f solid 2px;
+  color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tab button:hover {
+  background-color: #ffffff;
+  color: #f2891f;
+}
+.outerBox .tab .second button {
+  background-color: #313e85;
+  border: #313e85 solid 2px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tab .second button:hover {
+  background-color: #ffffff;
+  color: #313e85;
+}
+.outerBox .tab .second span {
+  color: #f2891f;
+}
+.outerBox #vertical-line {
+  width: 2px;
+  height: 100%;
+  background-color: rgba(239, 182, 126, 0.4117647059);
+}
+.outerBox .tabcontent {
+  display: none;
+  align-items: center;
+  width: 50%;
+  padding: 0px 20px;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 0 20px 20px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.outerBox .tabcontent form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60%;
+  width: 100%;
+  -webkit-animation: fadeEffect 1.5s;
+          animation: fadeEffect 1.5s;
+}
+.outerBox .tabcontent form input[type=text], .outerBox .tabcontent form input[type=password] {
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid grey;
+  outline: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tabcontent form input[type=text]:focus, .outerBox .tabcontent form input[type=password]:focus {
+  border-bottom: 2px solid #313e85;
+}
+.outerBox .tabcontent form .labelInput {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tabcontent form .labelInput:nth-child(2) {
+  margin-top: 40px;
+}
+.outerBox .tabcontent form .labelInput label {
+  width: 80%;
+  text-align: start;
+}
+.outerBox .tabcontent form .button-group-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  width: 80%;
+}
+.outerBox .tabcontent form .button-group-inner * {
+  min-width: 200px;
+  max-width: 40%;
+  height: 40px;
+  letter-spacing: 2px;
+  border: none;
+  outline: none;
+  font-size: 0.7em;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.outerBox .tabcontent form .button-group-inner input[type=submit] {
+  background-color: #f2891f;
+  border: #f2891f solid 1px;
+}
+.outerBox .tabcontent form .button-group-inner input[type=submit]:hover {
+  background-color: #e8a35e;
+}
+.outerBox .tabcontent form .button-group-inner button {
+  background-color: black;
+  border: black solid 1px;
+}
+.outerBox .tabcontent form .button-group-inner button:hover {
+  background-color: rgb(54, 54, 54);
+}
+.outerBox .tabcontent form .button-group-inner #specialButton {
+  background-color: #313e85;
+  border: #313e85 solid 1px;
+}
+.outerBox .tabcontent form .button-group-inner #specialButton:hover {
+  background-color: #4b5bb2;
+}/*# sourceMappingURL=clientLogin.css.map */

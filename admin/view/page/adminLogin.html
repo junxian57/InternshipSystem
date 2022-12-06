@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <title>Client Login</title>
-    <link rel="stylesheet" href="../../scss/clientLogin.css">
+    <link rel="stylesheet" href="../../scss/adminLogin.css">
 </head>
 <body>
     <div class="outerBox">
         <div class="tab">
             <div class="button-group">
-                <button id="defaultOpen" class="tablinks" onclick="changeTab(event, 'Student', this)">Student</button>
+                <button id="defaultOpen" class="tablinks" onclick="changeTab(event, 'itp-committee', this)">ITP Committee</button>
                 <div class="coverSpan">
                     <span class="span-1">></span>
                     <span class="span-2">></span>
@@ -22,7 +22,7 @@
             </div>
 
             <div class="button-group second">
-                <button class="tablinks" onclick="changeTab(event, 'Lecturer', this)">Lecturer</button>
+                <button class="tablinks" onclick="changeTab(event, 'admin', this)">Administrator</button>
                 <div class="coverSpan">
                     <span class="span-1">></span>
                     <span class="span-2">></span>
@@ -30,21 +30,11 @@
                     <span class="span-4">></span> 
                 </div>
             </div>
-
-            <div class="button-group">
-                <button class="tablinks" onclick="changeTab(event, 'Company', this)">Company</button>
-                <div class="coverSpan">
-                    <span class="span-1">></span>
-                    <span class="span-2">></span>
-                    <span class="span-3">></span>
-                    <span class="span-4">></span>     
-                </div>
-            </div>       
         </div>
 
         <div id="vertical-line"></div>
           
-        <div id="Student" class="tabcontent">
+        <div id="itp-committee" class="tabcontent">
             <form action="#" method="post">
                 <div class="labelInput">
                     <label for="studentEmail">Student Email</label>
@@ -61,37 +51,22 @@
             </form>
         </div>
         
-        <div id="Lecturer" class="tabcontent">
+        <div id="admin" class="tabcontent">
             <form action="#" method="post">
                 <div class="labelInput">
-                    <label for="lecturerEmail">Lecturer Email</label>
-                    <input type="text" name="lecturerEmail" id="lecturerEmail">
+                    <label for="adminEmail">Administrator Email</label>
+                    <input type="text" name="adminEmail" id="adminEmail">
                 </div>
                 <div class="labelInput">
-                    <label for="lecturerPass">Password</label>
-                    <input type="password" name="lecturerPass" id="lecturerPass">
+                    <label for="adminPass">Password</label>
+                    <input type="password" name="adminPass" id="adminPass">
                 </div>
                 <div class="button-group-inner">
-                    <input type="submit" name="submitLecturer" value="Login" id="specialButton">
-                    <button id="lecturerChangePass">Change Password</button>
+                    <input type="submit" name="submitAdmin" value="Login" id="specialButton">
+                    <button id="adminChangePass">Change Password</button>
                 </div>
             </form>
         </div>
-        
-        <div id="Company" class="tabcontent">
-            <form action="#" method="post">
-                <div class="labelInput">
-                    <label for="companyEmail">Company Email</label>
-                    <input type="text" name="companyEmail" id="companyEmail">
-                </div>
-                <div class="labelInput">
-                    <label for="companyPass">Password</label>
-                    <input type="password" name="companyPass" id="companyPass">
-                </div>
-                <div class="button-group-inner">
-                    <input type="submit" name="submitCompany" value="Login">
-                    <button id="cmpChangePassword">Change Password</button>
-                </div>
             </form>
         </div>
     </div>
