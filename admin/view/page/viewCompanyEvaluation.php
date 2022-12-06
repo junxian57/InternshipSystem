@@ -17,6 +17,10 @@ if ($_GET['id']) {
     $id = str_replace("'", "", $_GET['id']);
     $id = str_replace("'", "", $_GET['id']);
     $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
+    $db_handle = new DBController();
+    $query = 'SELECT * FROM Faculty where facultyID = "' . $aRubricAssmt->getfacultyID() . '" ';
+    $results = $db_handle->runQuery($query);
+    $facName = $results[0]['facName'];
 }
 
 ?>
@@ -260,6 +264,7 @@ if ($_GET['id']) {
                             </div>
 
                             <div class="form-group col-md-12"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo   $aRubricAssmt->getTitle() ?>" readonly> </div>
+                            <div class="form-group col-md-12"> <label for="exampleInput">Faculty Name</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo   $facName ?>" readonly> </div>
                             <div class="form-group col-md-4">
                                 <label>Name of Company</label>
                                 <input type="text" id="" class="form-control" placeholder="XXX Sdn Bhd" value="" readonly="readonly">
