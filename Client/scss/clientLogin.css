@@ -21,6 +21,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+@media only screen and (max-width: 912px) {
+  .outerBox {
+    flex-direction: column;
+    border-radius: 20px;
+    max-width: 90%;
+  }
+}
 .outerBox .tab {
   width: 50%;
   height: 100%;
@@ -36,6 +43,13 @@ body {
   background: #ffffff;
   transition: all 0.3s ease-in-out;
 }
+@media only screen and (max-width: 912px) {
+  .outerBox .tab {
+    flex-direction: row;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+}
 .outerBox .tab .button-group {
   display: flex;
   flex-direction: row;
@@ -43,11 +57,25 @@ body {
   align-items: center;
   width: 100%;
 }
+@media only screen and (max-width: 912px) {
+  .outerBox .tab .button-group {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
 .outerBox .tab .button-group .coverSpan {
   width: 100px;
   transition: all 0.3s ease-in-out;
   -webkit-animation: fadeEffect 1s;
           animation: fadeEffect 1s;
+}
+@media only screen and (max-width: 912px) {
+  .outerBox .tab .button-group .coverSpan {
+    display: none;
+  }
 }
 .outerBox .tab .button-group span {
   color: #313e85;
@@ -178,6 +206,13 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+@media only screen and (max-width: 912px) {
+  .outerBox .tab button {
+    letter-spacing: 1px;
+    font-size: 1rem;
+    width: 80%;
+  }
+}
 .outerBox .tab button:hover {
   background-color: #ffffff;
   color: #f2891f;
@@ -201,6 +236,11 @@ body {
   height: 100%;
   background-color: rgba(239, 182, 126, 0.4117647059);
 }
+@media only screen and (max-width: 912px) {
+  .outerBox #vertical-line {
+    display: none;
+  }
+}
 .outerBox .tabcontent {
   display: none;
   align-items: center;
@@ -212,6 +252,14 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 912px) {
+  .outerBox .tabcontent {
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+  }
 }
 @keyframes fadeEffect {
   from {
@@ -269,17 +317,37 @@ body {
   margin-top: 30px;
   width: 80%;
 }
+@media only screen and (max-width: 912px) {
+  .outerBox .tabcontent form .button-group-inner {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: space-evenly;
+  }
+}
 .outerBox .tabcontent form .button-group-inner * {
-  min-width: 200px;
+  min-width: 45%;
   max-width: 40%;
   height: 40px;
+  padding: 0 5px 0 5px;
   letter-spacing: 2px;
   border: none;
   outline: none;
-  font-size: 0.7em;
+  font-size: calc(0.5em + 0.1vw);
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 912px) {
+  .outerBox .tabcontent form .button-group-inner * {
+    min-width: 160px;
+    font-size: 0.6em;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .outerBox .tabcontent form .button-group-inner * {
+    min-width: 100px;
+    font-size: 0.5em;
+  }
 }
 .outerBox .tabcontent form .button-group-inner input[type=submit] {
   background-color: #f2891f;

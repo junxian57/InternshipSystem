@@ -112,6 +112,7 @@
         tablinks = document.querySelectorAll(".tablinks");
         tablinks.forEach(i => {
             i.classList.remove("active");
+            i.removeAttribute('style');
 
            let getSpan = i.nextElementSibling.querySelectorAll('span');
 
@@ -130,6 +131,13 @@
        }
         
         evt.currentTarget.className += " active";
+        evt.currentTarget.style.backgroundColor = 'white';
+
+        if(evt.currentTarget.parentElement.classList.contains('second')) {
+            evt.currentTarget.style.color = '#313e85';
+        } else {
+            evt.currentTarget.style.color = '#f2891f';
+        }
     }
 </script>
 </html>
