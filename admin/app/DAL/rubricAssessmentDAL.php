@@ -22,19 +22,25 @@ class rubricAssessmentDAL
     {
         //$db = new DBController();
         $listOfRubricAssessmentDto = array();
-        $sql = "SELECT * FROM RubricAssessment";
+        $sql = "SELECT ra.*,f.* FROM RubricAssessment ra JOIN Faculty f on ra.facultyID=f.facultyID;";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
                 $assessmentID = $result[$i]['assessmentID'];
                 $internshipBatchID = $result[$i]['internshipBatchID'];
+                $facultyName = $result[$i]['facName'];
                 $Title = $result[$i]['Title'];
                 $Instructions = $result[$i]['Instructions'];
                 $TotalWeight = $result[$i]['TotalWeight'];
                 $RoleForMark = $result[$i]['RoleForMark'];
+                $Status = $result[$i]['status'];
                 $CreateByID = $result[$i]['CreateByID'];
                 $CreateDate = $result[$i]['CreateDate'];
                 $listOfRubricAssessmentDto[] = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+
+                //Set status
+                $listOfRubricAssessmentDto[$i]->setStatus($Status);
+                $listOfRubricAssessmentDto[$i]->setfacultyID($facultyName);
             }
         }
         return $listOfRubricAssessmentDto;
@@ -61,6 +67,7 @@ class rubricAssessmentDAL
                 $aRubricAssmt[0]['CreateByID'],
                 $aRubricAssmt[0]['CreateDate']
             );
+            $listOfRubricAssessmentObj->setfacultyID($aRubricAssmt[0]['facultyID']);
             return $listOfRubricAssessmentObj;
         }
 
@@ -102,10 +109,11 @@ class rubricAssessmentDAL
      */
     public function AddRubricAssmt($rubricAssmtDto, $rubricAssmtCriteriaDto)
     {
-        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`, `Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`status`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricAssessment (`assessmentID`, `internshipBatchID`,`facultyID` ,`Title`, `Instructions`,`TotalWeight`,`RoleForMark`,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricAssmtDto->getAssmtId() . "',
                   '" . $rubricAssmtDto->getInternshipBatchID() . "',
+                  '" . $rubricAssmtDto->getfacultyID() . "',
                   '" . $rubricAssmtDto->getTitle() . "',
                   '" . $rubricAssmtDto->getInstructions() . "',
                   '" . $rubricAssmtDto->getTotalWeight() . "',
@@ -144,6 +152,7 @@ class rubricAssessmentDAL
     {
         $sql = " UPDATE RubricAssessment SET
             internshipBatchID = '" . $rubricAssmtDto->getInternshipBatchID() . "',
+            facultyID='" . $rubricAssmtDto->getfacultyID() . "',
             Title = '" . $rubricAssmtDto->getTitle() . "',
             Instructions ='" . $rubricAssmtDto->getInstructions() . "',
             TotalWeight ='" . $rubricAssmtDto->getTotalWeight() . "',

@@ -18,6 +18,10 @@ if ($_GET['id']) {
     $id = str_replace("'", "", $_GET['id']);
     $id = str_replace("'", "", $_GET['id']);
     $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
+    $db_handle = new DBController();
+    $query = 'SELECT * FROM Faculty where facultyID = "' . $aRubricAssmt->getfacultyID() . '" ';
+    $results = $db_handle->runQuery($query);
+    $facName = $results[0]['facName'];
 }
 
 ?>
@@ -260,7 +264,7 @@ if ($_GET['id']) {
                             </div>
 
                             <div class="form-group col-md-12"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo   $aRubricAssmt->getTitle() ?>" readonly> </div>
-
+                            <div class="form-group col-md-12"> <label for="exampleInput">Faculty Name</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo   $facName ?>" readonly> </div>
                             <div class="form-group col-md-2">
                                 <label>Student Name</label>
                                 <input type="text" id="studName" class="form-control" placeholder="Tan Ah Gau" value="" readonly="readonly">
@@ -526,6 +530,10 @@ if ($_GET['id']) {
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.js"> </script>
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 </body>
 
 </html>

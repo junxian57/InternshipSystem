@@ -74,7 +74,9 @@ include('includes/dbconnection.php');
                     $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted' LIMIT $start_from, $per_page";
                     $run_interview = mysqli_query($conn, $get_interview);
                     while($row_interview = mysqli_fetch_array($run_interview)){
+                      $internAppID = $row_interview['internAppID'];
                       $internJobID = $row_interview['internJobID'];
+                      $appStudFeedback = $row_interview['appStudentFeedback'];
                       $appInterviewDateTime = $row_interview['appInterviewDateTime'];
                       $appInterviewDuration = $row_interview['appInterviewDuration'];
                       $appInterviewLocation = $row_interview['appInterviewLocation'];
@@ -111,16 +113,29 @@ include('includes/dbconnection.php');
                             <th>Interview Location</th>
                             <td><?php echo $appInterviewLocation; ?></td>
                           </tr>
-                        </tbody>
-                      </table>
-                      <div class="cmpLFooter">
-                        <p></p>
-                        <a class="cmpL-btn" href=" ">Accept</a>
-                      </div>
-                      <div class="cmpLFooter">
-                        <p></p>
-                        <a class="cmpL-btn" href=" ">Reject</a>
-                      </div>
+                          <?php
+                            if(($appStudFeedback <> 'Accept Interview') && ($appStudFeedback <> 'Reject Interview')){
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
+                                <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
+                              </div>";
+                            }elseif ($appStudFeedback == 'Accept Interview'){
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' style='background: #6af071;'>Accepted</a>
+                              </div>";
+                            }else{
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='acceptInterview' style='background: tomato;'>Rejected</a>
+                              </div>";
+                            }
+                          ?>
+                       
                     </div>
                   </div>
                   <?php } ?>
@@ -153,6 +168,118 @@ include('includes/dbconnection.php');
         </div>
       </div>
     </div>
+
+    <?php
+      require '../../../config/email.php';
+      $mailConfig = new EmailConfig();
+
+      if(isset($_GET['acceptInterview'])){
+        $internAppID = $_GET['acceptInterview'];
+        $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+        $run_intvw = mysqli_query($conn, $sql);
+        $row_intvw = mysqli_fetch_array($run_intvw);
+        $internJobID = $row_intvw['internJobID'];
+        $studentID = $row_intvw['studentID'];
+        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
+        $appInterviewDuration = $row_intvw['appInterviewDuration'];
+        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+
+        $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
+        $run_job = mysqli_query($conn, $get_job);
+        $row_job = mysqli_fetch_array($run_job);
+        $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
+        $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
+
+        $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+        $run_stud = mysqli_query($conn, $get_stud);
+				$row_stud = mysqli_fetch_array($run_stud);
+				$studentName = $row_stud['studName'];
+
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Interview' WHERE internAppID='$internAppID'";
+        if ((mysqli_query($conn, $query))){
+            $success = $mailConfig->singleEmail(
+              $jobSupervisorEmail, 
+              'Accept Interview Session', 
+              acceptInterview($jobCmpSupervisor, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation)
+            );
+            if($success){
+              echo "<script>alert('You have accepted the interview session.')</script>";
+            }
+        }
+      }
+
+      if(isset($_GET['rejectInterview'])){
+        $internAppID = $_GET['rejectInterview'];
+        $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+        $run_intvw = mysqli_query($conn, $sql);
+        $row_intvw = mysqli_fetch_array($run_intvw);
+        $internJobID = $row_intvw['internJobID'];
+        $studentID = $row_intvw['studentID'];
+        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
+        $appInterviewDuration = $row_intvw['appInterviewDuration'];
+        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+
+        $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
+        $run_job = mysqli_query($conn, $get_job);
+        $row_job = mysqli_fetch_array($run_job);
+        $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
+        $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
+
+        $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+        $run_stud = mysqli_query($conn, $get_stud);
+				$row_stud = mysqli_fetch_array($run_stud);
+				$studentName = $row_stud['studName'];
+
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
+        if ((mysqli_query($conn, $query))){
+          $success = $mailConfig->singleEmail(
+            $jobSupervisorEmail, 
+            'Reject Interview Session', 
+            rejectInterview($jobCmpSupervisor, $studentName)
+          );
+          if($success){
+            echo "<script>alert('You have rejected the interview session.')</script>";
+          }
+        }
+      }
+
+      function acceptInterview($name, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation){
+        $html = "
+        <html>
+          <head>
+            <title>Accept Interview Session</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>accepted </span>the interview session.</p>
+            <p>Interview Date & Time: <span style='font-weight: bold;'>$appInterviewDateTime</span></p>
+            <p>Interview Duration: <span style='font-weight: bold;'>$appInterviewDuration</span></p>
+            <p>Interview Location: <span style='font-weight: bold;'>$appInterviewLocation</span></p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
+      }
+
+      function rejectInterview($name, $studentName){
+        $html = "
+        <html>
+          <head>
+            <title>Reject Interview Session</title>
+          </head>
+          <body>
+            <p>Dear $name,</p>
+            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected </span>the interview session.</p>
+            <br>
+            <p>Thank you.</p>
+          </body>
+        </html>";
+  
+        return $html;
+      }
+    ?>
 
   <script src="../../js/classie.js"></script>
 	<script src="../../js/jquery.nicescroll.js"></script>
@@ -228,116 +355,6 @@ include('includes/dbconnection.php');
       });
     });
   </script>
-	
-  <script type="text/javascript">
-    $(document).ready(function(){
 
-      function filterCmp(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var cmpName = $("#cmpName").val();
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {cmpName:cmpName},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterJob(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var jobTitle = $("#jobName").val();
-
-        //alert(jobTitle);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {jobTitle:jobTitle},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterAllowance(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var min_allowance = $("#min_allowance").val();
-        var max_allowance = $("#max_allowance").val();
-
-        //alert(min_allowance + max_allowance);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {min_allowance:min_allowance, max_allowance:max_allowance},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      function filterState(){
-        $("#searchResults").html("<p>Loading......</p>");
-
-        var state = $("#state").val();
-
-        //alert(state);
-
-        $.ajax({
-          url: "xt-fetch_data.php",
-          type: "POST",
-          data: {state:state},
-          success: function(data){
-            $("#searchResults").html(data);
-          }
-        });
-      }
-
-      $("#cmpName").on('keyup', function(){
-        filterCmp();
-      });
-
-      $("#jobName").on('keyup', function(){
-        filterJob();
-      });
-
-      $("#min_allowance, #max_allowance").on('keyup', function(){
-        filterAllowance();
-      });
-
-      $("#state").on('change', function(){
-        filterState();
-      });
-
-      $("#slider-range").slider({
-        range: true,
-        orientation: "horizontal",
-        min: 0,
-        max: 10000,
-        values: [0, 10000],
-        step: 100,
-
-        slide: function (event, ui) {
-          if (ui.values[0] == ui.values[1]) {
-            return false;
-          }
-
-          $("#min_allowance").val(ui.values[0]);
-          $("#max_allowance").val(ui.values[1]);
-
-          filterAllowance();
-        }
-      });
-
-      $("#min_allowance").val($("#slider-range").slider("values", 0));
-      $("#max_allowance").val($("#slider-range").slider("values", 1));
-    });
-  </script>
 </body>
 </html>
