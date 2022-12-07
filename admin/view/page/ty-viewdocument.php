@@ -100,6 +100,22 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
+            async function deleteDocument(documentID) {
+                    let text = "Do you want to delete the document?\nChoose OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxDeleteDocument.php?documentID=${documentID}&Document=Document`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
         </script>
 
         <!--Table JS sorting,searchinh,pagination-->

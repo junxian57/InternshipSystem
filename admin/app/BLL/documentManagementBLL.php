@@ -56,9 +56,7 @@ class documentManagementBLL
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/ty-editdeleteDocument.php?act=edit&id=' . $documentManagement->getdocumentId() . '">
                 
                 </a>
-				<button type="button" class="btn btn-danger btn-xs dt-delete">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-				</button>
+				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $documentManagement->getdocumentID() . '"aria-hidden="true" onClick="terminateDocument(this.id)"></a>
 			    </td>';
                 //$all_rubricAssessment_html .= '<td class="center"><a onclick="return confirm(\'Do you really want to delete this record?\')" href="index.php?id=' . $rubricAssessment->getAssmtId() . '&delete=yes">Delete</a></td>';
                 $all_documentManagement_html .= '</tr>';
