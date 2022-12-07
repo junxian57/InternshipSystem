@@ -126,6 +126,7 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
             $cmpNumberOfInternshipPlacements = 50;
         }
         
+
         $sql1="select * from Company where companyID='$cmpID'";
         $result1 = mysqli_query($conn, $sql1);
         $row=mysqli_fetch_assoc($result1);
@@ -153,8 +154,10 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
         }
         else{
             echo '<script>alert("Initial password is incorrect.");
+            
                             window.history.back(1);
                         </script>';
+                
         }
         
         exit(0);

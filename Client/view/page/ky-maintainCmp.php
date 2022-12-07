@@ -88,7 +88,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
                         <form action="ky-maintainStudCmp.php" onsubmit="formTaskArray()" method="GET">                  
-                        <input type="hidden" value="<?php echo $companyID; ?>" name="companyID">
+                        <input type="hidden" value="<?php echo $companyInfo[0]['companyID']; ?>" name="companyID">
                             <div class="title">
                                 <h2>Company Name & Contact</h2>
                             </div>
@@ -151,7 +151,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             </div>
                             <div class="horizon-wrap">
                                 <div class="input-style width-45 name-address-group">
-                                <label for="cmpContactPerson">Initial Password</label>
+                                <label for="cmpContactPerson">Old Password</label>
                                 <input 
                                 class="grey-bg" 
                                 type="Password"

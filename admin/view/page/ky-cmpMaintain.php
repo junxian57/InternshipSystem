@@ -1,14 +1,15 @@
 <?php
 include('../../includes/db_connection.php');
-if(session_status() != PHP_SESSION_ACTIVE) session_start();
-
+//if(session_status() != PHP_SESSION_ACTIVE) session_start();
+session_start();
+error_reporting(0);
 ?>
 <!DOCTYPE HTML>
 <html>
 
 <head>
 <title>ITP SYSTEM</title>
-    <script type="application/x-javascript">
+<script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -17,7 +18,7 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
             window.scrollTo(0, 1);
         }
     </script>
-    
+
     <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <link href="../../css/font-awesome.css" rel="stylesheet" />
@@ -253,20 +254,20 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
                                 <label>State :</label>
                                 <select type="text" name="cmpState" id="input_state">
                                     <option value="0">Select a State</option>
-                                    <option value="Johor" <?php echo ($cmpState1 == 'Johor') ? 'selected' : '' ?> >Johor</option>
-                                    <option value="Kuala Lumpur" <?php echo ($cmpState1 == 'Kuala Lumpur') ? 'selected' : '' ?> >Kuala Lumpur</option>
-                                    <option value="Kedah" <?php echo ($cmpState1 == 'Kedah') ? 'selected' : '' ?> >Kedah</option>
-                                    <option value="Kelantan" <?php echo ($cmpState1 == 'Kelantan') ? 'selected' : '' ?>>Kelantan</option>
-                                    <option value="Melaka" <?php echo ($cmpState1 == 'Melaka') ? 'selected' : '' ?>>Melaka</option>
-                                    <option value="Negeri Sembilan" <?php echo ($cmpState1 == 'Negeri Sembilan') ? 'selected' : '' ?> >Negeri Sembilan</option>
-                                    <option value="Pahang" <?php echo ($cmpState1 == 'Pahang') ? 'selected' : '' ?>>Pahang</option>
-                                    <option value="Penang" <?php echo ($cmpState1 == 'Penang') ? 'selected' : '' ?>>Penang</option>
-                                    <option value="Perak" <?php echo ($cmpState1 == 'Perak') ? 'selected' : '' ?>>Perak</option>
-                                    <option value="Perlis" <?php echo ($cmpState1 == 'Perlis') ? 'selected' : '' ?>>Perlis</option>
-                                    <option value="Sabah" <?php echo ($cmpState1 == 'Sabah') ? 'selected' : '' ?>>Sabah</option>
-                                    <option value="Sarawak" <?php echo ($cmpState1 == 'Sarawak') ? 'selected' : '' ?>>Sarawak</option>
-                                    <option value="Selangor" <?php echo ($cmpState1 == 'Selangor') ? 'selected' : '' ?>>Selangor</option>
-                                    <option value="Terengganu" <?php echo ($cmpState1 == 'Terengganu') ? 'selected' : '' ?>>Terengganu</option>
+                                    <option value="Johor" <?php echo ($cmpState == 'Johor') ? 'selected' : '' ?> >Johor</option>
+                                    <option value="Kuala Lumpur" <?php echo ($cmpState == 'Kuala Lumpur') ? 'selected' : '' ?> >Kuala Lumpur</option>
+                                    <option value="Kedah" <?php echo ($cmpState == 'Kedah') ? 'selected' : '' ?> >Kedah</option>
+                                    <option value="Kelantan" <?php echo ($cmpState == 'Kelantan') ? 'selected' : '' ?>>Kelantan</option>
+                                    <option value="Melaka" <?php echo ($cmpState == 'Melaka') ? 'selected' : '' ?>>Melaka</option>
+                                    <option value="Negeri Sembilan" <?php echo ($cmpState == 'Negeri Sembilan') ? 'selected' : '' ?> >Negeri Sembilan</option>
+                                    <option value="Pahang" <?php echo ($cmpState == 'Pahang') ? 'selected' : '' ?>>Pahang</option>
+                                    <option value="Penang" <?php echo ($cmpState == 'Penang') ? 'selected' : '' ?>>Penang</option>
+                                    <option value="Perak" <?php echo ($cmpState == 'Perak') ? 'selected' : '' ?>>Perak</option>
+                                    <option value="Perlis" <?php echo ($cmpState == 'Perlis') ? 'selected' : '' ?>>Perlis</option>
+                                    <option value="Sabah" <?php echo ($cmpState == 'Sabah') ? 'selected' : '' ?>>Sabah</option>
+                                    <option value="Sarawak" <?php echo ($cmpState == 'Sarawak') ? 'selected' : '' ?>>Sarawak</option>
+                                    <option value="Selangor" <?php echo ($cmpState == 'Selangor') ? 'selected' : '' ?>>Selangor</option>
+                                    <option value="Terengganu" <?php echo ($cmpState == 'Terengganu') ? 'selected' : '' ?>>Terengganu</option>
                                 </select>
                                 <i class="uil uil-estate icon"></i>
                             </div>
@@ -322,11 +323,11 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
                                 <label>Account Status :</label>
                                 <select type="text" name="status" id="input_status">
                                     <option value="0">Select Status</option>
-                                    <option value="Pending" <?php echo ($status1 == 'Pending') ? 'selected' : '' ?> >Pending</option>
-                                    <option value="InitialPass" <?php echo ($status1 == 'InitialPass') ? 'selected' : '' ?> >InitialPass</option>  
-                                    <option value="Rejected" <?php echo ($status1 == 'Rejected') ? 'selected' : '' ?> >Rejected</option>   
-                                    <option value="Approved" <?php echo ($status1 == 'Approved') ? 'selected' : '' ?> >Approved</option>   
-                                    <option value="Successful" <?php echo ($status1 == 'Successful') ? 'selected' : '' ?> >Successful</option>   
+                                    <option value="Pending" <?php echo ($status == 'Pending') ? 'selected' : '' ?> >Pending</option>
+                                    <option value="InitialPass" <?php echo ($status == 'InitialPass') ? 'selected' : '' ?> >InitialPass</option>  
+                                    <option value="Rejected" <?php echo ($status == 'Rejected') ? 'selected' : '' ?> >Rejected</option>   
+                                    <option value="Approved" <?php echo ($status == 'Approved') ? 'selected' : '' ?> >Approved</option>   
+                                    <option value="Successful" <?php echo ($status == 'Successful') ? 'selected' : '' ?> >Successful</option>   
                                 </select>
                                 <i class='far fa-lightbulb icon'></i>
                             </div>
@@ -500,9 +501,9 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
             document.getElementById('input_city').value = cmpCity;
             document.getElementById('input_postCode').value = cmpPostCode;
             document.getElementById('input_state').value = cmpState;
-            $cmpSize1=size;
-            $cmpState1=cmpState;
-            $status1=status;
+           // $cmpSize1=size;
+           // $cmpState1=cmpState;
+           // $status1=status;
 
           
             //console.log(input_name, email)

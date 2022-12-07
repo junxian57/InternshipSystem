@@ -23,7 +23,7 @@ if (!$conn){
                 if (password_verify($password, $row['studPassword'])){ 
 
                     session_start();
-                    $_SESSION['adminloggedin'] = true;
+                    $_SESSION['studentloggedin'] = true;
                     //$_SESSION['adminusername'] = $username;
                     $_SESSION['studentID'] = $id;
 

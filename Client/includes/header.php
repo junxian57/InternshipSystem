@@ -1,3 +1,17 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) session_start();
+
+if(isset($_SESSION)){
+    $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
+    $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
+    $adminID = isset($_SESSION['adminID']) ? $_SESSION['adminID'] : false;
+    $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
+    $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
+}else{
+  //header("Location: ../index.php");
+}
+?>
+
 <div class="sticky-header header-section ">
   <div class="header-left">
     <!--toggle button start-->
@@ -71,26 +85,49 @@
       //$name = $row['AdminName'];
 
       ?>
-      <ul>
-        <li class="dropdown profile_details_drop">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <div class="profile_img">
-              <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
-              <div class="user-name">
-                <!-- <p><?php echo $name; ?></p> -->
-                <span>Administrator</span>
+      <?php if($companyID) { ?>
+          <li>
+            <li class="dropdown profile_details_drop">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
+                <div class="user-name">
+                  <p><?php echo $name; ?></p>
+                  <span>Company</span>
+                </div>
+                <i class="fa fa-angle-down lnr"></i>
+                <i class="fa fa-angle-up lnr"></i>
+                <div class="clearfix"></div>
               </div>
-              <i class="fa fa-angle-down lnr"></i>
-              <i class="fa fa-angle-up lnr"></i>
-              <div class="clearfix"></div>
-            </div>
-          </a>
-          <ul class="dropdown-menu drp-mnu">
-            <li> <a href="change-password.php"><i class="fa fa-cog"></i> Settings</a> </li>
-            <li> <a href="admin-profile.php"><i class="fa fa-user"></i> Profile</a> </li>
-          </ul>
+            </a>
+            <ul class="dropdown-menu drp-mnu">
+              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
+              <li> <a href="../../../Client/view/page/ky-maintainCmp.php"><i class="fa fa-user"></i> Profile</a> </li>
+            </ul>
         </li>
-      </ul>
+        <?php } ?>
+
+        <?php if($studentID) { ?>
+          <li>
+            <li class="dropdown profile_details_drop">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
+                <div class="user-name">
+                  <!--<p><?php echo $name; ?></p>-->
+                  <span>Student</span>
+                </div>
+                <i class="fa fa-angle-down lnr"></i>
+                <i class="fa fa-angle-up lnr"></i>
+                <div class="clearfix"></div>
+              </div>
+            </a>
+            <ul class="dropdown-menu drp-mnu">
+              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
+              <li> <a href="../../../Client/view/page/ky-maintainStud.php"><i class="fa fa-user"></i> Profile</a> </li>
+            </ul>
+        </li>
+        <?php } ?>
     </div>
     <div class="clearfix"> </div>
   </div>
