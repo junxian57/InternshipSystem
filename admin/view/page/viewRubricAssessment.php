@@ -38,7 +38,7 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <link href="../../css/navtab.css" rel="stylesheet">
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
     <link href="../../css/custom.css" rel="stylesheet">
@@ -148,6 +148,75 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                         classie.toggle(showLeftPush, 'disabled');
                     }
                 }
+
+                async function activateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function activateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
             </script>
             <!--change tab-->
             <script>
@@ -157,14 +226,12 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                     // Get all elements with class="tabcontent" and hide them
                     tabcontent = document.querySelectorAll(".tabcontent");
                     tabcontent.forEach(i => {
-                        console.log(i)
                         i.style.display = "none";
                     });
 
                     // Get all elements with class="tablinks" and remove the class "active"
                     tablinks = document.querySelectorAll(".tablinks");
                     tablinks.forEach(i => {
-                        console.log(i)
                         i.classList.remove("active");
                     });
 
@@ -249,6 +316,8 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
 
             <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
             <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 </body>
 <footer><?php include_once('includes/footer.php'); ?></footer>
 

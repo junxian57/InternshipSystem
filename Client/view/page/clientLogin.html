@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <title>Client Login</title>
+    <link rel="stylesheet" href="../../scss/clientLogin.css">
+</head>
+<body>
+    <div class="outerBox">
+        <div class="tab">
+            <div class="button-group">
+                <button id="defaultOpen" class="tablinks" onclick="changeTab(event, 'Student', this)">Student</button>
+                <div class="coverSpan">
+                    <span class="span-1">></span>
+                    <span class="span-2">></span>
+                    <span class="span-3">></span>      
+                    <span class="span-4">></span>          
+                </div>
+            </div>
+
+            <div class="button-group second">
+                <button class="tablinks" onclick="changeTab(event, 'Lecturer', this)">Lecturer</button>
+                <div class="coverSpan">
+                    <span class="span-1">></span>
+                    <span class="span-2">></span>
+                    <span class="span-3">></span>
+                    <span class="span-4">></span> 
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="tablinks" onclick="changeTab(event, 'Company', this)">Company</button>
+                <div class="coverSpan">
+                    <span class="span-1">></span>
+                    <span class="span-2">></span>
+                    <span class="span-3">></span>
+                    <span class="span-4">></span>     
+                </div>
+            </div>       
+        </div>
+
+        <div id="vertical-line"></div>
+          
+        <div id="Student" class="tabcontent">
+            <form action="#" method="post">
+                <div class="labelInput">
+                    <label for="studentEmail">Student Email</label>
+                    <input type="text" name="studentEmail" id="studentEmail">
+                </div>
+                <div class="labelInput">
+                    <label for="studentPass">Password</label>
+                    <input type="password" name="studentPass" id="studentPass">
+                </div>
+                <div class="button-group-inner">
+                    <input type="submit" name="submitStud" value="Login">
+                    <button id="studChangePassBtn">Change Password</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="Lecturer" class="tabcontent">
+            <form action="#" method="post">
+                <div class="labelInput">
+                    <label for="lecturerEmail">Lecturer Email</label>
+                    <input type="text" name="lecturerEmail" id="lecturerEmail">
+                </div>
+                <div class="labelInput">
+                    <label for="lecturerPass">Password</label>
+                    <input type="password" name="lecturerPass" id="lecturerPass">
+                </div>
+                <div class="button-group-inner">
+                    <input type="submit" name="submitLecturer" value="Login" id="specialButton">
+                    <button id="lecturerChangePass">Change Password</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="Company" class="tabcontent">
+            <form action="#" method="post">
+                <div class="labelInput">
+                    <label for="companyEmail">Company Email</label>
+                    <input type="text" name="companyEmail" id="companyEmail">
+                </div>
+                <div class="labelInput">
+                    <label for="companyPass">Password</label>
+                    <input type="password" name="companyPass" id="companyPass">
+                </div>
+                <div class="button-group-inner">
+                    <input type="submit" name="submitCompany" value="Login">
+                    <button id="cmpChangePassword">Change Password</button>
+                </div>
+                <div class="button-cmp">
+                    <button id="cmpRegistration">Company Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('defaultOpen').click();
+
+    function changeTab(evt, tabName, buttonObj) {
+        let i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.querySelectorAll(".tabcontent");
+        tabcontent.forEach(i => {
+            i.style.display = "none";
+        });
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.querySelectorAll(".tablinks");
+        tablinks.forEach(i => {
+            i.classList.remove("active");
+            i.removeAttribute('style');
+
+           let getSpan = i.nextElementSibling.querySelectorAll('span');
+
+            for(let i = 0; i < getSpan.length; i++) {
+                    getSpan[i].style.display = "none";
+            }
+        });
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "flex";
+
+        let getSpan = buttonObj.nextElementSibling.querySelectorAll('span');
+
+       for(let i = 0; i < getSpan.length; i++) {
+            getSpan[i].style.display = "unset";
+       }
+        
+        evt.currentTarget.className += " active";
+        evt.currentTarget.style.backgroundColor = 'white';
+
+        if(evt.currentTarget.parentElement.classList.contains('second')) {
+            evt.currentTarget.style.color = '#313e85';
+        } else {
+            evt.currentTarget.style.color = '#f2891f';
+        }
+    }
+</script>
+</html>

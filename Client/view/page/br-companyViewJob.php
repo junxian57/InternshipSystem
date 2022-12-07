@@ -45,6 +45,9 @@ if(!isset($_SESSION['companyID'])){
     </script>
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="../../scss/br-companyCreateJob.css">
 </head>
@@ -82,12 +85,12 @@ if(!isset($_SESSION['companyID'])){
             if($_GET['view'] == 1){
                 $editable = false;
                 echo "<script> 
-                        alert('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
+                        info('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
                     </script>";
             }elseif($_GET['edit'] == 1){
                 $editable = true;
                 echo "<script> 
-                        alert('You are ABLE to edit this Internship Job Details.'); 
+                        info('You are ABLE to edit this Internship Job Details.'); 
                     </script>";
             }
 
@@ -486,14 +489,14 @@ if(!isset($_SESSION['companyID'])){
 
     document.getElementById('jobNumberPlacement').addEventListener('change', (e) => {
         if (e.target.value > <?php echo $quotaLeft; ?>) {
-            alert("You Have Only <?php echo $quotaLeft; ?> Quota Left");
+            warning("You Have Only <?php echo $quotaLeft; ?> Quota Left");
             e.target.value = <?php echo $quotaLeft; ?>;
         }
     });
 
     document.getElementById('jobTrainingPeriod').addEventListener('change', (e) => {
         if (e.target.value < 4) {
-            alert("Minimum Training Period Is 4 Weeks");
+            info("Minimum Training Period Is 4 Weeks");
             e.target.value = 4;
         }
     });
@@ -521,7 +524,7 @@ if(!isset($_SESSION['companyID'])){
         let endDayIndex = endDay.selectedIndex;
         
         if(startDayIndex > endDayIndex){
-            alert('Start Day Cannot Be Greater Than End Day');
+            warning('Start Day Cannot Be Greater Than End Day');
             startDay.selectedIndex = 0;
             endDay.selectedIndex = 4;
         }
@@ -534,12 +537,12 @@ if(!isset($_SESSION['companyID'])){
         let [endHour, endMin] = endTime.value.split(':');
         
         if(startHour > endHour){
-            alert('Start Time Cannot Be Greater Than End Time');
+            warning('Start Time Cannot Be Greater Than End Time');
             startTime.value = '09:00';
             endTime.value = '18:00';
         }else if(startHour == endHour){
             if(startMin > endMin){
-                alert('Start Time Cannot Be Greater Than End Time');
+                warning('Start Time Cannot Be Greater Than End Time');
                 startTime.value = '09:00';
                 endTime.value = '18:00';
             }
@@ -559,14 +562,14 @@ if(!isset($_SESSION['companyID'])){
         let taskRow = document.getElementById(taskGroup);
 
         if (inputValue === ""){
-            alert("Please Enter A Task");
+            info("Please Enter A Task");
             return;
         }
 
         //Check whether total task row has exceed 1500 characters
         let checkExceed1500 = inputValue.length + (taskGroup == 'respon-row' ? maxCharRespon : maxCharSkill) > 1500;
         if(checkExceed1500){
-            alert('Maximum 1500 Characters');
+            info('Maximum 1500 Characters');
             document.getElementById('jobRespon').value = '';
             return;
         }
@@ -574,14 +577,14 @@ if(!isset($_SESSION['companyID'])){
         //To count the total number of task
         let countTaskRow = taskRow.childElementCount + 1;
         if(countTaskRow > 10){
-            alert('Maximum 10 Task Can Be Added');
+            info('Maximum 10 Task Can Be Added');
             document.getElementById('jobRespon').value = '';
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-            alert('Please Enter Alphabet, Number, Space, and ',' Only');
+            info('Please Enter Alphabet, Number, Space, and ',' Only');
             newTaskValue.value = '';
             return;
         }
@@ -658,7 +661,7 @@ if(!isset($_SESSION['companyID'])){
         document.getElementById('jobSkillsStr').value = skillsValue;
 
         if(responRow.length == 0 || skillsRow.length == 0){
-            alert('Please enter a field area');
+            info('Please enter a field area');
             return false;
         }
     }

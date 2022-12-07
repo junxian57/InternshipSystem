@@ -291,12 +291,12 @@ else{
 }
 
   if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query)) && (mysqli_query($conn, $query2))){
-    /*$success = $mailConfig->singleEmailWithAttachment(
+    $success = $mailConfig->singleEmailWithAttachment(
       $studEmail, 
       $subject, 
       acceptApp($studName, $internAppID, $position, $allowance),
       'offerLetter/offerLetter_'.$studName.'.pdf'
-    );*/
+    );
   }
 
 function acceptApp($studName, $internAppID, $position, $allowance){

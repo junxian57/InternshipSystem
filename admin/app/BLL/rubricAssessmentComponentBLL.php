@@ -42,6 +42,7 @@ class rubricAssessmentComponentBLL
             $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Title</th>';
             $all_rubricCmpCriteria_html .= '<th>Role of Mark</th>';
             $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Session</th>';
+            $all_rubricCmpCriteria_html .= '<th>Status</th>';
             $all_rubricCmpCriteria_html .= '<th>Action</th>';
             $all_rubricCmpCriteria_html .= '</tr>';
             $all_rubricCmpCriteria_html .= '</thead>';
@@ -53,13 +54,18 @@ class rubricAssessmentComponentBLL
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getTitle() . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getRoleForMark() . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getCriteriaSession() . '</td>';
-                $all_rubricCmpCriteria_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addRubricComponentCriteria.php?act=edit&id=' . $rubricCmpCriteria->getcriterionID() . '"></a>
-				<button type="button" class="btn btn-danger btn-xs dt-delete">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-				</button>
-			    </td>';
-                //$all_rubricCmpCriteria_html .= '<td class="center"><a onclick="return confirm(\'Do you really want to delete this record?\')" href="index.php?id=' . $rubricAssessment->getAssmtId() . '&delete=yes">Delete</a></td>';
+                $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getstatus() . '</td>';
+                if ($rubricCmpCriteria->getstatus() == "terminate") {
+                    $all_rubricCmpCriteria_html .= '<td>
+                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addRubricComponentCriteria.php?act=edit&id=' . $rubricCmpCriteria->getcriterionID() . '"></a>
+                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-ok"aria-hidden="true" id="' . $rubricCmpCriteria->getcriterionID() . '"aria-hidden="true" onClick="activateRubricCriteria(this.id)"></a>
+                    </td>';
+                } else {
+                    $all_rubricCmpCriteria_html .= '<td>
+                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/addRubricComponentCriteria.php?act=edit&id=' . $rubricCmpCriteria->getcriterionID() . '"></a>
+				    <a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $rubricCmpCriteria->getcriterionID() . '"aria-hidden="true" onClick="terminateRubricCriteria(this.id)"></a>
+			        </td>';
+                }
                 $all_rubricCmpCriteria_html .= '</tr>';
             }
             $all_rubricCmpCriteria_html .= '</tbody>';

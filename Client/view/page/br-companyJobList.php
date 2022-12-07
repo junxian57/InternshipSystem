@@ -54,6 +54,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-companyJobList.css">
 </head>
 
@@ -172,12 +175,12 @@ try{
             let response = await fetch(url).then(response => response.json());
     
             if(response == "Success"){
-                alert("Delete Success");
+                addSuccess("Delete Success");
                 location.reload();
             }else if(response == 'Failed'){
-                alert("Delete Failed, Please Try Again");
+                info("Delete Failed, Please Try Again");
             }else if(response == 'InternshipMapIsNotEmpty'){
-                alert("Delete Failed, There are students applied for the job");
+                warning("Delete Failed, There are students applied for the job");
             }
         }
     }

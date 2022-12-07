@@ -31,7 +31,7 @@ error_reporting(0);
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/br-studentSupervisorMaintain.css">
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <script src="../../js/toastr.min.js"></script>
     <link href="../../css/toastr.min.css" rel="stylesheet">
     <script src="../../js/customToastr.js"></script>
@@ -200,11 +200,6 @@ error_reporting(0);
                     }
                 }
             </script>
-            <script src="../../js/classie.js"></script>
-            <script src="../../js/bootstrap.js"> </script>
-
-            <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
 </body>
 <footer><?php include_once('includes/footer.php'); ?></footer>
 

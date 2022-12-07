@@ -49,6 +49,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-studentSupervisorMaintain.css">
 </head>
 
@@ -389,7 +392,7 @@ try{
 
         if(tab1NewLecturer['currNo'] == tab1NewLecturer['maxNo']){
             checkboxInput.checked = false;
-            alert("You have selected more than the maximum number of students allowed for this supervisor");
+            warning("You have selected more than the maximum number of students allowed for this supervisor");
             return;
         }else if (tab1NewLecturer['currNo'] < tab1NewLecturer['maxNo'] && checkboxInput.checked == true){
             tab1NewLecturer['currNo'] = Number.parseInt(tab1NewLecturer['currNo']) + 1;
@@ -427,10 +430,10 @@ try{
             let data = await response.json();
     
             if(data == "Success"){
-                alert("Update Successfully");
+                addSuccess("Mapping Updated");
                 resetInput('1');
             }else{
-                alert("Update Failed");
+                warning("Mapping Updated Failed");
             }
         }else{
             return;
@@ -571,7 +574,7 @@ try{
             searchBtn.classList.remove('clickable-btn');
             document.getElementById(`tab${tabID}-faculty`).disabled = true;
         }else{
-            alert("No Data Found");
+            info("No Data Found");
         }
     }
 
@@ -579,7 +582,7 @@ try{
         let confirm = window.confirm(`Are you sure you want to remove this student with student ID : ${studentID}?`);
 
         if(confirm){
-            alert("Delete Successfully");
+            addSuccess("Delete Successfully");
             let dataTable = $('#tab2-table').DataTable();
             let url = `../../app/DAL/ajaxMapUpdateTab2RemoveStudent.php?studentID=${studentID}&tab2=true`;
             let response = await fetch(url);
@@ -587,9 +590,9 @@ try{
     
             if(data == "Success"){
                 dataTable.row($(`#tab2-table tr:contains(${studentID})`)).remove().draw();
-                alert("Delete Successfully");
+                addSuccess("Delete Successfully");
             }else{
-                alert("Delete Failed");
+                warning("Delete Failed");
             }
         }else{
             return;

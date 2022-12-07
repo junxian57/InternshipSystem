@@ -34,8 +34,10 @@ class rubricAssessmentBLL
             $all_rubricAssessment_html .= '<th id="test1">#</th>';
             $all_rubricAssessment_html .= '<th>Assessment ID</th>';
             $all_rubricAssessment_html .= '<th>Title </th>';
-            $all_rubricAssessment_html .= '<th>Total Weight</th>';
+            $all_rubricAssessment_html .= '<th>Faculty </th>';
             $all_rubricAssessment_html .= '<th>Role For Mark</th>';
+            $all_rubricAssessment_html .= '<th>Total Weight</th>';
+            $all_rubricAssessment_html .= '<th>Status</th>';
             $all_rubricAssessment_html .= '<th>Action</th>';
             $all_rubricAssessment_html .= '</tr>';
             $all_rubricAssessment_html .= '</thead>';
@@ -45,18 +47,23 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<td>' . $i++ . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getAssmtId() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
+                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getfacultyID() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
-                //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
-                // add preview full version
-                $all_rubricAssessment_html .= '<td>
+                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
+                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getstatus() . '</td>';
+                if ($rubricAssessment->getstatus() == "terminate") {
+                    $all_rubricAssessment_html .= '<td>
+                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?assessmentID=' . $rubricAssessment->getAssmtId() . '&RoleForMark=' . $rubricAssessment->getRoleForMark() . '"></a>
+                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-ok"aria-hidden="true" id="' . $rubricAssessment->getAssmtId() . '"aria-hidden="true" onClick="activateRubricAssmt(this.id)"></a>
+                    </td>';
+                } else {
+                    $all_rubricAssessment_html .= '<td>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?assessmentID=' . $rubricAssessment->getAssmtId() . '&RoleForMark=' . $rubricAssessment->getRoleForMark() . '"></a>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/RubricAssessment-Maintain.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '"></a>
-				
-                <button type="button" class="btn btn-danger btn-xs dt-delete">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-				</button>
+				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $rubricAssessment->getAssmtId() . '"aria-hidden="true" onClick="terminateRubricAssmt(this.id)"></a>
 			    </td>';
+                }
+
                 // status-> active , inactive, experice , expired
                 $all_rubricAssessment_html .= '</tr>';
             }
