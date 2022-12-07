@@ -49,6 +49,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-studentSupervisorMap.css">
 </head>
 
@@ -60,6 +63,7 @@ try{
             <div class="main-page">
                 <div class="forms">
                     <h3 class="page-title">Student & Supervisor Mapping</h3>
+
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                         <!-- Tab Button -->
@@ -292,7 +296,7 @@ try{
                             </div>
                             <hr>
                             <div class="update-group">
-                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>Update Mapping</button>
+                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled></div>Update Mapping</button>
                             </div>
                         </div>
                     </div>
@@ -825,7 +829,7 @@ try{
             }
             
         }else{
-            alert("No Data Found");
+            info("No Data Found");
             document.getElementById('tab3-programme').value = "";
             return;
         }
@@ -924,7 +928,7 @@ try{
         let dataTable = $('#tab1-top-table').DataTable();
 
         if(!studentGroup.hasChildNodes()){
-            alert("No Tutorial Group Selected");
+            info("No Tutorial Group Selected");
             return;
         }
 
@@ -971,7 +975,7 @@ try{
             updateBtn.classList.add('clickable-btn');
             
         }else{
-            alert("No Data Found");
+            info("No Data Found");
         }
         
     }
@@ -1001,9 +1005,9 @@ try{
            let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
             
             if(responseResult == "Success"){
-                alert("Map Updated");
+                addSuccess("Mapping Updated");
             }else{
-                alert("Map Update Failed");
+                warning("Mapping Update Failed");
             }
 
             resetInput(
@@ -1049,7 +1053,7 @@ try{
 
         //If lecture selection has no items
         if(!lectureOption.hasChildNodes()){
-            alert("No Lecture Selected");
+            info("No Lecture Selected");
             return;
         }
 
@@ -1064,7 +1068,7 @@ try{
             if(tab2StoreStudent[studentID] == undefined){
                 tab2StoreStudent[studentID] = studentID;
             }else{
-                alert("Student Already Selected");
+                info("Student Already Selected");
                 student.value = "";
                 return;
             }
@@ -1075,7 +1079,7 @@ try{
             }else if(tab2LectureSlotCount[lectureID] > 0){
                 tab2LectureSlotCount[lectureID]--;
             }else{
-                alert("Lecture Slot Full");
+                info("Lecture Slot Full");
                 delete tab2StoreStudent[studentID];
                 return;
             }
@@ -1130,7 +1134,7 @@ try{
                     document.getElementById(`tab${tabNo}-internBatch-group`),
                     document.getElementById(`tab${tabNo}-supervisor-group`)
                 );
-                alert("Map Updated");
+                addSuccess("Map Updated");
             }else if(responseResult == "Success" && tabNo == 3){
                 resetInput(
                     document.getElementById(`tab${tabNo}-student`),
@@ -1139,7 +1143,7 @@ try{
                 );
                 tab3OpenMapSummary();
             }else{
-                alert(`From ${responseResult} Onward, Map Update Failed`);
+                warning(`From ${responseResult} Onward, Map Update Failed`);
                 return;
             }
         }else{
@@ -1170,14 +1174,14 @@ try{
         dataTableClear("#tab3-top-table");
 
         if(lectureGroup.length == 0){
-            alert("No Lecture Selected");
+            info("No Lecture Selected");
             return;
         }
 
         if(checkedTutorialGroup.length != 0){
             studentMap = await tab3FetchStudentForPreview();
         }else{
-            alert("No Student Selected");
+            info("No Student Selected");
             return;
         }
 
@@ -1386,7 +1390,7 @@ try{
         
         document.body.removeChild(form);
 
-        alert("Update Successfully");
+        addSuccess("Update Successfully");
     }
 </script>
 

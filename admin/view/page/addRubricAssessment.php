@@ -19,6 +19,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $date = date('Y-m-d');
     $assessmentID = $_POST['assessmentID'];
     $internshipBatchID = $_POST['internshipBatchID'];
+    $facultyID = $_POST['facultyID'];
     $Title = $_POST['Title'];
     $Instructions = $_POST['Instructions'];
     $TotalWeight = $_POST['TotalWeight'];
@@ -26,7 +27,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $CreateByID = $_POST['CreateByID'];
     $CreateDate = $date;
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
-
+    $newRubricAssmt->setfacultyID($facultyID);
     if (count($_POST['criterionID']) == count($_POST['criteriaTitle'])) {
         $countRow = count($_POST['criterionID']);
         for ($i = 0; $i < $countRow; $i++) {
@@ -303,6 +304,22 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputState">Selected Faculty</label>
+                                    <select id="facultyID" name="facultyID" class="form-control" onchange="insertRubricCriteriaTitle();" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM Faculty";
+                                        $results = $db_handle->runQuery($query);
+
+                                        for ($i = 0; $i < count($results); $i++) {
+                                            echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -332,6 +349,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                                 <div class="form-group col-md-3"> <label>Intern End Day</label> <input type="text" id="InternEndDate" name="InternEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Earliest Start Date </label> <input type="text" id="EarliestStartDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
                                 <div class="form-group col-md-3"> <label>Latest End Date</label> <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly"></div>
+
                                 <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required></textarea></div>
 
                                 <div class="form-group col-md-12 checkbox-group">
@@ -396,32 +414,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 </div>
 
             </div>
-            <div class="main-page" style="padding-top:30px ;">
-                <div class="forms ">
-                    <h3 class="title1">Select Rubric Component Criteria</h3>
-                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <div class="form-title">
-                            <h4>Rubric Criteria</h4>
-                        </div>
-                        <!--form method="post">
-                                <div class='form-group col-md-12 text-right'> <text class='btn btn-default' id='btnAddNewRow' onclick='clone()'>Add More Rubric Criteria </text></div>
-                                <div id="Clone">
-                                    <div id="CloneRow">
-                                        <div class="form-group col-md-4">
-                                            <label for="inputState">Intern Start Day</label>
-                                            <select id="Assmt_Criteria_Title" name="Assmt_Criteria_Title" class="form-control" onchange="insertCriteria(this.value,this.parentNode.nextElementSibling.childNodes[3].id,this.parentNode.nextElementSibling.nextElementSibling.childNodes[3].id);" required>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Session</label> <input type="text" id="Assmt_Criteria_Session_1" value="None" name="InternEndDate" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-4"> <label>Assessment Criteria Title</label> <input type="text" id="Assmt_Criteria_Title_1" value="None" class="form-control" readonly="readonly"></div>
-                                        <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "" : "" ?>" class="form-group btn btn-default hide">Save</button></div>
-                                    </div>
-                                </div>
-                            </form-->
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!--footer-->
@@ -479,9 +471,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
 
         }
 
+        //faculty ID
         async function fetchRubricCriteriaTitle() {
             const RoleForMark = document.getElementById("RoleForMark").value;
-            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark;
+            const facultyID = document.getElementById("facultyID").value;
+            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark + '&facultyID=' + facultyID;
             let getComponentLvlRespond = await fetch(getManagerPhp);
             let CmpLvlObj = await getComponentLvlRespond.json();
             return CmpLvlObj;

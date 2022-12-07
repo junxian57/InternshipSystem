@@ -5,10 +5,13 @@ class rubricAssessmentDTO
 
     private $assmtId;
     private $internshipBatchID;
+    private $facultyID;
     private $title;
     private $instructions;
     private $totalWeight;
     private $roleForMark;
+    private $status;
+    
     private $createByID;
     private $createDate;
 
@@ -25,6 +28,25 @@ class rubricAssessmentDTO
         $this->createDate = $createDate;
     }
 
+    public function setfacultyID($facultyID)
+    {
+        $this->facultyID = $facultyID;
+    }
+
+    public function getfacultyID()
+    {
+        return $this->facultyID;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
 
     public function getAssmtId()
     {

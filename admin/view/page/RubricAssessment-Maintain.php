@@ -19,8 +19,8 @@ if ($_GET['act'] == "edit") {
     $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($id);
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit rubric assessment') {
         $assessmentID = $aRubricAssmt->getAssmtId();
-        echo $assessmentID;
         $internshipBatchID = $_POST['internshipBatchID'];
+        $facultyID = $_POST['facultyID'];
         $Title = $_POST['Title'];
         $Instructions = $_POST['Instructions'];
         $TotalWeight = $_POST['TotalWeight'];
@@ -28,6 +28,7 @@ if ($_GET['act'] == "edit") {
         $CreateByID = $_POST['CreateByID'];
         $CreateDate = $_POST['createDate'];
         $updRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
+        $updRubricAssmt->setfacultyID($facultyID);
         $rubricAssmtBllObj->UpdRubricAssmt($updRubricAssmt);
     }
 }
@@ -298,6 +299,31 @@ if ($_GET['act'] == "edit") {
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTotalWeight() : "" ?>" onchange="changeHandler(this)" required="true"> </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputState">Selected Faculty</label>
+                                    <select id="facultyID" name="facultyID" class="form-control" onchange="insertRubricCriteriaTitle();" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM Faculty";
+                                        $results = $db_handle->runQuery($query);
+
+                                        for ($i = 0; $i < count($results); $i++) {
+
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricAssmt->getfacultyID() == $results[$i]['facultyID']) {
+                                                    echo "<option selected='selected' value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();" required>
@@ -455,9 +481,11 @@ if ($_GET['act'] == "edit") {
 
         }
 
+        // meed compare the faculty and rolefor mark
         async function fetchRubricCriteriaTitle() {
             const RoleForMark = document.getElementById("RoleForMark").value;
-            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark;
+            const facultyID = document.getElementById("facultyID").value;
+            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark + '&facultyID=' + facultyID;
             let getComponentLvlRespond = await fetch(getManagerPhp);
             let CmpLvlObj = await getComponentLvlRespond.json();
             return CmpLvlObj;

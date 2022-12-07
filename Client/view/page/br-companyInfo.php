@@ -73,6 +73,9 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-companyInfo.css">
 </head>
 <body class="cbp-spmenu-push">
@@ -238,6 +241,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
+                                <a href=""></a>
                                 
                                 <!--
                                 //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
@@ -289,13 +293,13 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         let value = newTaskValue.value;
 
         if (value === ""){
-            alert("Please Enter a Task");
+            info("Please Enter a Task");
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-        alert('Please Enter Alphabet and Space Only');
+        info('Please Enter Alphabet and Space Only');
         newTaskValue.value = '';
         return;
         }
@@ -365,13 +369,13 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
       document.getElementById('cmpHiddenFieldsArea').value = taskValue;
 
       if(document.getElementById('cmpSize').value == 0){
-        alert('Please select a company size');
+        info('Please select a company size');
         return false;
       }else if(document.getElementById('cmpState').value == 0){
-        alert('Please select a state');
+        info('Please select a state');
         return false;
       }else if(fieldsRow.length == 0){
-        alert('Please enter a field area');
+        info('Please enter a field area');
         return false;
       }
     }
@@ -406,15 +410,14 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         console.log(response[0]['totalMaxQuota'])
 
         if(response == 'Failed'){
-            alert('Unable To Proceed Current Operation');
+            warning('Unable To Proceed Current Operation');
             document.getElementById('cmpSize').value = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
         }else{
             if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
-                alert('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
+                warning('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
                 document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
             }
         }
-
     }
 
 </script>

@@ -4,10 +4,12 @@ class rubricAssessmentComponentDTO
 
 
     private $criterionID;
+    private $facultyID;
     private $Title;
     private $RoleForMark;
     private $CriteriaSession;
     private $Desc;
+    private $status;
     private $CreateID;
     private $CreateDate;
 
@@ -21,6 +23,26 @@ class rubricAssessmentComponentDTO
         $this->Desc = $Desc;
         $this->CreateID = $CreateID;
         $this->CreateDate = $CreateDate;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
+    
+    public function setfacultyID($facultyID)
+    {
+        $this->facultyID = $facultyID;
+    }
+
+    public function getfacultyID()
+    {
+        return $this->facultyID;
     }
 
     public function getcriterionID()

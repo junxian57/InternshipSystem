@@ -38,7 +38,7 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <link href="../../css/navtab.css" rel="stylesheet">
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
     <link href="../../css/custom.css" rel="stylesheet">
@@ -86,20 +86,13 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                                     <h4>Preview Table</h4>
                                 </div>
                                 <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='addRubricAssessment.php'">Add New Rubric Assessment</button>
                                 </div>
                             </div>
 
                             <?php
                             echo $all_rubricAssessment;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div id="RubricCmpCriteriaTab" class="tabcontent">
@@ -108,29 +101,17 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                                     <h4>Preview Table</h4>
                                 </div>
                                 <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" data-target="#theModal" data-toggle="modal" href="../popUp/addeditRubricAssessment.php?act">Add New Rubric Assessment</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='addRubricComponentCriteria.php'">Add New Rubric Criteria</button>
                                 </div>
                             </div>
 
                             <?php
                             echo $all_rubricCmpCriteria;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
 
                         <div id="RubricCmpLvlTab" class="tabcontent">
-                            <?php if ($_GET['status'] == 'failed') : echo "<script> warning('Record cant be added. Operation failed.');</script>"; ?>
-                            <?php elseif ($_GET['status'] == 'success') : echo "<script> addSuccess('Add Rubric Component Level successful'); </script>"; ?>
-                            <?php elseif ($rubricCmpLvlBLLObj->errorMessage != '') : echo "<script> warning('$rubricCmpLvlBLLObj->errorMessage'); </script>"; ?>
-                            <?php endif; ?>
+
                             <div class="row">
                                 <div class="table-title">
                                     <h4>Preview Table</h4>
@@ -144,12 +125,7 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                             echo $all_rubricCmpLvl;
                             ?>
 
-                            <div class="modal fade text-center" id="cmpLvlModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -172,6 +148,75 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                         classie.toggle(showLeftPush, 'disabled');
                     }
                 }
+
+                async function activateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function activateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
             </script>
             <!--change tab-->
             <script>
@@ -181,14 +226,12 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                     // Get all elements with class="tabcontent" and hide them
                     tabcontent = document.querySelectorAll(".tabcontent");
                     tabcontent.forEach(i => {
-                        console.log(i)
                         i.style.display = "none";
                     });
 
                     // Get all elements with class="tablinks" and remove the class "active"
                     tablinks = document.querySelectorAll(".tablinks");
                     tablinks.forEach(i => {
-                        console.log(i)
                         i.classList.remove("active");
                     });
 
@@ -267,18 +310,14 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                     });
                 });
             </script>
-            <!--dispose modal when close the modal -->
-            <script>
-                $("#theModal").on('hidden.bs.modal', function() {
-                    $(this).data('bs.modal', null);
-                });
-            </script>
 
             <script src="../../js/classie.js"></script>
             <script src="../../js/bootstrap.js"> </script>
 
             <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
             <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 </body>
 <footer><?php include_once('includes/footer.php'); ?></footer>
 

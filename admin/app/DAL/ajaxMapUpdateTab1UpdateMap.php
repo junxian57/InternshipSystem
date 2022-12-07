@@ -58,9 +58,15 @@ if(isset($_GET['newLectureID']) && isset($_GET['oldLectureID']) && isset($_GET['
             $mailConfig->singleEmail(
                 $studentInfo['studEmail'],
                 "Your Internship Supervisor Has Been Updated", 
-                createHTMLmail($oldLectureName, $newLectureName, $lectureEmail)
+                createHTMLmailForStudent($oldLectureName, $newLectureName, $lectureEmail)
             );
         }
+
+        $mailConfig->singleEmail(
+            $lectureEmail, 
+            "Internship Student Has Been Transferred", 
+            createHTMLmailForLecturer($oldLectureName, $newLectureName)
+        );
 
         echo json_encode("Success");
 
@@ -71,7 +77,7 @@ if(isset($_GET['newLectureID']) && isset($_GET['oldLectureID']) && isset($_GET['
     exit(0);
 }
 
-function createHTMLmail($oldLectureName, $newLectureName, $lectureEmail){
+function createHTMLmailForStudent($oldLectureName, $newLectureName, $lectureEmail){
     $html = "
     <html>
         <head>
@@ -81,6 +87,25 @@ function createHTMLmail($oldLectureName, $newLectureName, $lectureEmail){
             <p>Dear Student,</p>
             <p>Your internship supervisor has been updated from <span style='color:#535ea6; font-weight: bold;'> $oldLectureName </span> to <span style='color:#ff4500; font-weight: bold;'>$newLectureName</span>.</p>
             <p>Please contact your new supervisor at email: <span style='color:#313e85; font-weight: bold;'>$lectureEmail</span> for further information.</p>
+        </body>
+    </html>
+    ";
+
+    return $html;
+}
+
+function createHTMLmailForLecturer($oldLectureName, $newLectureName){
+    $link = 'http://localhost/InternshipSystem/Client/view/page/br-StudentSupervisor-Manage.php';
+
+    $html = "
+    <html>
+        <head>
+            <title>Your Internship Supervisor Has Been Updated</title>
+        </head>
+        <body>
+            <p>Dear $newLectureName,</p>
+            <p>You have been assigned as new internship supervisor for students who previously supervised by <span style='color:#535ea6; font-weight: bold;'> $oldLectureName </span></p>
+            <p>Please click <a href='$link'>here</a> to view the list of students.</p>
         </body>
     </html>
     ";
