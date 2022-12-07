@@ -1,11 +1,12 @@
 <?php
 include_once("../../includes/db_connection.php");
-if (isset($_GET['RoleForMark'])) {
+if (isset($_GET['RoleForMark']) && isset($_GET['facultyID'])) {
     $RoleForMark = $_GET['RoleForMark'];
+    $facultyID = $_GET['facultyID'];
     $db_handle1 = new DBController();
-    //$query = "SELECT * FROM RubricComponentCriteria WHERE RoleForMark = '$RoleForMark'";
+    //add faculty ID
     $query = "SELECT * from RubricComponentCriteria rcc left JOIN RubricComponent rc on rcc.criterionID=rc.criterionID WHERE 
-    rc.valueName='Excellent' AND rcc.RoleForMark= '$RoleForMark' AND rcc.status = 'activate'ORDER BY rcc.criterionID ASC";
+    rc.valueName='Excellent' AND rcc.RoleForMark= '$RoleForMark' AND rcc.facultyID='$facultyID' AND rcc.status = 'activate'ORDER BY rcc.criterionID ASC";
     $results = $db_handle1->runQuery($query);
     $array = array();
 

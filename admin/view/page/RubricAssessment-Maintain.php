@@ -301,7 +301,7 @@ if ($_GET['act'] == "edit") {
                                 <div class="form-group col-md-2"> <label for="exampleInput">Total Weight</label> <input type="tel" id="TotalWeight" name="TotalWeight" class="form-control" placeholder="60" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmt->getTotalWeight() : "" ?>" onchange="changeHandler(this)" required="true"> </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputState">Selected Faculty</label>
-                                    <select id="facultyID" name="facultyID" class="form-control" required>
+                                    <select id="facultyID" name="facultyID" class="form-control" onchange="insertRubricCriteriaTitle();" required>
                                         <option selected disabled value="">Choose...</option>
                                         <?php
                                         include('includes/db_connection.php');
@@ -481,9 +481,11 @@ if ($_GET['act'] == "edit") {
 
         }
 
+        // meed compare the faculty and rolefor mark
         async function fetchRubricCriteriaTitle() {
             const RoleForMark = document.getElementById("RoleForMark").value;
-            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark;
+            const facultyID = document.getElementById("facultyID").value;
+            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark + '&facultyID=' + facultyID;
             let getComponentLvlRespond = await fetch(getManagerPhp);
             let CmpLvlObj = await getComponentLvlRespond.json();
             return CmpLvlObj;
