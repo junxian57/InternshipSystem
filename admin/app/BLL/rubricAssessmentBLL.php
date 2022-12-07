@@ -33,8 +33,8 @@ class rubricAssessmentBLL
             $all_rubricAssessment_html .= '<tr>';
             $all_rubricAssessment_html .= '<th id="test1">#</th>';
             $all_rubricAssessment_html .= '<th>Assessment ID</th>';
-            $all_rubricAssessment_html .= '<th>Title </th>';
             $all_rubricAssessment_html .= '<th>Faculty </th>';
+            $all_rubricAssessment_html .= '<th>Title </th>';
             $all_rubricAssessment_html .= '<th>Role For Mark</th>';
             $all_rubricAssessment_html .= '<th>Total Weight</th>';
             $all_rubricAssessment_html .= '<th>Status</th>';
@@ -46,8 +46,8 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<tr>';
                 $all_rubricAssessment_html .= '<td>' . $i++ . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getAssmtId() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getfacultyID() . '</td>';
+                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';        
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getstatus() . '</td>';
