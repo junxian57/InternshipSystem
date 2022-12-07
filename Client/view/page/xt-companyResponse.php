@@ -282,6 +282,11 @@ include('includes/dbconnection.php');
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Student Response</span>
+										</button>
+									</th>
                   <th>Action</th>
 								</tr>
 							</thead>
@@ -309,6 +314,7 @@ include('includes/dbconnection.php');
 											$internApp_ID = $row_internApp['internAppID'];
 											$studentID = $row_internApp['studentID'];
 											$app_Status = $row_internApp['appStatus'];
+											$appStudentFeedback = $row_internApp['appStudentFeedback'];
 
 											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
 											$runStud = mysqli_query($conn, $getStud);
@@ -326,6 +332,7 @@ include('includes/dbconnection.php');
 									<td><?php echo $internJob_ID; ?></td>
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
+									<td><?php echo $appStudentFeedback; ?></td>
                   <td><a class="view" href="xt-studAppResponse.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
