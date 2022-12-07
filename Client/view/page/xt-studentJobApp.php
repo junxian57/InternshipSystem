@@ -149,7 +149,11 @@ if(isset($_GET['internJobID'])){
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th>Action</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Response</span>
+										</button>
+									</th>
 								</tr>
 							</thead>
 
@@ -168,6 +172,7 @@ if(isset($_GET['internJobID'])){
 									$internApp_ID = $row_internApp['internAppID'];
 									$internJob_ID = $row_internApp['internJobID'];
 									$app_Status = $row_internApp['appStatus'];
+									$appStudentFeedback = $row_internApp['appStudentFeedback'];
 									
 									$get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJob_ID'";
 									$run_intern = mysqli_query($conn, $get_intern);
@@ -194,7 +199,7 @@ if(isset($_GET['internJobID'])){
 									<td><?php echo $cmpAddress; ?></td>
                   <td><?php echo $jobAllowance; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><?php echo $appStudentFeedback; ?></td>
                 </tr>
 								<?php } ?>
 							</tbody>

@@ -118,8 +118,8 @@ include('includes/dbconnection.php');
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
-                                <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
+                                <a class='cmpL-btn' id='acceptInterview' href='xt-studentJobApp.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
+                                <a class='cmpL-btn' id='rejectInterview' href='xt-studentJobApp.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
                               </div>";
                             }elseif ($appStudFeedback == 'Accept Interview'){
                               echo "</tbody>
