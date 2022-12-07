@@ -45,6 +45,9 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet" />
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-cmpySelfRegister.css" />
   </head>
   <body>
@@ -197,7 +200,7 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
     function addNewRow(taskGroup, newTaskValue){
       //Entering Alphabet Only
       if(!checkIsAlphabet(newTaskValue.value)){
-        alert('Please Enter Alphabet and Space Only');
+        info('Please Enter Alphabet and Space Only');
         newTaskValue.value = '';
         return;
       }
@@ -205,7 +208,7 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
       let value = newTaskValue.value;
         
       if (value === ""){
-            alert("Please Enter a Task");
+            info("Please Enter a Task");
             return;
       }
         let taskRow = document.getElementById(taskGroup);
@@ -236,13 +239,13 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
       document.getElementById('cmpHiddenFieldsArea').value = taskValue;
 
       if(document.getElementById('cmpSize').value == 0){
-        alert('Please select a company size');
+        info('Please select a company size');
         return false;
       }else if(document.getElementById('state').value == 0){
-        alert('Please select a state');
+        info('Please select a state');
         return false;
       }else if(fieldsRow.length == 0){
-        alert('Please enter a field area');
+        info('Please enter a field area');
         return false;
       }
     }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="../../scss/adminLogin.css">
+</head>
+<body>
+    <div class="outerBox">
+        <div class="tab">
+            <div class="button-group">
+                <button id="defaultOpen" class="tablinks" onclick="changeTab(event, 'itp-committee', this)">ITP Committee</button>
+                <div class="coverSpan">
+                    <span class="span-1">></span>
+                    <span class="span-2">></span>
+                    <span class="span-3">></span>      
+                    <span class="span-4">></span>          
+                </div>
+            </div>
+
+            <div class="button-group second">
+                <button class="tablinks" onclick="changeTab(event, 'admin', this)">Administrator</button>
+                <div class="coverSpan">
+                    <span class="span-1">></span>
+                    <span class="span-2">></span>
+                    <span class="span-3">></span>
+                    <span class="span-4">></span> 
+                </div>
+            </div>
+        </div>
+
+        <div id="vertical-line"></div>
+          
+        <div id="itp-committee" class="tabcontent">
+            <form action="#" method="post">
+                <div class="labelInput">
+                    <label for="itpEmail">ITP Email</label>
+                    <input type="text" name="itpEmail" id="itpEmail">
+                </div>
+                <div class="labelInput">
+                    <label for="itpPass">Password</label>
+                    <input type="password" name="itpPass" id="itpPass">
+                </div>
+                <div class="button-group-inner">
+                    <input type="submit" name="submitITP" value="Login">
+                    <button id="itpChangePassBtn">Change Password</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="admin" class="tabcontent">
+            <form action="#" method="post">
+                <div class="labelInput">
+                    <label for="adminEmail">Administrator Email</label>
+                    <input type="text" name="adminEmail" id="adminEmail">
+                </div>
+                <div class="labelInput">
+                    <label for="adminPass">Password</label>
+                    <input type="password" name="adminPass" id="adminPass">
+                </div>
+                <div class="button-group-inner">
+                    <input type="submit" name="submitAdmin" value="Login" id="specialButton">
+                    <button id="adminChangePass">Change Password</button>
+                </div>
+            </form>
+        </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('defaultOpen').click();
+
+    function changeTab(evt, tabName, buttonObj) {
+        let i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.querySelectorAll(".tabcontent");
+        tabcontent.forEach(i => {
+            i.style.display = "none";
+        });
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.querySelectorAll(".tablinks");
+        tablinks.forEach(i => {
+            i.classList.remove("active");
+            i.removeAttribute('style');
+
+           let getSpan = i.nextElementSibling.querySelectorAll('span');
+
+            for(let i = 0; i < getSpan.length; i++) {
+                    getSpan[i].style.display = "none";
+            }
+        });
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "flex";
+
+        let getSpan = buttonObj.nextElementSibling.querySelectorAll('span');
+
+       for(let i = 0; i < getSpan.length; i++) {
+            getSpan[i].style.display = "unset";
+       }
+        
+        evt.currentTarget.className += " active";
+        evt.currentTarget.style.backgroundColor = 'white';
+
+        if(evt.currentTarget.parentElement.classList.contains('second')) {
+            evt.currentTarget.style.color = '#313e85';
+        } else {
+            evt.currentTarget.style.color = '#f2891f';
+        }
+    }
+</script>
+</html>
