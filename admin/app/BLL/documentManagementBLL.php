@@ -53,7 +53,7 @@ class documentManagementBLL
                 $all_documentManagement_html .= '<td>' . $documentManagement->getInformation() . '</td>';
                 //$all_rubricAssessment_html .= '<td><button type="button" class="editbtn" data-target="#theModal" data-toggle="modal" href="../../view/popUp/addeditRubricAssessment.php?act=edit&id=' . $rubricAssessment->getAssmtId() . '">Edit</button></td>';
                 $all_documentManagement_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/ty-createDocument.php?act=edit&id=' . $documentManagement->getdocumentId() . '">
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/ty-editdeleteDocument.php?act=edit&id=' . $documentManagement->getdocumentId() . '">
                 
                 </a>
 				<button type="button" class="btn btn-danger btn-xs dt-delete">
