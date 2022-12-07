@@ -62,16 +62,7 @@ include('includes/dbconnection.php');
                                             
                     $conn = mysqli_connect($host, $user, $password, $database); 
 
-                    $per_page=6; 
-
-                    if(isset($_GET['page'])){
-                      $page = $_GET['page'];
-                    }else{
-                      $page = 1;
-                    }
-
-                    $start_from = ($page - 1) * $per_page;
-                    $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted' LIMIT $start_from, $per_page";
+                    $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted'";
                     $run_interview = mysqli_query($conn, $get_interview);
                     while($row_interview = mysqli_fetch_array($run_interview)){
                       $internAppID = $row_interview['internAppID'];
@@ -118,8 +109,8 @@ include('includes/dbconnection.php');
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptInterview' href='xt-studentJobApp.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
-                                <a class='cmpL-btn' id='rejectInterview' href='xt-studentJobApp.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
+                                <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
+                                <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
                               </div>";
                             }elseif ($appStudFeedback == 'Accept Interview'){
                               echo "</tbody>
@@ -145,19 +136,6 @@ include('includes/dbconnection.php');
                       <?php
                         $query = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted'";
                         $result = mysqli_query($conn,$query);
-                        $total_records = mysqli_num_rows($result);
-                        $total_pages = ceil($total_records / $per_page);
-                        echo "
-                              <li>
-                              <a href='xt-studInterviewList?page=1' class='fa-solid fa-arrow-left'></a></li>";
-                              for($i=1; $i<=$total_pages; $i++){
-                                echo "
-                                      <li>
-                                      <a href='xt-studInterviewList.php?page=".$i."'> ".$i." </a></li>";    
-                                    };
-                                    echo "
-                                          <li>
-                                          <a href='xt-studInterviewList.php?page=$total_pages' class='fa-solid fa-arrow-right'></a></li>"; 
                       ?> 
                     </ul>
                   </center>

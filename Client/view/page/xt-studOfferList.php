@@ -5,6 +5,8 @@ include('includes/dbconnection.php');
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
+require '../../../config/email.php';
+$mailConfig = new EmailConfig();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -67,13 +69,16 @@ include('includes/dbconnection.php');
                     while($row_offer = mysqli_fetch_array($run_offer)){
                       $internAppID = $row_offer['internAppID'];
                       $internJobID = $row_offer['internJobID'];
+                      $appInternStartDate = $row_offer['appInternStartDate'];
+                      $appInternEndDate = $row_offer['appInternEndDate'];
                       $appStudFeedback = $row_offer['appStudentFeedback'];
 
-                      $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
+                      $get_job = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
                       $run_job = mysqli_query($conn, $get_job);
                       $row_job = mysqli_fetch_array($run_job);
                       $cmpID = $row_job['companyID'];
                       $jobTitle = $row_job['jobTitle'];
+                      $jobAllowance = $row_job['jobAllowance'];
 
                       $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                       $run_cmp = mysqli_query($conn, $get_cmp);
@@ -94,35 +99,38 @@ include('includes/dbconnection.php');
                             <td><?php echo $jobTitle; ?></td>
                           </tr>
                           <tr>
-                            <th>Interview Duration</th>
-                            <td><?php echo $appInterviewDuration; ?></td>
+                            <th>Job Allowance</th>
+                            <td>RM <?php echo $jobAllowance; ?></td>
                           </tr>
                           <tr>
-                            <th>Interview Location</th>
-                            <td><?php echo $appInterviewLocation; ?></td>
+                            <th>Intern Start Date</th>
+                            <td><?php echo $appInternStartDate; ?></td>
+                          </tr>
+                          <tr>
+                            <th>Intern End Date</th>
+                            <td><?php echo $appInternEndDate; ?></td>
                           </tr>
                           <?php
-                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Reject Offer')){
-                              echo "</tbody>
+                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Decline Offer')){ ?>
+                                </tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptOffer' href='xt-studentJobApp.php?acceptOffer=$internAppID' style='background: #6af071;'>Accept</a>
-                                <a class='cmpL-btn' id='rejectOffer' href='xt-studentJobApp.php?rejectOffer=$internAppID' style='background: tomato;'>Reject</a>
-                              </div>";
-                            }elseif ($appStudFeedback == 'Accept Offer'){
-                              echo "</tbody>
+                                <a class='cmpL-btn' id='acceptOffer' href='xt-studOfferList.php?acceptOffer=<?php echo "$internAppID"; ?>' style='background: #6af071;'>Accept</a>
+                                <a class='cmpL-btn' id='declineOffer' href='xt-studOfferList.php?declineOffer=<?php echo "$internAppID"; ?>' style='background: tomato;'>Decline</a>
+                              </div>
+                            <?php }elseif ($appStudFeedback == 'Accept Offer'){ ?>
+                                </tbody>
                               </table>
                               <div class='cmpLFooter'>
                                 <a class='cmpL-btn' id='acceptOffer' style='background: #6af071;'>Accepted</a>
-                              </div>";
-                            }else{
-                              echo "</tbody>
+                              </div>
+                            <?php }elseif ($appStudFeedback == 'Decline Offer'){ ?>
+                                </tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptOffer' style='background: tomato;'>Rejected</a>
-                              </div>";
-                            }
-                          ?>
+                                <a class='cmpL-btn' id='declinedOffer' style='background: tomato;'>Declined</a>
+                              </div>
+                            <?php } ?>
                        
                     </div>
                   </div>
@@ -131,21 +139,8 @@ include('includes/dbconnection.php');
                   <center>
                     <ul class="job-pagination">
                       <?php
-                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted'";
+                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Accepted'";
                         $result = mysqli_query($conn,$query);
-                        $total_records = mysqli_num_rows($result);
-                        $total_pages = ceil($total_records / $per_page);
-                        echo "
-                              <li>
-                              <a href='xt-studInterviewList?page=1' class='fa-solid fa-arrow-left'></a></li>";
-                              for($i=1; $i<=$total_pages; $i++){
-                                echo "
-                                      <li>
-                                      <a href='xt-studInterviewList.php?page=".$i."'> ".$i." </a></li>";    
-                                    };
-                                    echo "
-                                          <li>
-                                          <a href='xt-studInterviewList.php?page=$total_pages' class='fa-solid fa-arrow-right'></a></li>"; 
                       ?> 
                     </ul>
                   </center>
@@ -158,23 +153,20 @@ include('includes/dbconnection.php');
     </div>
 
     <?php
-      require '../../../config/email.php';
-      $mailConfig = new EmailConfig();
-
-      if(isset($_GET['acceptInterview'])){
-        $internAppID = $_GET['acceptInterview'];
+      if(isset($_GET['acceptOffer'])){
+        $internAppID = $_GET['acceptOffer'];
         $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
-        $run_intvw = mysqli_query($conn, $sql);
-        $row_intvw = mysqli_fetch_array($run_intvw);
-        $internJobID = $row_intvw['internJobID'];
-        $studentID = $row_intvw['studentID'];
-        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
-        $appInterviewDuration = $row_intvw['appInterviewDuration'];
-        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+        $run_off = mysqli_query($conn, $sql);
+        $row_off = mysqli_fetch_array($run_off);
+        $internJobID = $row_off['internJobID'];
+        $studentID = $row_off['studentID'];
+        $internStartDate = $row_off['appInternStartDate'];
 
         $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
         $run_job = mysqli_query($conn, $get_job);
         $row_job = mysqli_fetch_array($run_job);
+        $companyID = $row_job['companyID'];
+        $jobTitle = $row_job['jobTitle'];
         $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
         $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
 
@@ -183,33 +175,36 @@ include('includes/dbconnection.php');
 				$row_stud = mysqli_fetch_array($run_stud);
 				$studentName = $row_stud['studName'];
 
-        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Interview' WHERE internAppID='$internAppID'";
+        $get_cmp = "SELECT * FROM Company WHERE companyID = '$companyID'";
+        $run_cmp = mysqli_query($conn, $get_cmp);
+				$row_cmp = mysqli_fetch_array($run_cmp);
+				$cmpName = $row_cmp['cmpName'];
+
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Offer' WHERE internAppID = '$internAppID'";
         if ((mysqli_query($conn, $query))){
             $success = $mailConfig->singleEmail(
-              $jobSupervisorEmail, 
-              'Accept Interview Session', 
-              acceptInterview($jobCmpSupervisor, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation)
+              'wongxt-wm19@student.tarc.edu.my', 
+              'Accept Internship Offer', 
+              acceptOffer($jobCmpSupervisor, $jobTitle, $cmpName, $internStartDate, $studentName)
             );
             if($success){
-              echo "<script>alert('You have accepted the interview session.')</script>";
+              echo "<script>alert('You have accepted the internship offer.')</script>";
             }
         }
       }
 
-      if(isset($_GET['rejectInterview'])){
-        $internAppID = $_GET['rejectInterview'];
+      if(isset($_GET['declineOffer'])){
+        $internAppID = $_GET['declineOffer'];
         $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
-        $run_intvw = mysqli_query($conn, $sql);
-        $row_intvw = mysqli_fetch_array($run_intvw);
-        $internJobID = $row_intvw['internJobID'];
-        $studentID = $row_intvw['studentID'];
-        $appInterviewDateTime = $row_intvw['appInterviewDateTime'];
-        $appInterviewDuration = $row_intvw['appInterviewDuration'];
-        $appInterviewLocation = $row_intvw['appInterviewLocation'];
+        $run_off = mysqli_query($conn, $sql);
+        $row_off = mysqli_fetch_array($run_off);
+        $internJobID = $row_off['internJobID'];
+        $studentID = $row_off['studentID'];
 
         $get_job = "SELECT * FROM InternJob WHERE internJobID= '$internJobID'";
         $run_job = mysqli_query($conn, $get_job);
         $row_job = mysqli_fetch_array($run_job);
+        $jobTitle = $row_job['jobTitle'];
         $jobCmpSupervisor = $row_job['jobCmpSupervisor'];
         $jobSupervisorEmail = $row_job['jobSupervisorEmail'];
 
@@ -218,50 +213,56 @@ include('includes/dbconnection.php');
 				$row_stud = mysqli_fetch_array($run_stud);
 				$studentName = $row_stud['studName'];
 
-        $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
-        if ((mysqli_query($conn, $query))){
+        $query = "UPDATE InternApplicationMap SET appStudentFeedback = 'Decline Offer' WHERE internAppID = '$internAppID'";
+        if (mysqli_query($conn, $query)){
           $success = $mailConfig->singleEmail(
-            $jobSupervisorEmail, 
-            'Reject Interview Session', 
-            rejectInterview($jobCmpSupervisor, $studentName)
+            'wongxt-wm19@student.tarc.edu.my', 
+            'Decline an Internship Offer', 
+            declineOffer($jobCmpSupervisor, $jobTitle, $studentName)
           );
           if($success){
-            echo "<script>alert('You have rejected the interview session.')</script>";
+            echo "<script>alert('You have declined the internship offer.')</script>";
           }
+        }else{
+          echo "Error: " . $sql . mysqli_error($conn);
         }
       }
 
-      function acceptInterview($name, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation){
+      function acceptOffer($name, $jobTitle, $cmpName, $internStartDate, $studName){
         $html = "
         <html>
           <head>
-            <title>Accept Interview Session</title>
+            <title>Accept Internship Offer</title>
           </head>
           <body>
             <p>Dear $name,</p>
-            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>accepted </span>the interview session.</p>
-            <p>Interview Date & Time: <span style='font-weight: bold;'>$appInterviewDateTime</span></p>
-            <p>Interview Duration: <span style='font-weight: bold;'>$appInterviewDuration</span></p>
-            <p>Interview Location: <span style='font-weight: bold;'>$appInterviewLocation</span></p>
+            <p>Thank you for the offer to become a $jobTitle intern at $cmpName. I am very pleased to <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>accept </span>this opportunity. I look forward to making a positive contribution to the company and learn as much as possible from the $cmpName.</p>
+            <br>
+            <p>I am excited to begin the internship on $internStartDate. If there is any additional information you need prior to then, please let me know.</p>
             <br>
             <p>Thank you.</p>
+            <br>
+            <p>Sincerely,</p>
+            <p>$studName</p>
           </body>
         </html>";
   
         return $html;
       }
 
-      function rejectInterview($name, $studentName){
+      function declineOffer($name, $jobTitle, $studName){
         $html = "
         <html>
           <head>
-            <title>Reject Interview Session</title>
+            <title>Decline an Internship Offer</title>
           </head>
           <body>
             <p>Dear $name,</p>
-            <p>The student <span style='font-weight: bold; color: blue;'>[$studentName]</span> have <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>rejected </span>the interview session.</p>
+            <p>Thank you for the time and effort you spent considering me for a position as $jobTitle intern. I appreciate your time and effort, as well as those of your staff. I am grateful for your offer to serve and learn as an intern.</p>
+            <p>After much thought and careful deliberation, however, I have decided <span style='color:#ff4500; font-weight: bold; text-decoration:underline;'>declined </span>your offer. I wish you and your employer the best continued success. I hope our paths will cross again in the future. Thank you again for your time and consideration.</p>
             <br>
-            <p>Thank you.</p>
+            <p>Sincerely,</p>
+            <p>$studName</p>
           </body>
         </html>";
   
