@@ -49,7 +49,7 @@ class documentManagementDAL
      */
     public function GetDocument($documentID)
     {
-        $sql = "SELECT * FROM DocumentManagement WHERE documentID= '$documentID'";
+        $sql = "SELECT * FROM Document WHERE documentID= '$documentID'";
         $aDocumentMngt = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($aDocumentMngt)) {
             $listOfdocumentManagementObj = new documentManagementDTO(
@@ -58,8 +58,7 @@ class documentManagementDAL
                 $aDocumentMngt[0]['Uploader'],
                 $aDocumentMngt[0]['uploadDate'],
                 $aDocumentMngt[0]['uploadDocument'],
-                $aDocumentMngt[0]['Information'],
-                $aDocumentMngt[0]['location'],
+                $aDocumentMngt[0]['Information']
             );
             return $listOfdocumentManagementObj;
         }
@@ -84,7 +83,7 @@ class documentManagementDAL
         //Get the first ID 
         $lastID = $result[0]['documentID'];
         //SubString to last part of ID
-        $numberPart = substr($lastID, 5, 6);
+        $numberPart = substr($lastID, 1, 6);
 
         if ((int) $numberPart < 9) {
             $prefix .= '0000' . ((int) $numberPart + 1);
@@ -144,27 +143,25 @@ class documentManagementDAL
      */
     public function UpdDocumentMngt($documentManagementDTO)
     {
-        $sql = " UPDATE DocumentManagement SET
+        $sql = " UPDATE Document SET
             documentTitle = '" . $documentManagementDTO->getdocumentTitle() . "',
             Uploader = '" . $documentManagementDTO->getUploader() . "',
             uploadDate ='" . $documentManagementDTO->getuploadDate() . "',
             uploadDocument ='" . $documentManagementDTO->getuploadDocument() . "',
             Information ='" . $documentManagementDTO->getInformation() . "',
-            location ='" . $documentManagementDTO->getlocation() . "'
             WHERE documentID ='" . $documentManagementDTO->getdocumentID() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         //for loop
         foreach($documentManagementDTO as $documentManagementDTO1){
-            $sql1 = "INSERT INTO DocumentManagement (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`,`location`)
+            $sql1 = "INSERT INTO Document (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`)
             VALUES (
                 '" . $documentManagementDTO1->getdocumentID() . "',
                 '" . $documentManagementDTO1->getdocumentTitle() . "',
                 '" . $documentManagementDTO1->getUploader() . "',
                 '" . $documentManagementDTO1->getuploadDate() . "',
                 '" . $documentManagementDTO1->getuploadDocument() . "',
-                '" . $documentManagementDTO1->getInformation() . "',
-                '" . $documentManagementDTO1->getlocation() . "'
+                '" . $documentManagementDTO1->getInformation() . "'
             )";
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
         }

@@ -31,7 +31,7 @@ class documentManagementBLL
             $all_documentManagement_html .= '<table id="documentCmpTbl" class="table-view">';
             $all_documentManagement_html .= '<thead>';
             $all_documentManagement_html .= '<tr>';
-            $all_documentManagement_html .= '<th id="test1">#</th>';
+            $all_documentManagement_html .= '<th id="test1">No. of Document</th>';
             $all_documentManagement_html .= '<th>Document ID</th>';
             $all_documentManagement_html .= '<th>Document Title</th>';
             $all_documentManagement_html .= '<th>Uploader</th>';
@@ -69,7 +69,7 @@ class documentManagementBLL
             $all_documentManagement_html .= '<table id="documentCmpTbl" class="table-view">';
             $all_documentManagement_html .= '<thead>';
             $all_documentManagement_html .= '<tr>';
-            $all_documentManagement_html .= '<th id="test1">#</th>';
+            $all_documentManagement_html .= '<th id="test1">No. of Document</th>';
             $all_documentManagement_html .= '<th>Document ID</th>';
             $all_documentManagement_html .= '<th>Document Title</th>';
             $all_documentManagement_html .= '<th>Uploader</th>';

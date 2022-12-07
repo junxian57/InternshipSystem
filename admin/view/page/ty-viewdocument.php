@@ -63,7 +63,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                         <div id="documentTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Preview Document Table</h4>
+                                    <h4>Document Table</h4>
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                 $('#documentCmpTbl').DataTable({
                     //custom search bar 
                     "language": {
-                        searchPlaceholder: "Search"
+                        searchPlaceholder: "Search Document"
                     },
                     "searchBox": {
                         "addClass": 'form-control input-lg col-xs-12'

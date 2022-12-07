@@ -20,8 +20,8 @@ if ($_GET['act'] == "edit") {
         $documentID = $_POST['documentID'];
         $documentTitle = $_POST['documentTitle'];
         $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Information);
-        $documentManagementBLLObj->UpdDocumentManagement($newdocumentMngt);
+        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
     }
 } else {
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Document') {
@@ -29,8 +29,8 @@ if ($_GET['act'] == "edit") {
         $documentID = $_POST['documentID'];
         $documentTitle = $_POST['documentTitle'];
         $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Information);
-        $documentManagementBLLObj->UpdDocumentManagement($newdocumentMngt);
+        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
     }
 }
 ?>
@@ -127,10 +127,10 @@ if ($_GET['act'] == "edit") {
                                 <div class="form-group col-md-2">
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getValue() : "" ?>" placeholder="TITLE" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle(): "" ?>" placeholder="TITLE" onchange="changeHandler(this)" required="true">
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Information</label> <input type="text" id="Information" name="Information" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getValue() : "" ?>" placeholder="INFORMATION" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Document Information</label> <input type="text" id="Information" name="Information" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?>" placeholder="INFORMATION" onchange="changeHandler(this)" required="true">
                                 </div>
 
                                 <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Document" : "Add Document" ?>" class="form-group btn btn-default">Save</button></div>
