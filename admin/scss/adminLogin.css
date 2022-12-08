@@ -39,7 +39,6 @@ body {
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: 600;
-  cursor: pointer;
   background: #ffffff;
   transition: all 0.3s ease-in-out;
 }
@@ -279,7 +278,7 @@ body {
   -webkit-animation: fadeEffect 1.5s;
           animation: fadeEffect 1.5s;
 }
-.outerBox .tabcontent form input[type=text], .outerBox .tabcontent form input[type=password] {
+.outerBox .tabcontent form input[type=email], .outerBox .tabcontent form input[type=password], .outerBox .tabcontent form input[type=text] {
   width: 80%;
   height: 40px;
   border: none;
@@ -289,7 +288,7 @@ body {
   font-weight: 500;
   transition: all 0.3s ease-in-out;
 }
-.outerBox .tabcontent form input[type=text]:focus, .outerBox .tabcontent form input[type=password]:focus {
+.outerBox .tabcontent form input[type=email]:focus, .outerBox .tabcontent form input[type=password]:focus, .outerBox .tabcontent form input[type=text]:focus {
   border-bottom: 2px solid #313e85;
 }
 .outerBox .tabcontent form .labelInput {
@@ -349,11 +348,11 @@ body {
     font-size: 0.5em;
   }
 }
-.outerBox .tabcontent form .button-group-inner input[type=submit] {
+.outerBox .tabcontent form .button-group-inner input[type=button] {
   background-color: #f2891f;
   border: #f2891f solid 1px;
 }
-.outerBox .tabcontent form .button-group-inner input[type=submit]:hover {
+.outerBox .tabcontent form .button-group-inner input[type=button]:hover {
   background-color: #e8a35e;
 }
 .outerBox .tabcontent form .button-group-inner button {

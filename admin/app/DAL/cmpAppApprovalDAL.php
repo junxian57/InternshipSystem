@@ -27,7 +27,7 @@ if(isset($_GET['companyID']) && isset($_GET['approve'])){
     $afterHashed = password_hash($initialPassword, PASSWORD_DEFAULT);
 
     //Update Company Account, Password, Status
-    $sql = "UPDATE Company SET cmpAccountStatus = 'InitialPassword', cmpUsername = '$companyAccount', cmpPassword = '$afterHashed' WHERE companyID = '$companyID'";
+    $sql = "UPDATE Company SET cmpAccountStatus = 'InitialPass', cmpUsername = '$companyAccount', cmpPassword = '$afterHashed' WHERE companyID = '$companyID'";
 
     $result = $db->executeQuery($sql);
 

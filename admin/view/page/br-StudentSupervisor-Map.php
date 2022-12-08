@@ -1,20 +1,22 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/admin/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/InternshipSystem/admin/';
 
-require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
+require_once $systemPathPrefix . "app/DAL/studentMapDAL.php";
 
-if(session_status() != PHP_SESSION_ACTIVE) session_start();
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
-try{
+try {
+    if (!isset($_SESSION['adminID'])) {
+        if (!isset($_SESSION['committeeID'])) {
+            echo "<script>
+                alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+                window.location.href = 'adminLogin.php';
+            </script>";
+        }
+    }
+
     $getInternBatch = getInternshipBatch();
-
-    // if(!isset($_SESSION['lecturerID'])){
-    //     echo "<script>
-    //         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
-    //         //window.location.href = 'br-login.php';
-    //     </script>";
-    // }
-}catch(Exception $e){
+} catch (Exception $e) {
     echo '<script>alert("Database Connection Error")</script>';
 }
 ?>
@@ -79,7 +81,7 @@ try{
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="" disabled>
-                                    <div class="form-control result-box" id="result-box-1">                                   </div>
+                                    <div class="form-control result-box" id="result-box-1"> </div>
                                 </div>
 
                                 <span class="arrow-icon">&#129050</span>
@@ -89,9 +91,9 @@ try{
                                     <select name="internBatch-group" id="tab1-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab1-supervisor'), document.getElementById(this.id))">
                                         <option value="" selected disabled>Select Internship Batch</option>
                                         <?php
-                                            foreach($getInternBatch as $batch){
-                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
-                                            }
+                                        foreach ($getInternBatch as $batch) {
+                                            echo "<option value='" . $batch['internshipBatchID'] . "'>" . $batch['internshipBatchID'] . "</option>";
+                                        }
                                         ?>
                                     </select>
 
@@ -109,7 +111,7 @@ try{
                             <div class="info-group">
                                 <p>Supervisor Current Slot: <span class="orange-font" id="tab1-supervisor-slot">0 / 0</span></p>
                                 <span>|</span>
-                                <p>Student Group Left Slot: <span class="orange-font"  id="tab1-student-slot">0 / 0</span></p>
+                                <p>Student Group Left Slot: <span class="orange-font" id="tab1-student-slot">0 / 0</span></p>
                             </div>
                             <hr>
                             <div class="table-title">
@@ -124,7 +126,7 @@ try{
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="tab1-preview-table">                                     
+                                    <tbody id="tab1-preview-table">
                                     </tbody>
                                 </table>
                             </div>
@@ -141,14 +143,14 @@ try{
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="tab2-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab2-student'), document.getElementById(this.id))">
-                                    <option value="" selected disabled>Select Internship Batch</option>
-                                    <?php
-                                            foreach($getInternBatch as $batch){
-                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
-                                            }
+                                        <option value="" selected disabled>Select Internship Batch</option>
+                                        <?php
+                                        foreach ($getInternBatch as $batch) {
+                                            echo "<option value='" . $batch['internshipBatchID'] . "'>" . $batch['internshipBatchID'] . "</option>";
+                                        }
                                         ?>
                                     </select>
-                                    
+
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab2-student" name="student" disabled placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
                                     <div class="form-control result-box" id="result-box-2">
@@ -160,7 +162,7 @@ try{
                                 <div class="form-group">
                                     <label for="supervisor-select">Supervisor <span class="required-star">*</span></label>
                                     <select name="supervisor-select" id="tab2-supervisor-group" class="form-control" required="true" disabled>
-                                      
+
                                     </select>
                                 </div>
                             </div>
@@ -185,7 +187,7 @@ try{
                                         <th>Supervisor</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="tab2-preview-table"> 
+                                    <tbody id="tab2-preview-table">
                                     </tbody>
                                 </table>
                             </div>
@@ -202,11 +204,11 @@ try{
                                 <div class="form-group">
                                     <label for="internBatch-group">Internship Batch <span class="required-star">*</span></label>
                                     <select name="internBatch-group" id="tab3-internBatch-group" class="form-control" required="true" onchange="enableOther(document.getElementById('tab3-programme'), document.getElementById(this.id))">
-                                    <option value="" selected disabled>Select Internship Batch</option>
-                                    <?php
-                                            foreach($getInternBatch as $batch){
-                                                echo "<option value='".$batch['internshipBatchID']."'>".$batch['internshipBatchID']."</option>";
-                                            }
+                                        <option value="" selected disabled>Select Internship Batch</option>
+                                        <?php
+                                        foreach ($getInternBatch as $batch) {
+                                            echo "<option value='" . $batch['internshipBatchID'] . "'>" . $batch['internshipBatchID'] . "</option>";
+                                        }
                                         ?>
                                     </select>
 
@@ -260,7 +262,7 @@ try{
                                                     </tr>
                                                 </thead>
                                                 <tbody class="tab3-small-table" id="tab3-student-table">
-                                                   
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -296,13 +298,14 @@ try{
                             </div>
                             <hr>
                             <div class="update-group">
-                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled></div>Update Mapping</button>
-                            </div>
+                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>
+                            </div>Update Mapping</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <footer><?php include_once('../../includes/footer.php'); ?></footer>
 </body>
@@ -343,11 +346,11 @@ try{
             "searching": false,
             "bLengthChange": false,
             "info": false,
-            "dom": 'lrtp',       
+            "dom": 'lrtp',
             "columnDefs": [{
-                "targets" : 5,
-                "createdCell": function (td, cellData, rowData, row, col){
-                    $(td).attr('data-lectureid', function(){
+                "targets": 5,
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).attr('data-lectureid', function() {
                         return document.getElementById('tab2-supervisor-group').value;
                     });
                 }
@@ -362,27 +365,24 @@ try{
             "info": false,
             "dom": 'lrtp',
             "columnDefs": [{
-                "targets" : 6,
-                "createdCell": function (td, cellData, rowData, row, col){
-                    $(td).attr('data-lectureid', function(){
+                "targets": 6,
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).attr('data-lectureid', function() {
                         return tab3StoreLectureID;
                     });
                 }
             }],
         });
     })
-
-
-    
 </script>
 <script>
     document.getElementById("defaultOpen").click();
 
-    function resetInput(valueInput, selectionInput1, selectionInput2 = null, deleteTable = false){
+    function resetInput(valueInput, selectionInput1, selectionInput2 = null, deleteTable = false) {
         valueInput.value = "";
         selectionInput1.selectedIndex = "0";
 
-        if(valueInput.id == "tab1-supervisor"){
+        if (valueInput.id == "tab1-supervisor") {
             valueInput.disabled = true;
             selectionInput1.disabled = false;
             selectionInput2.disabled = true;
@@ -398,7 +398,7 @@ try{
 
             document.getElementById('tab1-supervisor').disabled = true;
             document.getElementById('tab1-student-group').disabled = true;
-           
+
             //Reset JSON Object
             tab1LectureSlotCount = {};
 
@@ -412,7 +412,7 @@ try{
             document.getElementById('tab1-assign-btn').classList.remove('clickable-btn');
             document.getElementById('tab1-assign-btn').classList.add('grey-btn');
 
-        }else if(valueInput.id == "tab2-student"){
+        } else if (valueInput.id == "tab2-student") {
             valueInput.disabled = true;
             selectionInput1.disabled = false;
             selectionInput2.disabled = true;
@@ -432,7 +432,7 @@ try{
             document.getElementById('tab2-assign-btn').classList.remove('clickable-btn');
             document.getElementById('tab2-assign-btn').classList.add('grey-btn');
 
-        }else if(valueInput.id == "tab3-programme"){
+        } else if (valueInput.id == "tab3-programme") {
             valueInput.disabled = true;
             selectionInput1.disabled = false;
 
@@ -441,12 +441,12 @@ try{
             tab3LectureSlotCount = {};
             tab3StoreStudent = {};
             tab3StoreLectureID = "";
-            
+
             let updateBtn = document.getElementById('tab3-update-btn');
             updateBtn.disabled = true;
             updateBtn.classList.add('grey-btn');
             updateBtn.classList.remove('clickable-btn');
-            
+
             document.getElementById("tab3-programme").removeAttribute("data-programmeid");
 
             document.querySelectorAll(".facAcronym-span").forEach((item) => {
@@ -457,14 +457,14 @@ try{
             document.getElementById('tab3-assign-btn').classList.remove('clickable-btn');
             document.getElementById('tab3-assign-btn').classList.add('grey-btn');
         }
-        
-        if(selectionInput2 != null){
+
+        if (selectionInput2 != null) {
             selectionInput2.selectedIndex = 0;
         }
 
-        if(deleteTable){
-           const tableArr = document.getElementsByClassName("tab3-small-table");
-            for(let i = 0; i < tableArr.length; i++){
+        if (deleteTable) {
+            const tableArr = document.getElementsByClassName("tab3-small-table");
+            for (let i = 0; i < tableArr.length; i++) {
                 removeAllChildNodes(tableArr[i]);
             }
         }
@@ -487,29 +487,29 @@ try{
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(tabName).style.display = "block";
-        
+
         evt.currentTarget.className += " active";
     }
 
     document.querySelectorAll(".tab .tablinks").forEach((item) => {
         item.addEventListener('click', (tab) => {
-            if(item.classList.contains('tab1')){
+            if (item.classList.contains('tab1')) {
                 resetInput(
-                    document.getElementById('tab1-supervisor'), 
-                    document.getElementById('tab1-internBatch-group'), 
+                    document.getElementById('tab1-supervisor'),
+                    document.getElementById('tab1-internBatch-group'),
                     document.getElementById('tab1-student-group')
-                );    
-            }else if(item.classList.contains('tab2')){
+                );
+            } else if (item.classList.contains('tab2')) {
                 resetInput(
-                    document.getElementById('tab2-student'), 
-                    document.getElementById('tab2-internBatch-group'), 
+                    document.getElementById('tab2-student'),
+                    document.getElementById('tab2-internBatch-group'),
                     document.getElementById('tab2-supervisor-group')
                 );
-            }else if(item.classList.contains('tab3')){
+            } else if (item.classList.contains('tab3')) {
                 resetInput(
-                    document.getElementById('tab3-programme'), 
-                    document.getElementById('tab3-internBatch-group'), 
-                    null, 
+                    document.getElementById('tab3-programme'),
+                    document.getElementById('tab3-internBatch-group'),
+                    null,
                     true
                 );
             }
@@ -521,11 +521,11 @@ try{
     document.querySelector('body').addEventListener('click', () => {
         const getResultBox = document.querySelectorAll('.result-box');
         getResultBox.forEach(i => {
-            i.style.display = "none";          
+            i.style.display = "none";
         });
     });
 
-    function enableOther(inputBox, typeBox){
+    function enableOther(inputBox, typeBox) {
         inputBox.disabled = false;
         typeBox.disabled = true;
     }
@@ -536,33 +536,33 @@ try{
         const getSearchBar = document.getElementById(tabID);
         const getResultBox = document.getElementById(resultBox);
         const supervisorSlot = document.getElementById("tab1-supervisor-slot");
-        
+
         if (getSearchResultArr.length > 0) {
             for (let i = 0; i < getSearchResultArr.length; i++) {
                 getSearchResultArr[i].addEventListener('click', (list) => {
                     getSearchBar.value = list.target.innerText;
                     getResultBox.style.display = 'none';
 
-                    if(tabID == "tab1-supervisor"){
+                    if (tabID == "tab1-supervisor") {
                         supervisorSlot.textContent = `${list.target.dataset.currno} / ${list.target.dataset.maxno}`;
                         getSearchBar.setAttribute("data-lectureid", list.target.dataset.lectureid);
                         getSearchBar.setAttribute("data-availableslot", list.target.dataset.maxno - list.target.dataset.currno);
                         getSearchBar.setAttribute("data-maxno", list.target.dataset.maxno);
                         tutorialGroupData(list.target.dataset.facultyid);
                         getSearchBar.disabled = true;
-                    }else if(tabID == "tab2-student"){
+                    } else if (tabID == "tab2-student") {
                         getSearchBar.setAttribute("data-studentid", list.target.dataset.studentid);
                         getSearchBar.setAttribute("data-studname", decodeURIComponent(list.target.dataset.studname));
                         getSearchBar.setAttribute("data-facAcronym", list.target.dataset.facacronym);
                         getSearchBar.setAttribute("data-progAcronym", list.target.dataset.progacronym);
-                        tab2SupervisorGroupData(list.target.dataset.facultyid);                
-                    }else if(tabID == "tab3-programme"){
+                        tab2SupervisorGroupData(list.target.dataset.facultyid);
+                    } else if (tabID == "tab3-programme") {
                         getSearchBar.setAttribute("data-programmeid", list.target.dataset.programmeid);
                         tab3InsertTable(list.target.dataset.facultyid, list.target.dataset.programmeid);
                         document.getElementById('tab3-assign-btn').disabled = false;
                         document.getElementById('tab3-assign-btn').classList.add('clickable-btn');
                         document.getElementById('tab3-assign-btn').classList.remove('grey-btn');
-                    }                
+                    }
                 });
             }
         } else {
@@ -572,12 +572,12 @@ try{
 
     //Show Result Box
     async function displaySearchResult(searchBarTab, tabID) {
-        
-        if(tabID == 'tab1-supervisor'){
+
+        if (tabID == 'tab1-supervisor') {
             resultBoxNo = "result-box-1";
-        }else if(tabID == 'tab2-student'){
+        } else if (tabID == 'tab2-student') {
             resultBoxNo = "result-box-2";
-        }else if(tabID == 'tab3-programme'){
+        } else if (tabID == 'tab3-programme') {
             resultBoxNo = "result-box-3";
         }
 
@@ -591,33 +591,33 @@ try{
             return;
         }
 
-        if(getResultBox.hasChildNodes()){
+        if (getResultBox.hasChildNodes()) {
             removeAllChildNodes(getResultBox);
         }
 
-        if(respondResult != "No Data Found" ){
-            if(tabID == 'tab1-supervisor'){
+        if (respondResult != "No Data Found") {
+            if (tabID == 'tab1-supervisor') {
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                       `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents} data-lectureid=${respondResult[i].lecturerID}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>`
+                        `<li data-facultyid=${respondResult[i].facultyID} data-currNo=${respondResult[i].currNoOfStudents} data-maxNo=${respondResult[i].maxNoOfStudents} data-lectureid=${respondResult[i].lecturerID}>${respondResult[i].facAcronym} : ${respondResult[i].lecName}</li>`
                     );
                 }
-            }else if(tabID == 'tab2-student'){
+            } else if (tabID == 'tab2-student') {
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
                         `<li data-facultyID=${respondResult[i].facultyID} data-facAcronym=${respondResult[i].facAcronym} data-progAcronym=${respondResult[i].programmeAcronym} data-studName=${encodeURIComponent(respondResult[i].studName)} data-studentID=${respondResult[i].studentID}>${respondResult[i].studentID} : ${respondResult[i].studName}</li>`
                     );
                 }
-            }else if(tabID == 'tab3-programme'){
+            } else if (tabID == 'tab3-programme') {
                 for (let i = 0; i < respondResult.length; i++) {
                     resultArr.push(
-                        `<li data-programmeID=${respondResult[i].programmeID} data-facultyID=${respondResult[i].facultyID}> ${respondResult[i].facAcronym} : ${respondResult[i].programmeName.substr(12)}</li>` 
+                        `<li data-programmeID=${respondResult[i].programmeID} data-facultyID=${respondResult[i].facultyID}> ${respondResult[i].facAcronym} : ${respondResult[i].programmeName.substr(12)}</li>`
                     );
                 }
             }
         } else {
-           getResultBox.style.display = 'none';
-           return;
+            getResultBox.style.display = 'none';
+            return;
         }
 
         getResultBox.style.display = 'block';
@@ -630,17 +630,17 @@ try{
         const getSearchInput = searchBarTab.value;
         let resultBoxNo, url, internBatch;
 
-        if(tabID == 'tab1-supervisor'){
+        if (tabID == 'tab1-supervisor') {
             resultBoxNo = "result-box-1";
-        }else if(tabID == 'tab2-student'){
+        } else if (tabID == 'tab2-student') {
             resultBoxNo = "result-box-2";
             internBatch = document.getElementById('tab2-internBatch-group').value;
-        }else if(tabID == 'tab3-programme'){
+        } else if (tabID == 'tab3-programme') {
             resultBoxNo = "result-box-3";
         }
 
         const getResultBox = document.getElementById(resultBoxNo);
-        
+
         if (getSearchInput == '') {
             getResultBox.style.display = 'none';
             return;
@@ -651,7 +651,7 @@ try{
                 url = `../../app/DAL/ajaxMapSearchBar.php?student=${getSearchInput}&internBatch=${internBatch}`;
             } else if (tabID == 'tab3-programme') {
                 url = '../../app/DAL/ajaxMapSearchBar.php?programme=' + getSearchInput;
-            } 
+            }
 
             const response = await fetch(url);
             const data = await response.json();
@@ -661,7 +661,7 @@ try{
     }
 
     //Tab 1 - Change Student Slot Number
-    function changeStudentSlotNo(){
+    function changeStudentSlotNo() {
         let getStudent = document.getElementById("tab1-student-group");
         let getStudentSlot = document.getElementById("tab1-student-slot");
         let tutorialGroupArr = getStudent.childNodes;
@@ -676,13 +676,13 @@ try{
         const studentSlot = document.getElementById("tab1-student-slot");
         const defaultOption = document.createElement("option");
 
-        if(studentSelect.hasChildNodes()){
+        if (studentSelect.hasChildNodes()) {
             removeAllChildNodes(studentSelect);
         }
 
-        if(respondResult !== "No Data Found"){
+        if (respondResult !== "No Data Found") {
             studentSelect.disabled = false;
-            for(let i = 0; i < respondResult.length; i++){
+            for (let i = 0; i < respondResult.length; i++) {
                 const option = document.createElement("option");
                 option.value = respondResult[i].tutorialGroupNo;
                 option.setAttribute("data-noSelectStudent", respondResult[i].noSelectStudent);
@@ -699,7 +699,7 @@ try{
             document.getElementById('tab1-assign-btn').disabled = false;
             document.getElementById('tab1-assign-btn').classList.add('clickable-btn');
             document.getElementById('tab1-assign-btn').classList.remove('grey-btn');
-        }else{
+        } else {
             const option = document.createElement("option");
             option.value = "No Data";
             option.innerText = "No Data";
@@ -711,7 +711,7 @@ try{
     }
 
     //Tab 1 Selection - Fetch Tutorial Group Data
-    async function getTutorialGroupData(facultyID){
+    async function getTutorialGroupData(facultyID) {
         let internNo = document.getElementById("tab1-internBatch-group").value;
         let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&internNo=${internNo}`;
 
@@ -722,17 +722,17 @@ try{
     }
 
     //Tab 2 Selection
-    async function tab2SupervisorGroupData(facultyID){
+    async function tab2SupervisorGroupData(facultyID) {
         const respondResult = await getTab2SupervisorGroupData(facultyID);
         const supervisorSelect = document.getElementById("tab2-supervisor-group");
 
-        if(supervisorSelect.hasChildNodes()){
+        if (supervisorSelect.hasChildNodes()) {
             removeAllChildNodes(supervisorSelect);
         }
 
-        if(respondResult !== "No Data Found"){
+        if (respondResult !== "No Data Found") {
             supervisorSelect.disabled = false;
-            for(let i = 0; i < respondResult.length; i++){
+            for (let i = 0; i < respondResult.length; i++) {
                 const option = document.createElement("option");
                 option.value = respondResult[i].lecturerID;
 
@@ -743,11 +743,11 @@ try{
 
                 supervisorSelect.appendChild(option);
 
-            document.getElementById('tab2-assign-btn').disabled = false;
-            document.getElementById('tab2-assign-btn').classList.add('clickable-btn');
-            document.getElementById('tab2-assign-btn').classList.remove('grey-btn');
+                document.getElementById('tab2-assign-btn').disabled = false;
+                document.getElementById('tab2-assign-btn').classList.add('clickable-btn');
+                document.getElementById('tab2-assign-btn').classList.remove('grey-btn');
             }
-        }else{
+        } else {
             const option = document.createElement("option");
             option.value = "No Data";
             option.innerText = "No Data";
@@ -757,7 +757,7 @@ try{
     }
 
     //Tab 2 Selection - Fetch Supervisor Data
-    async function getTab2SupervisorGroupData(facultyID){
+    async function getTab2SupervisorGroupData(facultyID) {
         let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&tab2=true`;
 
         const response = await fetch(url);
@@ -767,29 +767,29 @@ try{
     }
 
     //Tab 3 Programme
-    async function tab3InsertTable(facultyID, programmeID){
+    async function tab3InsertTable(facultyID, programmeID) {
         const supervisorResult = await getTab3SupervisorTable(facultyID);
         const studentResult = await getTab3StudentTable(programmeID);
         const supervisorTable = document.getElementById("tab3-supervisor-table");
         const studentTable = document.getElementById("tab3-student-table");
         const getSpan = document.getElementsByClassName("facAcronym-span");
 
-        if(supervisorTable.hasChildNodes()){
+        if (supervisorTable.hasChildNodes()) {
             removeAllChildNodes(supervisorTable);
         }
 
-        if(studentTable.hasChildNodes()){
+        if (studentTable.hasChildNodes()) {
             removeAllChildNodes(studentTable);
         }
 
-        if(supervisorResult !== "No Data Found" && studentResult !== "No Data Found"){  
+        if (supervisorResult !== "No Data Found" && studentResult !== "No Data Found") {
             //Change Faculty Acronym
-            for(let k = 0; k < getSpan.length; k++){
+            for (let k = 0; k < getSpan.length; k++) {
                 getSpan[k].innerText = supervisorResult[0].facAcronym;
             }
 
             //Insert Supervisor Table Row
-            for(let i = 0; i < supervisorResult.length; i++){
+            for (let i = 0; i < supervisorResult.length; i++) {
                 let trLeft = document.createElement("tr");
                 trLeft.setAttribute("data-lecturerid", supervisorResult[i].lecturerID);
                 trLeft.setAttribute("data-lecname", supervisorResult[i].lecName);
@@ -809,7 +809,7 @@ try{
             }
 
             //Insert Student Table Row
-            for(let j = 0; j < studentResult.length; j++){
+            for (let j = 0; j < studentResult.length; j++) {
                 let trRight = document.createElement("tr");
                 trRight.setAttribute("data-tutorialgroup", studentResult[j].tutorialGroupNo);
                 trRight.setAttribute("data-progid", studentResult[j].programmeID);
@@ -827,8 +827,8 @@ try{
 
                 studentTable.appendChild(trRight);
             }
-            
-        }else{
+
+        } else {
             info("No Data Found");
             document.getElementById('tab3-programme').value = "";
             return;
@@ -836,7 +836,7 @@ try{
     }
 
     //Tab 3 - Fetch Supervisor Data
-    async function getTab3SupervisorTable(facultyID){
+    async function getTab3SupervisorTable(facultyID) {
         let url = `../../app/DAL/ajaxMapSelectionGroup.php?facultyID=${facultyID}&tab3-supervisor=true`;
 
         const response = await fetch(url);
@@ -846,7 +846,7 @@ try{
     }
 
     //Tab 3 - Fetch Student Data
-    async function getTab3StudentTable(programmeID){
+    async function getTab3StudentTable(programmeID) {
         let batchID = document.getElementById("tab3-internBatch-group").value;
         let url = `../../app/DAL/ajaxMapSelectionGroup.php?programmeID=${programmeID}&batchID=${batchID}&tab3-student=true`;
 
@@ -868,17 +868,17 @@ try{
         tabTable.row(row.parentNode.parentNode).remove().draw();
         let tabUpdateBtn;
 
-        if(table == 'tab1-top-table'){
+        if (table == 'tab1-top-table') {
             tabUpdateBtn = 'tab1-update-btn';
-           
-        }else if(table == 'tab2-top-table'){
+
+        } else if (table == 'tab2-top-table') {
             tabUpdateBtn = 'tab2-update-btn';
 
             //Remove Student
             delete tab2StoreStudent[row.parentNode.parentNode.childNodes[1].innerText];
             //Reset Lecture Count
             tab2LectureSlotCount[row.parentNode.parentNode.childNodes[5].getAttribute('data-lectureid')]++;
-        }else if(table = 'tab3-top-table'){
+        } else if (table = 'tab3-top-table') {
             tabUpdateBtn = 'tab3-update-btn';
 
             //Remove Student
@@ -889,21 +889,21 @@ try{
             tab3LectureSlotCount[row.parentNode.parentNode.childNodes[6].getAttribute('data-lectureid')].slotCount++;
         }
 
-        if(tabTable.row().count() === 0){
+        if (tabTable.row().count() === 0) {
             document.getElementById(tabUpdateBtn).disabled = true;
             document.getElementById(tabUpdateBtn).classList.add('grey-btn');
             document.getElementById(tabUpdateBtn).classList.remove('clickable-btn');
         }
     }
 
-    function dataTableClear(tableID){
+    function dataTableClear(tableID) {
         $(tableID).DataTable().clear().draw();
 
-        if(tableID == "#tab2-top-table"){
+        if (tableID == "#tab2-top-table") {
             //Reset JSON Data
             tab2LectureSlotCount = {};
-            tab2StoreStudent = {}; 
-        }else if(tableID == "#tab3-top-table"){
+            tab2StoreStudent = {};
+        } else if (tableID == "#tab3-top-table") {
             //Reset JSON Data
             tab3StoreStudent = {};
             tab3LectureSlotCount = {};
@@ -914,12 +914,12 @@ try{
     let tab1LectureSlotCount = {};
 
     //Tab 1 - Map Supervisor and Student Data Into Preview Table
-    async function tab1MapTable(){
+    async function tab1MapTable() {
         let lectureID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
         let lectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-availableslot");
         let maxLectureSlot = document.getElementById("tab1-supervisor").getAttribute("data-maxno");
         let internshipBatch = document.getElementById("tab1-internBatch-group").value;
-        
+
         let studentGroup = document.getElementById("tab1-student-group");
         let tutorialGroupNo = studentGroup[studentGroup.selectedIndex].dataset.tutorialgroupno;
         let programmeID = studentGroup[studentGroup.selectedIndex].dataset.programmeid;
@@ -927,12 +927,12 @@ try{
         let tab1previewBody = document.getElementById("tab1-preview-table");
         let dataTable = $('#tab1-top-table').DataTable();
 
-        if(!studentGroup.hasChildNodes()){
+        if (!studentGroup.hasChildNodes()) {
             info("No Tutorial Group Selected");
             return;
         }
 
-        if(tab1previewBody.hasChildNodes()){
+        if (tab1previewBody.hasChildNodes()) {
             removeAllChildNodes(tab1previewBody);
         }
 
@@ -942,12 +942,12 @@ try{
         tab1LectureSlotCount[lectureID] = lectureSlot;
 
         //create table row and insert        
-        if(respondResult != "No Data Found"){
+        if (respondResult != "No Data Found") {
             for (let i = 0; i < respondResult.length; i++) {
                 //Set Row Index
                 let rowNo = dataTable.context[0].aoData.length + 1;
 
-                if(tab1LectureSlotCount[lectureID] > 0){
+                if (tab1LectureSlotCount[lectureID] > 0) {
                     dataTable.row.add([
                         rowNo,
                         respondResult[i].studentID,
@@ -958,7 +958,7 @@ try{
 
                     tab1LectureSlotCount[lectureID]--;
                     document.getElementById("tab1-supervisor-slot").innerText = `${ maxLectureSlot - tab1LectureSlotCount[lectureID]} / ${maxLectureSlot}`;
-                }    
+                }
             }
 
             let assignBtn = document.getElementById("tab1-assign-btn");
@@ -973,14 +973,14 @@ try{
             updateBtn.disabled = false;
             updateBtn.classList.remove('grey-btn');
             updateBtn.classList.add('clickable-btn');
-            
-        }else{
+
+        } else {
             info("No Data Found");
         }
-        
+
     }
 
-    async function tab1GetStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID){
+    async function tab1GetStudentLectureData(lectureID, internshipBatch, tutorialGroupNo, programmeID) {
         let url = `../../app/DAL/ajaxMapTab1InsertTable.php?lectureID=${lectureID}&internshipBatch=${internshipBatch}&tutorialGroupNo=${tutorialGroupNo}&programmeID=${programmeID}&tab1-map=true`;
 
         const response = await fetch(url);
@@ -990,9 +990,9 @@ try{
     }
 
     //Tab 1 - Update Supervisor and Student Mapping
-    async function tab1UpdateMapDb(){
+    async function tab1UpdateMapDb() {
         let confirm = window.confirm("Are you sure you want to update the map?");
-        if(confirm == true){
+        if (confirm == true) {
             let lecturerID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
             let studentIDArr = document.querySelectorAll("#tab1-preview-table tr td:nth-child(2)");
             let studentIDTextArr = [];
@@ -1002,26 +1002,26 @@ try{
                 studentIDTextArr.push(studentID.innerText);
             });
 
-           let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
-            
-            if(responseResult == "Success"){
+            let responseResult = await tab1FetchUpdateMapDb(lecturerID, studentIDTextArr);
+
+            if (responseResult == "Success") {
                 addSuccess("Mapping Updated");
-            }else{
+            } else {
                 warning("Mapping Update Failed");
             }
 
             resetInput(
-                document.getElementById('tab1-supervisor'), 
-                document.getElementById('tab1-internBatch-group'), 
+                document.getElementById('tab1-supervisor'),
+                document.getElementById('tab1-internBatch-group'),
                 document.getElementById('tab1-student-group')
             );
 
-        }else{
+        } else {
             return;
         }
     }
 
-    async function tab1FetchUpdateMapDb(lecturerID, studentIDTextArr){
+    async function tab1FetchUpdateMapDb(lecturerID, studentIDTextArr) {
         let url = `../../app/DAL/ajaxMapTab1UpdateMap.php?lectureID=${lecturerID}&studentIDArr=${JSON.stringify(studentIDTextArr)}`;
 
         let response = await fetch(url);
@@ -1034,25 +1034,25 @@ try{
     let tab2LectureSlotCount = {};
     let tab2StoreStudent = {};
 
-    document.getElementById("tab2-assign-btn").addEventListener("click", () =>{
+    document.getElementById("tab2-assign-btn").addEventListener("click", () => {
         let student = document.getElementById("tab2-student");
         let studentID = student.getAttribute("data-studentid");
         let studentName = student.getAttribute("data-studname");
         let facAcronym = student.getAttribute("data-facacronym");
         let progAcronym = student.getAttribute("data-progacronym");
-        
+
         let lectureOption = document.getElementById("tab2-supervisor-group");
         let lectureName = lectureOption[lectureOption.selectedIndex].dataset.lecturername;
         let lectureSlot = lectureOption[lectureOption.selectedIndex].dataset.ablemapcount;
         let lectureID = lectureOption.value;
-        
+
         let internshipBatch = document.getElementById("tab2-internBatch-group").value;
         let tab2previewBody = document.getElementById("tab2-preview-table");
 
-       let dataTable = $('#tab2-top-table').DataTable();
+        let dataTable = $('#tab2-top-table').DataTable();
 
         //If lecture selection has no items
-        if(!lectureOption.hasChildNodes()){
+        if (!lectureOption.hasChildNodes()) {
             info("No Lecture Selected");
             return;
         }
@@ -1061,24 +1061,24 @@ try{
         let rowNo = dataTable.context[0].aoData.length + 1;
 
         //create table row and insert
-        if(student.value == ""){
+        if (student.value == "") {
             return;
-        }else{
-             //Update Student Count
-            if(tab2StoreStudent[studentID] == undefined){
+        } else {
+            //Update Student Count
+            if (tab2StoreStudent[studentID] == undefined) {
                 tab2StoreStudent[studentID] = studentID;
-            }else{
+            } else {
                 info("Student Already Selected");
                 student.value = "";
                 return;
             }
-            
+
             //Update Lecture Slot Count - JSON Object
-            if(tab2LectureSlotCount[lectureID] == undefined){
+            if (tab2LectureSlotCount[lectureID] == undefined) {
                 tab2LectureSlotCount[lectureID] = --lectureSlot;
-            }else if(tab2LectureSlotCount[lectureID] > 0){
+            } else if (tab2LectureSlotCount[lectureID] > 0) {
                 tab2LectureSlotCount[lectureID]--;
-            }else{
+            } else {
                 info("Lecture Slot Full");
                 delete tab2StoreStudent[studentID];
                 return;
@@ -1093,7 +1093,7 @@ try{
                 lectureName,
                 `<button class="remove" onclick="deleteRow('tab2-top-table', this)">Remove</button>`
             ]).draw();
-            
+
         }
 
         //Reset Student Input
@@ -1103,7 +1103,7 @@ try{
 
         //Remove Attribute in Student Input
         Object.keys(student.dataset).forEach((key) => {
-                delete student.dataset[key];
+            delete student.dataset[key];
         });
 
         //Empty Student Input Value
@@ -1112,10 +1112,10 @@ try{
     });
 
     //Tab 2 - Map Supervisor and Student Data Into Preview Table
-    async function tab2NTab3UpdateMapDB(tabNo){       
+    async function tab2NTab3UpdateMapDB(tabNo) {
         let confirm = window.confirm("Are you sure you want to update the map?");
-        
-        if(confirm == true){
+
+        if (confirm == true) {
             let tabtr = document.querySelectorAll(`#tab${tabNo}-preview-table tr`);
             let studentLecMap = {};
 
@@ -1125,34 +1125,34 @@ try{
                 //If tabNo is 3, lecture ID is in 6th column
                 studentLecMap[td[1].innerHTML] = td[tabNo == 2 ? 5 : 6].getAttribute("data-lectureid");
             });
-            
+
             let responseResult = await tab2NTab3FetchUpdateMapDb(studentLecMap);
 
-            if(responseResult == "Success" && tabNo == 2){
+            if (responseResult == "Success" && tabNo == 2) {
                 resetInput(
                     document.getElementById(`tab${tabNo}-student`),
                     document.getElementById(`tab${tabNo}-internBatch-group`),
                     document.getElementById(`tab${tabNo}-supervisor-group`)
                 );
                 addSuccess("Map Updated");
-            }else if(responseResult == "Success" && tabNo == 3){
+            } else if (responseResult == "Success" && tabNo == 3) {
                 resetInput(
                     document.getElementById(`tab${tabNo}-student`),
                     document.getElementById(`tab${tabNo}-internBatch-group`),
                     document.getElementById(`tab${tabNo}-supervisor-group`)
                 );
                 tab3OpenMapSummary();
-            }else{
+            } else {
                 warning(`From ${responseResult} Onward, Map Update Failed`);
                 return;
             }
-        }else{
+        } else {
             return;
         }
     }
 
     //Tab 2 - Update Map
-    async function tab2NTab3FetchUpdateMapDb(studentLecMap){
+    async function tab2NTab3FetchUpdateMapDb(studentLecMap) {
         let url = `../../app/DAL/ajaxMapTab2NTab3UpdateMap.php?studentLecMap=${JSON.stringify(studentLecMap)}`;
 
         let response = await fetch(url);
@@ -1173,14 +1173,14 @@ try{
 
         dataTableClear("#tab3-top-table");
 
-        if(lectureGroup.length == 0){
+        if (lectureGroup.length == 0) {
             info("No Lecture Selected");
             return;
         }
 
-        if(checkedTutorialGroup.length != 0){
+        if (checkedTutorialGroup.length != 0) {
             studentMap = await tab3FetchStudentForPreview();
-        }else{
+        } else {
             info("No Student Selected");
             return;
         }
@@ -1189,31 +1189,31 @@ try{
         lectureGroup.forEach((lecture) => {
             let lectureRow = lecture.parentNode.parentNode;
 
-            if(tab3LectureSlotCount[lectureRow.dataset.lecturerid] == undefined){
+            if (tab3LectureSlotCount[lectureRow.dataset.lecturerid] == undefined) {
                 tab3LectureSlotCount[lectureRow.dataset.lecturerid] = {
-                    "lecName" : lectureRow.dataset.lecname,
-                    "slotCount" : lectureRow.dataset.ablemapcount,
-                    "beforeCount" : lectureRow.dataset.ablemapcount,
-                    "maxSlot" : lectureRow.dataset.maxstudent
-                } 
+                    "lecName": lectureRow.dataset.lecname,
+                    "slotCount": lectureRow.dataset.ablemapcount,
+                    "beforeCount": lectureRow.dataset.ablemapcount,
+                    "maxSlot": lectureRow.dataset.maxstudent
+                }
             }
         });
 
         let getNoSelectStudent = (tutorialNo) => {
             let noSelectStudent;
             document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
-                if(student.dataset.tutorialgroup == tutorialNo){
-                   noselectstudent = student.dataset.noselectstudent;
-                }    
+                if (student.dataset.tutorialgroup == tutorialNo) {
+                    noselectstudent = student.dataset.noselectstudent;
+                }
             });
             return noselectstudent;
-         };
+        };
 
-         let getMaxStudent = (tutorialNo) => {
+        let getMaxStudent = (tutorialNo) => {
             let studentCount;
             document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
-                if(student.dataset.tutorialgroup == tutorialNo){
-                   studentCount = student.dataset.studentcount;
+                if (student.dataset.tutorialgroup == tutorialNo) {
+                    studentCount = student.dataset.studentcount;
                 }
             })
             return studentCount;
@@ -1222,8 +1222,8 @@ try{
         let getTutorialYear = (tutorialNo) => {
             let tutorialYear;
             document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
-                if(student.dataset.tutorialgroup == tutorialNo){
-                   tutorialYear = student.dataset.tutorialyear;
+                if (student.dataset.tutorialgroup == tutorialNo) {
+                    tutorialYear = student.dataset.tutorialyear;
                 }
             })
             return tutorialYear;
@@ -1232,33 +1232,33 @@ try{
         //Store Student into tab3StoreStudent
         for (let k = 0; k < studentMap.length; k++) {
             const student = studentMap[k];
-            if(tab3StoreStudent[student.tutorialGroupNo] == undefined){
+            if (tab3StoreStudent[student.tutorialGroupNo] == undefined) {
                 //Create object into tab3StoreStudent separate by student id
                 tab3StoreStudent[student.tutorialGroupNo] = {
-                    "student" : {
-                            [student.studentID] : {
-                            "studentName" : student.studName,
-                            "facAcronym" : student.facAcronym,
-                            "progAcronym" : student.programmeAcronym,
-                            "tutorialGroupNo" : student.tutorialGroupNo
+                    "student": {
+                        [student.studentID]: {
+                            "studentName": student.studName,
+                            "facAcronym": student.facAcronym,
+                            "progAcronym": student.programmeAcronym,
+                            "tutorialGroupNo": student.tutorialGroupNo
                         }
-                    },        
-                    "studentCount" : 1,
-                    "noselectstudent" : getNoSelectStudent(student.tutorialGroupNo),
-                    "maxStudent" : getMaxStudent(student.tutorialGroupNo),
-                    "tutorialGroup" : student.tutorialGroupNo,
-                    "programme" : student.programmeAcronym,
-                    "year" : getTutorialYear(student.tutorialGroupNo)
+                    },
+                    "studentCount": 1,
+                    "noselectstudent": getNoSelectStudent(student.tutorialGroupNo),
+                    "maxStudent": getMaxStudent(student.tutorialGroupNo),
+                    "tutorialGroup": student.tutorialGroupNo,
+                    "programme": student.programmeAcronym,
+                    "year": getTutorialYear(student.tutorialGroupNo)
                 }
-            }else{
+            } else {
                 //Create object into tab3StoreStudent separate by student id
                 tab3StoreStudent[student.tutorialGroupNo]["student"][student.studentID] = {
-                    "studentName" : student.studName,
-                    "facAcronym" : student.facAcronym,
-                    "progAcronym" : student.programmeAcronym,
-                    "tutorialGroupNo" : student.tutorialGroupNo
-                },
-                tab3StoreStudent[student.tutorialGroupNo]["studentCount"]++;
+                        "studentName": student.studName,
+                        "facAcronym": student.facAcronym,
+                        "progAcronym": student.programmeAcronym,
+                        "tutorialGroupNo": student.tutorialGroupNo
+                    },
+                    tab3StoreStudent[student.tutorialGroupNo]["studentCount"]++;
             }
         }
 
@@ -1272,13 +1272,13 @@ try{
         //Control lecture position
         for (let i = 0; i < Object.keys(tab3LectureSlotCount).length; i++) {
             //Control tutorial group position
-            for(;j< Object.keys(tab3StoreStudent).length; ){
+            for (; j < Object.keys(tab3StoreStudent).length;) {
                 //If the tutorial group count is larger than m
-                if(tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount > m){
+                if (tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount > m) {
                     //Control the student position
-                    for(; m < tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount;){
+                    for (; m < tab3StoreStudent[Object.keys(tab3StoreStudent)[j]].studentCount;) {
                         //Control Lecture position by its SLOT COUNT
-                        if(tab3LectureSlotCount[Object.keys(tab3LectureSlotCount)[i]].slotCount > 0){
+                        if (tab3LectureSlotCount[Object.keys(tab3LectureSlotCount)[i]].slotCount > 0) {
                             //Get Lecture ID for global variable
                             tab3StoreLectureID = Object.keys(tab3LectureSlotCount)[i];
                             //Get lecture object
@@ -1287,10 +1287,10 @@ try{
                             //Access student object key
                             let student = tab3StoreStudent[Object.keys(tab3StoreStudent)[j]];
                             let studentKey = Object.keys(student["student"])[m];
-                            
+
                             //Set Row Index
                             let rowNo = dataTable.context[0].aoData.length + 1;
-    
+
                             dataTable.row.add([
                                 rowNo,
                                 studentKey,
@@ -1307,19 +1307,19 @@ try{
                             countStudent++;
                             //Increase the current group student position
                             m++;
-                        }else{
+                        } else {
                             //If the current lecture slot count is 0, exit third loop
                             moveNextLecturer = true;
                             break;
-                        }      
+                        }
                     }
 
                     //If the current lecture slot count is 0, break the second loop, to ALLOW the first loop to move to next lecture
-                    if (moveNextLecturer){
+                    if (moveNextLecturer) {
                         break;
                     }
 
-                }else{
+                } else {
                     //If current tutorial group is done, go to next tutorial group
                     //Subtract the student count from tutorial group count
                     tab3StoreStudent[Object.keys(tab3StoreStudent)[j]]["studentCount"] -= countStudent;
@@ -1329,11 +1329,11 @@ try{
                     m = 0;
                     //Move to next tutorial group
                     j++;
-                }                                    
+                }
             }
             //Reset the next lecturer control
             moveNextLecturer = false;
-       }
+        }
 
         //Enable Update Mapping Button
         document.getElementById('tab3-update-btn').disabled = false;
@@ -1347,7 +1347,7 @@ try{
     });
 
     //Tab 3 - Fetch Student for Preview
-    async function tab3FetchStudentForPreview(){
+    async function tab3FetchStudentForPreview() {
         let checkedTutorialGroup = document.querySelectorAll("#tab3-student-table input:checked");
         let programmeID = document.querySelector("#tab3-programme").getAttribute("data-programmeid");
         let internshipID = document.querySelector("#tab3-internBatch-group").value;
@@ -1356,7 +1356,7 @@ try{
         checkedTutorialGroup.forEach((tutorialGroup) => {
             tutorialGroupArr.push(tutorialGroup.getAttribute('data-tutorialgroup'));
         });
-        
+
         let url = `../../app/DAL/ajaxMapTab3GetStudent.php?programmeID=${programmeID}&internshipID=${internshipID}&tutorialGroup=${JSON.stringify(tutorialGroupArr)}`;
 
         let response = await fetch(url);
@@ -1365,12 +1365,12 @@ try{
         return data;
     }
 
-    async function tab3OpenMapSummary(){
+    async function tab3OpenMapSummary() {
         let form = document.createElement("form");
         form.setAttribute("method", "post");
         form.setAttribute("action", `../../view/page/br-StudentMap-summary.php`);
         form.setAttribute("target", "_blank");
-        form.setAttribute("id","tab3-temp-form");
+        form.setAttribute("id", "tab3-temp-form");
 
         let input = document.createElement("input");
         input.setAttribute("type", "hidden");
@@ -1387,7 +1387,7 @@ try{
 
         document.body.appendChild(form);
         form.submit();
-        
+
         document.body.removeChild(form);
 
         addSuccess("Update Successfully");

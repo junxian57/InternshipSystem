@@ -5,11 +5,10 @@ require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 if(!isset($_SESSION['lecturerID'])){
-  //TODO: Check if user is logged in, get company ID from session
-    echo "<script>
-        alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
-        //window.location.href = 'br-login.php';
-    </script>";
+  echo "<script>
+      alert('You are not permitted to enter this page.\\nPlease login as a lecturer.');
+      window.location.href = 'clientLogin.php';
+  </script>";
 }
 
 // if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus']) && !isset($_SESSION['lecturerID'])){

@@ -7,13 +7,13 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "AmendedInfo"){
     echo "<script>
       alert('Your company has been updated successfully.\\nPlease wait for the approval from the ITP Committee.');
+      window.location.href = 'br-cmpSelfRegister.php';
       </script>";
-      //window.location.href = 'br-cmpSelfRegister.php';
 }else if(isset($_GET['failed'])){
     echo "<script>
     alert('Your company has NOT been updated successfully.\\nPlease try again.');
+    window.location.href = 'br-cmpSelfAppModification.php'
     </script>";
-    //window.location.href = 'br-cmpSelfRegister.php'
 }
 
 if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']) && $_GET['amend'] == 1 && $_GET['rejected'] == 1){
@@ -34,11 +34,10 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
 
     }else{
         echo "<script>
-        alert('SQL Connect Error.\\nPlease contact TARUMT ITP Committee for assistance.');
+          alert('SQL Connect Error.\\nPlease contact TARUMT ITP Committee for assistance.');
+          window.location.href = 'clientLogin.php'; 
         </script>";
         
-        //window.location.href = 'br-cmpSelfRegister.php'
-        //TODO: Set to login.php, login page not yet created
     }
 }else{
     echo "<script>

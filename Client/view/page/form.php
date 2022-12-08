@@ -1,12 +1,11 @@
 <?php
+echo password_hash('123', PASSWORD_DEFAULT);
 
 require_once '../../app/DTO/companyDTO.php';
 
     $company = new Company();
 
     $company->setCompanyID($company->generateCompanyID());
-
-    echo $company->getCompanyID();
 ?>
 
 <!DOCTYPE html>

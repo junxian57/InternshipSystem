@@ -39,7 +39,6 @@ body {
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: 600;
-  cursor: pointer;
   background: #ffffff;
   transition: all 0.3s ease-in-out;
 }
@@ -279,7 +278,7 @@ body {
   -webkit-animation: fadeEffect 1.5s;
           animation: fadeEffect 1.5s;
 }
-.outerBox .tabcontent form input[type=text], .outerBox .tabcontent form input[type=password] {
+.outerBox .tabcontent form input[type=email], .outerBox .tabcontent form input[type=password], .outerBox .tabcontent form input[type=text] {
   width: 80%;
   height: 40px;
   border: none;
@@ -289,7 +288,7 @@ body {
   font-weight: 500;
   transition: all 0.3s ease-in-out;
 }
-.outerBox .tabcontent form input[type=text]:focus, .outerBox .tabcontent form input[type=password]:focus {
+.outerBox .tabcontent form input[type=email]:focus, .outerBox .tabcontent form input[type=password]:focus, .outerBox .tabcontent form input[type=text]:focus {
   border-bottom: 2px solid #313e85;
 }
 .outerBox .tabcontent form .labelInput {
@@ -309,10 +308,31 @@ body {
   width: 80%;
   text-align: start;
 }
+.outerBox .tabcontent form #special {
+  justify-content: space-between;
+}
+@media only screen and (max-width: 1470px) {
+  .outerBox .tabcontent form #special {
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 1470px) {
+  .outerBox .tabcontent form #special * {
+    width: 100% !important;
+    max-width: unset !important;
+  }
+}
+@media only screen and (max-width: 1470px) {
+  .outerBox .tabcontent form #special a {
+    margin-top: 20px;
+  }
+}
 .outerBox .tabcontent form .button-group-inner {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 30px;
   width: 80%;
@@ -321,7 +341,6 @@ body {
   .outerBox .tabcontent form .button-group-inner {
     margin-top: 30px;
     margin-bottom: 30px;
-    justify-content: space-evenly;
   }
 }
 .outerBox .tabcontent form .button-group-inner * {
@@ -349,11 +368,11 @@ body {
     font-size: 0.5em;
   }
 }
-.outerBox .tabcontent form .button-group-inner input[type=submit] {
+.outerBox .tabcontent form .button-group-inner input[type=button] {
   background-color: #f2891f;
   border: #f2891f solid 1px;
 }
-.outerBox .tabcontent form .button-group-inner input[type=submit]:hover {
+.outerBox .tabcontent form .button-group-inner input[type=button]:hover {
   background-color: #e8a35e;
 }
 .outerBox .tabcontent form .button-group-inner button {
@@ -363,54 +382,21 @@ body {
 .outerBox .tabcontent form .button-group-inner button:hover {
   background-color: rgb(54, 54, 54);
 }
+.outerBox .tabcontent form .button-group-inner a {
+  background-color: rgb(132, 174, 27);
+  border: rgb(132, 174, 27) solid 1px;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: center;
+  padding-top: 10px;
+}
+.outerBox .tabcontent form .button-group-inner a:hover {
+  background-color: rgb(163, 205, 57);
+}
 .outerBox .tabcontent form .button-group-inner #specialButton {
   background-color: #313e85;
   border: #313e85 solid 1px;
 }
 .outerBox .tabcontent form .button-group-inner #specialButton:hover {
   background-color: #4b5bb2;
-}
-.outerBox .tabcontent form .button-cmp {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
-  width: 80%;
-}
-@media only screen and (max-width: 912px) {
-  .outerBox .tabcontent form .button-cmp {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    justify-content: space-evenly;
-  }
-}
-.outerBox .tabcontent form .button-cmp button {
-  background-color: rgb(132, 174, 27);
-  border: rgb(132, 174, 27) solid 1px;
-  width: 100%;
-  height: 40px;
-  padding: 0 5px 0 5px;
-  letter-spacing: 2px;
-  border: none;
-  outline: none;
-  font-size: calc(0.5em + 0.1vw);
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-@media only screen and (max-width: 912px) {
-  .outerBox .tabcontent form .button-cmp button {
-    min-width: 160px;
-    font-size: 0.6em;
-  }
-}
-@media only screen and (max-width: 420px) {
-  .outerBox .tabcontent form .button-cmp button {
-    min-width: 100px;
-    font-size: 0.5em;
-  }
-}
-.outerBox .tabcontent form .button-cmp button:hover {
-  background-color: rgb(163, 205, 57);
 }/*# sourceMappingURL=clientLogin.css.map */

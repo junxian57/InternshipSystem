@@ -6,14 +6,17 @@ require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 try{
+    if (!isset($_SESSION['adminID'])) {
+        if (!isset($_SESSION['committeeID'])) {
+            echo "<script>
+                alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+                window.location.href = 'adminLogin.php';
+            </script>";
+        }
+    }
+
     $getFaculty = getFaculty();
 
-    // if(!isset($_SESSION['lecturerID'])){
-    //     echo "<script>
-    //         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
-    //         //window.location.href = 'br-login.php';
-    //     </script>";
-    // }
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
@@ -204,7 +207,6 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -230,7 +232,6 @@ try{
             "info": false,   
             responsive : true      
         });
-        $.fn.dataTable.FixedHeader(table);
     });
 
     $(document).ready(function() {
@@ -239,7 +240,6 @@ try{
             "info": false,
             responsive : true
         });
-        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>

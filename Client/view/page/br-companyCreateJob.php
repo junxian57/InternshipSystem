@@ -5,16 +5,18 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
 if(!isset($_SESSION['companyID'])){
     echo "<script>
         alert('You are not permitted to enter this page.\\nPlease login as a company.');
-        //window.location.href = 'br-login.php';
+        window.location.href = 'clientLogin.php';
     </script>";
 }else{
-    //TODO: Check if user is logged in, get company ID from session
     //Get Company ID from Session
-    //$companyID = $_SESSION['companyID'];
-    $companyID = 'CMP00008';
+    $companyID = $_SESSION['companyID'];
 }
 
 if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1){
@@ -69,10 +71,10 @@ try{
         }
     }
 }catch(PDOException $e){
-    echo "<script> 
-        alert('$e');
+    echo "<script>
+        alert('Database Connection Error');
         window.location.href = 'br-companyInfo.php';
-    </script>";    
+    </script>";     
 }
 
 ?>

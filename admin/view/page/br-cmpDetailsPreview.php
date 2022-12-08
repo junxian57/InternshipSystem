@@ -5,12 +5,14 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-// if(!isset($_SESSION['adminID'])){
-//     echo "<script>
-//         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
-//         //window.location.href = 'br-login.php';
-//     </script>";
-// }
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
     
 if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action']) && $_GET['status'] == 1 && $_GET['action'] == 1){
     $companyID = $_GET['companyID'];
