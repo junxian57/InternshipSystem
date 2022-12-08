@@ -192,7 +192,7 @@ error_reporting(0);
                                 i.cmpName,
                                 i.jobTitle,
                                 Number(i.finalScore) + ` / ` + Number(i.TotalWeight),
-                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/markStudInternScore.php?lectureID='${lectureID.value}'&cmpName='${i.cmpName}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}'"></a>`
+                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/markStudInternScore.php?lectureID='${lectureID.value}'&facultyID='${i.facultyID}'&cmpName='${i.cmpName}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}'"></a>`
                             ]).draw();
                             count++;
                         })
