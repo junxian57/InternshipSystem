@@ -39,6 +39,7 @@ class rubricAssessmentComponentBLL
             $all_rubricCmpCriteria_html .= '<tr>';
             $all_rubricCmpCriteria_html .= '<th>#</th>';
             $all_rubricCmpCriteria_html .= '<th>Assessment Criteria ID</th>';
+            $all_rubricCmpCriteria_html .= '<th>Faculty </th>';
             $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Title</th>';
             $all_rubricCmpCriteria_html .= '<th>Role of Mark</th>';
             $all_rubricCmpCriteria_html .= '<th>Assessment Criteria Session</th>';
@@ -51,6 +52,7 @@ class rubricAssessmentComponentBLL
                 $all_rubricCmpCriteria_html .= '<tr>';
                 $all_rubricCmpCriteria_html .= '<td>' . $i++ . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getcriterionID() . '</td>';
+                $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getfacultyID() . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getTitle() . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getRoleForMark() . '</td>';
                 $all_rubricCmpCriteria_html .= '<td>' . $rubricCmpCriteria->getCriteriaSession() . '</td>';
