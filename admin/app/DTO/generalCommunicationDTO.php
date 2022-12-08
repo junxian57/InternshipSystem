@@ -68,7 +68,7 @@ class generalCommunicationDTO
         return $this->msgReceiver;
     }
 
-    public function getumsgDate()
+    public function getmsgDate()
     {
         return $this->msgDate;
     }

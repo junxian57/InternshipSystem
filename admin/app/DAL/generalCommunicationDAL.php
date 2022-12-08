@@ -22,7 +22,7 @@ class generalCommunicationDAL
     {
         //$db = new DBController();
         $listOfgeneralCommunicationDTO = array();
-        $sql = "SELECT * FROM Message";
+        $sql = "SELECT * FROM Message1";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
@@ -49,7 +49,7 @@ class generalCommunicationDAL
      */
     public function GetMessage($messageID)
     {
-        $sql = "SELECT * FROM Message WHERE messageID= '$messageID'";
+        $sql = "SELECT * FROM Message1 WHERE messageID= '$messageID'";
         $aGeneralComm = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($aGeneralComm)) {
             $listOfgeneralCommunicationObj = new generalCommunicationDTO(
@@ -71,7 +71,7 @@ class generalCommunicationDAL
     {
         $db = new DBController();
         //Will be descending order
-        $sql = "SELECT * FROM Message ORDER BY messageID DESC";
+        $sql = "SELECT * FROM Message1 ORDER BY messageID DESC";
         $result = $db->runQuery($sql);
         $prefix = 'M';
 
@@ -101,15 +101,16 @@ class generalCommunicationDAL
      */
     public function AddGeneralComm($generalCommunicationDTO)
     {
-        $sql = "INSERT INTO Message (`messageID`, `msgTitle`, `msgSender`, `msgReceiver`, `msgDate`, `msgContent`)
+        $sql = "INSERT INTO Message1 (`messageID`, `msgSender`, `msgReceiver`, `msgTitle`, `msgContent`, `msgDate`)
                 VALUES (
                   '" . $generalCommunicationDTO->getmessageID() . "',
-                  '" . $generalCommunicationDTO->getmsgTitle() . "',
                   '" . $generalCommunicationDTO->getmsgSender() . "',
                   '" . $generalCommunicationDTO->getmsgReceiver() . "',
-                  '" . $generalCommunicationDTO->getmsgDate() . "',
-                  '" . $generalCommunicationDTO->getmsgContent() . "'
+                  '" . $generalCommunicationDTO->getmsgTitle() . "',
+                  '" . $generalCommunicationDTO->getmsgContent() . "',
+                  '" . $generalCommunicationDTO->getmsgDate() . "'         
                 )";
+        echo $sql;
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         if ($result) {
@@ -128,7 +129,7 @@ class generalCommunicationDAL
      */
     public function UpdGeneralComm($generalCommunicationDTO)
     {
-        $sql = " UPDATE Message SET
+        $sql = " UPDATE Message1 SET
             msgTitle = '" . $generalCommunicationDTO->getmessageTitle() . "',
             msgSender = '" . $generalCommunicationDTO->getmsgSender() . "',
             msgReceiver = '" . $generalCommunicationDTO->getmsgReceiver() . "',
@@ -138,8 +139,8 @@ class generalCommunicationDAL
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         //for loop
-        foreach($generalCommunicationDTO as $generalCommunicationDTO1){
-            $sql1 = "INSERT INTO Message (`messageID`, `msgTitle`, `msgSender`, `msgReceiver`,`msgDate`, `msgContent`)
+        foreach ($generalCommunicationDTO as $generalCommunicationDTO1) {
+            $sql1 = "INSERT INTO Message1 (`messageID`, `msgTitle`, `msgSender`, `msgReceiver`,`msgDate`, `msgContent`)
             VALUES (
                 '" . $generalCommunicationDTO1->getmessageID() . "',
                 '" . $generalCommunicationDTO1->getmsgTitle() . "',

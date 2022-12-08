@@ -28,8 +28,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Message')
     
     $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle, $msgSender, $msgReceiver, $msgContent);
 
-    print_r($newgeneralComm); 
-
     $generalCommunicationBLLObj->AddGeneralComm($newgeneralComm);
 } 
 

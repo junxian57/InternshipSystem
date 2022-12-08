@@ -2,7 +2,7 @@
 class generalCommunicationBLL
 {
 
-    protected $generalCommunicatioDAL;
+    protected $generalCommunicationDAL;
     public $errorMessage;
 
     public function __construct()
@@ -49,16 +49,16 @@ class generalCommunicationBLL
                 $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgTitle() . '</td>';
                 $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgSender() . '</td>';
                 $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgReceiver() . '</td>';
-                $all_generalCommunication_html .= '<td>' . $generalCommunication->getuploadDate() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgDate() . '</td>';
                 $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgContent() . '</td>';
-                
+
                 $all_generalCommunication_html .= '<td>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/joel-editdeleteMessage.php?act=edit&id=' . $generalCommunication->getmessageID() . '">
                 
                 </a>
 				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $generalCommunication->getMessageID() . '"aria-hidden="true" onClick="deleteMessage(this.id)"></a>
 			    </td>';
-                
+
                 $all_generalCommunication_html .= '</tr>';
             }
             $all_generalCommunication_html .= '</tbody>';
@@ -127,5 +127,4 @@ class generalCommunicationBLL
     {
         return $this->generalCommunicationDAL->IsMessageExists($msgTitle, $messageID);
     }
-
 }
