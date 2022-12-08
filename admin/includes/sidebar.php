@@ -192,7 +192,7 @@ if(isset($_SESSION)){
         </li>
 
         <li>
-          <a href="index.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
+          <a href="../../app/BLL/logoutBLL.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
         </li>
         <hr style="background-color:transparent; border:none;">
         <hr style="background-color:transparent; border:none;">
