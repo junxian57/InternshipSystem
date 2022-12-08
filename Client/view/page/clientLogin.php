@@ -4,7 +4,14 @@
         alert('Password Changed Successfully!')
         window.location.href = 'clientLogin.php';
         </script>";
-        
+    }
+
+    if(isset($_SESSION['studentID'])){
+        header("Location: ../../view/page/ky-enterStudDetails.php");
+    }elseif(isset($_SESSION['lecturerID'])){
+        header("Location: ../../view/page/br-StudentSupervisor-Manage.php");
+    }elseif(isset($_SESSION['companyID'])){
+        header("Location: ../../view/page/br-companyInfo.php");
     }
 ?>
 
