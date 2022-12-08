@@ -13,7 +13,10 @@ if(isset($_GET['studentEmail']) && isset($_GET['studentPass']) && isset($_GET['s
         exit();
     }
 
-    $query = "SELECT * FROM Student WHERE studEmail = '$studentEmail' AND studAccountStatus NOT IN ('Pending Invite', 'Withdrawal')";
+    $query = "SELECT s.* , f.facultyID 
+    FROM Student s , Programme p , Faculty f , Department d 
+    WHERE s.studEmail = '$studentEmail' AND s.studAccountStatus NOT IN ('Pending Invite', 'Withdrawal') AND s.programmeID=p.programmeID AND p.departmentID=d.departmentID AND d.facultyID=f.facultyID";
+    
     $result = $db->runQuery($query);
 
     //Check if result is null
@@ -40,6 +43,8 @@ if(isset($_GET['studentEmail']) && isset($_GET['studentPass']) && isset($_GET['s
             }
 
             $_SESSION['studentID'] = $result[0]['studentID'];
+            $_SESSION['internshipBatchID'] = $result[0]['internshipBatchID'];
+            $_SESSION['facultyID'] = $result[0]['facultyID'];
         }else{
             echo json_encode("Wrong Password");
         } 
