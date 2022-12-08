@@ -6,7 +6,6 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 if(!isset($_SESSION['lecturerID'])){
   echo "<script>
-      alert('You are not permitted to enter this page.\\nPlease login as a lecturer.');
       window.location.href = 'clientLogin.php';
   </script>";
 }

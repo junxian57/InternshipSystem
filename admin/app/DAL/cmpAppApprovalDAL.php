@@ -103,7 +103,6 @@ function createHTMLEmailForFailed($companyName, $rejectReason){
     $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
     $companyID = $_GET['companyID'];
 
-   // $amendLink = 'http://'.$systemPathPrefix."view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
     $amendLink = "localhost/internshipSystem/client/view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
 
     $html = "
