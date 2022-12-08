@@ -6,7 +6,6 @@ if (session_status() != PHP_SESSION_ACTIVE) session_start();
 if (!isset($_SESSION['adminID'])) {
     if (!isset($_SESSION['committeeID'])) {
         echo "<script>
-          alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
           window.location.href = 'adminLogin.php';
       </script>";
     }
