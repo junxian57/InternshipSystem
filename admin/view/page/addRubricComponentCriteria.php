@@ -6,12 +6,19 @@ require_once('../../app/BLL/rubricAssessmentComponentBLL.php');
 require_once("../../app/DTO/rubricAssessmentComponentDTO.php");
 require_once("../../app/DTO/rubricComponentDTO.php");
 require_once("../../app/DAL/rubricAssessmentComponentDAL.php");
-$rubricAssessmentComponentDALObj  = new rubricAssessmentComponentDAL();
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
 
-	}*/
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
+
+$rubricAssessmentComponentDALObj  = new rubricAssessmentComponentDAL();
 $rubricAssessmentComponentBllObj = new rubricAssessmentComponentBLL();
 if ($_GET['act'] == "edit") {
     $id = str_replace("'", "", $_GET['id']);
@@ -29,7 +36,8 @@ if ($_GET['act'] == "edit") {
         $RoleForMark = $_POST['RoleForMark'];
         $assessmentCriteriaSession = $_POST['assessmentCriteriaSession'];
         $assessmentCriteriaDesc = $_POST['assessmentCriteriaDesc'];
-        $CreateByID = $_POST['CreateByID'];
+        $CreateByID = $_SESSION['adminID'];
+        $CreateByID = $_SESSION['committeeID'];
         $CreateDate = $date;
         if (count($_POST['cmpLvlValue']) == count($_POST['CriteriaCmpDesc'])) {
             $countRow = count($_POST['cmpLvlValue']);
