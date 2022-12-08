@@ -148,7 +148,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Document'
                                     <select id="inputState" name="uploader" class="form-control" required>
                                         <option selected disabled value="0">Options</option>
                                         <?php
-                                        $options = array('ITP Supervisor', 'ITP Committee');
+                                        $options = array('Admin', 'ITP Committee');
                                         foreach ($options as $option) {
                                             if ($_GET['act'] == "edit") {
                                                 if ($aDocumentMngt->getUploader() == $option) {
@@ -168,11 +168,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Document'
                                     <input type="text" id="uploadDate" name="uploadDate" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $date ?>" readonly>
                                 </div>
 
-                                <label for="input-folder-3">Select Files</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<label for="input-folder-3">Select Document</label>
 
                                 <div class="file-loading">
                                     <input id="uploadDocument" name="uploadDocument" type="file" accept=".pdf"><br>
-                                    <a type="button" id="previewDocument" target="_blank">Preview</a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<a type="button" id="previewDocument" target="_blank">Preview Document</a>
                                 </div>
                             
                                 <div class="form-group col-md-12"> 

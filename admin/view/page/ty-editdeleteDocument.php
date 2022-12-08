@@ -20,8 +20,8 @@ if ($_GET['act'] == "edit") {
         $documentID = $_POST['documentID'];
         $documentTitle = $_POST['documentTitle'];
         $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Information);
-        $documentManagementBLLObj->UpdDocumentManagement($newdocumentMngt);
+        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
     }
 } else {
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Document') {
@@ -29,8 +29,8 @@ if ($_GET['act'] == "edit") {
         $documentID = $_POST['documentID'];
         $documentTitle = $_POST['documentTitle'];
         $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle, $Information);
-        $documentManagementBLLObj->UpdDocumentManagement($newdocumentMngt);
+        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
     }
 }
 ?>
@@ -38,7 +38,7 @@ if ($_GET['act'] == "edit") {
 <html>
 
 <head>
-    <title>ITP System | Document</title>
+    <title>ITP System | Edit Document</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -111,12 +111,9 @@ if ($_GET['act'] == "edit") {
                 ?>
                 <div class="forms">
                     <?php
-                    if ($_GET['act'] == "edit") {
-                        echo '<h3 class="title1">Edit Document</h3>';
-                    } else {
-                        echo '<h3 class="title1">Add Document</h3>';
-                    }
+                    echo '<h3 class="title1">Edit Document</h3>';
                     ?>
+
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
                             <h4>Document</h4>
@@ -125,12 +122,32 @@ if ($_GET['act'] == "edit") {
                             <form method="post" enctype="multipart/form-data">
                                 <div class="form-group col-md-2"> <label>Document ID</label><input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $documentManagementDALObj->generateID(); ?>" readonly="readonly"></div>
                                 <div class="form-group col-md-2">
+
+                                <label for="inputState">Uploader</label>
+                                    <!--Change option to array for Role For Mark-->
+                                    <select id="inputState" name="uploader" class="form-control" required>
+                                        <option selected disabled value="">Options</option>
+                                        <?php
+                                        $options = array('Admin', 'ITP Committee');
+                                        foreach ($options as $option) {
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aDocumentMngt->getUploader() == $option) {
+                                                    echo "<option selected='selected' value='$option'>$option</option>";
+                                                } else {
+                                                    echo "<option value='$option'>$option</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='$option'>$option</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getValue() : "" ?>" placeholder="TITLE" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle(): "" ?>" placeholder="TITLE" onchange="changeHandler(this)" required="true">
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Information</label> <input type="text" id="Information" name="Information" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getValue() : "" ?>" placeholder="INFORMATION" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Document Information</label> <input type="text" id="Information" name="information" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?>" placeholder="INSTRUCTION/INFORMATION" onchange="changeHandler(this)" required="true">
                                 </div>
 
                                 <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Document" : "Add Document" ?>" class="form-group btn btn-default">Save</button></div>

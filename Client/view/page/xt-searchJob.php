@@ -128,6 +128,7 @@ include('includes/dbconnection.php');
                       $jobTitle = $row_job['jobTitle'];
                       $jobFieldsArea = $row_job['jobFieldsArea'];
                       $jobAllowance = $row_job['jobAllowance'];
+                      $jobPostDate = $row_job['jobPostDate'];
 
                       $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                       $run_cmp = mysqli_query($conn, $get_cmp);
@@ -163,7 +164,9 @@ include('includes/dbconnection.php');
                         </tbody>
                       </table>
                       <div class="cmpLFooter">
-                        <p></p>
+                        <h6 class="text-muted">
+                          <i class="far fa-clock"></i> <?php echo $jobPostDate; ?>
+                        </h6>
                         <a class="cmpL-btn" href="xt-jobDetails.php?internJobID=<?php echo $internJobID; ?>">View</a>
                       </div>
                     </div>

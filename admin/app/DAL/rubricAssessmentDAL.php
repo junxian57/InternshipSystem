@@ -28,7 +28,7 @@ class rubricAssessmentDAL
             for ($i = 0; $i < count($result); $i++) {
                 $assessmentID = $result[$i]['assessmentID'];
                 $internshipBatchID = $result[$i]['internshipBatchID'];
-                $facultyName = $result[$i]['facName'];
+                $facultyName = $result[$i]['facAcronym'];
                 $Title = $result[$i]['Title'];
                 $Instructions = $result[$i]['Instructions'];
                 $TotalWeight = $result[$i]['TotalWeight'];

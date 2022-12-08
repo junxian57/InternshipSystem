@@ -37,7 +37,7 @@ include('../../includes/db_connection.php');
 
 <?php
  session_start();
- if(isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin']==true){
+ if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin']==true){
     $adminloggedin= true;
     $id = $_SESSION['studentID'];
  }
@@ -128,7 +128,7 @@ include('../../includes/db_connection.php');
 
                                     <div class="horizon-wrap">
                                         <div class="input-style width-45 name-address-group">
-                                            <label>Initial Password :</label>
+                                            <label>Old Password :</label>
                                             <input type="Password" placeholder="Initial Password" name="Pass" >  
                                         </div>
                                         <div class="input-style width-45 name-address-group">

@@ -31,13 +31,13 @@ include('../../includes/db_connection.php');
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-cmpStudDetails.css">
+    <link rel="stylesheet" href="../../scss/ky-enterCmpStudDetails.css">
    
 </head>
 
 <?php
  session_start();
- if(isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin']==true){
+ if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin']==true){
     $adminloggedin= true;
     $id = $_SESSION['studentID'];
  }
@@ -76,188 +76,194 @@ include('../../includes/db_connection.php');
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-                <div class="forms">
-                        <h3 class="page-title">Student Details</h3>
+                <form action="ky-createCV.php" method="post">
+                    <div class="forms">
+                        <h3 class="page-title">Change initial password</h3>
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-
                             <div class="wrapper">
-                                <form action="ky-createCV.php" method="post">
-                           
-                                    <div class="title">
-                                        <h2>Student Name & Contact</h2>
-                                    </div>
+                                <div class="title">
+                                    <h2>Password</h2>
+                                </div>
 
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Student Id :</label>
-                                            <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" required readonly > 
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>Name :</label>
-                                           <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" required >
-                                        </div>     
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Initial Password :</label>
+                                        <input type="Password" placeholder="Initial Password" name="Pass" required>  
                                     </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Contact No :</label>
-                                            <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" required>  
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>Email :</label>
-                                           <input type="email" placeholder="Email" name="stdEmail" value="<?php echo $email ?>" required> 
-                                        </div>
-                                        
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>New Password :</label>
+                                        <input type="Password" placeholder="New Password" name="conPass" required>
                                     </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Gender :</label>    
-                                            <select type="text" name="gender" id="gender">
-                                                <option value="0" disabled>Select a Gender</option>
-                                                <option value="Male" <?php echo ($gender =="Male") ? 'selected' : '' ?> >Male</option>
-                                                <option value="Female" <?php echo ($gender =="Female") ? 'selected' : '' ?> >Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <hr />
-                                    <div class="title">
-                                        <h2>Password</h2>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Initial Password :</label>
-                                            <input type="Password" placeholder="Initial Password" name="Pass" required>  
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>New Password :</label>
-                                           <input type="Password" placeholder="New Password" name="conPass" required>
-                                        </div>
-                                    </div>
-
-                                    <hr />
-                                    <div class="title">
-                                        <h2>Address</h2>
-                                    </div>
-                                    
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Student Address</label>
-                                        <input type="text" style="width: 100%;" name="stdAddress" placeholder="Address" value="<?php echo $address ?>" required>
-                                        </div>
-                                    </div>
-
-                                    <hr />
-                                    <div class="title">
-                                        <h2>Academic Details</h2>
-                                    </div>
-                                    
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Programme ID :</label>
-                                            <input type="text" placeholder="Enter your programme id" name="programmeID" value="<?php echo $programme ?>" required>  
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>Lecturer ID :</label>
-                                           <input type="text" placeholder="Enter your lecturer id" name="lecturerID" value="<?php echo $lecturer ?>" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Internship Batch :</label>
-                                            <input type="text" placeholder="Enter your internship batch" name="internshipBatchID" value="<?php echo $internBatch ?>" required>  
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>Tutorial Group No :</label>
-                                           <input type="text" placeholder="Enter your tutorial group no" name="tutorialGroup" value="<?php echo $tutorialGroup ?>" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style width-45 name-address-group">
-                                            <label>Student Application Quota :</label>
-                                            <input type="text" name="studAppQuota" value="<?php echo $studAppQuota ?>" required readonly>
-                                        </div>
-                                        <div class="input-style width-45 name-address-group">
-                                           <label>Student Current No of Application :</label>
-                                           <input type="text" name="studCurrentApp" value="<?php echo $studCurrentApp ?>" required readonly>
-                                        </div>
-                                    </div>
-
-                                    <hr />
-                                    <div class="title">
-                                        <h2 class="title-4">CV Details</h2>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Career objectives :</label>
-                                        <input type="text" style="width: 100%;" placeholder="Career objectives" name="objectives" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Work Experience :</label>
-                                        <input type="text" style="width: 100%;" placeholder="Work Experience" name="workExperience" required >
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Skills :</label>
-                                        <input type="text" style="width: 100%;" name="skill" placeholder="Skills" required></input>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Languages known :</label>
-                                        <input type="text" style="width: 100%;" name="Language" placeholder="Languages" required></input>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Education :</label>
-                                        <input type="text" style="width: 100%;" placeholder="Education" name="education" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">School or University :</label>
-                                        <input type="text" style="width: 100%;" placeholder="School or University" name="school" required> 
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">CGPA :</label>
-                                        <input type="text" style="width: 100%;" placeholder="CGPA" name="cgpa" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="horizon-wrap">
-                                        <div class="input-style name-address-group width-100">
-                                        <label for="cmpAddress">Extracurricular activities :</label>
-                                        <input type="text" style="width: 100%;" placeholder="Extracurricular activities" name="extraActivities" required>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="button-group">
-                                        <button type = "submit" name="update" class="clickable-btn Update">Update</button>
-                                        <a href="#" class="clickable-btn Export">Cancel</a>
-                                        <button type = "submit" name="createCV" class="submit-btn">Create</button>
-                                    </div>
-
-
-                                </form>
+                                </div>
+                          
+                            </div>
                         </div>
-                </div>
+                    </div>
+
+                    <div class="forms" style="margin-top:40px;">
+                        <h3 class="page-title">Student Information</h3>
+                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                            <div class="wrapper">                
+                                <div class="title">
+                                    <h2>Student Name & Contact</h2>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Student Id :</label>
+                                        <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" required readonly > 
+                                    </div>
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Name :</label>
+                                        <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" required >
+                                    </div>     
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Contact No :</label>
+                                        <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" required>  
+                                    </div>
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Email :</label>
+                                        <input type="email" placeholder="Email" name="stdEmail" value="<?php echo $email ?>" required> 
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Gender :</label>    
+                                        <select type="text" name="gender" id="gender">
+                                            <option value="0" disabled>Select a Gender</option>
+                                            <option value="Male" <?php echo ($gender =="Male") ? 'selected' : '' ?> >Male</option>
+                                            <option value="Female" <?php echo ($gender =="Female") ? 'selected' : '' ?> >Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                
+                                <div class="title" style="margin-top:20px;">
+                                    <h2>Address</h2>
+                                </div>
+                                
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Student Address</label>
+                                    <input type="text" style="width: 100%;" name="stdAddress" placeholder="Address" value="<?php echo $address ?>" required>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="title" style="margin-top:20px;">
+                                    <h2>Academic Details</h2>
+                                </div>
+                                
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Programme ID :</label>
+                                        <input type="text" placeholder="Enter your programme id" name="programmeID" value="<?php echo $programme ?>" required>  
+                                    </div>
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Lecturer ID :</label>
+                                        <input type="text" placeholder="Enter your lecturer id" name="lecturerID" value="<?php echo $lecturer ?>" required>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Internship Batch :</label>
+                                        <input type="text" placeholder="Enter your internship batch" name="internshipBatchID" value="<?php echo $internBatch ?>" required>  
+                                    </div>
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Tutorial Group No :</label>
+                                        <input type="text" placeholder="Enter your tutorial group no" name="tutorialGroup" value="<?php echo $tutorialGroup ?>" required>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Student Application Quota :</label>
+                                        <input type="text" name="studAppQuota" value="<?php echo $studAppQuota ?>" required readonly>
+                                    </div>
+                                    <div class="input-style width-45 name-address-group">
+                                        <label>Student Current No of Application :</label>
+                                        <input type="text" name="studCurrentApp" value="<?php echo $studCurrentApp ?>" required readonly>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="title" style="margin-top:20px;">
+                                    <h2 class="title-4">CV Details</h2>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Career objectives :</label>
+                                    <input type="text" style="width: 100%;" placeholder="Career objectives" name="objectives" required>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Work Experience :</label>
+                                    <input type="text" style="width: 100%;" placeholder="Work Experience" name="workExperience" required >
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Skills :</label>
+                                    <input type="text" style="width: 100%;" name="skill" placeholder="Skills" required></input>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Languages known :</label>
+                                    <input type="text" style="width: 100%;" name="Language" placeholder="Languages" required></input>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Education :</label>
+                                    <input type="text" style="width: 100%;" placeholder="Education" name="education" required>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">School or University :</label>
+                                    <input type="text" style="width: 100%;" placeholder="School or University" name="school" required> 
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">CGPA :</label>
+                                    <input type="text" style="width: 100%;" placeholder="CGPA" name="cgpa" required>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style name-address-group width-100">
+                                    <label for="cmpAddress">Extracurricular activities :</label>
+                                    <input type="text" style="width: 100%;" placeholder="Extracurricular activities" name="extraActivities" required>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="button-group">
+                                    <button type = "submit" name="update" class="clickable-btn Update">Update</button>
+                                    <a href="#" class="clickable-btn Export">Cancel</a>
+                                    <!--<button type = "submit" name="createCV" class="submit-btn">Create</button>-->
+                                </div>
+
+                                </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

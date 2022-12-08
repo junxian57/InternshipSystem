@@ -24,7 +24,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <link href="../../css/navtab.css" rel="stylesheet">
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
     <link href="../../css/custom.css" rel="stylesheet">
@@ -63,7 +63,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                         <div id="documentTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Preview Document Table</h4>
+                                    <h4>Records of Documents</h4>
                                 </div>
                             </div>
 
@@ -100,6 +100,22 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
+            async function deleteDocument(documentID) {
+                    let text = "Do you want to delete the document?\nChoose OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxDeleteDocument.php?documentID=${documentID}&Document=Document`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
         </script>
 
         <!--Table JS sorting,searchinh,pagination-->
@@ -108,7 +124,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                 $('#documentCmpTbl').DataTable({
                     //custom search bar 
                     "language": {
-                        searchPlaceholder: "Search"
+                        searchPlaceholder: "Search Document"
                     },
                     "searchBox": {
                         "addClass": 'form-control input-lg col-xs-12'

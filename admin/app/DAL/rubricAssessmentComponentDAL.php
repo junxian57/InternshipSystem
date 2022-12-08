@@ -13,11 +13,13 @@ class rubricAssessmentComponentDAL
     {
         //$db = new DBController();
         $listOfRubricCmptCriteriaDto = array();
-        $sql = "SELECT * from RubricComponentCriteria";
+        $sql = "SELECT rcc.*,f.* from RubricComponentCriteria rcc JOIN Faculty f on rcc.facultyID=f.facultyID";
+
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
                 $assessmentCriteriaID = $result[$i]['criterionID'];
+                $facultyName = $result[$i]['facAcronym'];
                 $assessmentCriteriaTitle = $result[$i]['Title'];
                 $RoleForMark = $result[$i]['RoleForMark'];
                 $assessmentCriteriaSession = $result[$i]['CriteriaSession'];
@@ -29,6 +31,8 @@ class rubricAssessmentComponentDAL
                 $listOfRubricCmptCriteriaDto[] = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
                 //Set status
                 $listOfRubricCmptCriteriaDto[$i]->setStatus($Status);
+                //Set Faculty Name
+                $listOfRubricCmptCriteriaDto[$i]->setfacultyID($facultyName);
             }
         }
         return $listOfRubricCmptCriteriaDto;
@@ -73,6 +77,7 @@ class rubricAssessmentComponentDAL
                 $aRubricCmptCriteria[0]['CreateDate']
 
             );
+            $listOfRubricCmptLvlObj->setfacultyID($aRubricCmptCriteria[0]['facultyID']);
             return $listOfRubricCmptLvlObj;
         }
 
@@ -141,9 +146,10 @@ class rubricAssessmentComponentDAL
      */
     public function AddRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
-        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `Title`, `RoleForMark`,`CriteriaSession`,`description`,`status`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO RubricComponentCriteria (`criterionID`, `facultyID`,`Title`, `RoleForMark`,`CriteriaSession`,`description`,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $rubricCmpCriteriaDto->getcriterionID() . "',
+                  '" . $rubricCmpCriteriaDto->getfacultyID() . "',
                   '" . $rubricCmpCriteriaDto->getTitle() . "',
                   '" . $rubricCmpCriteriaDto->getRoleForMark() . "',
                   '" . $rubricCmpCriteriaDto->getCriteriaSession() . "',
@@ -186,6 +192,7 @@ class rubricAssessmentComponentDAL
     public function UpdRubricCmpCriteria($rubricCmpCriteriaDto, $rubricCmpDto)
     {
         $sql = " UPDATE RubricComponentCriteria SET
+            facultyID='" . $rubricCmpCriteriaDto->getfacultyID() . "',
             Title = '" . $rubricCmpCriteriaDto->getTitle() . "',
             RoleForMark = '" . $rubricCmpCriteriaDto->getRoleForMark() . "',
             CriteriaSession = '" . $rubricCmpCriteriaDto->getCriteriaSession() . "',

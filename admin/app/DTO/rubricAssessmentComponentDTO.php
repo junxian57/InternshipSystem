@@ -4,6 +4,7 @@ class rubricAssessmentComponentDTO
 
 
     private $criterionID;
+    private $facultyID;
     private $Title;
     private $RoleForMark;
     private $CriteriaSession;
@@ -34,6 +35,16 @@ class rubricAssessmentComponentDTO
         return $this->status;
     }
     
+    public function setfacultyID($facultyID)
+    {
+        $this->facultyID = $facultyID;
+    }
+
+    public function getfacultyID()
+    {
+        return $this->facultyID;
+    }
+
     public function getcriterionID()
     {
         return $this->criterionID;
