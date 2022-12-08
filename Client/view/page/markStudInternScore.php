@@ -26,6 +26,7 @@ if ($_GET['internshipBatchID'] && $_GET['studid']) {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
     $id = str_replace("'", "", $_GET['internshipBatchID']);
+    $facultyID = str_replace("'", "", $_GET['facultyID']);
     $cmpName = str_replace("'", "", $_GET['cmpName']);
     $markByID = str_replace("'", "", $_GET['lectureID']);
     $studid = str_replace("'", "", $_GET['studid']);
@@ -35,8 +36,7 @@ if ($_GET['internshipBatchID'] && $_GET['studid']) {
     $finalScore = str_replace("'", "", $_GET['finalScore']);
     $db_handle = new DBController();
 
-
-    $query = "SELECT * FROM RubricAssessment Where internshipBatchID=$id and RoleForMark='Supervisor'";
+    $query = "SELECT * FROM RubricAssessment Where internshipBatchID=$id and RoleForMark='Supervisor' and facultyID='$facultyID'";
     $results = $db_handle->runQuery($query);
     $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($results[0]['assessmentID']);
 
