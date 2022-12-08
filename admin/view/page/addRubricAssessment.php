@@ -6,12 +6,17 @@ require_once('../../app/BLL/rubricAssessmentBLL.php');
 require_once("../../app/DTO/rubricAssessmentDTO.php");
 require_once("../../app/DTO/rubricAssessmentCriteriaDTO.php");
 require_once("../../app/DAL/rubricAssessmentDAL.php");
-$rubricAssessmentDALObj  = new rubricAssessmentDAL();
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
-	}*/
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
+$rubricAssessmentDALObj  = new rubricAssessmentDAL();
 $rubricAssmtBllObj = new rubricAssessmentBLL();
 
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric assessment') {
@@ -24,7 +29,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
     $Instructions = $_POST['Instructions'];
     $TotalWeight = $_POST['TotalWeight'];
     $RoleForMark = $_POST['RoleForMark'];
-    $CreateByID = $_POST['CreateByID'];
+    $CreateByID = $_SESSION['adminID'];
+    $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
     $newRubricAssmt = new rubricAssessmentDTO($assessmentID, $internshipBatchID, $Title, $Instructions, $TotalWeight, $RoleForMark, $CreateByID, $CreateDate);
     $newRubricAssmt->setfacultyID($facultyID);
