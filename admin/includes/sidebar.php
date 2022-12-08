@@ -159,10 +159,13 @@ if(isset($_SESSION)){
           <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="#">A</a>
+              <a href="../page/viewRubricAssessment.php">View All Assessment Rubrics</a>
             </li>
             <li>
-              <a href="#">B</a>
+              <a href="../page/addRubricAssessment.php">Add Rubric Assessment</a>
+            </li>
+            <li>
+              <a href="../page/addRubricComponentCriteria.php">Add Rubric Criteria</a>
             </li>
           </ul>
         </li>
