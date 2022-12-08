@@ -4,17 +4,19 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-// if(!isset($_SESSION['companyID'])){
-//     echo "<script>
-//         alert('You are not permitted to enter this page.\\nPlease login as a company.');
-//         //window.location.href = 'br-login.php';
-//     </script>";
-// }else{
-    //TODO: Check if user is logged in, get company ID from session
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        alert('You are not permitted to enter this page.\\nPlease login as a company.');
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
     //Get Company ID from Session
-    //$companyID = $_SESSION['companyID'];
-    $companyID = 'CMP00008';
-//}
+    $companyID = $_SESSION['companyID'];
+}
 
 $db = new DBController();
 
@@ -23,10 +25,10 @@ try{
     $companyInfo = getCompanyDetails($companyID);
     $companyName = $companyInfo[0]['cmpName'];
 }catch(Exception $e){
-    echo "<script> 
-    alert('$e');
-    window.location.href = 'br-companyInfo.php';
-    </script>";    
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'br-companyInfo.php';
+    </script>";  
 }
 
 if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" && $_GET['success'] == "1"){
@@ -241,19 +243,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
-                                <a href=""></a>
-                                
-                                <!--
-                                //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
-                                -->
-
-                                <!-- <?php
-                                   // if($_SESSION['jobCreation'] == 1 && isset($_SESSION['jobCreation'])){
-                                ?> -->
-                                    <a href="#" class="clickable-btn">Next</a>
-                                <!-- <?php
-                                  //  }
-                                ?> -->
                             </div>
                         </form>
                     </div>

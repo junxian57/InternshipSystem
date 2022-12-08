@@ -131,7 +131,7 @@ class markingSchemeDAL
             WHERE markingID ='" . $markingSchemeDTO1->getmarkingID() . "'";
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
         }
-        //lectureID='${lectureID.value}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}
+       
         if ($result && $result2) {
             header("Location: jx-listStudEvaluationByCompany.php?status=success&companyID=" . $studResultDTO->getmarkByid() . "");
             exit();

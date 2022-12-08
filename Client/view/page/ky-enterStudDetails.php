@@ -2,6 +2,10 @@
 session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
+
+if(isset($_SESSION['studentChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
 ?>
 <!DOCTYPE HTML>
 <html>

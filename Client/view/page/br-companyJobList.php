@@ -4,22 +4,27 @@ require_once $systemPathPrefix."app/DAL/internJobDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
 if(!isset($_SESSION['companyID'])){
     echo "<script>
         alert('You are not permitted to enter this page.\\nPlease login as a company.');
-        //window.location.href = 'br-login.php';
+        window.location.href = 'clientLogin.php';
     </script>";
 }else{
-    //TODO: Check if user is logged in, get company ID from session
     //Get Company ID from Session
-    //$companyID = $_SESSION['companyID'];
-    $companyID = 'CMP00008';
+    $companyID = $_SESSION['companyID'];
 }
 
 try{  
     $internJobList = getInternJobList($companyID);
 }catch(Exception $e){
-    echo '<script>alert("Database Connection Error")</script>';
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
 }
 
 ?>
@@ -88,38 +93,42 @@ try{
                                     </thead>
                                     <tbody id="view-job-tbody">
                                         <?php
-                                            $i = 1;
-                                            foreach($internJobList as $row){
-                                                $internJobID = $row['internJobID'];
-                                                $buttonGroup = '';
-                                                if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
+                                            if($internJobList == null){
+                                                echo '<tr><td colspan="9">No Data</td></tr>';
+                                            }else{
+                                                $i = 1;
+                                                foreach($internJobList as $row){
+                                                    $internJobID = $row['internJobID'];
+                                                    $buttonGroup = '';
+                                                    if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
 
-                                                    $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
+                                                        $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
 
-                                                }elseif($row['jobCurrOccNumber'] == 0){
+                                                    }elseif($row['jobCurrOccNumber'] == 0){
 
-                                                    $buttonGroup = "
-                                                    <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
-                                                    <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
+                                                        $buttonGroup = "
+                                                        <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
+                                                        <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
 
-                                                }
-                                                echo '<tr>';
-                                                echo '<td>'.$i.'</td>';
-                                                echo '<td>'.$row['internJobID'].'</td>';
-                                                echo '<td>'.$row['jobTitle'].'</td>';
-                                                echo '<td>'.$row['jobCurrOccNumber'].' / '.$row['jobMaxNumberQuota'].'</td>';
-                                                echo '<td>'.$row['jobCmpSupervisor'].'</td>';
-                                                echo '<td>'.$row['jobSupervisorEmail'].'</td>';
-                                                echo '<td>'.$row['jobStatus'].'</td>';
-                                                echo '<td>'.$row['jobPostDate'].'</td>';
-                                                echo '<td class="btn-td">
-                                                    <div class="button-group">
-                                                        '.$buttonGroup.'
-                                                    </div>  
-                                                </td>';
-                                                echo '</tr>';
-                                                $i++;
+                                                    }
+                                                    echo '<tr>';
+                                                    echo '<td>'.$i.'</td>';
+                                                    echo '<td>'.$row['internJobID'].'</td>';
+                                                    echo '<td>'.$row['jobTitle'].'</td>';
+                                                    echo '<td>'.$row['jobCurrOccNumber'].' / '.$row['jobMaxNumberQuota'].'</td>';
+                                                    echo '<td>'.$row['jobCmpSupervisor'].'</td>';
+                                                    echo '<td>'.$row['jobSupervisorEmail'].'</td>';
+                                                    echo '<td>'.$row['jobStatus'].'</td>';
+                                                    echo '<td>'.$row['jobPostDate'].'</td>';
+                                                    echo '<td class="btn-td">
+                                                        <div class="button-group">
+                                                            '.$buttonGroup.'
+                                                        </div>  
+                                                    </td>';
+                                                    echo '</tr>';
+                                                    $i++;
                                             }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
@@ -137,7 +146,6 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -163,8 +171,6 @@ try{
             "info": false,
             responsive : true
         });
-
-        $.fn.dataTable.FixedHeader(table);
     });
 
     async function deleteInternJob(job){

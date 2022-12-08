@@ -6,12 +6,14 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-// if(!isset($_SESSION['adminID'])){
-//     echo "<script>
-//         alert('You are not permitted to enter this page.\\nPlease login as a supervisor.');
-//         //window.location.href = 'br-login.php';
-//     </script>";
-// }
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          alert('You are not permitted to enter this page.\\nPlease login as an administrator/ITP Committee.');
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
 
 ?>
 <!DOCTYPE HTML>
@@ -95,6 +97,8 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
                                                     echo "</tr>";
                                                     $i++;
                                                 }
+                                            }else{
+                                                echo "<tr><td colspan='7'>No record found.</td></tr>";
                                             }
                                         ?>                           
                                     </tbody>
@@ -113,7 +117,6 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -140,7 +143,6 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
             "dom": 'lrtp',
             responsive : true
         });
-        $.fn.dataTable.FixedHeader(table);
     });
 
 </script>

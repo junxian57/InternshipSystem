@@ -27,7 +27,7 @@ if(isset($_SESSION)){
     <div class="clearfix"> </div>
   </div>
   <div class="uni_details">
-    <h3>Tunku Abdul Rahman University College</h3>
+  <h3>Tunku Abdul Rahman University College</h3>
   </div>
   <div class="header-right">
     <div class="profile_details_left">

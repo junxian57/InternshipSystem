@@ -407,8 +407,9 @@ error_reporting(0);
                                         <th>Student ID</th>
                                         <th>Student Name</th>
                                         <th>Programme</th>
+                                        <th>Job Title</th>
                                         <th>Job Description</th>
-                                        <th>Total Weight</th>
+                                        <th>Total Score</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -490,7 +491,6 @@ error_reporting(0);
                     let dataTable = $(`#studentTbl`).DataTable();
 
                     dataTable.clear().draw();
-                    //lectureID='${lectureID.value}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}'
                     let count = 1;
                     if (StudResult !== "No Data Found") {
                         StudResult.forEach(i => {
@@ -499,9 +499,10 @@ error_reporting(0);
                                 i.studentID,
                                 i.studName,
                                 i.programmeName,
+                                i.jobTitle,
                                 i.jobDescription,
-                                Number(i.finalScore) + ` / 60 `,
-                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/jx-markStudInternScore.php?companyID='${companyID.value}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}"></a>`
+                                Number(i.finalScore) + `/ ` + Number(i.TotalWeight),
+                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/jx-markStudInternScore.php?facultyID='${i.facultyID}'&companyID='${companyID.value}'&internJobID='${i.internJobID}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}"></a>`
                             ]).draw();
                             count++;
                         })

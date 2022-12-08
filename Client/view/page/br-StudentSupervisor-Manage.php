@@ -5,21 +5,22 @@ require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
 try{
-    $getInternBatch = getInternshipBatch();
-
     if(!isset($_SESSION['lecturerID'])){
         echo "<script>
             alert('You are not permitted to enter this page.\\nPlease login as a lecturer.');
-            //window.location.href = 'br-login.php';
+            window.location.href = 'clientLogin.php';
         </script>";
     }else{
-        //TODO: Check if user is logged in, get company ID from session
         //Get Company ID from Session
-        //$lecturerID = $_SESSION['lecturerID'];
-        $lecturerID = 'LEC00001';
+        $lecturerID = $_SESSION['lecturerID'];
     }
+
+    $getInternBatch = getInternshipBatch();
 }catch(Exception $e){
-    echo '<script>alert("Database Connection Error")</script>';
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
 }
 
 
@@ -132,7 +133,6 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -159,8 +159,6 @@ try{
             "dom": 'lrtp',
             responsive : true
         });
-
-        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>
