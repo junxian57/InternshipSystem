@@ -6,12 +6,16 @@ require_once('../../app/BLL/rubricAssessmentBLL.php');
 require_once("../../app/DTO/rubricAssessmentDTO.php");
 require_once("../../app/DTO/rubricAssessmentCriteriaDTO.php");
 require_once("../../app/DAL/rubricAssessmentDAL.php");
-$rubricAssessmentDALObj  = new rubricAssessmentDAL();
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
-	}*/
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
+$rubricAssessmentDALObj  = new rubricAssessmentDAL();
 $rubricAssmtBllObj = new rubricAssessmentBLL();
 if ($_GET['id']) {
     $id = str_replace("'", "", $_GET['id']);
@@ -226,7 +230,7 @@ if ($_GET['id']) {
                 <div class="forms">
                     <h3 class="title1">Company Evaluation Form</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                       
+
                         <div class="form-body">
                             <div class="form-group col-md-2">
                                 <label>Assessment ID</label>

@@ -11,7 +11,6 @@ if(isset($_SESSION['companyChangePass'])){
 
 if(!isset($_SESSION['companyID'])){
     echo "<script>
-        alert('You are not permitted to enter this page.\\nPlease login as a company.');
         window.location.href = 'clientLogin.php';
     </script>";
 }else{

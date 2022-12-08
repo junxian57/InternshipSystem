@@ -179,7 +179,7 @@ error_reporting(0);
                     const supervisorTable = document.getElementById("studentTbody");
                     let dataTable = $(`#studentTbl`).DataTable();
 
-                    dataTable.clear();
+                    dataTable.clear().draw();
 
                     let count = 1;
                     if (StudResult !== "No Data Found") {
@@ -191,8 +191,8 @@ error_reporting(0);
                                 i.programmeName,
                                 i.cmpName,
                                 i.jobTitle,
-                                Number(i.finalScore) + ` / ` + Number(i.finalScore),
-                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/markStudInternScore.php?lectureID='${lectureID.value}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}'"></a>`
+                                Number(i.finalScore) + ` / ` + Number(i.TotalWeight),
+                                `<a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/markStudInternScore.php?lectureID='${lectureID.value}'&facultyID='${i.facultyID}'&cmpName='${i.cmpName}'&studResultId='${i.studResultID}'&studid='${i.studentID}'&internshipBatchID='${internshipBatchID.value}'&studName='${i.studName}'&studProgrammeName='${i.programmeName}'&finalScore='${i.finalScore}'"></a>`
                             ]).draw();
                             count++;
                         })

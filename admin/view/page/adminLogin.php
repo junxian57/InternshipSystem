@@ -1,4 +1,6 @@
 <?php
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+    
     if(isset($_GET['passwordChangeSuccess'])){
         echo "<script>
         alert('Password Changed Successfully!')

@@ -7,12 +7,18 @@ require_once $systemPathPrefix . "/app/BLL/rubricAssessmentBLL.php";
 require_once $systemPathPrefix . "/app/DTO/rubricAssessmentDTO.php";
 require_once $systemPathPrefix . "/app/DTO/rubricAssessmentCriteriaDTO.php";
 require_once $systemPathPrefix . "/app/DAL/rubricAssessmentDAL.php";
-$rubricAssessmentDALObj  = new rubricAssessmentDAL();
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
 
-	}*/
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
+
+$rubricAssessmentDALObj  = new rubricAssessmentDAL();
 $rubricAssmtBllObj = new rubricAssessmentBLL();
 if ($_GET['id']) {
     $id = str_replace("'", "", $_GET['id']);

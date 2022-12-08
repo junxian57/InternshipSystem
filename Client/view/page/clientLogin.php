@@ -1,22 +1,25 @@
 <?php
-    if(isset($_GET['passwordChangeSuccess'])){
-        echo "<script>
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (isset($_GET['passwordChangeSuccess'])) {
+    echo "<script>
         alert('Password Changed Successfully!')
         window.location.href = 'clientLogin.php';
         </script>";
-    }
+}
 
-    if(isset($_SESSION['studentID'])){
-        header("Location: ../../view/page/ky-enterStudDetails.php");
-    }elseif(isset($_SESSION['lecturerID'])){
-        header("Location: ../../view/page/br-StudentSupervisor-Manage.php");
-    }elseif(isset($_SESSION['companyID'])){
-        header("Location: ../../view/page/br-companyInfo.php");
-    }
+if (isset($_SESSION['studentID'])) {
+    header("Location: ../../view/page/ky-enterStudDetails.php");
+} elseif (isset($_SESSION['lecturerID'])) {
+    header("Location: ../../view/page/br-StudentSupervisor-Manage.php");
+} elseif (isset($_SESSION['companyID'])) {
+    header("Location: ../../view/page/br-companyInfo.php");
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,6 +32,7 @@
     <title>Client Login</title>
     <link rel="stylesheet" href="../../scss/clientLogin.css">
 </head>
+
 <body>
     <div class="outerBox">
         <div class="tab">
@@ -37,8 +41,8 @@
                 <div class="coverSpan">
                     <span class="span-1">></span>
                     <span class="span-2">></span>
-                    <span class="span-3">></span>      
-                    <span class="span-4">></span>          
+                    <span class="span-3">></span>
+                    <span class="span-4">></span>
                 </div>
             </div>
 
@@ -48,7 +52,7 @@
                     <span class="span-1">></span>
                     <span class="span-2">></span>
                     <span class="span-3">></span>
-                    <span class="span-4">></span> 
+                    <span class="span-4">></span>
                 </div>
             </div>
 
@@ -58,13 +62,13 @@
                     <span class="span-1">></span>
                     <span class="span-2">></span>
                     <span class="span-3">></span>
-                    <span class="span-4">></span>     
+                    <span class="span-4">></span>
                 </div>
-            </div>       
+            </div>
         </div>
 
         <div id="vertical-line"></div>
-          
+
         <div id="Student" class="tabcontent">
             <form action="#" method="post">
                 <div class="labelInput">
@@ -80,7 +84,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div id="Lecturer" class="tabcontent">
             <form action="#" method="post">
                 <div class="labelInput">
@@ -96,7 +100,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div id="Company" class="tabcontent">
             <form action="#" method="post">
                 <div class="labelInput">
@@ -133,9 +137,9 @@
             i.classList.remove("active");
             i.removeAttribute('style');
 
-           let getSpan = i.nextElementSibling.querySelectorAll('span');
+            let getSpan = i.nextElementSibling.querySelectorAll('span');
 
-            for(let i = 0; i < getSpan.length; i++) {
+            for (let i = 0; i < getSpan.length; i++) {
                 getSpan[i].style.display = "none";
             }
         });
@@ -145,17 +149,17 @@
 
         let getSpan = buttonObj.nextElementSibling.querySelectorAll('span');
 
-       for(let i = 0; i < getSpan.length; i++) {
+        for (let i = 0; i < getSpan.length; i++) {
             getSpan[i].style.display = "unset";
-       }
-        
+        }
+
         evt.currentTarget.className += " active";
 
         //Set Active Button Background Color
         evt.currentTarget.style.backgroundColor = 'white';
 
         //Set Active Button Font Color
-        if(evt.currentTarget.parentElement.classList.contains('second')) {
+        if (evt.currentTarget.parentElement.classList.contains('second')) {
             evt.currentTarget.style.color = '#313e85';
         } else {
             evt.currentTarget.style.color = '#f2891f';
@@ -168,14 +172,14 @@
 
     //Login Function
     async function login(tabName) {
-        if(tabName == 'Student'){
+        if (tabName == 'Student') {
             let studentEmail = document.getElementById('studentEmail').value;
             let studentPass = document.getElementById('studentPass').value;
-            
-            if(studentEmail == '' || studentPass == '') {
+
+            if (studentEmail == '' || studentPass == '') {
                 info('Please fill in all fields');
             } else {
-                if(!validateEmailFormat(studentEmail)){
+                if (!validateEmailFormat(studentEmail)) {
                     emptyInputValue(tabName);
                     warning('Please enter a valid email address');
                     return;
@@ -184,14 +188,14 @@
                 await validateLogin(tabName, studentEmail, studentPass)
             }
 
-        }else if(tabName == 'Lecturer'){
+        } else if (tabName == 'Lecturer') {
             let lecturerEmail = document.getElementById('lecturerEmail').value;
             let lecturerPass = document.getElementById('lecturerPass').value;
 
-            if(lecturerEmail == '' || lecturerPass == '') {
+            if (lecturerEmail == '' || lecturerPass == '') {
                 info('Please fill in all fields');
             } else {
-                if(!validateEmailFormat(lecturerEmail)){
+                if (!validateEmailFormat(lecturerEmail)) {
                     emptyInputValue(tabName);
                     return;
                 }
@@ -199,11 +203,11 @@
                 await validateLogin(tabName, lecturerEmail, lecturerPass)
             }
 
-        }else if(tabName == 'Company'){
+        } else if (tabName == 'Company') {
             let companyAcc = document.getElementById('companyAcc').value;
             let companyPass = document.getElementById('companyPass').value;
 
-            if(companyAcc == '' || companyPass == '') {
+            if (companyAcc == '' || companyPass == '') {
                 info('Please fill in all fields');
             } else {
 
@@ -217,57 +221,58 @@
         let url = "../../app/DAL/ajaxClientLogin.php";
 
         //Change URL based on tabName
-        if(tabName == 'Student'){
+        if (tabName == 'Student') {
             url += "?student&studentEmail=" + email + "&studentPass=" + password;
-        }else if(tabName == 'Lecturer'){
+        } else if (tabName == 'Lecturer') {
             url += "?lecturer&lecturerEmail=" + email + "&lecturerPass=" + password;
-        }else if(tabName == 'Company'){
+        } else if (tabName == 'Company') {
             url += "?company&companyAcc=" + email + "&companyPass=" + password;
         }
 
         let response = await fetch(url).then(response => response.json());
 
-        if(response.studentID != null && response.changePassword == true && tabName == 'Student'){
+        if (response.studentID != null && response.changePassword == true && tabName == 'Student') {
             window.location.href = '../page/clientChangePassword.php?requireChangePass';
-        }else if(response.companyID != null && response.changePassword == true && tabName == 'Company'){
+        } else if (response.companyID != null && response.changePassword == true && tabName == 'Company') {
             window.location.href = '../page/clientChangePassword.php?requireChangePass';
         }
 
-        if(response == 'Login Successful'){
-            if(tabName == 'Student'){
+        if (response == 'Login Successful') {
+            if (tabName == 'Student') {
                 window.location.href = '../../view/page/ky-enterStudDetails.php';
-            }else if(tabName == 'Lecturer'){
+            } else if (tabName == 'Lecturer') {
                 window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
-            }else if(tabName == 'Company'){
+            } else if (tabName == 'Company') {
                 window.location.href = '../../view/page/br-companyInfo.php';
             }
-        }else if(response == 'Wrong Email Format'){
+        } else if (response == 'Wrong Email Format') {
             warning('Please enter a valid email address');
 
-        }else if(response == 'Wrong Password' || response == 'Email Not Found'){
+        } else if (response == 'Wrong Password' || response == 'Email Not Found') {
             warning('Wrong Email or Password');
 
         }
 
-       emptyInputValue(tabName);
+        emptyInputValue(tabName);
     }
 
-    function validateEmailFormat(email){
+    function validateEmailFormat(email) {
         let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailFormat.test(email);
     }
 
-    function emptyInputValue(tabName){
-        if(tabName == 'Student'){
+    function emptyInputValue(tabName) {
+        if (tabName == 'Student') {
             document.getElementById('studentEmail').value = '';
             document.getElementById('studentPass').value = '';
-        }else if(tabName == 'Lecturer'){
+        } else if (tabName == 'Lecturer') {
             document.getElementById('lecturerEmail').value = '';
             document.getElementById('lecturerPass').value = '';
-        }else if(tabName == 'Company'){
+        } else if (tabName == 'Company') {
             document.getElementById('companyAcc').value = '';
             document.getElementById('companyPass').value = '';
         }
     }
 </script>
+
 </html>

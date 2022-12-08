@@ -311,7 +311,7 @@ body {
 .outerBox .tabcontent form .button-group-inner {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 30px;
   width: 80%;
@@ -320,7 +320,6 @@ body {
   .outerBox .tabcontent form .button-group-inner {
     margin-top: 30px;
     margin-bottom: 30px;
-    justify-content: space-evenly;
   }
 }
 .outerBox .tabcontent form .button-group-inner * {

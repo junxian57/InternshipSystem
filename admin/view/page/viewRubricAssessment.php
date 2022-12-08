@@ -1,14 +1,21 @@
 <?php
 session_start();
 error_reporting(0);
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
 //include_once("../../includes/db_connection.php");
 require_once('../../app/BLL/rubricAssessmentBLL.php');
 require_once("../../app/DTO/rubricAssessmentDTO.php");
 require_once("../../app/DAL/rubricAssessmentDAL.php");
 
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+
 
 require_once('../../app/DAL/ComponentLvlDAL.php');
 require_once('../../app/BLL/componentLvlBLL.php');
@@ -216,7 +223,6 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                         }
                     }
                 }
-
             </script>
             <!--change tab-->
             <script>

@@ -7,7 +7,6 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
 try{
     if(!isset($_SESSION['lecturerID'])){
         echo "<script>
-            alert('You are not permitted to enter this page.\\nPlease login as a lecturer.');
             window.location.href = 'clientLogin.php';
         </script>";
     }else{
@@ -111,9 +110,10 @@ try{
                                         <th>Year</th>
                                         <th>Tutorial Group</th>
                                         <th>Email</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="table-body">                 
+                                    <tbody id="table-body">
                                                                        
                                     </tbody>
                                 </table>
@@ -189,6 +189,14 @@ try{
 
         data.forEach(student => {
             let rowNo = dataTable.context[0].aoData.length + 1;
+
+            if(student.studAccountStatus == "Active"){
+                statusTD= `<span class="active-status">Active</span>`;
+            }else if(student.studAccountStatus == "Intern"){
+                statusTD = `<span class="inactive-status">Intern</span>`;
+            }else if(student.studAccountStatus == "Graduated"){
+                statusTD = `<span class="inactive-status">Graduated</span>`;
+            }
             dataTable.row.add([
                 rowNo,
                 student.studentID,
@@ -197,6 +205,7 @@ try{
                 student.studentYear,
                 student.tutorialGroupNo,
                 `<a href='mailto:${student.studEmail}'>Send Email</a>`,
+                statusTD,
                 `<a target="_blank" class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
             ]).draw();
         });    
