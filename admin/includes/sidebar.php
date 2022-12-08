@@ -5,6 +5,8 @@ if(isset($_SESSION)){
     $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
     $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
     $adminID = isset($_SESSION['adminID']) ? $_SESSION['adminID'] : false;
+    $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
+    $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
 }else{
   //header("Location: ../index.php");
 }
@@ -19,7 +21,7 @@ if(isset($_SESSION)){
         </li>
 
         <li>
-          <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
+          <a href="#"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>
               <a href="#">Add Users</a>
@@ -29,6 +31,38 @@ if(isset($_SESSION)){
             </li>
           </ul>
         </li>
+
+        <?php if($adminID || $committeeID) { ?>
+          <li>
+          <a href="#"><i class="fas fa-wrench"></i>Maintenance<span class="fa arrow"></span> </a>
+            <ul class="nav nav-third-level collapse">
+              <li>
+                <a href="../page/ky-cmpMaintain.php">Maintain Company</a>
+              </li>
+              <li>
+                <a href="../page/ky-studentMaintain.php">Maintain Student</a>
+              </li>
+            </ul>
+          </li>
+        <?php
+        }
+        ?>
+
+        <?php if($adminID || $committeeID) { ?>
+          <li>
+          <a href="#"><i class="fas fa-wrench"></i>Invitation<span class="fa arrow"></span> </a>
+            <ul class="nav nav-third-level collapse">
+              <li>
+                <a href="../page/ky-intCmpRegister.php">Invite Company</a>
+              </li>
+              <li>
+                <a href="../page/ky-intStudRegister.php">Invite Student</a>
+              </li>
+            </ul>
+          </li>
+        <?php
+        }
+        ?>
 
         <?php if($adminID || $committeeID) { ?>
           <li>

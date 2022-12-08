@@ -4,7 +4,10 @@
         alert('Password Changed Successfully!')
         window.location.href = 'adminLogin.php';
         </script>";
-        
+    }
+
+    if(isset($_SESSION['adminID']) || isset($_SESSION['committeeID'])){
+        header("Location: ../../view/page/br-cmpAppTableReview.php");
     }
 ?>
 
@@ -170,10 +173,7 @@
 
         let response = await fetch(url).then(response => response.json());
 
-        if(response == 'Login Successful'){
-            window.location.href = '../../view/page/br-cmpAppTableReview.php';
-
-        }else if(response == 'Wrong Email Format'){
+        if(response == 'Wrong Email Format'){
             warning('Please enter a valid email address');
 
         }else if(response == 'Wrong Password' || response == 'Email Not Found'){

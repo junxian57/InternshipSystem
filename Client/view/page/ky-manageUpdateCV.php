@@ -227,7 +227,7 @@
         $date = explode('-',Date('Y-m-d'));
 
         
-        $directory = $_SERVER['DOCUMENT_ROOT'].'InternshipSystem/Client/view/document/StudentCV/';
+        $directory = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/view/document/StudentCV/';
         $fileName = $directory.$Id.' - '.$username.".pdf";
 
         $content = $pdf->Output($fileName, "F");
@@ -241,7 +241,7 @@
         {
             echo "
             <script>
-                alert('Student details update successfully');
+                alert('CV update successfully');
                 document.location.href = 'ky-updateCV.php';
             </script>
             ";
@@ -250,7 +250,7 @@
         {
             echo "
             <script>
-                alert('Student details update failed, please try again.');
+                alert('CV update failed, please try again.');
                 document.location.href = 'ky-updateCV.php';
             </script>
             ";
@@ -266,11 +266,15 @@
 
         $file_name = $file["name"];
         $file_type = $file["type"];
-        //$path = $_SERVER['DOCUMENT_ROOT'].'InternshipSystem/Client/view/document/StudentCV/';
 
-        $blob = addslashes(file_get_contents($file["tmp_name"]));
+        $directory = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/view/document/StudentCV/';
+        $fileName = $directory.$id.' - '.$file_name;
 
-        $sql="UPDATE Student SET studentCVdocument='$blob' WHERE studentID='$id' ";
+        move_uploaded_file($file["tmp_name"], $fileName);
+
+       // $blob = addslashes(file_get_contents($file["tmp_name"]));
+
+        $sql="UPDATE Student SET studentCVdocument='$fileName' WHERE studentID='$id' ";
         $query=mysqli_query($conn,$sql);
         if($query)
         {
