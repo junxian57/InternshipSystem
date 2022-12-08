@@ -7,15 +7,16 @@ class PDF extends TCPDF
 {
     public function rubricCriteriaTable()
     {
+        //add facultyID
         $db_handle1 = new DBController();
         $internshipBatchID = $_GET['internshipBatchID'];
-        $query = "SELECT ra.Instructions,rcc.criterionID,rcc.Title ,rcc.CriteriaSession,rac.TotalWeight ,GROUP_CONCAT(rc.componentID ORDER BY rc.componentID)as componentID,
+        $facultyID = $_GET['facultyID'];
+        $query = "SELECT ra.Title,ra.Instructions,rcc.criterionID,rcc.Title ,rcc.CriteriaSession,rac.TotalWeight ,GROUP_CONCAT(rc.componentID ORDER BY rc.componentID)as componentID,
         GROUP_CONCAT(rc.valueName ORDER BY rc.componentID)as valueName,GROUP_CONCAT(rc.score ORDER BY rc.componentID) as score, GROUP_CONCAT(rc.description ORDER BY rc.componentID) as description 
         FROM RubricAssessmentCriteria rac JOIN RubricComponentCriteria rcc on rac.criterionID=rcc.criterionID JOIN RubricComponent rc on rac.criterionID = rc.criterionID 
         Join RubricAssessment ra on rac.assessmentID=ra.assessmentID
-        where ra.internshipBatchID = '$internshipBatchID'  AND ra.RoleForMark='Company' group by rc.criterionID ASC;";
+        where ra.internshipBatchID = '$internshipBatchID'  AND ra.RoleForMark='Company' AND ra.facultyID='$facultyID'group by rc.criterionID ASC;";
         $results = $db_handle1->runQuery($query);
-        
 
         $this->SetFont('times', 'U', 12);
         $this->Cell(189, 3, 'Instructions:', 0, 1, 'L');
@@ -76,6 +77,14 @@ class PDF extends TCPDF
 
     public function Header()
     {
+        $db_handle1 = new DBController();
+        $internshipBatchID = $_GET['internshipBatchID'];
+        $facultyID = $_GET['facultyID'];
+        $query = "SELECT ra.Title, F.facName
+        FROM RubricAssessment ra JOIN Faculty F on ra.facultyID = F.facultyID
+        where ra.internshipBatchID = '$internshipBatchID'  AND ra.RoleForMark='Company' AND ra.facultyID='$facultyID' ";
+        $results = $db_handle1->runQuery($query);
+
         $imageFile = '../../../Client/view/images/taruc-logo.jpg';
         $this->Image($imageFile, 15, 10, 60, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $this->Ln(3);
@@ -83,10 +92,10 @@ class PDF extends TCPDF
         $this->Cell(230, 5, 'Tunku Abdul Rahman University College', 0, 1, 'C');
 
         $this->Ln(2);
-        $this->Cell(230, 5, 'Faculty of Computing and Information Technology', 0, 1, 'C');
+        $this->Cell(230, 5, $results[0]['facName'], 0, 1, 'C');
 
         $this->Ln(2);
-        $this->Cell(230, 5, 'Company Supervisor’s Evaluation on Student Trainee', 0, 1, 'C');
+        $this->Cell(230, 5, $results[0]['Title'], 0, 1, 'C');
     }
 
     public function Footer()
