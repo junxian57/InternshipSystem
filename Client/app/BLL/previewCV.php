@@ -13,7 +13,7 @@
         //Define header information
         header('Content-type: application/pdf');
   
-        header('Content-Disposition: inline; filename="' . $newFilePath . '"');
+        header('Content-Disposition: inline; filename="' . $baseCurrFileName . '"');
         
         header('Content-Transfer-Encoding: binary');
         
