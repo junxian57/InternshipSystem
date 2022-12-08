@@ -3,23 +3,23 @@ session_start();
 error_reporting(0);
 //include_once("../../includes/db_connection.php");
 
-require_once('../../app/BLL/documentManagementBLL.php');
-require_once("../../app/DTO/documentManagementDTO.php");
-require_once("../../app/DAL/documentManagementDAL.php");
+require_once('../../app/BLL/generalCommunicationBLL.php');
+require_once("../../app/DTO/generalCommunicationDTO.php");
+require_once("../../app/DAL/generalCommunicationDAL.php");
 
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
 
-$documentManagementBLLObj  = new documentManagementBLL();
-$all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
+$generalCommunicationBLLObj  = new generalCommunicationBLL();
+$all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessage();
 
 ?>
 <!DOCTYPE HTML>
 <html>
 
 <head>
-    <title>ITP System | View Documents</title>
+    <title>ITP System | View Messages</title>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -57,18 +57,18 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="tables">
-                    <h3 class="page-title">Documents</h3>
+                    <h3 class="page-title">Messages</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                        <div id="documentTbl" class="tabcontent" style="display:block">
+                        <div id="messageTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Records of Documents</h4>
+                                    <h4>Preview Message Table</h4>
                                 </div>
                             </div>
 
                             <?php
-                            echo $all_document;
+                            echo $all_message;
                             ?>
 
                             <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -84,9 +84,9 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
         </div>
 
         <script>
-            let menuLeft = document.getElementById('cbp-spmenu-s1'),
-                showLeftPush = document.getElementById('showLeftPush'),
-                body = document.body;
+            let menuLeft = message.getElementById('cbp-spmenu-s1'),
+                showLeftPush = message.getElementById('showLeftPush'),
+                body = message.body;
 
             showLeftPush.onclick = function() {
                 classie.toggle(this, 'active');
@@ -100,11 +100,11 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
-            async function deleteDocument(documentID) {
-                    let text = "Do you want to delete the document?\nChoose OK or Cancel.";
+            async function deleteMessage(messageID) {
+                    let text = "Do you want to delete the message?\nChoose OK or Cancel.";
 
                     if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxDeleteDocument.php?documentID=${documentID}&Document=Document`;
+                        let url = `../../app/DAL/ajaxDeleteMessage.php?messageID=${messageID}&Message=Message`;
                         let response = await fetch(url);
                         let data = await response.json();
 
@@ -120,11 +120,11 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
 
         <!--Table JS sorting,searchinh,pagination-->
         <script>
-            $(document).ready(function() {
-                $('#documentCmpTbl').DataTable({
+            $(message).ready(function() {
+                $('#MessageCmpTbl').DataTable({
                     //custom search bar 
                     "language": {
-                        searchPlaceholder: "Search Document"
+                        searchPlaceholder: "Search Message"
                     },
                     "searchBox": {
                         "addClass": 'form-control input-lg col-xs-12'

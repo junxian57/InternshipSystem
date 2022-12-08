@@ -2,35 +2,35 @@
 session_start();
 error_reporting(0);
 include('includes/db_connection.php');
-require_once('../../app/BLL/documentManagementBLL.php');
-require_once('../../app/DTO/documentManagementDTO.php');
-require_once('../../app/DAL/documentManagementDAL.php');
+require_once('../../app/BLL/generalCommunicationBLL.php');
+require_once("../../app/DTO/generalCommunicationDTO.php");
+require_once("../../app/DAL/generalCommunicationDAL.php");
 
-$documentManagementDALObj  = new documentManagementDAL();
+$generalCommunicationDALObj  = new generalCommunicationDAL();
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	header('location:logout.php');
 } else {
 }*/
-$documentManagementBLLObj = new documentManagementBLL();
+$generalCommunicationBLLObj = new generalCommunicationBLL();
 if ($_GET['act'] == "edit") {
     $id = str_replace("'", "", $_GET['id']);
     $id = str_replace("'", "", $_GET['id']);
-    $aDocumentMngt = $documentManagementBLLObj->GetDocument($id);
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Document') {
-        $documentID = $_POST['documentID'];
-        $documentTitle = $_POST['documentTitle'];
-        $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
-        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
+    $aGeneralComm = $generalCommunicationBLLObj->GetMessage($id);
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Message') {
+        $messageID = $_POST['messageID'];
+        $msgTitle = $_POST['msgTitle'];
+        $msgContent = $_POST['msgContent'];
+        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,"", null, $msgContent);
+        $dgeenralCommunicationBLLObj->UpdGeneralComm($newgeneralComm);
     }
 } else {
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Document') {
+    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Message') {
 
-        $documentID = $_POST['documentID'];
-        $documentTitle = $_POST['documentTitle'];
-        $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
-        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
+        $messageID = $_POST['messageID'];
+        $msgTitle = $_POST['msgTitle'];
+        $msgContent = $_POST['msgContent'];
+        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,"", null, $msgContent);
+        $generalCommunicationBLLObj->UpdGeneralComm($newgeneralComm);
     }
 }
 ?>
@@ -38,7 +38,7 @@ if ($_GET['act'] == "edit") {
 <html>
 
 <head>
-    <title>ITP System | Edit Document</title>
+    <title>ITP System | Edit Message</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -93,45 +93,65 @@ if ($_GET['act'] == "edit") {
                 <?php
                 if ($_GET['act'] == 'edit') {
                     if ($_GET['status'] == 'failed') {
-                        echo "<script> warning('Document cant be update. Operation failed!');</script>";
+                        echo "<script> warning('Message cant be update. Operation failed!');</script>";
                     } elseif ($_GET['status'] == 'success') {
-                        echo "<script> addSuccess('Update document successful!'); </script>";
-                    } elseif ($documentManagementBLLObj->errorMessage != '') {
-                        echo "<script> warning('$documentManagementBLLObj->errorMessage'); </script>";
+                        echo "<script> addSuccess('Update Message successful!'); </script>";
+                    } elseif ($generalCommunicationBLLObj->errorMessage != '') {
+                        echo "<script> warning('$generalCommunicationBLLObj->errorMessage'); </script>";
                     }
                 } else {
                     if ($_GET['status'] == 'failed') {
-                        echo "<script> warning('Document cant be added. Operation failed!');</script>";
+                        echo "<script> warning('Message cant be added. Operation failed!');</script>";
                     } elseif ($_GET['status'] == 'success') {
-                        echo "<script> addSuccess('Add document successful!'); </script>";
-                    } elseif ($documentManagementBLLObj->errorMessage != '') {
-                        echo "<script> warning('$documentManagementBLLObj->errorMessage'); </script>";
+                        echo "<script> addSuccess('Add Message successful!'); </script>";
+                    } elseif ($generalCommunicationBLLObj->errorMessage != '') {
+                        echo "<script> warning('$generalCommunicationBLLObj->errorMessage'); </script>";
                     }
                 }
                 ?>
                 <div class="forms">
                     <?php
-                    echo '<h3 class="title1">Edit Document</h3>';
+                    echo '<h3 class="title1">Edit Message</h3>';
                     ?>
 
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="form-title">
-                            <h4>Document</h4>
+                            <h4>Message</h4>
                         </div>
                         <div class="form-body">
                             <form method="post" enctype="multipart/form-data">
-                                <div class="form-group col-md-2"> <label>Document ID</label><input type="text" id="documentID" name="documentID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $documentManagementDALObj->generateID(); ?>" readonly="readonly"></div>
+                                <div class="form-group col-md-2"> <label>Message ID</label><input type="text" id="messageID" name="messageID" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $id : $generalCommunicationDALObj->generateID(); ?>" readonly="readonly"></div>
                                 <div class="form-group col-md-2">
 
-                                <label for="inputState">Uploader</label>
-                                    <!--Change option to array for Role For Mark-->
-                                    <select id="inputState" name="uploader" class="form-control" required>
+                                <label for="inputState">Sender</label>
+                                    <!--Change option to array for Sender-->
+                                    <select id="inputState" name="msgSender" class="form-control" required>
                                         <option selected disabled value="">Options</option>
                                         <?php
                                         $options = array('Admin', 'ITP Committee');
                                         foreach ($options as $option) {
                                             if ($_GET['act'] == "edit") {
-                                                if ($aDocumentMngt->getUploader() == $option) {
+                                                if ($aGeneralComm->getmsgSender() == $option) {
+                                                    echo "<option selected='selected' value='$option'>$option</option>";
+                                                } else {
+                                                    echo "<option value='$option'>$option</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='$option'>$option</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+
+                                    <label for="inputState">Receiver</label>
+                                    <!--Change option to array for Sender-->
+                                    <select id="inputState" name="msgReceiver" class="form-control" required>
+                                        <option selected disabled value="">Options</option>
+                                        <?php
+                                        $options = array('Student', 'Admin', 'ITP Committee');
+                                        foreach ($options as $option) {
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aGeneralComm->getmsgReceiver() == $option) {
                                                     echo "<option selected='selected' value='$option'>$option</option>";
                                                 } else {
                                                     echo "<option value='$option'>$option</option>";
@@ -144,13 +164,13 @@ if ($_GET['act'] == "edit") {
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Title</label> <input type="text" id="documentTitle" name="documentTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getdocumentTitle(): "" ?>" placeholder="TITLE" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Message Title</label> <input type="text" id="msgTitle" name="msgTitle" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aGeneralComm->getmsgTitle(): "" ?>" placeholder="MESSAGE TITLE" onchange="changeHandler(this)" required="true">
                                 </div>
 
-                                <div class="form-group col-md-8"> <label>Document Information</label> <input type="text" id="Information" name="information" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aDocumentMngt->getInformation() : "" ?>" placeholder="INSTRUCTION/INFORMATION" onchange="changeHandler(this)" required="true">
+                                <div class="form-group col-md-8"> <label>Message Content</label> <input type="text" id="msgContent" name="msgContent" class="form-control" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aGeneralComm->getmsgContent() : "" ?>" placeholder="CONTENT" onchange="changeHandler(this)" required="true">
                                 </div>
 
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Document" : "Add Document" ?>" class="form-group btn btn-default">Save</button></div>
+                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? "Edit Message" : "Add Message" ?>" class="form-group btn btn-default">Save</button></div>
                             </form>
                         </div>
                     </div>
@@ -164,9 +184,9 @@ if ($_GET['act'] == "edit") {
         <!-- Classie -->
         <script src="../../js/classie.js"></script>
         <script>
-            var menuLeft = document.getElementById('cbp-spmenu-s1'),
-                showLeftPush = document.getElementById('showLeftPush'),
-                body = document.body;
+            var menuLeft = message.getElementById('cbp-spmenu-s1'),
+                showLeftPush = message.getElementById('showLeftPush'),
+                body = message.body;
 
             showLeftPush.onclick = function() {
                 classie.toggle(this, 'active');
