@@ -8,9 +8,10 @@ if (isset($_GET['companyID']) && isset($_GET['internshipBatchID'])) {
     $companyID = $_GET['companyID'];
     $internshipBatchID = $_GET['internshipBatchID'];
 
-    $sql = "SELECT sr.studResultID ,s.studentID,s.studName,p.programmeName, ij.jobDescription ,sr.finalScore FROM Student s JOIN StudentResult sr ON s.studentID=sr.studentID JOIN Programme p on p.programmeID=s.programmeID JOIN InternApplicationMap iam on iam.studentID=s.studentID JOIN InternJob ij on ij.internJobID=iam.internJobID
+    $sql = "SELECT sr.studResultID ,s.studentID,s.studName,p.programmeName,d.facultyID,ij.internJobID,ij.jobTitle, ij.jobDescription ,sr.finalScore , ra.TotalWeight
+    FROM Student s JOIN StudentResult sr ON s.studentID=sr.studentID JOIN Programme p on p.programmeID=s.programmeID JOIN Department d on p.departmentID=d.departmentID
+    JOIN InternApplicationMap iam on iam.studentID=s.studentID JOIN InternJob ij on ij.internJobID=iam.internJobID JOIN RubricAssessment ra on sr.assessmentID = ra.assessmentID 
     Where ij.companyID='$companyID' AND s.internshipBatchID = '$internshipBatchID' AND sr.RoleForMark = 'Company' AND iam.appStatus='Accepted' order by s.studentID ASC";
-
     $result = $db->runQuery($sql);
 
     if (!empty($result)) {
@@ -19,9 +20,13 @@ if (isset($_GET['companyID']) && isset($_GET['internshipBatchID'])) {
                 "studResultID" => $row['studResultID'],
                 "studentID" => $row['studentID'],
                 "studName" => $row['studName'],
+                "facultyID" => $row['facultyID'],
                 "programmeName" => $row['programmeName'],
-                "jobDescription"=> $row['jobDescription'],
-                "finalScore" => $row['finalScore']
+                "internJobID" => $row['internJobID'],
+                "jobTitle" => $row['jobTitle'],
+                "jobDescription" => $row['jobDescription'],
+                "finalScore" => $row['finalScore'],
+                "TotalWeight" => $row['TotalWeight']
             );
         }
         echo json_encode($tempArray);

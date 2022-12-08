@@ -25,6 +25,8 @@ $markingSchemeBllObj = new markingSchemeBLL();
 if ($_GET['internshipBatchID'] && $_GET['studid']) {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
+    $facultyID = str_replace("'", "", $_GET['facultyID']);
+    $internJobID = str_replace("'", "", $_GET['internJobID']);
     $id = str_replace("'", "", $_GET['internshipBatchID']);
     $markByID = str_replace("'", "", $_GET['companyID']);
     $studid = str_replace("'", "", $_GET['studid']);
@@ -35,15 +37,16 @@ if ($_GET['internshipBatchID'] && $_GET['studid']) {
     $db_handle = new DBController();
 
 
-    $query = "SELECT * FROM RubricAssessment Where internshipBatchID=$id and RoleForMark='company'";
+    $query = "SELECT * FROM RubricAssessment Where internshipBatchID=$id and RoleForMark='company' and facultyID='$facultyID'";
     $results = $db_handle->runQuery($query);
-    $aRubricAssmt = $rubricAssmtBllObj->GetRubricAssessment($results[0]['assessmentID']);
 
     $aMarkingScheme = $markingSchemeBllObj->GetMarkingScheme($studResultid, $results[0]['assessmentID']);
 
     $query2 = "SELECT * FROM StudentResult Where studResultID='$studResultid'";
     $results2 = $db_handle->runQuery($query2);
 
+    $getCompanyQuery = "SELECT c.cmpName,ij.jobCmpSupervisor FROM `Company` c JOIN InternJob ij on c.companyID=ij.companyID WHERE ij.internJobID='$internJobID'";
+    $getCompanyResult = $db_handle->runQuery($getCompanyQuery);
 
     if ($aMarkingScheme) {
         $array = array();
@@ -75,9 +78,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 $newOfMarkingSchemeDto[] = new MarkingSchemeDTO($_POST['markingSchemeID'][$i], $studResultid, $results[0]['assessmentID'], $_POST['criteriaID'][$i], $_POST['score'][$i]);
                 $finalScore += $_POST['score'][$i];
             }
-            $newOfStudResultDto = new studResultDTO($studResultid, $studid, $finalScore, $_POST['feedback'], $_POST['traineeInfo'], $_POST['absentAttendance'],$_POST['withoutPermissionAbsentAttendance'], $_POST['signature'], $markByID, $date);
+            $newOfStudResultDto = new studResultDTO($studResultid, $studid, $finalScore, $_POST['feedback'], $_POST['traineeInfo'], $_POST['absentAttendance'], $_POST['withoutPermissionAbsentAttendance'], $_POST['signature'], $markByID, $date);
             $markingSchemeBllObj->UpdMarkingScheme($newOfStudResultDto, $newOfMarkingSchemeDto);
-           
         } else {
             $markingSchemeBALObj  = new markingSchemeDAL();
             $markingSchemeID = $markingSchemeBALObj->generateID();
@@ -88,7 +90,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add rubric asses
                 $markingSchemeID = generateMarkingSchemeID($markingSchemeID);
                 $finalScore += $_POST['score'][$i];
             }
-            $newOfStudResultDto = new studResultDTO($studResultid, $studid, $finalScore, $_POST['feedback'], $_POST['traineeInfo'], $_POST['absentAttendance'],$_POST['withoutPermissionAbsentAttendance'], $_POST['signature'], $markByID, $date);
+            $newOfStudResultDto = new studResultDTO($studResultid, $studid, $finalScore, $_POST['feedback'], $_POST['traineeInfo'], $_POST['absentAttendance'], $_POST['withoutPermissionAbsentAttendance'], $_POST['signature'], $markByID, $date);
             $markingSchemeBllObj->AddMarkingScheme($newOfStudResultDto, $newOfMarkingSchemeDto);
         }
     }
@@ -320,11 +322,11 @@ function generateMarkingSchemeID($markingSchemeID)
                             <form method="post">
                                 <div class="form-group col-md-2">
                                     <label>Assessment ID</label>
-                                    <input type="text" id="assessmentID" name="assessmentID" class="form-control col-md-2" value="<?php echo  $aRubricAssmt->getAssmtId() ?>" readonly>
+                                    <input type="text" id="assessmentID" name="assessmentID" class="form-control col-md-2" value="<?php echo  $results[0]['assessmentID'] ?>" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Role for Mark</label>
-                                    <input type="text" id="RoleForMark" name="RoleForMark" class="form-control" value="<?php echo  $aRubricAssmt->getRoleForMark() ?>" readonly>
+                                    <input type="text" id="RoleForMark" name="RoleForMark" class="form-control" value="<?php echo  $results[0]['RoleForMark'] ?>" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Intern Start Day</label>
@@ -332,10 +334,10 @@ function generateMarkingSchemeID($markingSchemeID)
                                     include('includes/db_connection.php');
                                     $db_handle = new DBController();
                                     $query = "SELECT * FROM InternshipBatch";
-                                    $results = $db_handle->runQuery($query);
-                                    for ($i = 0; $i < count($results); $i++) {
-                                        if ($aRubricAssmt->getInternshipBatchID() == $results[$i]['internshipBatchID']) {
-                                            echo " <input type='text' id='InternStartDate' name='internshipBatchID' class='form-control' value=" . $results[$i]['officialStartDate'] . " readonly>";
+                                    $results1 = $db_handle->runQuery($query);
+                                    for ($i = 0; $i < count($results1); $i++) {
+                                        if ($results[0]['internshipBatchID'] == $results1[$i]['internshipBatchID']) {
+                                            echo " <input type='text' id='InternStartDate' name='internshipBatchID' class='form-control' value=" . $results1[$i]['officialStartDate'] . " readonly>";
                                         }
                                     }
                                     ?>
@@ -353,15 +355,15 @@ function generateMarkingSchemeID($markingSchemeID)
                                     <input type="text" id="LatestEndDate" class="form-control" placeholder="1/1/2022" value="" readonly="readonly">
                                 </div>
 
-                                <div class="form-group col-md-12"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo   $aRubricAssmt->getTitle() ?>" readonly> </div>
-                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" readonly class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo $aRubricAssmt->getInstructions() ?></textarea></div>
+                                <div class="form-group col-md-12"> <label for="exampleInput">Assessment Title</label> <input type="text" id="Title" name="Title" class="form-control" value="<?php echo $results[0]['Title'] ?>" readonly> </div>
+                                <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" readonly class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo $results[0]['Instructions'] ?></textarea></div>
                                 <div class="form-group col-md-4">
                                     <label>Name of Company</label>
-                                    <input type="text" id="" class="form-control" placeholder="XXX Sdn Bhd" value="" readonly="readonly">
+                                    <input type="text" id="" class="form-control" placeholder="XXX Sdn Bhd" value="<?php echo $getCompanyResult[0]['cmpName'] ?>" readonly="readonly">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Name of Company Supervisior</label>
-                                    <input type="text" id="studName" class="form-control" placeholder="Tan Ah Gau" value="<?php ?>" readonly="readonly">
+                                    <input type="text" id="studName" class="form-control" placeholder="Tan Ah Gau" value="<?php echo $getCompanyResult[0]['jobCmpSupervisor'] ?>" readonly="readonly">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Name of Student Trainee</label>
@@ -435,7 +437,7 @@ function generateMarkingSchemeID($markingSchemeID)
                                                     <label class="">Name:</label>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <input type="text" id="Title" name="Title" class="form-control " readonly>
+                                                    <input type="text" id="Title" name="Title" class="form-control " value="<?php echo $getCompanyResult[0]['jobCmpSupervisor'] ?>" readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -503,7 +505,7 @@ function generateMarkingSchemeID($markingSchemeID)
         }
 
         async function fetchInternDate() {
-            const internBatchID = <?php echo $aRubricAssmt->getInternshipBatchID() ?>;
+            const internBatchID = <?php echo $results[0]['internshipBatchID'] ?>;
             const getInternDatePhp = '../../app/DAL/internBatchDAL.php?internshipBatchID=' + internBatchID;
 
             let getInternDateRespond = await fetch(getInternDatePhp);
@@ -585,7 +587,7 @@ function generateMarkingSchemeID($markingSchemeID)
                     trLeft.setAttribute("data-maxScore", "");
                     trLeft.innerHTML = `
                     <td>${criteriaResult[i].Title}<input type="hidden" name="criteriaID[]" value="${criteriaResult[i].criterionID}" ></input></td>
-                    <td>${criteriaResult[i].description.split(',')[0]}</td>
+                    <td>${criteriaResult[i].description.split(',')[0]}<input type="hidden" name="markingSchemeID[]" value="${s_to_json[i].markingID}" ></input></td>
                     <td>${criteriaResult[i].description.split(',')[1]}</td>
                     <td>${criteriaResult[i].description.split(',')[2]}</td>
                     <td>${criteriaResult[i].description.split(',')[3]}</td>
