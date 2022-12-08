@@ -103,6 +103,8 @@ if(isset($_SESSION)){
             <ul class="dropdown-menu drp-mnu">
               <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
               <li> <a href="../../../Client/view/page/ky-maintainCmp.php"><i class="fa fa-user"></i> Profile</a> </li>
+              <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
+              <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
             </ul>
         </li>
         <?php } ?>
@@ -125,6 +127,8 @@ if(isset($_SESSION)){
             <ul class="dropdown-menu drp-mnu">
               <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
               <li> <a href="../../../Client/view/page/ky-maintainStud.php"><i class="fa fa-user"></i> Profile</a> </li>
+              <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
+              <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
             </ul>
         </li>
         <?php } ?>
