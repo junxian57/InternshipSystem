@@ -247,7 +247,7 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
               <?php
                 }else{
               ?>
-                <button id="cvBtn" class="grey-btn" disabled>Not Available</button>
+                <a id="cvBtn" class="grey-btn" disabled>Not Available</a>
               <?php
                 }
               ?>
