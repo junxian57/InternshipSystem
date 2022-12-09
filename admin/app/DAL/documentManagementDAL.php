@@ -55,8 +55,7 @@ class documentManagementDAL
             $listOfdocumentManagementObj = new documentManagementDTO(
                 $aDocumentMngt[0]['documentID'],
                 $aDocumentMngt[0]['documentTitle'],
-                $aDocumentMngt[0]['Uploader'],
-                $aDocumentMngt[0]['uploadDate'],
+                $aDocumentMngt[0]['uploader'],
                 $aDocumentMngt[0]['uploadDocument'],
                 $aDocumentMngt[0]['Information']
             );
@@ -143,34 +142,33 @@ class documentManagementDAL
      */
     public function UpdDocumentMngt($documentManagementDTO)
     {
-        $sql = " UPDATE Document SET
+        $sql = "UPDATE Document SET
             documentTitle = '" . $documentManagementDTO->getdocumentTitle() . "',
-            Uploader = '" . $documentManagementDTO->getUploader() . "',
+            uploader = '" . $documentManagementDTO->getUploader() . "',
             uploadDate ='" . $documentManagementDTO->getuploadDate() . "',
-            uploadDocument ='" . $documentManagementDTO->getuploadDocument() . "',
-            Information ='" . $documentManagementDTO->getInformation() . "',
-            WHERE documentID ='" . $documentManagementDTO->getdocumentID() . "'";
+            Information ='" . $documentManagementDTO->getInformation() . "'
+            WHERE documentID ='" . $documentManagementDTO->getdocumentID() . "';";
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
         //for loop
-        foreach($documentManagementDTO as $documentManagementDTO1){
-            $sql1 = "INSERT INTO Document (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`)
-            VALUES (
-                '" . $documentManagementDTO1->getdocumentID() . "',
-                '" . $documentManagementDTO1->getdocumentTitle() . "',
-                '" . $documentManagementDTO1->getUploader() . "',
-                '" . $documentManagementDTO1->getuploadDate() . "',
-                '" . $documentManagementDTO1->getuploadDocument() . "',
-                '" . $documentManagementDTO1->getInformation() . "'
-            )";
-            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
-        }
+        // foreach($documentManagementDTO as $documentManagementDTO1){
+        //     $sql1 = "INSERT INTO Document (`documentID`, `documentTitle`, `Uploader`,`uploadDate`,`uploadDocument`,`Information`)
+        //     VALUES (
+        //         '" . $documentManagementDTO1->getdocumentID() . "',
+        //         '" . $documentManagementDTO1->getdocumentTitle() . "',
+        //         '" . $documentManagementDTO1->getUploader() . "',
+        //         '" . $documentManagementDTO1->getuploadDate() . "',
+        //         '" . $documentManagementDTO1->getuploadDocument() . "',
+        //         '" . $documentManagementDTO1->getInformation() . "'
+        //     )";
+        //     $result2 = $this->databaseConnectionObj->executeQuery($sql1);
+        // }
 
-        if ($result && $result2) {
-            header("Location: ../../view/page/ty-createDocument.php?act=edit&status=success&id='" . $documentManagementDTO->getdocumentID() . "'");
+        if ($result) {
+            header("Location: ../../view/page/ty-viewDocument.php?act=edit&status=success&id='" . $documentManagementDTO->getdocumentID() . "'");
             exit();
         } else {
-            header("Location: ../../view/page/ty-createDocument.php?act=edit&status=failed&id='" . $documentManagementDTO->getdocumentID() . "'");
+            header("Location: ../../view/page/ty-viewDocument.php?act=edit&status=failed&id='" . $documentManagementDTO->getdocumentID() . "'");
             exit();
         }
     }

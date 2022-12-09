@@ -19,20 +19,23 @@ if ($_GET['act'] == "edit") {
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Edit Document') {
         $documentID = $_POST['documentID'];
         $documentTitle = $_POST['documentTitle'];
-        $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+        $Information = $_POST['information'];
+        $uploader = $_POST['uploader'];
+        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,$uploader, null, $Information);
         $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
     }
-} else {
-    if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Document') {
+} 
 
-        $documentID = $_POST['documentID'];
-        $documentTitle = $_POST['documentTitle'];
-        $Information = $_POST['Information'];
-        $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
-        $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
-    }
-}
+// else {
+//     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Document') {
+
+//         $documentID = $_POST['documentID'];
+//         $documentTitle = $_POST['documentTitle'];
+//         $Information = $_POST['information'];
+//         $newdocumentMngt = new documentManagementDTO($documentID, $documentTitle,"", null, $Information);
+//         $documentManagementBLLObj->UpdDocumentMngt($newdocumentMngt);
+//     }
+// }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -130,15 +133,15 @@ if ($_GET['act'] == "edit") {
                                         <?php
                                         $options = array('Admin', 'ITP Committee');
                                         foreach ($options as $option) {
-                                            if ($_GET['act'] == "edit") {
+                                           // if ($_GET['act'] == "edit") {
                                                 if ($aDocumentMngt->getUploader() == $option) {
                                                     echo "<option selected='selected' value='$option'>$option</option>";
                                                 } else {
                                                     echo "<option value='$option'>$option</option>";
                                                 }
-                                            } else {
-                                                echo "<option value='$option'>$option</option>";
-                                            }
+                                            // } else {
+                                            //     echo "<option value='$option'>$option</option>";
+                                            // }
                                         }
                                         ?>
                                     </select>

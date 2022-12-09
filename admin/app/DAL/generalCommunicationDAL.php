@@ -57,7 +57,6 @@ class generalCommunicationDAL
                 $aGeneralComm[0]['msgTitle'],
                 $aGeneralComm[0]['msgSender'],
                 $aGeneralComm[0]['msgReceiver'],
-                $aGeneralComm[0]['msgDate'],
                 $aGeneralComm[0]['msgContent']
             );
             return $listOfgeneralCommunicationObj;
@@ -130,33 +129,18 @@ class generalCommunicationDAL
     public function UpdGeneralComm($generalCommunicationDTO)
     {
         $sql = " UPDATE Message1 SET
-            msgTitle = '" . $generalCommunicationDTO->getmessageTitle() . "',
+            msgTitle = '" . $generalCommunicationDTO->getmsgTitle() . "',
             msgSender = '" . $generalCommunicationDTO->getmsgSender() . "',
             msgReceiver = '" . $generalCommunicationDTO->getmsgReceiver() . "',
-            msgDate ='" . $generalCommunicationDTO->getmsgDate() . "',
-            msgContent ='" . $generalCommunicationDTO->getmsgContent() . "',
+            msgContent ='" . $generalCommunicationDTO->getmsgContent() . "'
             WHERE messageID ='" . $generalCommunicationDTO->getmessageID() . "'";
         $result = $this->databaseConnectionObj->executeQuery($sql);
 
-        //for loop
-        foreach ($generalCommunicationDTO as $generalCommunicationDTO1) {
-            $sql1 = "INSERT INTO Message1 (`messageID`, `msgTitle`, `msgSender`, `msgReceiver`,`msgDate`, `msgContent`)
-            VALUES (
-                '" . $generalCommunicationDTO1->getmessageID() . "',
-                '" . $generalCommunicationDTO1->getmsgTitle() . "',
-                '" . $generalCommunicationDTO1->getmsgSender() . "',
-                '" . $generalCommunicationDTO1->getmsgReceiver() . "',
-                '" . $generalCommunicationDTO1->getmsgDate() . "',
-                '" . $generalCommunicationDTO1->getInformation() . "'
-            )";
-            $result2 = $this->databaseConnectionObj->executeQuery($sql1);
-        }
-
-        if ($result && $result2) {
-            header("Location: ../../view/page/joel-createMessage.php?act=edit&status=success&id='" . $generalCommunicationDTO->getmessageID() . "'");
+        if ($result) {
+            header("Location: ../../view/page/joel-viewMessage.php?act=edit&status=success&id='" . $generalCommunicationDTO->getmessageID() . "'");
             exit();
         } else {
-            header("Location: ../../view/page/joel-createMessage.php?act=edit&status=failed&id='" . $generalCommunicationDTO->getmessageID() . "'");
+            header("Location: ../../view/page/joel-viewMessage.php?act=edit&status=failed&id='" . $generalCommunicationDTO->getmessageID() . "'");
             exit();
         }
     }

@@ -20,8 +20,10 @@ if ($_GET['act'] == "edit") {
         $messageID = $_POST['messageID'];
         $msgTitle = $_POST['msgTitle'];
         $msgContent = $_POST['msgContent'];
-        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,"", null, $msgContent);
-        $dgeenralCommunicationBLLObj->UpdGeneralComm($newgeneralComm);
+        $msgReceiver = $_POST ['msgReceiver'];
+        $msgSender = $_POST ['msgSender'];
+        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,$msgReceiver, $msgSender, $msgContent);
+        $generalCommunicationBLLObj->UpdGeneralComm($newgeneralComm);
     }
 } else {
     if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Message') {
