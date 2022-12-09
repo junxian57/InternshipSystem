@@ -237,20 +237,11 @@ if (isset($_SESSION['studentID'])) {
             window.location.href = '../page/clientChangePassword.php?requireChangePass';
         }
 
-        if (response == 'Login Successful') {
-            if (tabName == 'Student') {
-                window.location.href = '../../view/page/ky-enterStudDetails.php';
-            } else if (tabName == 'Lecturer') {
-                window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
-            } else if (tabName == 'Company') {
-                window.location.href = '../../view/page/ky-enterCmpDetails.php';
-            }
-        } else if (response == 'Wrong Email Format') {
+        if (response == 'Wrong Email Format') {
             warning('Please enter a valid email address');
 
         } else if (response == 'Wrong Password' || response == 'Email Not Found') {
             warning('Wrong Email or Password');
-
         }
 
         emptyInputValue(tabName);
