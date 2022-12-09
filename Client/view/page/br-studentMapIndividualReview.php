@@ -243,7 +243,7 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
                 if($studentArr[0]['studentCVdocument'] != null){
                   $studentCV = $studentArr[0]['studentCVdocument'];
               ?>
-                <a id="cvBtn" target="_blank" href="../../app/BLL/previewCV.php?path=<?php echo $studentCV; ?>">Download</阿>
+                <a id="cvBtn" target="_blank" href="../../app/BLL/previewCV.php?path=<?php echo $studentCV; ?>">Preview</a>
               <?php
                 }else{
               ?>
