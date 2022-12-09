@@ -41,7 +41,7 @@ include('../../includes/db_connection.php');
  //session_start();
  //if(isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin']==true){
    // $adminloggedin= true;
-   // $id = $_SESSION['companyID'];
+   // $id = $_SESSION['companyID'];;
  //}
 
  //testing purpose
