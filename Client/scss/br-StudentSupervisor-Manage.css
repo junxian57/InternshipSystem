@@ -168,4 +168,14 @@
 .tabcontent table tbody .view:hover {
   background-color: #535ea6;
   color: #fff;
+}
+.tabcontent table tbody .inactive-status {
+  color: #ff4500;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.tabcontent table tbody .active-status {
+  color: green;
+  font-weight: bold;
+  letter-spacing: 1px;
 }/*# sourceMappingURL=br-StudentSupervisor-Manage.css.map */

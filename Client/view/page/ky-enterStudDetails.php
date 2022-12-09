@@ -1,6 +1,6 @@
 <?php
-session_start();
-error_reporting(0);
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
 include('../../includes/db_connection.php');
 
 if(isset($_SESSION['studentChangePass'])){
@@ -40,9 +40,7 @@ if(isset($_SESSION['studentChangePass'])){
 </head>
 
 <?php
- session_start();
- if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin']==true){
-    $adminloggedin= true;
+ if(isset($_SESSION['studentID'])){
     $id = $_SESSION['studentID'];
  }
 

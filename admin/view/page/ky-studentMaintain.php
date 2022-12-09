@@ -107,7 +107,7 @@ include('../../includes/db_connection.php');
                                             <td><a href="mailto:<?php echo $email ?>">Email</td>
                                             <td><?php echo $phone ?></td>
                                             <td><?php echo $programme ?></td>
-                                            <td><a href="../../../Client/app/BLL/downloadCV.php?path=<?php echo $pdf; ?>" download>Download</a></td>
+                                            <td><a href="../../../Client/app/BLL/previewCV.php?path=<?php echo $pdf; ?>">Download</a></td>
                                             <td><?php echo $status ?></td>
                                             <td>
                                                 <div class="button-group">
