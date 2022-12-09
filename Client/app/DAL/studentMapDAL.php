@@ -1,5 +1,5 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix.'includes/db_connection.php';
 
 function getInternshipBatch(){
@@ -17,7 +17,7 @@ function getStudentInfoOnly($studentID){
           WHERE S.internshipBatchID = I.internshipBatchID AND
           S.programmeID = P.programmeID AND
           S.studentID = '$studentID' AND
-          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern');";
+          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern' OR S.studAccountStatus LIKE 'Graduated');";
 
     $result = $db->runQuery($sql);
 
@@ -35,7 +35,7 @@ function getStudentAndInternCompany($studentID){
           IAM.internJobID = IJ.internJobID AND
           IJ.companyID = C.companyID AND
           S.studentID = '$studentID' AND
-          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern');";
+          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern' OR S.studAccountStatus LIKE 'Graduated');";
     
     $result = $db->runQuery($sql);
 

@@ -50,6 +50,7 @@ include('includes/dbconnection.php');
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="appType(event, 'All')">All</button>
 						<button class="tablinks" onclick="appType(event, 'Pending')">Pending</button>
+						<button class="tablinks" onclick="appType(event, 'Shortlisted')">Shortlisted</button>
 						<button class="tablinks" onclick="appType(event, 'Accepted')">Accepted</button>
 						<button class="tablinks" onclick="appType(event, 'Rejected')">Rejected</button>
 					</div>
@@ -57,7 +58,7 @@ include('includes/dbconnection.php');
 					<div id="All" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterStudAppList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterAllList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
@@ -69,6 +70,11 @@ include('includes/dbconnection.php');
 									<th>#</th>
 									<th>
 										<button>
+											<span aria-hidden="true">Application ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
 											<span aria-hidden="true">Student ID</span>
 										</button>
 									</th>
@@ -92,40 +98,49 @@ include('includes/dbconnection.php');
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th>Action</th>
 								</tr>
 							</thead>
 
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>21WMR04845</td>
-									<td>Wong Xiao Tong</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Pending</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
-                </tr>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
 
-                <tr>
-									<td>2</td>
-									<td>21WMR10306</td>
-									<td>Leong Sam Kuen</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Accepted</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
-                </tr>
+									$get_intern = "SELECT * FROM InternJob WHERE companyID = 'CMP00001'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									while($row_intern = mysqli_fetch_array($run_intern)){
+										$internJobID = $row_intern['internJobID'];
+										$jobTitle = $row_intern['jobTitle'];
 
+										$get_internApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID'";
+										$run_internApp = mysqli_query($conn, $get_internApp);
+										while($row_internApp = mysqli_fetch_array($run_internApp)){
+											$internJob_ID = $row_internApp['internJobID'];
+											$internApp_ID = $row_internApp['internAppID'];
+											$studentID = $row_internApp['studentID'];
+											$app_Status = $row_internApp['appStatus'];
+
+											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+											$runStud = mysqli_query($conn, $getStud);
+											if($rowStud = mysqli_fetch_array($runStud)){
+												$studName = $rowStud['studName'];
+											}
+											$i++;
+              ?>
 								<tr>
-									<td>3</td>
-									<td>21WMR10307</td>
-									<td>Tan Shy Huey</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Rejected</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $internApp_ID; ?></td>
+									<td><?php echo $studentID; ?></td>
+									<td><?php echo $studName; ?></td>
+									<td><?php echo $internJob_ID; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+                  <td><?php echo $app_Status; ?></td>
                 </tr>
+								<?php } } ?>
 							</tbody>
 						</table>
 					</div>
@@ -133,7 +148,7 @@ include('includes/dbconnection.php');
 					<div id="Pending" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterStudAppList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterPendingList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
@@ -145,6 +160,11 @@ include('includes/dbconnection.php');
 									<th>#</th>
 									<th>
 										<button>
+											<span aria-hidden="true">Application ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
 											<span aria-hidden="true">Student ID</span>
 										</button>
 									</th>
@@ -173,15 +193,149 @@ include('includes/dbconnection.php');
 							</thead>
 
 							<tbody>
+							<?php $i = 0; ?>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
+
+									$get_intern = "SELECT * FROM InternJob WHERE companyID = 'CMP00001'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									while($row_intern = mysqli_fetch_array($run_intern)){
+										$internJobID = $row_intern['internJobID'];
+										$jobTitle = $row_intern['jobTitle'];
+
+										$get_internApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStatus = 'Pending Review'";
+										$run_internApp = mysqli_query($conn, $get_internApp);
+										while($row_internApp = mysqli_fetch_array($run_internApp)){
+											$internJob_ID = $row_internApp['internJobID'];
+											$internApp_ID = $row_internApp['internAppID'];
+											$studentID = $row_internApp['studentID'];
+											$app_Status = $row_internApp['appStatus'];
+
+											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+											$runStud = mysqli_query($conn, $getStud);
+											if($rowStud = mysqli_fetch_array($runStud)){
+												$studName = $rowStud['studName'];
+											}
+											
+											$i++;
+              ?>
 								<tr>
-									<td>1</td>
-									<td>21WMR04845</td>
-									<td>Wong Xiao Tong</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Pending</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $internApp_ID; ?></td>
+									<td><?php echo $studentID; ?></td>
+									<td><?php echo $studName; ?></td>
+									<td><?php echo $internJob_ID; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+                  <td><?php echo $app_Status; ?></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
+								<?php } } ?>
+							</tbody>
+						</table>
+					</div>
+
+					<div id="Shortlisted" class="tabcontent">
+						<div class="panel-body">
+            	<div class="input-group">
+								<input type="text" class="form-control" id="filterShortlistedList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<a class="input-group-addon" style="border: 1px solid #797d7a;">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
+						</div>
+						<table id="shortlistedTable" class="sortable">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Application ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Student ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Student Name</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Job ID</span>
+										</button>
+									</th>
+                  <th>
+										<button>
+											<span aria-hidden="true">Job Title</span>
+										</button>
+									</th>
+                  <th>
+										<button>
+											<span aria-hidden="true">Status</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Student Response</span>
+										</button>
+									</th>
+                  <th>Action</th>
+								</tr>
+							</thead>
+
+							<tbody>
+							<?php $i = 0; ?>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
+
+									$get_intern = "SELECT * FROM InternJob WHERE companyID = 'CMP00001'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									while($row_intern = mysqli_fetch_array($run_intern)){
+										$internJobID = $row_intern['internJobID'];
+										$jobTitle = $row_intern['jobTitle'];
+
+										$get_internApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStatus = 'Shortlisted'";
+										$run_internApp = mysqli_query($conn, $get_internApp);
+										while($row_internApp = mysqli_fetch_array($run_internApp)){
+											$internJob_ID = $row_internApp['internJobID'];
+											$internApp_ID = $row_internApp['internAppID'];
+											$studentID = $row_internApp['studentID'];
+											$app_Status = $row_internApp['appStatus'];
+											$appStudentFeedback = $row_internApp['appStudentFeedback'];
+
+											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+											$runStud = mysqli_query($conn, $getStud);
+											if($rowStud = mysqli_fetch_array($runStud)){
+												$studName = $rowStud['studName'];
+											}
+											
+											$i++;
+              ?>
+								<tr>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $internApp_ID; ?></td>
+									<td><?php echo $studentID; ?></td>
+									<td><?php echo $studName; ?></td>
+									<td><?php echo $internJob_ID; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+                  <td><?php echo $app_Status; ?></td>
+									<td><?php echo $appStudentFeedback; ?></td>
+                  <td><a class="view" href="xt-studAppResponse.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
+                </tr>
+								<?php } } ?>
 							</tbody>
 						</table>
 					</div>
@@ -189,7 +343,7 @@ include('includes/dbconnection.php');
 					<div id="Accepted" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterStudAppList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterAcceptedList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
@@ -201,6 +355,11 @@ include('includes/dbconnection.php');
 									<th>#</th>
 									<th>
 										<button>
+											<span aria-hidden="true">Application ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
 											<span aria-hidden="true">Student ID</span>
 										</button>
 									</th>
@@ -224,20 +383,60 @@ include('includes/dbconnection.php');
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Student Response</span>
+										</button>
+									</th>
                   <th>Action</th>
 								</tr>
 							</thead>
 
 							<tbody>
+							<?php $i = 0; ?>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
+
+									$get_intern = "SELECT * FROM InternJob WHERE companyID = 'CMP00001'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									while($row_intern = mysqli_fetch_array($run_intern)){
+										$internJobID = $row_intern['internJobID'];
+										$jobTitle = $row_intern['jobTitle'];
+
+										$get_internApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStatus = 'Accepted'";
+										$run_internApp = mysqli_query($conn, $get_internApp);
+										while($row_internApp = mysqli_fetch_array($run_internApp)){
+											$internJob_ID = $row_internApp['internJobID'];
+											$internApp_ID = $row_internApp['internAppID'];
+											$studentID = $row_internApp['studentID'];
+											$app_Status = $row_internApp['appStatus'];
+											$appStudentFeedback = $row_internApp['appStudentFeedback'];
+
+											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+											$runStud = mysqli_query($conn, $getStud);
+											if($rowStud = mysqli_fetch_array($runStud)){
+												$studName = $rowStud['studName'];
+											}
+											
+											$i++;
+              ?>
 								<tr>
-									<td>1</td>
-									<td>21WMR10306</td>
-									<td>Leong Sam Kuen</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Accepted</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $internApp_ID; ?></td>
+									<td><?php echo $studentID; ?></td>
+									<td><?php echo $studName; ?></td>
+									<td><?php echo $internJob_ID; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+                  <td><?php echo $app_Status; ?></td>
+									<td><?php echo $appStudentFeedback; ?></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
+								<?php } } ?>
 							</tbody>
 						</table>
 					</div>
@@ -245,7 +444,7 @@ include('includes/dbconnection.php');
 					<div id="Rejected" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterStudAppList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterRejectedList" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
@@ -257,6 +456,11 @@ include('includes/dbconnection.php');
 									<th>#</th>
 									<th>
 										<button>
+											<span aria-hidden="true">Application ID</span>
+										</button>
+									</th>
+									<th>
+										<button>
 											<span aria-hidden="true">Student ID</span>
 										</button>
 									</th>
@@ -285,15 +489,48 @@ include('includes/dbconnection.php');
 							</thead>
 
 							<tbody>
+							<?php $i = 0; ?>
+							<?php
+								$host = "sql444.main-hosting.eu";
+								$user = "u928796707_group34";
+								$password = "u1VF3KYO1r|";
+								$database = "u928796707_internshipWeb";
+																						
+								$conn = mysqli_connect($host, $user, $password, $database); 
+
+									$get_intern = "SELECT * FROM InternJob WHERE companyID = 'CMP00001'";
+									$run_intern = mysqli_query($conn, $get_intern);
+									while($row_intern = mysqli_fetch_array($run_intern)){
+										$internJobID = $row_intern['internJobID'];
+										$jobTitle = $row_intern['jobTitle'];
+
+										$get_internApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStatus = 'Rejected'";
+										$run_internApp = mysqli_query($conn, $get_internApp);
+										while($row_internApp = mysqli_fetch_array($run_internApp)){
+											$internJob_ID = $row_internApp['internJobID'];
+											$internApp_ID = $row_internApp['internAppID'];
+											$studentID = $row_internApp['studentID'];
+											$app_Status = $row_internApp['appStatus'];
+
+											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+											$runStud = mysqli_query($conn, $getStud);
+											if($rowStud = mysqli_fetch_array($runStud)){
+												$studName = $rowStud['studName'];
+											}
+											
+											$i++;
+              ?>
 								<tr>
-									<td>1</td>
-									<td>21WMR10307</td>
-									<td>Tan Shy Huey</td>
-									<td>22InJ00001</td>
-									<td>Software Engineer Intern</td>
-                  <td>Rejected</td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+									<td><?php echo $i; ?></td>
+									<td><?php echo $internApp_ID; ?></td>
+									<td><?php echo $studentID; ?></td>
+									<td><?php echo $studName; ?></td>
+									<td><?php echo $internJob_ID; ?></td>
+									<td><?php echo $jobTitle; ?></td>
+                  <td><?php echo $app_Status; ?></td>
+                  <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
+								<?php } } ?>
 							</tbody>
 						</table>
 					</div>
@@ -356,7 +593,7 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterStudAppList').addEventListener('keyup', filterAllTable, false);
+		document.querySelector('#filterAllList').addEventListener('keyup', filterAllTable, false);
 	</script>
 
 <script>
@@ -377,10 +614,31 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterStudAppList').addEventListener('keyup', filterPendingTable, false);
+		document.querySelector('#filterPendingList').addEventListener('keyup', filterPendingTable, false);
 	</script>
 
-<script>
+	<script>
+		function filterShortlistedTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#shortlistedTable tbody").rows;
+    
+    	for (var i = 0; i < rows.length; i++) {
+				var firstCol = rows[i].cells[1].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[2].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[3].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[4].textContent.toUpperCase();
+        var fifthCol = rows[i].cells[5].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#filterShortlistedList').addEventListener('keyup', filterShortlistedTable, false);
+	</script>
+
+	<script>
 		function filterAcceptedTable(event) {
     	var filter = event.target.value.toUpperCase();
     	var rows = document.querySelector("#acceptedTable tbody").rows;
@@ -398,7 +656,7 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterStudAppList').addEventListener('keyup', filterAcceptedTable, false);
+		document.querySelector('#filterAcceptedList').addEventListener('keyup', filterAcceptedTable, false);
 	</script>
 
 	<script>
@@ -419,7 +677,7 @@ include('includes/dbconnection.php');
       	}      
 			}
 		}
-		document.querySelector('#filterStudAppList').addEventListener('keyup', filterRejectedTable, false);
+		document.querySelector('#filterRejectedList').addEventListener('keyup', filterRejectedTable, false);
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>

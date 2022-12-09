@@ -23,14 +23,14 @@ if (!$conn){
                 if (password_verify($password, $row['studPassword'])){ 
 
                     session_start();
-                    $_SESSION['adminloggedin'] = true;
+                    $_SESSION['studentloggedin'] = true;
                     //$_SESSION['adminusername'] = $username;
                     $_SESSION['studentID'] = $id;
 
                     echo "
                     <script>
                         alert('You Have Successfully Logged in');
-                        document.location.href = 'ky-studentMaintain.php';
+                        document.location.href = 'ky-enterStudDetails.php';
                     </script>
                     ";
 
@@ -44,7 +44,6 @@ if (!$conn){
                         document.location.href = 'ky-studLogin.php';
                     </script>
                     ";
-
                 }
         }
 

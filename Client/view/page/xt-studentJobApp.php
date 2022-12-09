@@ -32,20 +32,37 @@ if(isset($_GET['internJobID'])){
 		$internAppID = "InAM".($internAppID + 1);
 	}
 
-  $studID = "21REI00003";
+  $studID = "22REI00003";
 	$appStatus = "Pending Review";
 
 	$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
 	$run_stud = mysqli_query($conn, $get_stud);
   $row_stud = mysqli_fetch_array($run_stud);
   $studentCVdocument = $row_stud['studentCVdocument'];
+	$studApplicationQuota = $row_stud['studApplicationQuota'];
+	$applicationQuota = intval($studApplicationQuota);
 
-  $sql = "INSERT INTO InternApplicationMap (internAppID, studentID, internJobID, appStatus, appStudentCV, appInternStartDate, appInternEndDate) VALUES ('$internAppID', '$studID', '$internJobID','$appStatus','$studentCVdocument', '$internStart', '$internEnd')";
-  if (mysqli_query($conn, $sql)) {
-    echo "<script>alert('Your application have been sent to the company')</script>"; 
-  } else {
-    echo "Error: " . $sql . mysqli_error($conn);
-    }   
+	$get_app = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND internJobID = '$internJobID'";
+	$run_app = mysqli_query($conn, $get_app);
+  if($row_app = mysqli_fetch_array($run_app)){
+		echo "<script>alert('Your have applied for this company before.')</script>";
+	}
+	else{
+		if($applicationQuota >= 1){
+			$sql = "INSERT INTO InternApplicationMap (internAppID, studentID, internJobID, appStatus, appStudentCV, appInternStartDate, appInternEndDate) VALUES ('$internAppID', '$studID', '$internJobID','$appStatus','$studentCVdocument', '$internStart', '$internEnd')";
+			
+			$applicationQuota = $applicationQuota - 1;
+	
+			$query = "UPDATE Student SET studApplicationQuota ='$applicationQuota' WHERE studentID='$studID'";
+			if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
+				echo "<script>alert('Your application have been sent to the company.')</script>"; 
+			} else {
+				echo "Error: " . $sql . mysqli_error($conn);
+			}   
+		}else{
+			echo "<script>alert('You have reach your maximum application quota!')</script>"; 
+		}
+	}  
 }
 ?>
 <!DOCTYPE HTML>
@@ -132,7 +149,11 @@ if(isset($_GET['internJobID'])){
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th>Action</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Response</span>
+										</button>
+									</th>
 								</tr>
 							</thead>
 
@@ -145,12 +166,13 @@ if(isset($_GET['internJobID'])){
 																						
 								$conn = mysqli_connect($host, $user, $password, $database); 
 						
-								$get_internApp = "SELECT * FROM InternApplicationMap WHERE studentID = '21REI00003'";
+								$get_internApp = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003'";
 								$run_internApp = mysqli_query($conn, $get_internApp);
 								while($row_internApp = mysqli_fetch_array($run_internApp)){
 									$internApp_ID = $row_internApp['internAppID'];
 									$internJob_ID = $row_internApp['internJobID'];
 									$app_Status = $row_internApp['appStatus'];
+									$appStudentFeedback = $row_internApp['appStudentFeedback'];
 									
 									$get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJob_ID'";
 									$run_intern = mysqli_query($conn, $get_intern);
@@ -177,7 +199,7 @@ if(isset($_GET['internJobID'])){
 									<td><?php echo $cmpAddress; ?></td>
                   <td><?php echo $jobAllowance; ?></td>
                   <td><?php echo $app_Status; ?></td>
-                  <td><a class="view" href="xt-viewJobApplied.php?InternAppID=<?php echo "InternAppID"; ?>">View</a></td>
+                  <td><?php echo $appStudentFeedback; ?></td>
                 </tr>
 								<?php } ?>
 							</tbody>

@@ -1,5 +1,5 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
 //TODO:  Change the location to index.php
@@ -7,13 +7,13 @@ require_once $systemPathPrefix."app/DAL/companyDAL.php";
 if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "AmendedInfo"){
     echo "<script>
       alert('Your company has been updated successfully.\\nPlease wait for the approval from the ITP Committee.');
+      window.location.href = 'br-cmpSelfRegister.php';
       </script>";
-      //window.location.href = 'br-cmpSelfRegister.php';
 }else if(isset($_GET['failed'])){
     echo "<script>
     alert('Your company has NOT been updated successfully.\\nPlease try again.');
+    window.location.href = 'br-cmpSelfAppModification.php'
     </script>";
-    //window.location.href = 'br-cmpSelfRegister.php'
 }
 
 if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']) && $_GET['amend'] == 1 && $_GET['rejected'] == 1){
@@ -34,11 +34,10 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
 
     }else{
         echo "<script>
-        alert('SQL Connect Error.\\nPlease contact TARUMT ITP Committee for assistance.');
+          alert('SQL Connect Error.\\nPlease contact TARUMT ITP Committee for assistance.');
+          window.location.href = 'clientLogin.php'; 
         </script>";
         
-        //window.location.href = 'br-cmpSelfRegister.php'
-        //TODO: Set to login.php, login page not yet created
     }
 }else{
     echo "<script>
@@ -79,6 +78,9 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet" />
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-cmpySelfRegister.css" />
   </head>
   <body>
@@ -261,7 +263,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
     function addNewRow(taskGroup, newTaskValue){
       //Entering Alphabet Only
       if(!checkIsAlphabet(newTaskValue.value)){
-        alert('Please Enter Alphabet and Space Only');
+        info('Please Enter Alphabet and Space Only');
         newTaskValue.value = '';
         return;
       }
@@ -269,7 +271,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
       let value = newTaskValue.value;
         
       if (value === ""){
-            alert("Please Enter a Task");
+            info("Please Enter a Task");
             return;
       }
         let taskRow = document.getElementById(taskGroup);
@@ -296,7 +298,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
         let taskRow = document.getElementById(taskGroup);
 
         if (inputValue === ""){
-            alert("Please Enter A Task");
+            info("Please Enter A Task");
             return;
         }
 
@@ -304,7 +306,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
         let checkExceed250 = (inputValue.length + maxJobChar) > 250;
 
         if(checkExceed250){
-            alert('Maximum 250 Characters');
+            info('Maximum 250 Characters');
             document.getElementById('cmpFieldArea').value = '';
             return;
         }
@@ -312,14 +314,14 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
         //To count the total number of task
         let countTaskRow = taskRow.childElementCount + 1;
         if(countTaskRow > 10){
-            alert('Maximum 10 Task Can Be Added');
+            info('Maximum 10 Task Can Be Added');
             document.getElementById('cmpFieldArea').value = '';
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-            alert('Please Enter Alphabet, Number, Space, and ',' Only');
+            info('Please Enter Alphabet, Number, Space, and ',' Only');
             newTaskValue.value = '';
             return;
         }
@@ -369,13 +371,13 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
       document.getElementById('cmpHiddenFieldsArea').value = taskValue;
 
       if(document.getElementById('cmpSize').value == 0){
-        alert('Please select a company size');
+        info('Please select a company size');
         return false;
       }else if(document.getElementById('state').value == 0){
-        alert('Please select a state');
+        info('Please select a state');
         return false;
       }else if(fieldsRow.length == 0){
-        alert('Please enter a field area');
+        info('Please enter a field area');
         return false;
       }
 

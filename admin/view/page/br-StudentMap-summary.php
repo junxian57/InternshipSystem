@@ -1,4 +1,12 @@
 <?php
+  if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+  }
+  
   if(!isset($_POST['student']) && !isset($_POST['lecture'])) {
     echo '<script> alert("Error Occurred, Please Try Again"); </script>';
     header('Location: ../../br-StudentSupervisor-Map.php');

@@ -6,12 +6,18 @@ require_once('../../app/BLL/rubricAssessmentComponentBLL.php');
 require_once("../../app/DTO/rubricAssessmentComponentDTO.php");
 require_once("../../app/DTO/rubricComponentDTO.php");
 require_once("../../app/DAL/rubricAssessmentComponentDAL.php");
-$rubricAssessmentComponentDALObj  = new rubricAssessmentComponentDAL();
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	header('location:logout.php');
-} else {
 
-	}*/
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
+
+$rubricAssessmentComponentDALObj  = new rubricAssessmentComponentDAL();
 $rubricAssessmentComponentBllObj = new rubricAssessmentComponentBLL();
 if ($_GET['act'] == "edit") {
     $id = str_replace("'", "", $_GET['id']);
@@ -24,11 +30,13 @@ if ($_GET['act'] == "edit") {
         $date = date('Y-m-d');
 
         $assessmentCriteriaID = $_POST['assessmentCriteriaID'];
+        $facultyID = $_POST['facultyID'];
         $assessmentCriteriaTitle = $_POST['assessmentCriteriaTitle'];
         $RoleForMark = $_POST['RoleForMark'];
         $assessmentCriteriaSession = $_POST['assessmentCriteriaSession'];
         $assessmentCriteriaDesc = $_POST['assessmentCriteriaDesc'];
-        $CreateByID = $_POST['CreateByID'];
+        $CreateByID = $_SESSION['adminID'];
+        $CreateByID = $_SESSION['committeeID'];
         $CreateDate = $date;
         if (count($_POST['cmpLvlValue']) == count($_POST['CriteriaCmpDesc'])) {
             $countRow = count($_POST['cmpLvlValue']);
@@ -38,7 +46,7 @@ if ($_GET['act'] == "edit") {
         }
         //print_r($newOfRubricCmpDto);
         $newRubricCmpCriteria = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
-
+        $newRubricCmpCriteria->setfacultyID($facultyID);
         //print_r($newRubricCmpCriteria);
         $rubricAssessmentComponentBllObj->UpdRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);
     }
@@ -49,6 +57,7 @@ if ($_GET['act'] == "edit") {
         $date = date('Y-m-d');
 
         $assessmentCriteriaID = $_POST['assessmentCriteriaID'];
+        $facultyID = $_POST['facultyID'];
         $assessmentCriteriaTitle = $_POST['assessmentCriteriaTitle'];
         $RoleForMark = $_POST['RoleForMark'];
         $assessmentCriteriaSession = $_POST['assessmentCriteriaSession'];
@@ -66,6 +75,7 @@ if ($_GET['act'] == "edit") {
         }
         //print_r($newOfRubricCmpDto);
         $newRubricCmpCriteria = new rubricAssessmentComponentDTO($assessmentCriteriaID, $assessmentCriteriaTitle, $RoleForMark, $assessmentCriteriaSession, $assessmentCriteriaDesc, $CreateByID, $CreateDate);
+        $newRubricCmpCriteria->setfacultyID($facultyID);
         $rubricAssessmentComponentBllObj->AddRubricCmpCriteria($newRubricCmpCriteria, $newOfRubricCmpDto);
     }
 }
@@ -165,7 +175,7 @@ function generateRubricCmptID($componentId)
 
                 ?>
                 <div class="forms ">
-                <?php
+                    <?php
                     if ($_GET['act'] == "edit") {
                         echo '<h3 class="title1">Edit Rubric Assessment Criteria</h3>';
                     } else {
@@ -201,6 +211,31 @@ function generateRubricCmptID($componentId)
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Session</label> <input type="text" id="assessmentCriteriaSession" name="assessmentCriteriaSession" class="form-control" placeholder="Section A. Progress Reports" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() : "" ?>" required="true"> </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputState">Selected Faculty</label>
+                                    <select id="facultyID" name="facultyID" class="form-control" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM Faculty";
+                                        $results = $db_handle->runQuery($query);
+
+                                        for ($i = 0; $i < count($results); $i++) {
+
+                                            if ($_GET['act'] == "edit") {
+                                                if ($aRubricAssmtCmptCriteria->getfacultyID() == $results[$i]['facultyID']) {
+                                                    echo "<option selected='selected' value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option value='" . $results[$i]['facultyID'] . "'>" . $results[$i]['facName'] . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-12"> <label for="exampleInputEmail1">Assessment Criteria Description</label> <textarea type="text-area" class="form-control" id="assessmentCriteriaDesc" name="assessmentCriteriaDesc" placeholder="Component Name" required="true"><?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getDesc() : "" ?></textarea></div>
                                 <div id="CriteriaDesc">
                                     <?php

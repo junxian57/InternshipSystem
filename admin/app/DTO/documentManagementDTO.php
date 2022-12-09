@@ -1,8 +1,6 @@
 <?php
 class documentManagementDTO
 {
-
-
     private $documentID;
     private $documentTitle;
     private $Uploader;
@@ -11,31 +9,50 @@ class documentManagementDTO
     private $Information;
     private $location;
 
-
-    public function __construct($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information)
+    public function __construct($documentID, $documentTitle, $Uploader, $uploadDocument, $Information)
     {
         $this->documentID = $documentID;
         $this->documentTitle = $documentTitle;
         $this->Uploader = $Uploader;
-        $this->uploadDate = $uploadDate;
+        $this->uploadDate = date('Y-m-d');
         $this->uploadDocument = $uploadDocument;
         $this->Information = $Information;
-       
     }
 
-//Use when retrieve data
-    public function __construct($documentID, $documentTitle, $Uploader, $uploadDate, $uploadDocument, $Information, $location)
+    public function setDocumentID($documentID)
     {
         $this->documentID = $documentID;
+    }
+
+    public function setDocumentTitle($documentTitle)
+    {
         $this->documentTitle = $documentTitle;
+    }
+
+    public function setUploader($Uploader)
+    {
         $this->Uploader = $Uploader;
+    }
+
+    public function setUploadDate($uploadDate)
+    {
         $this->uploadDate = $uploadDate;
+    }
+
+    public function setUploadDocument($uploadDocument)
+    {
         $this->uploadDocument = $uploadDocument;
+    }
+
+    public function setInformation($Information)
+    {
         $this->Information = $Information;
+    }
+
+    public function setLocation($location)
+    {
         $this->location = $location;
-       
     }
-
 
     public function getdocumentID()
     {

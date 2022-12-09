@@ -1,15 +1,29 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/internJobDAL.php";
 
-//$companyID = $_SESSION['companyID'];
-$companyID = "CMP00008";
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
+    //Get Company ID from Session
+    $companyID = $_SESSION['companyID'];
+}
 
 try{  
     $internJobList = getInternJobList($companyID);
 }catch(Exception $e){
-    echo '<script>alert("Database Connection Error")</script>';
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
 }
 
 ?>
@@ -44,6 +58,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-companyJobList.css">
 </head>
 
@@ -75,38 +92,42 @@ try{
                                     </thead>
                                     <tbody id="view-job-tbody">
                                         <?php
-                                            $i = 1;
-                                            foreach($internJobList as $row){
-                                                $internJobID = $row['internJobID'];
-                                                $buttonGroup = '';
-                                                if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
+                                            if($internJobList == null){
+                                                echo '<tr><td colspan="9">No Data</td></tr>';
+                                            }else{
+                                                $i = 1;
+                                                foreach($internJobList as $row){
+                                                    $internJobID = $row['internJobID'];
+                                                    $buttonGroup = '';
+                                                    if($row['jobCurrOccNumber'] > 0 || $row['jobStatus'] == "Deleted" || $row['jobStatus'] == "Full" || $row['jobStatus'] == "Done"){
 
-                                                    $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
+                                                        $buttonGroup = "<a target='_blank' class='edit button' href='br-companyViewJob.php?view=1&internJobID=".$internJobID."'>View</a>";
 
-                                                }elseif($row['jobCurrOccNumber'] == 0){
+                                                    }elseif($row['jobCurrOccNumber'] == 0){
 
-                                                    $buttonGroup = "
-                                                    <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
-                                                    <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
+                                                        $buttonGroup = "
+                                                        <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
+                                                        <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
 
-                                                }
-                                                echo '<tr>';
-                                                echo '<td>'.$i.'</td>';
-                                                echo '<td>'.$row['internJobID'].'</td>';
-                                                echo '<td>'.$row['jobTitle'].'</td>';
-                                                echo '<td>'.$row['jobCurrOccNumber'].' / '.$row['jobMaxNumberQuota'].'</td>';
-                                                echo '<td>'.$row['jobCmpSupervisor'].'</td>';
-                                                echo '<td>'.$row['jobSupervisorEmail'].'</td>';
-                                                echo '<td>'.$row['jobStatus'].'</td>';
-                                                echo '<td>'.$row['jobPostDate'].'</td>';
-                                                echo '<td class="btn-td">
-                                                    <div class="button-group">
-                                                        '.$buttonGroup.'
-                                                    </div>  
-                                                </td>';
-                                                echo '</tr>';
-                                                $i++;
+                                                    }
+                                                    echo '<tr>';
+                                                    echo '<td>'.$i.'</td>';
+                                                    echo '<td>'.$row['internJobID'].'</td>';
+                                                    echo '<td>'.$row['jobTitle'].'</td>';
+                                                    echo '<td>'.$row['jobCurrOccNumber'].' / '.$row['jobMaxNumberQuota'].'</td>';
+                                                    echo '<td>'.$row['jobCmpSupervisor'].'</td>';
+                                                    echo '<td>'.$row['jobSupervisorEmail'].'</td>';
+                                                    echo '<td>'.$row['jobStatus'].'</td>';
+                                                    echo '<td>'.$row['jobPostDate'].'</td>';
+                                                    echo '<td class="btn-td">
+                                                        <div class="button-group">
+                                                            '.$buttonGroup.'
+                                                        </div>  
+                                                    </td>';
+                                                    echo '</tr>';
+                                                    $i++;
                                             }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
@@ -124,7 +145,6 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -150,8 +170,6 @@ try{
             "info": false,
             responsive : true
         });
-
-        $.fn.dataTable.FixedHeader(table);
     });
 
     async function deleteInternJob(job){
@@ -162,12 +180,12 @@ try{
             let response = await fetch(url).then(response => response.json());
     
             if(response == "Success"){
-                alert("Delete Success");
+                addSuccess("Delete Success");
                 location.reload();
             }else if(response == 'Failed'){
-                alert("Delete Failed, Please Try Again");
+                info("Delete Failed, Please Try Again");
             }else if(response == 'InternshipMapIsNotEmpty'){
-                alert("Delete Failed, There are students applied for the job");
+                warning("Delete Failed, There are students applied for the job");
             }
         }
     }

@@ -1,7 +1,18 @@
 <?php
-include('../../includes/db_connection.php');
-if(isset($_POST['createCV'])){
+//include_once('../../app/DTO/FileDTO.php');
 
+if(isset($_POST['update'])){
+    $host = "sql444.main-hosting.eu";
+    $user = "u928796707_group34";
+    $password = "u1VF3KYO1r|";
+    $database = "u928796707_internshipWeb";
+    
+    $conn = mysqli_connect($host, $user, $password, $database);
+    if (!$conn){
+        die("Error". mysqli_connect_error());
+    }
+
+    //include('../../includes/db_connection.php');
     $id = $_POST['stdID'];
     $objective = $_POST['objectives'];
     $workExperience = $_POST['workExperience'];
@@ -11,28 +22,38 @@ if(isset($_POST['createCV'])){
     $school = $_POST['school'];
     $cgpa = $_POST['cgpa'];
     $extraActivities = $_POST['extraActivities'];
+    $name = $_POST['stdName'];
+    $phone = $_POST['stdContactNo'];
+    $email = $_POST['stdEmail'];
+    $gender = $_POST['gender'];
+    //$oldpass = $_POST['Pass'];
+    //$newpass = $_POST['conPass'];
+    $address = $_POST['stdAddress'];
+    $programme = $_POST['programmeID'];
+    $lecturer = $_POST['lecturerID'];
+    $internBatch = $_POST['internshipBatchID'];
+    $tutorial = $_POST['tutorialGroup'];
 
-    $db = new DBController();
+
+    //$db = new DBController();
                                     
     $sql = "select * from Student WHERE studentID='$id'"; 
-    $result = $db->runQuery($sql);
-
-    if(count($result) > 0){
-        foreach ($result as $student) {
-            $Id = $student['studentID'];
-            $programme = $student['programmeID'];
-            $lecturer = $student['lecturerID'];
-            $internBatch = $student['internshipBatchID'];
-            $username = $student['studName'];
-            $gender = $student['studGender'];
-            $email = $student['studEmail'];
-            $phone = $student['studContactNumber'];
-            $address = $student['studHomeAddress'];
-            $dateJoined = $student['studDateJoined'];
-            $applicationQuota = $student['studApplicationQuota'];
-            $currentApplication = $student['studCurrentNoOfApp'];
-            $status = $student['studAccountStatus'];
-        }
+    $result = mysqli_query($conn, $sql);
+    
+    while($row=mysqli_fetch_assoc($result)) {
+            $Id = $row['studentID'];
+            $programme1 = $row['programmeID'];
+            $lecturer1 = $row['lecturerID'];
+            $internBatch1 = $row['internshipBatchID'];
+            $username1 = $row['studName'];
+            $gender1 = $row['studGender'];
+            $email1 = $row['studEmail'];
+            $phone1 = $row['studContactNumber'];
+            $address1 = $row['studHomeAddress'];
+            $dateJoined1 = $row['studDateJoined'];
+            $applicationQuota1 = $row['studApplicationQuota'];
+            $currentApplication1 = $row['studCurrentNoOfApp'];
+            $status1 = $row['studAccountStatus'];
     }
     
         require_once('../../../TCPDF-main/tcpdf.php');
@@ -114,7 +135,7 @@ if(isset($_POST['createCV'])){
 
         $pdf->SetTextColor(0,0,0);
         $pdf->SetFont('times', '', 13);
-        $pdf->Cell(39, 7, 'Name : '.$username.' ', 0, 1, 'L');
+        $pdf->Cell(39, 7, 'Name : '.$username1.' ', 0, 1, 'L');
         $pdf->Cell(39, 7, 'Gender : '.$gender.'', 0, 1, 'L');
         $pdf->Cell(39, 7, 'Email : '.$email.'', 0, 1, 'L');
         $pdf->Cell(39, 7, 'Contact Number : '.$phone.'', 0, 1, 'L');
@@ -215,8 +236,91 @@ if(isset($_POST['createCV'])){
         $imageFile = '../images/cv-7.JPG';
         $pdf->Image($imageFile, 16,181, 7, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
-        $pdf->Output('CV.pdf', 'I');
+        //$pdf->Output('CV.pdf', 'I');
+        $date = explode('-',Date('Y-m-d'));
+
         
+        $directory = $_SERVER['DOCUMENT_ROOT'].'InternshipSystem/Client/view/document/StudentCV/';
+        $fileName = $directory.$Id.' - '.$username1.".pdf";
+
+        $content = $pdf->Output($fileName, "F");
+        
+        //$sql1="INSERT INTO pdf(pdf, timestamp) values('$fileName', NOW()) ";
+
+        //if(empty($oldpass)){
+        $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial', studentCVdocument='$fileName' WHERE studentID='$id' ";
+        $query_run = mysqli_query($conn, $query);
+
+        if($query_run)
+        {
+            echo "
+            <script>
+                alert('Student details update successfully');
+                document.location.href = 'ky-enterStudDetails.php';
+            </script>
+            ";
+        }
+        else
+        {
+            echo "
+            <script>
+                alert('Student details update failed, please try again.');
+                document.location.href = 'ky-enterStudDetails.php';
+            </script>
+            ";
+        }
+        //}
+
+        /* else{
+
+            $sql="select * from Student where studentID='$id'";
+            $result = mysqli_query($conn, $sql);
+            
+            $row=mysqli_fetch_assoc($result);
+                    if (password_verify($oldpass, $row['studPassword'])){ 
+                        if(empty($newpass)){
+                            echo '<script>alert("New password is empty. Please enter new password");
+                            window.history.back(1);
+                            </script>';
+                        }
+                        else{
+                            $hash = password_hash($newpass, PASSWORD_DEFAULT);
+                           
+                            $query2 = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+                            studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial', studPassword = '$hash', studAccountStatus = 'Pending Map', studentCVdocument='$fileName' WHERE studentID='$id' ";
+                            $result2 = mysqli_query($conn, $query2);
+                            if($result2)
+                            {
+                                echo "
+                                <script>
+                                    alert('Student details update successfully');
+                                    document.location.href = 'ky-enterStudDetails.php';
+                                </script>
+                                ";
+                            }
+                            else
+                            {
+                                echo "
+                                <script>
+                                    alert('Student details update failed, please try again.');
+                                    document.location.href = 'ky-enterStudDetails.php';
+                                </script>
+                                ";
+                            }
+                        }
+                    } 
+                    else{
+                        echo '<script>alert("Initial password is incorrect. Password update unsuccessful");
+                            window.history.back(1);
+                        </script>';
+                    }
+                
+        }
+     */
     }
 
 ?>
+
+
+                       

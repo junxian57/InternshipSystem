@@ -1,11 +1,21 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/admin/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/admin/';
 
 require_once $systemPathPrefix."app/DAL/studentMapDAL.php";
 
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
 try{
+    if (!isset($_SESSION['adminID'])) {
+        if (!isset($_SESSION['committeeID'])) {
+            echo "<script>
+                window.location.href = 'adminLogin.php';
+            </script>";
+        }
+    }
+
     $getFaculty = getFaculty();
+
 }catch(Exception $e){
     echo '<script>alert("Database Connection Error")</script>';
 }
@@ -41,6 +51,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-studentSupervisorMaintain.css">
 </head>
 
@@ -193,7 +206,6 @@ try{
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -219,7 +231,6 @@ try{
             "info": false,   
             responsive : true      
         });
-        $.fn.dataTable.FixedHeader(table);
     });
 
     $(document).ready(function() {
@@ -228,7 +239,6 @@ try{
             "info": false,
             responsive : true
         });
-        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>
@@ -381,7 +391,7 @@ try{
 
         if(tab1NewLecturer['currNo'] == tab1NewLecturer['maxNo']){
             checkboxInput.checked = false;
-            alert("You have selected more than the maximum number of students allowed for this supervisor");
+            warning("You have selected more than the maximum number of students allowed for this supervisor");
             return;
         }else if (tab1NewLecturer['currNo'] < tab1NewLecturer['maxNo'] && checkboxInput.checked == true){
             tab1NewLecturer['currNo'] = Number.parseInt(tab1NewLecturer['currNo']) + 1;
@@ -419,10 +429,10 @@ try{
             let data = await response.json();
     
             if(data == "Success"){
-                alert("Update Successfully");
+                addSuccess("Mapping Updated");
                 resetInput('1');
             }else{
-                alert("Update Failed");
+                warning("Mapping Updated Failed");
             }
         }else{
             return;
@@ -563,7 +573,7 @@ try{
             searchBtn.classList.remove('clickable-btn');
             document.getElementById(`tab${tabID}-faculty`).disabled = true;
         }else{
-            alert("No Data Found");
+            info("No Data Found");
         }
     }
 
@@ -571,7 +581,7 @@ try{
         let confirm = window.confirm(`Are you sure you want to remove this student with student ID : ${studentID}?`);
 
         if(confirm){
-            alert("Delete Successfully");
+            addSuccess("Delete Successfully");
             let dataTable = $('#tab2-table').DataTable();
             let url = `../../app/DAL/ajaxMapUpdateTab2RemoveStudent.php?studentID=${studentID}&tab2=true`;
             let response = await fetch(url);
@@ -579,9 +589,9 @@ try{
     
             if(data == "Success"){
                 dataTable.row($(`#tab2-table tr:contains(${studentID})`)).remove().draw();
-                alert("Delete Successfully");
+                addSuccess("Delete Successfully");
             }else{
-                alert("Delete Failed");
+                warning("Delete Failed");
             }
         }else{
             return;

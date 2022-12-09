@@ -25,19 +25,27 @@ if (!$conn){
         $appQuota = $_POST['appQuota'];
         $currentApp = $_POST['currentApp'];
         $status = $_POST['status'];
+        $tutorial = $_POST['tutorial'];
 
         $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
-        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', studDateJoined='$dateJoined', studApplicationQuota='$appQuota', studCurrentNoOfApp='$currentApp', studAccountStatus='$status' WHERE studentID='$id' ";
+        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', studDateJoined='$dateJoined', studApplicationQuota='$appQuota', studCurrentNoOfApp='$currentApp', studAccountStatus='$status', tutorialGroupNo='$tutorial' WHERE studentID='$id' ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)
         {
-            echo '<script> alert("Data Updated"); </script>';
-            header("Location:ky-studentMaintain.php");
+            echo "<script> 
+            alert('Student details Updated'); 
+            window.location.href = 'ky-studentMaintain.php';
+           
+            </script>";
         }
         else
         {
-            echo '<script> alert("Data Not Updated"); </script>';
+            echo "<script> 
+            alert('Student details Update failed'); 
+            window.location.href = 'ky-studentMaintain.php';
+           
+            </script>";
         }
     }
 ?>

@@ -1,16 +1,22 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 
-// if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus'])){
-//   //! Redirect to Index page
-//     header("Location: ../../index.php");
-//     exit();
-// }
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(!isset($_SESSION['lecturerID'])){
+  echo "<script>
+      window.location.href = 'clientLogin.php';
+  </script>";
+}
+
+if(!isset($_GET['studentID']) && !isset($_GET['individualView']) && !isset($_GET['accountStatus']) && !isset($_SESSION['lecturerID'])){
+    header("Location: br-StudentSupervisor-Manage.php");
+    exit();
+}
 
 $accountStatus = $_GET['accountStatus'];
 $studentArr = array();
-$sql = "";
 
 if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['accountStatus']) && $_GET['accountStatus'] == 'Active'){
   
@@ -229,72 +235,26 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
           <hr />
           <div class="title margin-btm-20">
             <h2 class="margin-top-20">Student Document</h2>
-          </div>
-
-          <?php
-            if($accountStatus == 'Intern'){
-          ?>
-          <div class="horizon-wrap">
-            <div class="name-address-group margin-top-20 select-style">
-              <label for="weeklyReport">Weekly Report</label>
-              <select name="weeklyReport">
-                <option value="0">Weekly Report 1</a>
-                <option value="1">Weekly Report 2</a>
-                <option value="2">Weekly Report 3</a>
-                <option value="3">Weekly Report 4</a>
-                <option value="4">Weekly Report 5</a>
-                <option value="5">Weekly Report 6</a>
-              </select>
-              <button id="weeklyBtn">Download</button>
-            </div>
-  
-            <div class="name-address-group margin-top-20 select-style">
-              <label for="monthlyReport">Monthly Report</label>
-              <select name="monthlyReport">
-                <option value="0">Monthly Report 1</a>
-                <option value="1">Monthly Report 2</a>
-                <option value="2">Monthly Report 3</a>
-                <option value="3">Monthly Report 4</a>
-                <option value="4">Monthly Report 5</a>
-                <option value="5">Monthly Report 6</a>
-              </select>
-              <button id="monthlyBtn">Download</button>
-            </div>
-          </div>
-          <?php
-            }
-          ?>
+          </div>   
           <div class="horizon-wrap">
             <div class="name-address-group margin-top-20 select-style">
               <label for="weeklyReport">CV / Resume</label>
               <?php
                 if($studentArr[0]['studentCVdocument'] != null){
+                  $studentCV = $studentArr[0]['studentCVdocument'];
               ?>
-                <button id="cvBtn">Download</button>
+                <a id="cvBtn" target="_blank" href="../../app/BLL/previewCV.php?path=<?php echo $studentCV; ?>">Preview</a>
               <?php
                 }else{
               ?>
-                <button id="cvBtn" class="grey-btn" disabled>Not Available</button>
+                <a id="cvBtn" class="grey-btn" disabled>Not Available</a>
               <?php
                 }
               ?>
             </div>
-  
-            <?php
-              if($accountStatus == 'Intern'){
-            ?>
-              <div class="name-address-group margin-top-20 select-style">
-                <label for="monthlyReport">Final Report</label>
-                <button id="finalBtn">Download</button>
-              </div>
-            <?php
-              }
-            ?>
           </div>
         </form>
       </div>
     </div>
   </body>
-
-  <script></script>
 </html>

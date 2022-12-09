@@ -1,3 +1,15 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) session_start();
+
+if(isset($_SESSION)){
+    $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
+    $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
+    $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
+    $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
+}else{
+  //header("Location: ../index.php");
+}
+?>
 <div class=" sidebar" role="navigation">
   <div class="navbar-collapse">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
@@ -6,29 +18,36 @@
           <a href="dashboard.php"><i class="fa fa-home nav_icon"></i>Dashboard</a>
         </li>
 
-        <li>
-          <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Users</a>
-            </li>
-            <li>
-              <a href="#">Manage Users</a>
-            </li>
-          </ul>
-        </li>
+        <?php if($lecturerID){ ?>
+          <li>
+            <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Supervisor<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/br-StudentSupervisor-Manage.php">Student Management</a>
+              </li>
+              <!-- <li>
+                <a href="#">Manage Users</a>
+              </li> -->
+            </ul>
+          </li>
+        <?php } ?>
 
-        <li>
-          <a href="#"><i class="fa fa-building-o nav_icon"></i>Companies<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Companies</a>
-            </li>
-            <li>
-              <a href="#">Manage Companies</a>
-            </li>
-          </ul>
-        </li>
+        <?php if($companyID){ ?>
+          <li>
+            <a href="#"><i class="fa fa-building-o nav_icon"></i>Company<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/br-companyInfo.php">Company Profile</a>
+              </li>
+              <li>
+                <a href="../page/br-companyCreateJob.php">Internship Job Creation</a>
+              </li>
+              <li>
+                <a href="../page/br-companyJobList.php">Internship Job List</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
 
         <li>
           <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>

@@ -1,12 +1,22 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-//TODO: Check if user is logged in, get company ID
-//$companyID = $_SESSION['cmpID'];
-$companyID = 'CMP00008';
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
+    //Get Company ID from Session
+    $companyID = $_SESSION['companyID'];
+}
 
 if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1){
     echo "<script> 
@@ -60,10 +70,10 @@ try{
         }
     }
 }catch(PDOException $e){
-    echo "<script> 
-        alert('$e');
+    echo "<script>
+        alert('Database Connection Error');
         window.location.href = 'br-companyInfo.php';
-    </script>";    
+    </script>";     
 }
 
 ?>
@@ -97,6 +107,9 @@ try{
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-companyCreateJob.css">
 </head>
 
@@ -408,14 +421,14 @@ try{
 
     document.getElementById('jobNumberPlacement').addEventListener('change', (e) => {
         if (e.target.value > <?php echo $quotaLeft; ?>) {
-            alert("You Have Only <?php echo $quotaLeft; ?> Quota Left");
+            info("You Have Only <?php echo $quotaLeft; ?> Quota Left");
             e.target.value = <?php echo $quotaLeft; ?>;
         }
     });
 
     document.getElementById('jobTrainingPeriod').addEventListener('change', (e) => {
         if (e.target.value < 4) {
-            alert("Minimum Training Period Is 4 Weeks");
+            info("Minimum Training Period Is 4 Weeks");
             e.target.value = 4;
         }
     });
@@ -443,7 +456,7 @@ try{
         let endDayIndex = endDay.selectedIndex;
         
         if(startDayIndex > endDayIndex){
-            alert('Start Day Cannot Be Greater Than End Day');
+            info('Start Day Cannot Be Greater Than End Day');
             startDay.selectedIndex = 0;
             endDay.selectedIndex = 4;
         }
@@ -456,12 +469,12 @@ try{
         let [endHour, endMin] = endTime.value.split(':');
         
         if(startHour > endHour){
-            alert('Start Time Cannot Be Greater Than End Time');
+            info('Start Time Cannot Be Greater Than End Time');
             startTime.value = '09:00';
             endTime.value = '18:00';
         }else if(startHour == endHour){
             if(startMin > endMin){
-                alert('Start Time Cannot Be Greater Than End Time');
+                info('Start Time Cannot Be Greater Than End Time');
                 startTime.value = '09:00';
                 endTime.value = '18:00';
             }
@@ -481,14 +494,14 @@ try{
         let taskRow = document.getElementById(taskGroup);
 
         if (inputValue === ""){
-            alert("Please Enter A Task");
+            info("Please Enter A Task");
             return;
         }
 
         //Check whether total task row has exceed 1500 characters
         let checkExceed1500 = inputValue.length + (taskGroup == 'respon-row' ? maxCharRespon : maxCharSkill) > 1500;
         if(checkExceed1500){
-            alert('Maximum 1500 Characters');
+            info('Maximum 1500 Characters');
             document.getElementById('jobRespon').value = '';
             return;
         }
@@ -496,14 +509,14 @@ try{
         //To count the total number of task
         let countTaskRow = taskRow.childElementCount + 1;
         if(countTaskRow > 10){
-            alert('Maximum 10 Task Can Be Added');
+            info('Maximum 10 Task Can Be Added');
             document.getElementById('jobRespon').value = '';
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-            alert('Please Enter Alphabet, Number, Space, and ',' Only');
+            info('Please Enter Alphabet, Number, Space, and ',' Only');
             newTaskValue.value = '';
             return;
         }
@@ -580,7 +593,7 @@ try{
         document.getElementById('jobSkillsStr').value = skillsValue;
 
         if(responRow.length == 0 || skillsRow.length == 0){
-            alert('Please enter a field area');
+            info('Please enter a field area');
             return false;
         }
     }

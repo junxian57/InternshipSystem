@@ -1,10 +1,22 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
-
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 require_once $systemPathPrefix."app/DTO/internJobDTO.php";
 
-session_start();
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
+    //Get Company ID from Session
+    $companyID = $_SESSION['companyID'];
+}
 
 ?>
 <!DOCTYPE HTML>
@@ -34,14 +46,14 @@ session_start();
     </script>
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="../../scss/br-companyCreateJob.css">
 </head>
 <?php
-    //TODO: Check if user is logged in, get company ID from session
-    //Get Company ID from Session
-    //$companyID = $_SESSION['cmpID'];
-    $companyID = 'CMP00008';
+    
 
     try{
         if(isset($_GET['internJobID']) && isset($_GET['edit']) || isset($_GET['view'])){
@@ -74,12 +86,12 @@ session_start();
             if($_GET['view'] == 1){
                 $editable = false;
                 echo "<script> 
-                        alert('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
+                        info('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
                     </script>";
             }elseif($_GET['edit'] == 1){
                 $editable = true;
                 echo "<script> 
-                        alert('You are ABLE to edit this Internship Job Details.'); 
+                        info('You are ABLE to edit this Internship Job Details.'); 
                     </script>";
             }
 
@@ -478,14 +490,14 @@ session_start();
 
     document.getElementById('jobNumberPlacement').addEventListener('change', (e) => {
         if (e.target.value > <?php echo $quotaLeft; ?>) {
-            alert("You Have Only <?php echo $quotaLeft; ?> Quota Left");
+            warning("You Have Only <?php echo $quotaLeft; ?> Quota Left");
             e.target.value = <?php echo $quotaLeft; ?>;
         }
     });
 
     document.getElementById('jobTrainingPeriod').addEventListener('change', (e) => {
         if (e.target.value < 4) {
-            alert("Minimum Training Period Is 4 Weeks");
+            info("Minimum Training Period Is 4 Weeks");
             e.target.value = 4;
         }
     });
@@ -513,7 +525,7 @@ session_start();
         let endDayIndex = endDay.selectedIndex;
         
         if(startDayIndex > endDayIndex){
-            alert('Start Day Cannot Be Greater Than End Day');
+            warning('Start Day Cannot Be Greater Than End Day');
             startDay.selectedIndex = 0;
             endDay.selectedIndex = 4;
         }
@@ -526,12 +538,12 @@ session_start();
         let [endHour, endMin] = endTime.value.split(':');
         
         if(startHour > endHour){
-            alert('Start Time Cannot Be Greater Than End Time');
+            warning('Start Time Cannot Be Greater Than End Time');
             startTime.value = '09:00';
             endTime.value = '18:00';
         }else if(startHour == endHour){
             if(startMin > endMin){
-                alert('Start Time Cannot Be Greater Than End Time');
+                warning('Start Time Cannot Be Greater Than End Time');
                 startTime.value = '09:00';
                 endTime.value = '18:00';
             }
@@ -551,14 +563,14 @@ session_start();
         let taskRow = document.getElementById(taskGroup);
 
         if (inputValue === ""){
-            alert("Please Enter A Task");
+            info("Please Enter A Task");
             return;
         }
 
         //Check whether total task row has exceed 1500 characters
         let checkExceed1500 = inputValue.length + (taskGroup == 'respon-row' ? maxCharRespon : maxCharSkill) > 1500;
         if(checkExceed1500){
-            alert('Maximum 1500 Characters');
+            info('Maximum 1500 Characters');
             document.getElementById('jobRespon').value = '';
             return;
         }
@@ -566,14 +578,14 @@ session_start();
         //To count the total number of task
         let countTaskRow = taskRow.childElementCount + 1;
         if(countTaskRow > 10){
-            alert('Maximum 10 Task Can Be Added');
+            info('Maximum 10 Task Can Be Added');
             document.getElementById('jobRespon').value = '';
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-            alert('Please Enter Alphabet, Number, Space, and ',' Only');
+            info('Please Enter Alphabet, Number, Space, and ',' Only');
             newTaskValue.value = '';
             return;
         }
@@ -650,7 +662,7 @@ session_start();
         document.getElementById('jobSkillsStr').value = skillsValue;
 
         if(responRow.length == 0 || skillsRow.length == 0){
-            alert('Please enter a field area');
+            info('Please enter a field area');
             return false;
         }
     }

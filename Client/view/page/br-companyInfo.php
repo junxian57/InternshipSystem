@@ -1,12 +1,22 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix."app/DAL/companyDAL.php";
 
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-$companyID = 'CMP00008';
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
+    //Get Company ID from Session
+    $companyID = $_SESSION['companyID'];
+}
+
 $db = new DBController();
 
 //Get Company Info
@@ -14,10 +24,10 @@ try{
     $companyInfo = getCompanyDetails($companyID);
     $companyName = $companyInfo[0]['cmpName'];
 }catch(Exception $e){
-    echo "<script> 
-    alert('$e');
-    window.location.href = 'br-companyInfo.php';
-    </script>";    
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'br-companyInfo.php';
+    </script>";  
 }
 
 if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" && $_GET['success'] == "1"){
@@ -64,6 +74,9 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
+    <script src="../../js/toastr.min.js"></script>
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+    <script src="../../js/customToastr.js"></script>
     <link rel="stylesheet" href="../../scss/br-companyInfo.css">
 </head>
 <body class="cbp-spmenu-push">
@@ -122,7 +135,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 class="grey-bg" 
                                 type="text" 
                                 name="cmpContactPerson" 
-                                value="<?php echo $companyInfo[0]['cmpContactPerson']; ?>" 
+                                value="<?php echo trim($companyInfo[0]['cmpContactPerson']); ?>" 
                                 pattern="[a-zA-Z ]{1,}"
                                 readonly
                                 required/>
@@ -215,7 +228,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
 
                             <div class="name-address-group margin-top-20 select-style width-45">
                                 <label for="cmpSize">Company Size</label>
-                                <select name="cmpSize" id="cmpSize" disabled>
+                                <select name="cmpSize" id="cmpSize" onchange="checkCmpSizeDownGrade()" disabled>
                                 <option value="0" disabled>Company Size</option>
                                     <option value="Micro" <?php echo ($companyInfo[0]['cmpCompanySize'] == 'Micro') ? 'selected' : '' ?> >Micro: 1 - 4</option>
 
@@ -229,18 +242,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
-                                
-                                <!--
-                                //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
-                                -->
-
-                                <!-- <?php
-                                   // if($_SESSION['jobCreation'] == 1 && isset($_SESSION['jobCreation'])){
-                                ?> -->
-                                    <a href="#" class="clickable-btn">Next</a>
-                                <!-- <?php
-                                  //  }
-                                ?> -->
                             </div>
                         </form>
                     </div>
@@ -280,13 +281,13 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         let value = newTaskValue.value;
 
         if (value === ""){
-            alert("Please Enter a Task");
+            info("Please Enter a Task");
             return;
         }
 
         //Entering Alphabet Only
         if(!checkIsAlphabet(newTaskValue.value)){
-        alert('Please Enter Alphabet and Space Only');
+        info('Please Enter Alphabet and Space Only');
         newTaskValue.value = '';
         return;
         }
@@ -356,16 +357,57 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
       document.getElementById('cmpHiddenFieldsArea').value = taskValue;
 
       if(document.getElementById('cmpSize').value == 0){
-        alert('Please select a company size');
+        info('Please select a company size');
         return false;
       }else if(document.getElementById('cmpState').value == 0){
-        alert('Please select a state');
+        info('Please select a state');
         return false;
       }else if(fieldsRow.length == 0){
-        alert('Please enter a field area');
+        info('Please enter a field area');
         return false;
       }
     }
+
+    async function checkCmpSizeDownGrade(){
+        let response = await fetch('../../app/DAL/ajaxCheckCmpSizeDownGrade.php?companyID=<?php echo $companyID;?>').then(response => response.json());
+
+        let cmpSize = document.getElementById('cmpSize').value;
+        let cmpConvertToPlacementNo = 0;
+
+        let defaultValue = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
+        let defaultOption = 1;
+
+        if(defaultValue == 'Small'){
+            defaultOption = 2;
+        }else if(defaultValue == 'Medium'){
+            defaultOption = 3;
+        }else if(defaultValue == 'Large'){
+            defaultOption = 4;
+        }
+
+        if(cmpSize == 'Micro'){
+            cmpConvertToPlacementNo = 2;          
+        }else if(cmpSize == 'Small'){
+            cmpConvertToPlacementNo = 8;         
+        }else if(cmpSize == 'Medium'){
+            cmpConvertToPlacementNo = 20;           
+        }else if(cmpSize == 'Large'){
+            cmpConvertToPlacementNo = 50;           
+        }
+
+        console.log(response[0]['totalMaxQuota'])
+
+        if(response == 'Failed'){
+            warning('Unable To Proceed Current Operation');
+            document.getElementById('cmpSize').value = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
+        }else{
+            if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
+                warning('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
+                document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
+            }
+        }
+    }
+
 </script>
 
 

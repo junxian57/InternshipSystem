@@ -1,16 +1,27 @@
 <?php
-session_start();
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 require_once $systemPathPrefix.'app/DAL/studentMapDAL.php';
 
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
 try{
+    if(!isset($_SESSION['lecturerID'])){
+        echo "<script>
+            window.location.href = 'clientLogin.php';
+        </script>";
+    }else{
+        //Get Company ID from Session
+        $lecturerID = $_SESSION['lecturerID'];
+    }
+
     $getInternBatch = getInternshipBatch();
 }catch(Exception $e){
-    echo '<script>alert("Database Connection Error")</script>';
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
 }
 
-//Session get logged in LECTURER ID
-$lecturerID = 'LEC00001';
 
 ?>
 <!DOCTYPE HTML>
@@ -99,9 +110,10 @@ $lecturerID = 'LEC00001';
                                         <th>Year</th>
                                         <th>Tutorial Group</th>
                                         <th>Email</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody id="table-body">                 
+                                    <tbody id="table-body">
                                                                        
                                     </tbody>
                                 </table>
@@ -121,7 +133,6 @@ $lecturerID = 'LEC00001';
 <script src="../../js/bootstrap.js"> </script>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script>
     let menuLeft = document.getElementById('cbp-spmenu-s1'),
@@ -148,8 +159,6 @@ $lecturerID = 'LEC00001';
             "dom": 'lrtp',
             responsive : true
         });
-
-        $.fn.dataTable.FixedHeader(table);
     });
 </script>
 <script>
@@ -180,6 +189,14 @@ $lecturerID = 'LEC00001';
 
         data.forEach(student => {
             let rowNo = dataTable.context[0].aoData.length + 1;
+
+            if(student.studAccountStatus == "Active"){
+                statusTD= `<span class="active-status">Active</span>`;
+            }else if(student.studAccountStatus == "Intern"){
+                statusTD = `<span class="inactive-status">Intern</span>`;
+            }else if(student.studAccountStatus == "Graduated"){
+                statusTD = `<span class="inactive-status">Graduated</span>`;
+            }
             dataTable.row.add([
                 rowNo,
                 student.studentID,
@@ -188,6 +205,7 @@ $lecturerID = 'LEC00001';
                 student.studentYear,
                 student.tutorialGroupNo,
                 `<a href='mailto:${student.studEmail}'>Send Email</a>`,
+                statusTD,
                 `<a target="_blank" class="view button" href="br-studentMapIndividualReview.php?studentID=${student.studentID}&individualView=true&accountStatus=${student.studAccountStatus}">View</a>`
             ]).draw();
         });    

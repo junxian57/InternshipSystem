@@ -167,3 +167,7 @@ input#cmpName {
   width: 100%;
   height: 30px;
 }
+
+.text-muted {
+  margin-top: 15px;
+}

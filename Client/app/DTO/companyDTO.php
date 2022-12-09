@@ -1,8 +1,8 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
 
 require_once $systemPathPrefix.'app/DAL/companyDAL.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/config/email.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/config/email.php';
 
 class Company{
     private $companyID, $companyName, $companyAddress, $companyEmail, $companyContact, $companyStatus, $companyContactPerson, $companyState, $companyCity, $companyPostcode, $companySize, $companyFieldsArea, $cmpNumberOfInternshipPlacements;

@@ -27,7 +27,7 @@ if(isset($_GET['companyID']) && isset($_GET['approve'])){
     $afterHashed = password_hash($initialPassword, PASSWORD_DEFAULT);
 
     //Update Company Account, Password, Status
-    $sql = "UPDATE Company SET cmpAccountStatus = 'InitialPassword', cmpUsername = '$companyAccount', cmpPassword = '$afterHashed' WHERE companyID = '$companyID'";
+    $sql = "UPDATE Company SET cmpAccountStatus = 'InitialPass', cmpUsername = '$companyAccount', cmpPassword = '$afterHashed' WHERE companyID = '$companyID'";
 
     $result = $db->executeQuery($sql);
 
@@ -78,6 +78,7 @@ if(isset($_GET['companyID']) && isset($_GET['approve'])){
 
 //Todo: Connect Link for Login and Setup Password
 function createHTMLEmailForSuccess($companyName, $companyAccount, $initialPassword){
+    $loginLink = "http://localhost/internshipSystem/Client/view/page/clientLogin.php";
     $html = "
     <html>
     <head>
@@ -88,7 +89,7 @@ function createHTMLEmailForSuccess($companyName, $companyAccount, $initialPasswo
         <p>Welcome To TARUMT Internship System.</p>
         <br>
         <p>Your company  <span style='font-weight: bold;'>($companyName)</span> application as our internship partner has been <span style='color:#44ab15; font-weight: bold; text-decoration:underline;'>Approved</span>.</p> 
-        <p>Please <a href='#' style='font-weight: bold; text-decoration:underline;'>Login</a> to your account to change your password and complete your company portfolio by using Company Account and Initial Password provided below.</p><br>
+        <p>Please <a href='$loginLink' style='font-weight: bold; text-decoration:underline;'>Login</a> to your account to change your password and complete your company portfolio by using Company Account and Initial Password provided below.</p><br>
         <p>Company Account: <span style='color:#ff4500; font-weight: bold;'>$companyAccount</span></p>
         <p>Initial Password: <span style='color:#ff4500; font-weight: bold;'>$initialPassword</span></p>
         <br>
@@ -100,11 +101,9 @@ function createHTMLEmailForSuccess($companyName, $companyAccount, $initialPasswo
 }
 
 function createHTMLEmailForFailed($companyName, $rejectReason){
-    $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/internshipSystem/client/';
     $companyID = $_GET['companyID'];
 
-   // $amendLink = 'http://'.$systemPathPrefix."view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
-    $amendLink = "localhost/internshipSystem/client/view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
+    $amendLink = "http://localhost/internshipSystem/Client/view/page/br-cmpSelfAppModification.php?companyID=$companyID&rejected=1&amend=1";
 
     $html = "
     <html>

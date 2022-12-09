@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+
+.cmpList {
+  padding: 3rem 8%;
+}
+
+.cmpList .cmpList-container {
+  font-family: "Nunito", sans-serif;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 3.5rem;
+  padding-bottom: 30px;
+}
+
+.cmpList .cmpList-container .cmpL {
+  font-family: "Nunito", sans-serif;
+  border: 0.1rem solid #919191;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+}
+
+.cmpList .cmpList-container .cmpL .cmpLimage {
+  height: 10rem;
+  width: 100%;
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.cmpList .cmpList-container .cmpL .cmpLimage img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+  object-fit: contain;
+}
+
+.cmpList .cmpList-container .cmpL .cmpLimage img:hover {
+  transform: scale(1.2);
+}
+
+.cmpList .cmpList-container .cmpL .cmpLcontent {
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+  padding: 2rem;
+  padding-top: 0;
+}
+
+.cmpList .cmpList-container .cmpL .cmpLcontent h3 {
+  font-family: "Nunito", sans-serif;
+  color: #f2891f;
+  font-weight: 700;
+  font-size: 28px;
+  min-height: 10vh;
+}
+
+.cmpList .cmpList-container .cmpL .cmpLcontent p {
+  font-family: "Nunito", sans-serif;
+  color: #d3ad7f;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.cmpL-btn {
+  margin-top: 1rem;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.8rem 2rem;
+  float: left;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table td {
+  text-align: left;
+}
+
+.table th {
+  text-align: right;
+  font-weight: 700;
+}
+
+p {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.cmpLFooter {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding-top: 0;
+  border: 0;
+  border-radius: 6px;
+  justify-content: space-between;
+}
+
+.job-pagination {
+  width: 820px;
+  position: relative;
+  left: 75px;
+}
+
+.job-pagination > li {
+  display: inline;
+  font-size: 18px;
+}
+
+.job-pagination > li > a,
+.job-pagination > li > span {
+  position: relative;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #000 !important;
+  text-decoration: none;
+}
+
+.job-pagination > li:first-child > a,
+.job-pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.job-pagination > li:last-child > a,
+.job-pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.job-pagination > li > a:focus,
+.job-pagination > li > a:hover,
+.jobpagination > li > span:focus,
+.job-pagination > li > span:hover {
+  z-index: 2;
+  color: #fff !important;
+  background-color: #d3ad7f !important;
+  border-color: #d3ad7f !important;
+}
+
+select#state {
+  width: 100%;
+  height: 30px;
+}
+
+input#jobName {
+  width: 100%;
+  height: 30px;
+}
+
+input#cmpName {
+  width: 100%;
+  height: 30px;
+}
