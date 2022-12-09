@@ -73,40 +73,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
             <div class="main-page">
                 <form action="ky-updateStudCmp.php" onsubmit="formTaskArray()" method="GET">
                 <input type="hidden" value="<?php echo $companyInfo[0]['companyID']; ?>" name="companyID">
-                    <div class="forms">
-                        <h3 class="page-title">Change initial password</h3>
-                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                            <div class="wrapper">
-                           
-                                <div class="title">
-                                    <h2>Password</h2>
-                                </div>
-                                <div class="horizon-wrap">
-                                    <div class="input-style width-45 name-address-group">
-                                    <label for="cmpContactPerson">Initial Password</label>
-                                    <input 
-                                    class="grey-bg" 
-                                    type="Password"
-                                    placeholder="Please enter initial password" 
-                                    name="iniPass" 
-                                    readonly
-                                    required/>
-                                    </div>
-
-                                    <div class="input-style width-45 name-address-group">
-                                    <label for="cmpDateJoin">New Password</label>
-                                    <input class="grey-bg" 
-                                    type="Password"
-                                    placeholder="Please enter new password"  
-                                    name="newPass" 
-                                    readonly
-                                    required/>
-                                    </div>
-                                </div>
-                          
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="forms" style="margin-top:40px;">
                         <h3 class="page-title">Company Information</h3>

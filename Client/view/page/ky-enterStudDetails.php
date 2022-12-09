@@ -79,29 +79,7 @@ if(isset($_SESSION['studentChangePass'])){
         <div id="page-wrapper">
             <div class="main-page">
                 <form action="ky-createCV.php" method="post">
-                    <div class="forms">
-                        <h3 class="page-title">Change initial password</h3>
-                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                            <div class="wrapper">
-                                <div class="title">
-                                    <h2>Password</h2>
-                                </div>
-
-                                <div class="horizon-wrap">
-                                    <div class="input-style width-45 name-address-group">
-                                        <label>Initial Password :</label>
-                                        <input type="Password" placeholder="Initial Password" name="Pass" required>  
-                                    </div>
-                                    <div class="input-style width-45 name-address-group">
-                                        <label>New Password :</label>
-                                        <input type="Password" placeholder="New Password" name="conPass" required>
-                                    </div>
-                                </div>
-                          
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     <div class="forms" style="margin-top:40px;">
                         <h3 class="page-title">Student Information</h3>
                         <div class="form-grids row widget-shadow" data-example-id="basic-forms">

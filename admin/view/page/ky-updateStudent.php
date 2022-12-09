@@ -34,7 +34,7 @@ if (!$conn){
         if($query_run)
         {
             echo "<script> 
-            alert('Company details Updated'); 
+            alert('Student details Updated'); 
             window.location.href = 'ky-studentMaintain.php';
            
             </script>";
@@ -42,7 +42,7 @@ if (!$conn){
         else
         {
             echo "<script> 
-            alert('Company details Update failed'); 
+            alert('Student details Update failed'); 
             window.location.href = 'ky-studentMaintain.php';
            
             </script>";

@@ -26,8 +26,8 @@ if(isset($_POST['update'])){
     $phone = $_POST['stdContactNo'];
     $email = $_POST['stdEmail'];
     $gender = $_POST['gender'];
-    $oldpass = $_POST['Pass'];
-    $newpass = $_POST['conPass'];
+    //$oldpass = $_POST['Pass'];
+    //$newpass = $_POST['conPass'];
     $address = $_POST['stdAddress'];
     $programme = $_POST['programmeID'];
     $lecturer = $_POST['lecturerID'];
@@ -247,32 +247,32 @@ if(isset($_POST['update'])){
         
         //$sql1="INSERT INTO pdf(pdf, timestamp) values('$fileName', NOW()) ";
 
-        if(empty($oldpass)){
-            $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
-            studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial', studentCVdocument='$fileName' WHERE studentID='$id' ";
-            $query_run = mysqli_query($conn, $query);
+        //if(empty($oldpass)){
+        $query = "UPDATE Student SET programmeID='$programme', lecturerID='$lecturer', internshipBatchID='$internBatch',studName='$name',
+        studGender='$gender', studEmail='$email', studContactNumber='$phone', studHomeAddress='$address', tutorialGroupNo ='$tutorial', studentCVdocument='$fileName' WHERE studentID='$id' ";
+        $query_run = mysqli_query($conn, $query);
 
-            if($query_run)
-            {
-                echo "
-                <script>
-                    alert('Student details update successfully');
-                    document.location.href = 'ky-enterStudDetails.php';
-                </script>
-                ";
-            }
-            else
-            {
-                echo "
-                <script>
-                    alert('Student details update failed, please try again.');
-                    document.location.href = 'ky-enterStudDetails.php';
-                </script>
-                ";
-            }
+        if($query_run)
+        {
+            echo "
+            <script>
+                alert('Student details update successfully');
+                document.location.href = 'ky-enterStudDetails.php';
+            </script>
+            ";
         }
+        else
+        {
+            echo "
+            <script>
+                alert('Student details update failed, please try again.');
+                document.location.href = 'ky-enterStudDetails.php';
+            </script>
+            ";
+        }
+        //}
 
-        else{
+        /* else{
 
             $sql="select * from Student where studentID='$id'";
             $result = mysqli_query($conn, $sql);
@@ -317,7 +317,7 @@ if(isset($_POST['update'])){
                     }
                 
         }
-    
+     */
     }
 
 ?>
