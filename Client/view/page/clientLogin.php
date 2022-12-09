@@ -3,7 +3,7 @@ if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
 if (isset($_GET['passwordChangeSuccess'])) {
     echo "<script>
-        alert('Password Changed Successfully!')
+        alert('Password Changed Successfully! Please Login Again');
         window.location.href = 'clientLogin.php';
         </script>";
 }
@@ -237,6 +237,15 @@ if (isset($_SESSION['studentID'])) {
             window.location.href = '../page/clientChangePassword.php?requireChangePass';
         }
 
+        if(response == 'Login Successful'){
+            if(tabName == 'Student'){
+                window.location.href = '../../view/page/ky-enterStudDetails.php';
+            }else if(tabName == 'Lecturer'){
+                window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
+            }else if(tabName == 'Company'){
+                window.location.href = '../../view/page/ky-enterCmpDetails.php';
+            }
+        }
         if (response == 'Wrong Email Format') {
             warning('Please enter a valid email address');
 

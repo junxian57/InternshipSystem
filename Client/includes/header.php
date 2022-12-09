@@ -132,6 +132,30 @@ if(isset($_SESSION)){
             </ul>
         </li>
         <?php } ?>
+
+        <?php if($lecturerID) { ?>
+          <li>
+            <li class="dropdown profile_details_drop">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <div class="profile_img">
+                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
+                <div class="user-name">
+                  <!--<p><?php echo $name; ?></p>-->
+                  <span>Student</span>
+                </div>
+                <i class="fa fa-angle-down lnr"></i>
+                <i class="fa fa-angle-up lnr"></i>
+                <div class="clearfix"></div>
+              </div>
+            </a>
+            <ul class="dropdown-menu drp-mnu">
+              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
+              <li> <a href="../../../Client/view/page/ky-maintainStud.php"><i class="fa fa-user"></i> Profile</a> </li>
+              <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
+              <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
+            </ul>
+        </li>
+        <?php } ?>
     </div>
     <div class="clearfix"> </div>
   </div>
