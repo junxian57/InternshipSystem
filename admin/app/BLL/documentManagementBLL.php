@@ -113,7 +113,7 @@ class documentManagementBLL
                 $all_documentManagement_html .= '<td>' . $documentManagement->getdocumentTitle() . '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getUploader() . '</td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getuploadDate() . '</td>';
-                $all_documentManagement_html .= '<td><a href="../../app/BLL/previewDocument.php?path='.$documentManagement->getuploadDocument().'" target="_blank">View</a> </td>';
+                $all_documentManagement_html .= '<td><a href="/internshipsystem/admin/app/BLL/previewDocument.php?path='.$documentManagement->getuploadDocument().'" target="_blank">View</a> </td>';
                 $all_documentManagement_html .= '<td>' . $documentManagement->getInformation() . '</td>';
                 
                 
