@@ -84,7 +84,65 @@ class documentManagementBLL
 
         return $all_documentManagement_html;
     }
+    
+    public function GenerateHtmlForAllDocumentClient()
+    {
+        //$rubricAssessmentDal = new rubricAssessmentDAL();
 
+        $all_documentManagement_html = '';
+        $all_document = $this->GetAllDocument();
+        $i = 1;
+        if (count($all_document) > 0) {
+            $all_documentManagement_html .= '<table id="documentCmpTbl" class="table-view">';
+            $all_documentManagement_html .= '<thead>';
+            $all_documentManagement_html .= '<tr>';
+            $all_documentManagement_html .= '<th id="test1">No. of Document</th>';
+            $all_documentManagement_html .= '<th>Document ID</th>';
+            $all_documentManagement_html .= '<th>Document Title</th>';
+            $all_documentManagement_html .= '<th>Uploader</th>';
+            $all_documentManagement_html .= '<th>Upload Date</th>';
+            $all_documentManagement_html .= '<th>Upload Document</th>';
+            $all_documentManagement_html .= '<th>Document Information</th>';
+            $all_documentManagement_html .= '</tr>';
+            $all_documentManagement_html .= '</thead>';
+            $all_documentManagement_html .= '<tbody>';
+            foreach ($all_document as $documentManagement) {
+                $all_documentManagement_html .= '<tr>';
+                $all_documentManagement_html .= '<td>' . $i++ . '</td>';
+                $all_documentManagement_html .= '<td>' . $documentManagement->getdocumentID() . '</td>';
+                $all_documentManagement_html .= '<td>' . $documentManagement->getdocumentTitle() . '</td>';
+                $all_documentManagement_html .= '<td>' . $documentManagement->getUploader() . '</td>';
+                $all_documentManagement_html .= '<td>' . $documentManagement->getuploadDate() . '</td>';
+                $all_documentManagement_html .= '<td><a href="../../app/BLL/previewDocument.php?path='.$documentManagement->getuploadDocument().'" target="_blank">View</a> </td>';
+                $all_documentManagement_html .= '<td>' . $documentManagement->getInformation() . '</td>';
+                
+                
+                $all_documentManagement_html .= '</tr>';
+            }
+            $all_documentManagement_html .= '</tbody>';
+            $all_documentManagement_html .= '</table>';
+        } else {
+            $all_documentManagement_html .= '<table id="documentCmpTbl" class="table-view">';
+            $all_documentManagement_html .= '<thead>';
+            $all_documentManagement_html .= '<tr>';
+            $all_documentManagement_html .= '<th id="test1">No. of Document</th>';
+            $all_documentManagement_html .= '<th>Document ID</th>';
+            $all_documentManagement_html .= '<th>Document Title</th>';
+            $all_documentManagement_html .= '<th>Uploader</th>';
+            $all_documentManagement_html .= '<th>Upload Date</th>';
+            $all_documentManagement_html .= '<th>Upload Document</th>';
+            $all_documentManagement_html .= '<th>Document Information</th>';
+            $all_documentManagement_html .= '<th>Location</th>';
+            $all_documentManagement_html .= '</tr>';
+            $all_documentManagement_html .= '</thead>';
+            $all_documentManagement_html .= '<tbody>';
+            $all_documentManagement_html .= '</tbody>';
+            $all_documentManagement_html .= '</table>';
+        }
+
+        return $all_documentManagement_html;
+    }
+    
     public function AddDocumentMngt($documentManagementDTO)
     {
 

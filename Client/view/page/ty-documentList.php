@@ -11,7 +11,7 @@ require_once $systemPathPrefix . "/app/DAL/documentManagementDAL.php";
 } else {*/
 
 $documentManagementBLLObj  = new documentManagementBLL();
-$all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
+$all_document = $documentManagementBLLObj->GenerateHtmlForAllDocumentClient();
 
 ?>
 <!DOCTYPE HTML>
