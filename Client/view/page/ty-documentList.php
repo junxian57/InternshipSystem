@@ -18,7 +18,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocumentClient();
 <html>
 
 <head>
-    <title>ITP System | View Documents</title>
+    <title>ITP System | Documents List</title>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -56,13 +56,13 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocumentClient();
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="tables">
-                    <h3 class="page-title">Documents</h3>
+                    <h3 class="page-title">Documents List</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                         <div id="documentTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Records of Documents</h4>
+                                    <h4>Available ITP Documents</h4>
                                 </div>
                             </div>
 
