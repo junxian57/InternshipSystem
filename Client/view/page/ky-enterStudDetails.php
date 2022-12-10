@@ -91,18 +91,18 @@ if(isset($_SESSION['studentChangePass'])){
                                 <div class="horizon-wrap">
                                     <div class="input-style width-45 name-address-group">
                                         <label>Student Id :</label>
-                                        <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" required readonly > 
+                                        <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" readonly > 
                                     </div>
                                     <div class="input-style width-45 name-address-group">
                                         <label>Name :</label>
-                                        <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" required >
+                                        <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" pattern="[a-zA-Z ]{1,}" required >
                                     </div>     
                                 </div>
 
                                 <div class="horizon-wrap">
                                     <div class="input-style width-45 name-address-group">
                                         <label>Contact No :</label>
-                                        <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" required>  
+                                        <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" pattern="[0-9]{10,11}" required>  
                                     </div>
                                     <div class="input-style width-45 name-address-group">
                                         <label>Email :</label>
@@ -165,11 +165,11 @@ if(isset($_SESSION['studentChangePass'])){
                                 <div class="horizon-wrap">
                                     <div class="input-style width-45 name-address-group">
                                         <label>Student Application Quota :</label>
-                                        <input type="text" name="studAppQuota" value="<?php echo $studAppQuota ?>" required readonly>
+                                        <input type="text" name="studAppQuota" value="<?php echo $studAppQuota ?> " pattern="[0-9]*" required readonly>
                                     </div>
                                     <div class="input-style width-45 name-address-group">
                                         <label>Student Current No of Application :</label>
-                                        <input type="text" name="studCurrentApp" value="<?php echo $studCurrentApp ?>" required readonly>
+                                        <input type="text" name="studCurrentApp" value="<?php echo $studCurrentApp ?>" pattern="[0-9]*" required readonly>
                                     </div>
                                 </div>
 
@@ -236,7 +236,6 @@ if(isset($_SESSION['studentChangePass'])){
                                 <hr />
                                 <div class="button-group">
                                     <button type = "submit" name="update" class="clickable-btn Update">Update</button>
-                                    <a href="#" class="clickable-btn Export">Cancel</a>
                                     <!--<button type = "submit" name="createCV" class="submit-btn">Create</button>-->
                                 </div>
 

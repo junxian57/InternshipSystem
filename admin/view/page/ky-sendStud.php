@@ -28,9 +28,9 @@ if(isset($_POST['submit'])){
     
     $passMessage='<html>
     <p>Dear '.$username.', You have been invited to register in ITP system.</p>
-    <p>Your id is '.$id.' and initial password is '.$pass.'</p>
+    <p>Your id is <b style="color:green;">'.$id.'</b> and initial password is <b style="color:green;">'.$pass.'</b></p>
     <p>Please change your password immediately after login.</p>
-    <p><a href = "http://localhost/InternshipSystem/Client/view/page/ky-studLogin.php?">Clic here to login</a></p>
+    <p><a href = "http://localhost/InternshipSystem/Client/view/page/clientLogin.php?">Clic here to login</a></p>
     </html>';
     
     //? This is for single email

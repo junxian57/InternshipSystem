@@ -2,6 +2,10 @@
 session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
+
+if(isset($_SESSION['studentChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -36,9 +40,7 @@ include('../../includes/db_connection.php');
 </head>
 
 <?php
- session_start();
- if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin']==true){
-    $adminloggedin= true;
+ if(isset($_SESSION['studentID'])){
     $id = $_SESSION['studentID'];
  }
 
@@ -90,18 +92,18 @@ include('../../includes/db_connection.php');
                                     <div class="horizon-wrap">
                                         <div class="input-style width-45 name-address-group">
                                             <label>Student Id :</label>
-                                            <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" required readonly > 
+                                            <input type="text"  placeholder="Student ID" name="stdID" value="<?php echo $Id ?>" readonly > 
                                         </div>
                                         <div class="input-style width-45 name-address-group">
                                            <label>Name :</label>
-                                           <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" required >
+                                           <input type="text"  placeholder="Student Name" name="stdName" value="<?php echo $username ?>" pattern="[a-zA-Z ]{1,}" required >
                                         </div>     
                                     </div>
 
                                     <div class="horizon-wrap">
                                         <div class="input-style width-45 name-address-group">
                                             <label>Contact No :</label>
-                                            <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" required>  
+                                            <input type="text" placeholder="Contact No." name="stdContactNo" value="<?php echo $phone ?>" pattern="[0-9]{10,11}" required>  
                                         </div>
                                         <div class="input-style width-45 name-address-group">
                                            <label>Email :</label>
