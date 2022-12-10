@@ -2,11 +2,10 @@
 session_start();
 error_reporting(0);
 //include_once("../../includes/db_connection.php");
-
-require_once('../../app/BLL/documentManagementBLL.php');
-require_once("../../app/DTO/documentManagementDTO.php");
-require_once("../../app/DAL/documentManagementDAL.php");
-
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/internshipSystem/admin/';
+require_once $systemPathPrefix . "/app/BLL/documentManagementBLL.php";
+require_once $systemPathPrefix . "/app/DTO/documentManagementDTO.php";
+require_once $systemPathPrefix . "/app/DAL/documentManagementDAL.php";
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
