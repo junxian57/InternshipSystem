@@ -204,7 +204,7 @@ error_reporting(0);
                             
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" placeholder="Enter programme" name="email" id="input_email" required>
+                                <input type="email" placeholder="Enter programme" name="email" id="input_email" required>
                                 <i class="uil uil-envelope icon"></i>
                             </div>
 
@@ -216,13 +216,13 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>Company Contact Person :</label>
-                                <input type="text" placeholder="Enter contact person" name="cmpContactPerson" id="input_username" >
+                                <input type="text" placeholder="Enter contact person" name="cmpContactPerson" id="input_username" pattern="[a-zA-Z ]{1,}" required>
                                 <i class="uil uil-chat-bubble-user icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
-                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" required readonly>
+                                <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" readonly>
                                 <i class='far fa-calendar-check icon'></i>
                             </div>
 
@@ -240,13 +240,13 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>City :</label>
-                                <input type="text" placeholder="Enter City" name="cmpCity" id="input_city" required>
+                                <input type="text" placeholder="Enter City" name="cmpCity" id="input_city" pattern="[a-zA-Z ]{1,}" required>
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Post Code :</label>
-                                <input type="text" placeholder="Enter Post Code" name="cmpPostCode" id="input_postCode" required>
+                                <input type="text" placeholder="Enter Post Code" name="cmpPostCode" id="input_postCode" pattern="[0-9]{5}" required>
                                 <i class="uil uil-estate icon"></i>
                             </div>
                             
@@ -283,13 +283,13 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>Company Internship Placement :</label>
-                                <input type="text" placeholder="Enter internship placement" name="cmpPlacement" id="input_placement" required >
+                                <input type="text" placeholder="Enter internship placement" name="cmpPlacement" id="input_placement" pattern="[0-9]{1,}" required >
                                 <i class="uil uil-book-open icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" required>
+                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" pattern="[a-zA-Z ]{1,}" required>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
 
@@ -309,13 +309,13 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>Company Average Allowance :</label>
-                                <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance" required>
+                                <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance" pattern="^[0-9]+\.?[0-9]{0,2}$" required>
                                 <i class="uil uil-usd-circle icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
-                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating" required >
+                                <input type="text" placeholder="Enter company rating" name="rating" id="input_rating" pattern="^[0-9]+\.?[0-9]{0,1}$" required >
                                 <i class="uil uil-star icon"></i>
                             </div>
                             

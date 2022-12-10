@@ -2,10 +2,14 @@
 session_start();
 include "../../includes/db_connection.php";
 
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
+if(isset($_SESSION['studentChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
 
-$companyID = 'CMP00007';
+if(isset($_SESSION['companyID'])){
+    $companyID = $_SESSION['companyID'];
+ }
+
 $db = new DBController();
 
 //Get Company Info
@@ -73,40 +77,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
             <div class="main-page">
                 <form action="ky-updateStudCmp.php" onsubmit="formTaskArray()" method="GET">
                 <input type="hidden" value="<?php echo $companyInfo[0]['companyID']; ?>" name="companyID">
-                    <div class="forms">
-                        <h3 class="page-title">Change initial password</h3>
-                        <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                            <div class="wrapper">
-                           
-                                <div class="title">
-                                    <h2>Password</h2>
-                                </div>
-                                <div class="horizon-wrap">
-                                    <div class="input-style width-45 name-address-group">
-                                    <label for="cmpContactPerson">Initial Password</label>
-                                    <input 
-                                    class="grey-bg" 
-                                    type="Password"
-                                    placeholder="Please enter initial password" 
-                                    name="iniPass" 
-                                    readonly
-                                    required/>
-                                    </div>
-
-                                    <div class="input-style width-45 name-address-group">
-                                    <label for="cmpDateJoin">New Password</label>
-                                    <input class="grey-bg" 
-                                    type="Password"
-                                    placeholder="Please enter new password"  
-                                    name="newPass" 
-                                    readonly
-                                    required/>
-                                    </div>
-                                </div>
-                          
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="forms" style="margin-top:40px;">
                         <h3 class="page-title">Company Information</h3>
@@ -272,17 +242,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 <div class="button-group">
                                     <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
                                     
-                                    <!--
-                                    //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
-                                    -->
-
-                                    <!-- <?php
-                                    // if($_SESSION['jobCreation'] == 1 && isset($_SESSION['jobCreation'])){
-                                    ?> -->
-                                    <!--  <a href="#" class="clickable-btn">Next</a>
-                                    <?php
-                                    //  }
-                                    ?> -->
                                 </div>
                         
                             </div>

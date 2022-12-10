@@ -1,9 +1,9 @@
 <?php
-    session_start();
-    if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin']==true){
-       $adminloggedin= true;
-       $studentID = $_SESSION['studentID'];
-    }
+    if(session_status() != PHP_SESSION_ACTIVE) session_start();
+    
+    if(isset($_SESSION['studentID'])){
+        $id = $_SESSION['studentID'];
+     }
     //$studentID = '22REI00002';
 ?>
 

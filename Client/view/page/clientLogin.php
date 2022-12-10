@@ -3,7 +3,7 @@ if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
 if (isset($_GET['passwordChangeSuccess'])) {
     echo "<script>
-        alert('Password Changed Successfully!')
+        alert('Password Changed Successfully! Please Login Again');
         window.location.href = 'clientLogin.php';
         </script>";
 }
@@ -13,7 +13,7 @@ if (isset($_SESSION['studentID'])) {
 } elseif (isset($_SESSION['lecturerID'])) {
     header("Location: ../../view/page/br-StudentSupervisor-Manage.php");
 } elseif (isset($_SESSION['companyID'])) {
-    header("Location: ../../view/page/br-companyInfo.php");
+    header("Location: ../../view/page/ky-enterCmpDetails.php");
 }
 ?>
 
@@ -237,20 +237,20 @@ if (isset($_SESSION['studentID'])) {
             window.location.href = '../page/clientChangePassword.php?requireChangePass';
         }
 
-        if (response == 'Login Successful') {
-            if (tabName == 'Student') {
+        if(response == 'Login Successful'){
+            if(tabName == 'Student'){
                 window.location.href = '../../view/page/ky-enterStudDetails.php';
-            } else if (tabName == 'Lecturer') {
+            }else if(tabName == 'Lecturer'){
                 window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
-            } else if (tabName == 'Company') {
-                window.location.href = '../../view/page/br-companyInfo.php';
+            }else if(tabName == 'Company'){
+                window.location.href = '../../view/page/ky-enterCmpDetails.php';
             }
-        } else if (response == 'Wrong Email Format') {
+        }
+        if (response == 'Wrong Email Format') {
             warning('Please enter a valid email address');
 
         } else if (response == 'Wrong Password' || response == 'Email Not Found') {
             warning('Wrong Email or Password');
-
         }
 
         emptyInputValue(tabName);
