@@ -2,10 +2,14 @@
 session_start();
 include "../../includes/db_connection.php";
 
-//Get Company ID from Session
-//$companyID = $_SESSION['cmpID'];
+if(isset($_SESSION['studentChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
 
-$companyID = 'CMP00007';
+if(isset($_SESSION['companyID'])){
+    $companyID = $_SESSION['companyID'];
+ }
+
 $db = new DBController();
 
 //Get Company Info
@@ -238,17 +242,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                 <div class="button-group">
                                     <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
                                     
-                                    <!--
-                                    //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
-                                    -->
-
-                                    <!-- <?php
-                                    // if($_SESSION['jobCreation'] == 1 && isset($_SESSION['jobCreation'])){
-                                    ?> -->
-                                    <!--  <a href="#" class="clickable-btn">Next</a>
-                                    <?php
-                                    //  }
-                                    ?> -->
                                 </div>
                         
                             </div>
