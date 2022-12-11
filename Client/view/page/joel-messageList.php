@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 //include_once("../../includes/db_connection.php");
-$systemPathPrefix = $_SERVER['MESSAGE_ROOT'] . '/internshipSystem/admin/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/internshipSystem/admin/';
 require_once $systemPathPrefix . "/app/BLL/generalCommunicationBLL.php";
 require_once $systemPathPrefix . "/app/DTO/generalCommunicationDTO.php";
 require_once $systemPathPrefix . "/app/DAL/generalCommunicationDAL.php";
@@ -11,7 +11,7 @@ require_once $systemPathPrefix . "/app/DAL/generalCommunicationDAL.php";
 } else {*/
 
 $generalCommunicationBLLObj  = new generalCommunicationBLL();
-$all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessage();
+$all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
 
 ?>
 <!DOCTYPE HTML>
@@ -121,7 +121,7 @@ $all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessage();
         <script>
             $(message).ready(function() {
                 $('#messageCmpTbl').DataTable({
-                    //custom search bar 
+                    //custom search bar
                     "language": {
                         searchPlaceholder: "Search Message"
                     },
