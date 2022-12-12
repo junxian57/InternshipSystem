@@ -73,7 +73,7 @@ include('../../includes/db_connection.php');
 					</div>
 					
 					<div id="ProgressReport" class="tabcontent">
-							<?php echo "<a href='xt-sampleProgressRpt.php' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
+							<?php echo "<a href='xt-sampleProgressRpt.php' target='_blank' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
 
 						<div id="progressRpt">
               <?php
@@ -83,7 +83,7 @@ include('../../includes/db_connection.php');
 					</div>
 
           <div id="FinalReport" class="tabcontent">
-						<?php echo "<a href='xt-sampleFinalRpt.php' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
+						<?php echo "<a href='xt-sampleFinalRpt.php' target='_blank' class='btn btn-success' id='btn-save' name='record'>";?>Sample Report Format</a>
 
 						<div id="finalRpt">
               <?php
