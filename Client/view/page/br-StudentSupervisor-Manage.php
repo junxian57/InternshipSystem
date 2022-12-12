@@ -182,6 +182,7 @@ try{
 
     async function searchStudent(){
         let dataTable = $('#preview-table').DataTable();
+        dataTable.clear().draw();
         let batchNumber = document.getElementById('batch-number').value;
         let url = `../../app/DAL/ajaxStudentMapManageGetStudent.php?batchNumber=${batchNumber}&lecturerID=<?php echo $lecturerID;?>`;
 

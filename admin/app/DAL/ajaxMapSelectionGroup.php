@@ -128,8 +128,7 @@ if(isset($_GET['facultyID']) && isset($_GET['internNo'])){
             FROM InternshipBatch IB, Student S
             WHERE S.internshipBatchID = IB.internshipBatchID AND
             S.programmeID LIKE '$programmeID' AND
-            S.internshipBatchID LIKE '$batchID' AND
-            S.studAccountStatus LIKE 'Pending Map'
+            S.internshipBatchID LIKE '$batchID'
             GROUP BY S.tutorialGroupNo) AS A ON IB.internshipBatchID = A.internshipBatchID AND A.tutorialGroupNo = S.tutorialGroupNo
             WHERE S.programmeID LIKE '$programmeID' AND 
             S.lecturerID IS NULL AND

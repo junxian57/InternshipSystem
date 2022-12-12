@@ -12,7 +12,7 @@ if(isset($_GET['studentLecMap'])){
 
     foreach($studentLecMapArr as $studentID => $lectureID){
         //Update student lecturerID
-        $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID = '$studentID';";
+        $sql = "UPDATE Student SET lecturerID = '$lectureID', studAccountStatus = 'Active' WHERE studentID = '$studentID';";
         $result = $db->executeQuery($sql);
 
         if($result){

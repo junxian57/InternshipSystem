@@ -88,7 +88,7 @@ try{
                                     </select>
 
                                     <label for="curr-supervisor" style="margin-top: 20px;">Current Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab1-supervisor" name="curr-supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled>
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="curr-supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled autocomplete="off">
                                     <div class="form-control" id="result-box-1">
 
                                     </div>
@@ -158,7 +158,7 @@ try{
 
                                 <div class="form-group">
                                     <label for="supervisor">Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab2-supervisor" name="supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)">                                  
+                                    <input type="search" class="form-control" id="tab2-supervisor" name="supervisor" placeholder="Enter Supervisor ID or Name...." required="true" onkeyup="displaySearchResult(this, this.id)" autocomplete="off">                                  
                                     <div class="form-control" id="result-box-2">
                                     </div>
                                 </div>
@@ -581,7 +581,6 @@ try{
         let confirm = window.confirm(`Are you sure you want to remove this student with student ID : ${studentID}?`);
 
         if(confirm){
-            addSuccess("Delete Successfully");
             let dataTable = $('#tab2-table').DataTable();
             let url = `../../app/DAL/ajaxMapUpdateTab2RemoveStudent.php?studentID=${studentID}&tab2=true`;
             let response = await fetch(url);

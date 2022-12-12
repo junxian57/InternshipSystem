@@ -101,7 +101,7 @@ if(isset($_SESSION)){
           //Get lecturer name from database
           $sqlGetLectName = "SELECT lecName FROM Lecturer WHERE lecturerID = '$lecturerID';";
           $resultGetLectName = $db->runQuery($sqlGetLectName);
-          $name = $resultGetLectName[0]['lectName'];
+          $name = $resultGetLectName[0]['lecName'];
         }
 
       ?>

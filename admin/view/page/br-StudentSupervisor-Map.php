@@ -79,7 +79,7 @@ try {
                             <div class="search-group">
                                 <div class="form-group">
                                     <label for="supervisor">Search Supervisor <span class="required-star">*</span></label>
-                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="" disabled>
+                                    <input type="search" class="form-control" id="tab1-supervisor" name="supervisor" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" data-lectureid="" disabled autocomplete="off">
                                     <div class="form-control result-box" id="result-box-1"> </div>
                                 </div>
 
@@ -152,7 +152,7 @@ try {
 
                                     <label for="student" class="margin-top-20">Search Student <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab2-student" name="student" disabled placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)">
-                                    <div class="form-control result-box" id="result-box-2">
+                                    <div class="form-control result-box" id="result-box-2" autocomplete="off">
 
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@ try {
                                 <div class="form-group">
                                     <label for="programme">Search Programme <span class="required-star">*</span></label>
                                     <input type="search" class="form-control" id="tab3-programme" name="programme" placeholder="Enter Any Relevant Keyword...." required="true" onkeyup="displaySearchResult(this, this.id)" disabled>
-                                    <div class="form-control result-box" id="result-box-3">
+                                    <div class="form-control result-box" id="result-box-3" autocomplete="off">
                                     </div>
                                 </div>
 
@@ -1136,9 +1136,9 @@ try {
                 addSuccess("Map Updated");
             } else if (responseResult == "Success" && tabNo == 3) {
                 resetInput(
-                    document.getElementById(`tab${tabNo}-student`),
-                    document.getElementById(`tab${tabNo}-internBatch-group`),
-                    document.getElementById(`tab${tabNo}-supervisor-group`)
+                    document.getElementById('tab3-programme'), 
+                    document.getElementById('tab3-internBatch-group'), 
+                    null, true
                 );
                 tab3OpenMapSummary();
             } else {
@@ -1202,10 +1202,10 @@ try {
             let noSelectStudent;
             document.querySelectorAll("#tab3-student-table tr").forEach((student) => {
                 if (student.dataset.tutorialgroup == tutorialNo) {
-                    noselectstudent = student.dataset.noselectstudent;
+                    noSelectStudent = student.dataset.noselectstudent;
                 }
             });
-            return noselectstudent;
+            return noSelectStudent;
         };
 
         let getMaxStudent = (tutorialNo) => {
