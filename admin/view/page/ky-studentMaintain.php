@@ -280,7 +280,7 @@ include('../../includes/db_connection.php');
 
                             <div class="input-box">
                                 <label>Student Name :</label>
-                                <input type="text" placeholder="Enter student name" name="studName" id="input_name" required>
+                                <input type="text" placeholder="Enter student name" name="studName" id="input_name" pattern="[a-zA-Z ]{1,}" required>
                                 <i class="uil uil-user-circle icon"></i>
                             </div>
 
@@ -296,13 +296,13 @@ include('../../includes/db_connection.php');
 
                             <div class="pass-box">
                                 <label>Email :</label>
-                                <input type="text" placeholder="Enter email" name="email" id="input_email" required>
+                                <input type="email" placeholder="Enter email" name="email" id="input_email" required>
                                 <i class="uil uil-envelope icon"></i>
                             </div> 
                             
                             <div class="pass-box">
                                 <label>Contact Number:</label>
-                                <input type="text" placeholder="Enter contact number" name="phone" id="input_phone" required>
+                                <input type="text" placeholder="Enter contact number" name="phone" id="input_phone" pattern="[0-9]{10,11}" required>
                                 <i class="uil uil-phone icon"></i>
                             </div>
 
@@ -355,13 +355,13 @@ include('../../includes/db_connection.php');
                             
                             <div class="pass-box">
                                 <label>Application Quota :</label>
-                                <input type="text" placeholder="Enter Application Quota" name="appQuota" id="input_applicationQuota" required>
+                                <input type="text" placeholder="Enter Application Quota" name="appQuota" id="input_applicationQuota" pattern="[0-9]*" required>
                                 <i class="fa fa-address-card icon"></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Current No Application :</label>
-                                <input type="text" placeholder="Enter Current No Application"  name="currentApp" id="input_currentApplication" required>
+                                <input type="text" placeholder="Enter Current No Application"  name="currentApp" id="input_currentApplication" pattern="[0-9]*" required>
                                 <i class="fa fa-address-card-o icon"></i>
                             </div>
 
@@ -382,55 +382,6 @@ include('../../includes/db_connection.php');
                                 
                             </div>
                             
-                            <!--<div class="input-box">
-                                <input type="radio" name="gender" id="dot-1" <?php echo $gender =="Male"?
-                                   "checked=checked":""?> />Male
-                                <input type="radio" name="gender" id="dot-2" <?php echo $gender =="Female"?
-                                   "checked=checked":""?> />Female
-                               
-                                
-                                <div class="category">
-                                    <label>Gender :</label>
-                                    <i class="fa fa-venus-mars icon"></i>
-                                    <label for="dot-1">
-                                    <span class="dot one"></span>
-                                    <span class="gender">Male</span>
-                                    </label>
-                                    <label for="dot-2">
-                                        <span class="dot two"></span>
-                                        <span class="gender">Female</span>
-                                    </label>
-                                    <label for="dot-3">
-                                        <span class="dot three"></span>
-                                        <span class="gender">Prefer not to say</span>
-                                    </label>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="input-box">
-                                <input type="radio" name="status" id="dot-4">
-                                <input type="radio" name="status" id="dot-5">
-                                <input type="radio" name="status" id="dot-6">
-                                <div class="category">
-                                    <label>Account Status :</label>
-                                    <i class="fa fa-venus-mars icon"></i>
-                                    <label for="dot-4">
-                                    <span class="dot four"></span>
-                                    <span class="status">Withdraw</span>
-                                    </label>
-                                    <label for="dot-5">
-                                        <span class="dot five"></span>
-                                        <span class="status">Active</span>
-                                    </label>
-                                    <label for="dot-6">
-                                        <span class="dot six"></span>
-                                        <span class="status">Deactive</span>
-                                    </label>
-                                    
-                                </div>
-                            </div>-->
-
                         </div> 
                         </div>
                         

@@ -84,6 +84,63 @@ class generalCommunicationBLL
         return $all_generalCommunication_html;
     }
 
+    public function GenerateHtmlForAllMessageView()
+    {
+
+        //$rubricAssessmentDal = new rubricAssessmentDAL();
+
+        $all_generalCommunication_html = '';
+        $all_message = $this->GetAllMessage();
+        $i = 1;
+        if (count($all_message) > 0) {
+            $all_generalCommunication_html .= '<table id="messageCmpTbl" class="table-view">';
+            $all_generalCommunication_html .= '<thead>';
+            $all_generalCommunication_html .= '<tr>';
+            $all_generalCommunication_html .= '<th id="test1">No. of Message</th>';
+            $all_generalCommunication_html .= '<th>Message ID</th>';
+            $all_generalCommunication_html .= '<th>Message Title</th>';
+            $all_generalCommunication_html .= '<th>Sender</th>';
+            $all_generalCommunication_html .= '<th>Receiver</th>';
+            $all_generalCommunication_html .= '<th>Message Date</th>';
+            $all_generalCommunication_html .= '<th>Message Content</th>';
+           
+            $all_generalCommunication_html .= '</tr>';
+            $all_generalCommunication_html .= '</thead>';
+            $all_generalCommunication_html .= '<tbody>';
+            foreach ($all_message as $generalCommunication) {
+                $all_generalCommunication_html .= '<tr>';
+                $all_generalCommunication_html .= '<td>' . $i++ . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmessageID() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgTitle() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgSender() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgReceiver() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgDate() . '</td>';
+                $all_generalCommunication_html .= '<td>' . $generalCommunication->getmsgContent() . '</td>';
+                $all_generalCommunication_html .= '</tr>';
+            }
+            $all_generalCommunication_html .= '</tbody>';
+            $all_generalCommunication_html .= '</table>';
+        } else {
+            $all_generalCommunication_html .= '<table id="messageCmpTbl" class="table-view">';
+            $all_generalCommunication_html .= '<thead>';
+            $all_generalCommunication_html .= '<tr>';
+            $all_generalCommunication_html .= '<th id="test1">No. of Message</th>';
+            $all_generalCommunication_html .= '<th>Message ID</th>';
+            $all_generalCommunication_html .= '<th>Message Title</th>';
+            $all_generalCommunication_html .= '<th>Sender</th>';
+            $all_generalCommunication_html .= '<th>Receiver</th>';
+            $all_generalCommunication_html .= '<th>Message Date</th>';
+            $all_generalCommunication_html .= '<th>Message Content</th>';
+            $all_generalCommunication_html .= '</tr>';
+            $all_generalCommunication_html .= '</thead>';
+            $all_generalCommunication_html .= '<tbody>';
+            $all_generalCommunication_html .= '</tbody>';
+            $all_generalCommunication_html .= '</table>';
+        }
+
+        return $all_generalCommunication_html;
+    }
+
     public function AddGeneralComm($generalCommunicationDTO)
     {
 

@@ -2,6 +2,11 @@
 session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
+
+if(isset($_SESSION['studentChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -37,15 +42,11 @@ include('../../includes/db_connection.php');
 </head>
 
 <?php
-//get id from login page
- //session_start();
- //if(isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin']==true){
-   // $adminloggedin= true;
-   // $id = $_SESSION['companyID'];
- //}
+if(isset($_SESSION['companyID'])){
+    $companyID = $_SESSION['companyID'];
+ }
 
- //testing purpose
-$companyID = 'CMP00007';
+
 $db = new DBController();
 
 //Get Company Info
@@ -274,18 +275,9 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
-                                <a href="#" class="clickable-btn Export">Cancel</a>
-                                <!--
-                                //TODO: Use js, if yes, then move to next page, ask does the company details all correct? 
-                                -->
-
-                                <!-- <?php
-                                   // if($_SESSION['jobCreation'] == 1 && isset($_SESSION['jobCreation'])){
-                                ?> -->
-                                  <!--  <a href="#" class="clickable-btn">Next</a>
-                                 <?php
-                                  //  }
-                                ?> -->
+                                <button class="clickable-btn Export" name ="Export">Export</button>
+                                <button class="clickable-btn Cancel">Cancel</button>
+                                
                             </div>
                         </form>
                     </div>

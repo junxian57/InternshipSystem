@@ -7,8 +7,8 @@ if (session_status() != PHP_SESSION_ACTIVE) session_start();
 if (isset($_SESSION['studentChangePass'])) {
     header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
-$internshipBatchID = $_SESSION['internshipBatchID'];
-$facultyID = $_SESSION['facultyID'];
+$internshipBatchID = trim($_SESSION['internshipBatchID']);
+$facultyID = trim($_SESSION['facultyID']);
 ?>
 
 <!DOCTYPE HTML>
@@ -78,21 +78,21 @@ $facultyID = $_SESSION['facultyID'];
                     </div>
 
                     <div id="CompanyEvalautionForm" class="tabcontent">
-                        <?php echo "<a href='jx-companyEvaluationRubric.php?internshipBatchID='$internshipBatchID'&facultyID='$facultyID'' class='btn btn-success' id='btn-save' name='record'>"; ?>Company Evalaution</a>
+                        <?php echo "<a href='jx-companyEvaluationRubric.php?internshipBatchID=$internshipBatchID&facultyID=$facultyID' class='btn btn-success' id='btn-save' name='record'>"; ?>Company Evalaution</a>
 
                         <div id="CompanyEvalautionForm">
                             <?php
-                            echo "<iframe src=\"jx-companyEvaluationRubric.php?internshipBatchID='$internshipBatchID'&facultyID='$facultyID\" width=\"100%\" style=\"height:100%\"></iframe>";
+                            echo "<iframe src=\"jx-companyEvaluationRubric.php?internshipBatchID=$internshipBatchID&facultyID=$facultyID\" width=\"100%\" style=\"height:100%\"></iframe>";
                             ?>
                         </div>
                     </div>
 
                     <div id="LecturerEvalautionForm" class="tabcontent">
-                        <?php echo "<a href='jx-lecturerEvaluationRubric.php?internshipBatchID='$internshipBatchID'&facultyID='$facultyID' class='btn btn-success' id='btn-save' name='record'>"; ?>Lecturer Evaluation</a>
+                        <?php echo "<a href='jx-lecturerEvaluationRubric.php?internshipBatchID=$internshipBatchID&facultyID=$facultyID' class='btn btn-success' id='btn-save' name='record'>"; ?>Lecturer Evaluation</a>
 
                         <div id="LecturerEvalautionForm">
                             <?php
-                            echo "<iframe src=\"jx-lecturerEvaluationRubric.php?internshipBatchID='$internshipBatchID'&facultyID='$facultyID\" width=\"100%\" style=\"height:100%\"></iframe>";
+                            echo "<iframe src=\"jx-lecturerEvaluationRubric.php?internshipBatchID=$internshipBatchID&facultyID=$facultyID\" width=\"100%\" style=\"height:100%\"></iframe>";
                             ?>
                         </div>
                     </div>
