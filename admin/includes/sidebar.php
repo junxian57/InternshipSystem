@@ -17,10 +17,6 @@ if(isset($_SESSION)){
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
       <ul class="nav" id="side-menu">
         <li>
-          <a href="dashboard.php"><i class="fa fa-home nav_icon"></i>Dashboard</a>
-        </li>
-
-        <li>
           <a href="#"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>

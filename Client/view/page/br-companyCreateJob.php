@@ -145,9 +145,7 @@ try{
                             </div>
 
                             <div class="input-style width-45 name-address-group">
-                            <!-- 
-                                TODO: Check maximum number job placement allowed
-                            -->
+                                
                             <label for="jobNumberPlacement"
                                 >Number of Placement Needed (Max:
                                 <span id="maxNoOfQuota"><?php echo $quotaLeft; ?></span>
