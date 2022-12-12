@@ -122,7 +122,7 @@ class rubricAssessmentComponentBLL
 
     public function IsValidRubricCmp($rubricCmpCriteriaDto)
     {
-        if ($this->IsValidRubricCmpExists($rubricCmpCriteriaDto->getTitle(), $rubricCmpCriteriaDto->getRoleForMark(), $rubricCmpCriteriaDto->getCriteriaSession())) {
+        if ($this->IsValidRubricCmpExists($rubricCmpCriteriaDto->getTitle(), $rubricCmpCriteriaDto->getRoleForMark(), $rubricCmpCriteriaDto->getCriteriaSession(), $rubricCmpCriteriaDto->getfacultyID())) {
             $this->errorMessage = 'Criteria ' . $rubricCmpCriteriaDto->getTitle() . ' in ' . $rubricCmpCriteriaDto->getCriteriaSession() . ' already exists. Try a different one.';
             return false;
         } else {
@@ -130,8 +130,8 @@ class rubricAssessmentComponentBLL
         }
     }
 
-    public function IsValidRubricCmpExists($Title, $RoleForMark, $session)
+    public function IsValidRubricCmpExists($Title, $RoleForMark, $session, $facultyID)
     {
-        return $this->rubricAssessmentComponentDAL->IsValidRubricCmpExists($Title, $RoleForMark, $session);
+        return $this->rubricAssessmentComponentDAL->IsValidRubricCmpExists($Title, $RoleForMark, $session, $facultyID);
     }
 }

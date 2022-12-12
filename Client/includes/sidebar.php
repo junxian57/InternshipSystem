@@ -58,6 +58,17 @@ if(isset($_SESSION)){
           </li>
         <?php } ?>
 
+        <?php if($studentID){ ?>
+          <li>
+            <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Student<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/ky-updateCV.php">Update CV</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
         <li>
           <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">

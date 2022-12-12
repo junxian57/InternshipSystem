@@ -27,7 +27,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
     echo "<script>
     alert(`Company Profile Has Been Updated Successfully.`);
     
-    window.location.href = 'ky-enterCmpDetails.php';
+    window.location.href = 'ky-maintainCmp.php';
     </script>";
     
 }else if(isset($_GET['failed']) && isset($_GET['update']) && $_GET['update'] == "0" && $_GET['failed'] == "1"){
