@@ -14,10 +14,6 @@ if(isset($_SESSION)){
   <div class="navbar-collapse">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
       <ul class="nav" id="side-menu">
-        <li>
-          <a href="dashboard.php"><i class="fa fa-home nav_icon"></i>Dashboard</a>
-        </li>
-
         <?php if($lecturerID){ ?>
           <li>
             <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Supervisor<span class="fa arrow"></span> </a>
