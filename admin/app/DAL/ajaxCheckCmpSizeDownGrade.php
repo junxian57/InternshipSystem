@@ -6,7 +6,7 @@ $db = new DBController();
 if(isset($_GET['companyID'])){
     $companyID = $_GET['companyID'];
 
-    $sqlCheckCmpDownSize = "SELECT SUM(ij.jobCurrOccNumber) AS totalMaxQuota
+    $sqlCheckCmpDownSize = "SELECT SUM(ij.jobMaxNumberQuota) AS totalMaxQuota
                                     FROM InternJob ij, Company c
                                     WHERE ij.companyID = c.companyID AND
                                     ij.jobStatus <> 'Deleted' AND

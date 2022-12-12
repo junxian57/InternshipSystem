@@ -297,8 +297,8 @@ try {
                             </div>
                             <hr>
                             <div class="update-group">
-                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>
-                            </div>Update Mapping</button>
+                                <button class="grey-btn" id="tab3-update-btn" onclick="tab2NTab3UpdateMapDB(3)" disabled>Update Mapping</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -151,9 +151,8 @@ if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action'])
                 <hr>
 
                 <div class="button-group">
-                    <a class="clickable-btn approve" id="approve-btn" href="../../app/DAL/cmpAppApprovalDAL.php?companyID=<?php echo $companyID; ?>&approve=true">Approve</a>
-                    <a class="clickable-btn reject" id="reject-btn">Reject</a>
-                    
+                    <a class="clickable-btn approve" id="approve-btn">Approve</a>
+                    <a class="clickable-btn reject" id="reject-btn">Reject</a>                
                 </div>
             </form>
         </div>     
@@ -193,6 +192,12 @@ if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action'])
     //Submit The Reject Comment
     document.getElementById('submit-btn').addEventListener('click', function(){
         let comment = document.getElementById('rejectComment').value;
+
+        if(comment == ""){
+            alert('Please enter a the reject reason');
+            return;
+        }
+
         let companyID = '<?php echo $companyID; ?>';
         let url = `../../app/DAL/cmpAppApprovalDAL.php?companyID=${companyID}&reject=true&comment=${encodeURIComponent(comment)}`;
 

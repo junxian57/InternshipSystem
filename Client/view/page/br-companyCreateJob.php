@@ -1,30 +1,30 @@
 <?php
-$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
+$systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/InternshipSystem/Client/';
 
-require_once $systemPathPrefix."app/DAL/companyDAL.php";
+require_once $systemPathPrefix . "app/DAL/companyDAL.php";
 
-if(session_status() != PHP_SESSION_ACTIVE) session_start();
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
 
-if(isset($_SESSION['companyChangePass'])){
+if (isset($_SESSION['companyChangePass'])) {
     header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
 
-if(!isset($_SESSION['companyID'])){
+if (!isset($_SESSION['companyID'])) {
     echo "<script>
         window.location.href = 'clientLogin.php';
     </script>";
-}else{
+} else {
     //Get Company ID from Session
     $companyID = $_SESSION['companyID'];
 }
 
-if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1){
+if (isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 && $_GET['inserted'] == 1) {
     echo "<script> 
             alert('New Internship Job Created Successfully.'); 
 
             window.location.href='br-companyJobList.php';
         </script>";
-}else if(isset($_GET['inserted']) && isset($_GET['failed']) && $_GET['failed'] == 1 && $_GET['inserted'] == 0){
+} else if (isset($_GET['inserted']) && isset($_GET['failed']) && $_GET['failed'] == 1 && $_GET['inserted'] == 0) {
     echo "<script> 
             alert('New Internship Job Created Failed.\\nPlease Try Again.');
 
@@ -33,47 +33,41 @@ if(isset($_GET['inserted']) && isset($_GET['success']) && $_GET['success'] == 1 
 }
 
 //Get Company Info
-try{
+try {
     $companyInfo = getCompanyDetails($companyID);
     $companyFields = $companyInfo[0]['cmpFieldsArea'];
-    
+
     $getCmpRemainingQuota = getRemainQuota($companyID);
 
-    if($getCmpRemainingQuota == null){
-        echo "<script> 
-                alert('You have NO quota left to create new internship job. \\nPlease contact TARUMT ITP Committee for further assistance.');
-
-                window.location.href = 'br-companyInfo.php';
-            </script>"; 
+    if ($getCmpRemainingQuota != null) {
+        if ($getCmpRemainingQuota[0]['TotalQuota'] >= $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements']) {
+            echo "<script> 
+                    alert('You have NO quota left to create new internship job. \\nPlease contact TARUMT ITP Committee for further assistance.');
+    
+                    window.location.href = 'br-companyInfo.php';
+                </script>";
+        }
     }
 
-    $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
-    $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
-    
-    if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
-        echo "<script> 
-            alert('Something went wrong.\\nPlease Try Again.');
+    $currQuota = $getCmpRemainingQuota[0]['TotalQuota'] == null ? 0 : $getCmpRemainingQuota[0]['TotalQuota'];
 
-            window.location.href = 'br-companyInfo.php';
-        </script>"; 
-
-    }else{
+    $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'] == null ?
+        (int)$companyInfo[0]['cmpNumberOfInternshipPlacements'] : (int)$getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
 
         $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
-    
-        if($quotaLeft == 0 || $quotaLeft < 0 ){
+
+        if ($quotaLeft == 0 || $quotaLeft <= 0) {
             echo "<script> 
                 alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for further assistance.'); 
     
                 window.location.href='br-companyInfo.php';
             </script>";
         }
-    }
-}catch(PDOException $e){
+} catch (PDOException $e) {
     echo "<script>
         alert('Database Connection Error');
         window.location.href = 'br-companyInfo.php';
-    </script>";     
+    </script>";
 }
 
 ?>
@@ -82,7 +76,7 @@ try{
 
 <head>
     <title>ITP SYSTEM</title>
-        <script type="application/x-javascript">
+    <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -90,8 +84,6 @@ try{
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-
-        
     </script>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -120,274 +112,194 @@ try{
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                <h3 class="page-title">Job Posting</h3>
-                <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                    <h3 class="page-title">Job Posting</h3>
+                    <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
-                <div class="wrapper">
-                    <form action="../../app/BLL/cmpCreateJobBLL.php" onsubmit="setHiddenInputValue()" method="GET">
-                        <input type="hidden" name="companyID" value="<?php echo $companyID; ?>">
-                        <div class="title">
-                            <h2 class="margin-top-20">
-                                Job's Details
-                            </h2>
-                        </div>
-                        <div class="horizon-wrap">
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobTitle">Job Title</label>
-                            <input
-                                type="text"
-                                name="jobTitle"
-                                placeholder="e.g. Java Programmer Internship"
-                                pattern="[a-zA-Z ]{1,}"
-                                title="Only Alphabets Is Allowed"
-                                required
-                            />
-                            </div>
+                        <div class="wrapper">
+                            <form action="../../app/BLL/cmpCreateJobBLL.php" onsubmit="setHiddenInputValue()" method="GET" id="jobForm">
+                                <input type="hidden" name="companyID" value="<?php echo $companyID; ?>">
+                                <div class="title">
+                                    <h2 class="margin-top-20">
+                                        Job's Details
+                                    </h2>
+                                </div>
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobTitle">Job Title</label>
+                                        <input type="text" name="jobTitle" placeholder="e.g. Java Programmer Internship" pattern="[a-zA-Z ]{1,}" title="Only Alphabets Is Allowed" required />
+                                    </div>
 
-                            <div class="input-style width-45 name-address-group">
-                                
-                            <label for="jobNumberPlacement"
-                                >Number of Placement Needed (Max:
-                                <span id="maxNoOfQuota"><?php echo $quotaLeft; ?></span>
-                                )
-                            </label>
-                            <input
-                                type="number"
-                                name="jobNumberPlacement"
-                                id="jobNumberPlacement"
-                                placeholder="e.g. <?php echo $quotaLeft; ?>"
-                                min="1"
-                                max="<?php echo $quotaLeft; ?>"              
-                                pattern="[0-100]{1,}"
-                                title="Only Number Is Allowed"
-                                required
-                            />
-                            </div>
-                        </div>
+                                    <div class="input-style width-45 name-address-group">
 
-                        <div class="vertical-wrap">
-                            <div class="input-style width-100 name-address-group">
-                            <label for="jobDesc">Job Description</label>
-                            <input 
-                                type="text" 
-                                name="jobDesc" 
-                                id="jobDesc" 
-                                pattern="[a-zA-Z ]{1,}"
-                                title="Only Alphabets Is Allowed"
-                                onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" 
-                                required />
-                            <p class="charCountHint">
-                                <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc">0</span>/250)
-                            </p>
-                            </div>
-
-                            <div class="input-style width-100 name-address-group">
-                            <label for="jobQualification">Job Qualification</label>
-                            <input
-                                type="text"
-                                name="jobQualification"
-                                placeholder="e.g. Degree in Computer Science or Equivalent Qualification"
-                                pattern="[a-zA-Z ]{1,}"
-                                title="Only Alphabets Is Allowed"
-                                maxlength="250"
-                                onkeyup="countCharacter(this, document.getElementById('maxCharsQual'))"
-                                required
-                            />
-                            <p class="charCountHint">
-                                <span>* </span>Maximum 250 Characters (<span id="maxCharsQual"
-                                >0</span
-                                >/250)
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="horizon-wrap">
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobWorkLocation">Job Work Location</label>
-                            <input
-                                type="text"
-                                name="jobWorkLocation"
-                                placeholder="e.g. Setapak, Kuala Lumpur"
-                                pattern="[a-zA-Z ,-]{1,}"
-                                title="Only Alphabets, ',' and '-' Is Allowed"
-                                required
-                            />
-                            </div>
-
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobAllowance">Job Allowance (RM)</label>
-                            <input
-                                type="number"
-                                name="jobAllowance"
-                                placeholder="1000"
-                                pattern="[0-99999]{1,}"
-                                title="Only Number Is Allowed"
-                                min="0"
-                                required
-                            />
-                            </div>
-                        </div>
-
-                        <div class="horizon-wrap">
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobWorkingDay">Job Working Day</label>
-                            <div class="horizon-wrap-maintain">
-                                <select id="workingDayStart" class="width-45-Imp" onchange="checkDayDiff()">
-                                    <option value="Monday"  selected>Monday</option>
-                                    <option value="Tuesday" >Tuesday</option>
-                                    <option value="Wednesday" >Wednesday</option>
-                                    <option value="Thursday" >Thursday</option>
-                                    <option value="Friday" >Friday</option>
-                                    <option value="Saturday" >Saturday</option>
-                                    <option value="Sunday" >Sunday</option>
-                                </select>
-                                <span class="arrow-icon">&#129050</span>
-                                <select id="workingDayEnd" class="width-45-Imp" onchange="checkDayDiff()">
-                                    <option value="Monday" >Monday</option>
-                                    <option value="Tuesday" >Tuesday</option>
-                                    <option value="Wednesday" >Wednesday</option>
-                                    <option value="Thursday" >Thursday</option>
-                                    <option value="Friday"  selected>Friday</option>
-                                    <option value="Saturday" >Saturday</option>
-                                    <option value="Sunday" >Sunday</option>
-                                </select>
-                                <input type="hidden" name="jobWorkingDay" id="jobWorkingDay">
-                            </div>
-                            </div>
-
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobWorkingHour">Job Working Hour</label>
-                            <div class="horizon-wrap-maintain">
-                                <input type="time" id="startWorkingHour" min="07:30" max="22:00" value="09:00" class="width-45-Imp" onchange="checkTimeDiff()">
-
-                                <span class="arrow-icon">&#129050</span>
-
-                                <input type="time" id="endWorkingHour" min="07:30" max="22:00" value="18:00" class="width-45-Imp" onchange="checkTimeDiff()">
-                                <input type="hidden" name="jobWorkingHour" id="jobWorkingHour">
-                            </div>
-                            
-                            </div>
-                        </div>
-
-                        <div class="horizon-wrap">
-                            <div class="name-address-group input-style width-45">
-                            <label for="fieldAreaSelection">Job Field Area</label>
-                            <select name="fieldAreaSelection" id="fieldAreaSelection">
-                                <?php
-                                    $fieldsArray = explode("-", $companyFields);
-
-                                    foreach($fieldsArray as $fields){
-                                        if($fields == "") continue;
-                                        echo '<option value="'.$fields.'">'.$fields.'</option>';
-                                    }
-                                ?>
-                            </select>
-                            </div>
-
-                            <div class="input-style width-45 name-address-group">
-                            <label for="jobTrainingPeriod">Training Period (In Week)</label>
-                            <input
-                                type="number"
-                                name="jobTrainingPeriod"
-                                id="jobTrainingPeriod"
-                                placeholder="Minimum 4 Weeks"
-                                pattern="[0-99]{1,}"
-                                title="Only Number Is Allowed"
-                                min="4"
-                                required
-                            />
-                            </div>
-                        </div>
-
-                        <hr />
-                        <div class="title">
-                            <h2 class="margin-top-20">
-                                Job's Company Supervisor Details
-                            </h2>
-                        </div>
-
-                        <div class="vertical-wrap">
-                            <div class="input-style width-100 name-address-group">
-                            <label for="jobSupervisor">Supervisor <span style="color:#f2891f; text-decoration:underline;">Name</span></label>
-                            <input 
-                            type="text" 
-                            pattern="[a-zA-Z ]{1,}" 
-                            title="Only Alphabets Is Allowed" 
-                            name="jobSupervisor"
-                            maxlength="50"
-                            onkeyup="countCharacter(this, document.getElementById('jobSupervisorChar'))"
-                            required />
-                            <p class="charCountHint">
-                                <span>* </span>Maximum 50 Characters (<span id="jobSupervisorChar"
-                                >0</span>/50)
-                            </p>
-                            </div>                       
-                        </div>
-                        
-                        <div class="horizon-wrap">
-                            <div class="input-style width-45 name-address-group">
-                                <label for="jobSupervisorEmail">Email</label>
-                                <input
-                                    type="email"
-                                    name="jobSupervisorEmail"
-                                    placeholder="e.g. Supervisor Email"
-                                    required
-                                />
+                                        <label for="jobNumberPlacement">Number of Placement Needed (Max:
+                                            <span id="maxNoOfQuota"><?php echo $quotaLeft; ?></span>
+                                            )
+                                        </label>
+                                        <input type="number" name="jobNumberPlacement" id="jobNumberPlacement" placeholder="e.g. <?php echo $quotaLeft; ?>" min="1" max="<?php echo $quotaLeft; ?>" pattern="[0-100]{1,}" title="Only Number Is Allowed" required />
+                                    </div>
                                 </div>
 
-                                <div class="input-style width-45 name-address-group">
-                                <label for="jobSupervisorContact">Contact Number</label>
-                                <input
-                                    type="text"
-                                    name="jobSupervisorContact"
-                                    placeholder="E.g. 0123456789 - Without Dash"
-                                    pattern="[0-9]{10,11}"
-                                    title="Only Number Is Allowed"
-                                    required
-                                />
-                            </div>
-                        </div>
+                                <div class="vertical-wrap">
+                                    <div class="input-style width-100 name-address-group">
+                                        <label for="jobDesc">Job Description</label>
+                                        <input type="text" name="jobDesc" id="jobDesc" pattern="[a-zA-Z ]{1,}" title="Only Alphabets Is Allowed" onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" required />
+                                        <p class="charCountHint">
+                                            <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc">0</span>/250)
+                                        </p>
+                                    </div>
 
-                        <hr />
-                        <div class="title">
-                            <h2 class="margin-top-20">
-                                Job Responsibilities & Skills Required
-                            </h2>
-                        </div>
+                                    <div class="input-style width-100 name-address-group">
+                                        <label for="jobQualification">Job Qualification</label>
+                                        <input type="text" name="jobQualification" placeholder="e.g. Degree in Computer Science or Equivalent Qualification" pattern="[a-zA-Z ]{1,}" title="Only Alphabets Is Allowed" maxlength="250" onkeyup="countCharacter(this, document.getElementById('maxCharsQual'))" required />
+                                        <p class="charCountHint">
+                                            <span>* </span>Maximum 250 Characters (<span id="maxCharsQual">0</span>/250)
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobWorkLocation">Job Work Location</label>
+                                        <input type="text" name="jobWorkLocation" placeholder="e.g. Setapak, Kuala Lumpur" pattern="[a-zA-Z ,-]{1,}" title="Only Alphabets, ',' and '-' Is Allowed" required />
+                                    </div>
+
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobAllowance">Job Allowance (RM)</label>
+                                        <input type="number" name="jobAllowance" placeholder="1000" pattern="[0-99999]{1,}" title="Only Number Is Allowed" min="0" required />
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobWorkingDay">Job Working Day</label>
+                                        <div class="horizon-wrap-maintain">
+                                            <select id="workingDayStart" class="width-45-Imp" onchange="checkDayDiff()">
+                                                <option value="Monday" selected>Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                            </select>
+                                            <span class="arrow-icon">&#129050</span>
+                                            <select id="workingDayEnd" class="width-45-Imp" onchange="checkDayDiff()">
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday" selected>Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                            </select>
+                                            <input type="hidden" name="jobWorkingDay" id="jobWorkingDay">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobWorkingHour">Job Working Hour</label>
+                                        <div class="horizon-wrap-maintain">
+                                            <input type="time" id="startWorkingHour" min="07:30" max="22:00" value="09:00" class="width-45-Imp" onchange="checkTimeDiff()">
+
+                                            <span class="arrow-icon">&#129050</span>
+
+                                            <input type="time" id="endWorkingHour" min="07:30" max="22:00" value="18:00" class="width-45-Imp" onchange="checkTimeDiff()">
+                                            <input type="hidden" name="jobWorkingHour" id="jobWorkingHour">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="name-address-group input-style width-45">
+                                        <label for="fieldAreaSelection">Job Field Area</label>
+                                        <select name="fieldAreaSelection" id="fieldAreaSelection">
+                                            <?php
+                                            $fieldsArray = explode("-", $companyFields);
+
+                                            foreach ($fieldsArray as $fields) {
+                                                if ($fields == "") continue;
+                                                echo '<option value="' . $fields . '">' . $fields . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobTrainingPeriod">Training Period (In Week)</label>
+                                        <input type="number" name="jobTrainingPeriod" id="jobTrainingPeriod" placeholder="Minimum 4 Weeks" pattern="[0-99]{1,}" title="Only Number Is Allowed" min="4" required />
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="title">
+                                    <h2 class="margin-top-20">
+                                        Job's Company Supervisor Details
+                                    </h2>
+                                </div>
+
+                                <div class="vertical-wrap">
+                                    <div class="input-style width-100 name-address-group">
+                                        <label for="jobSupervisor">Supervisor <span style="color:#f2891f; text-decoration:underline;">Name</span></label>
+                                        <input type="text" pattern="[a-zA-Z ]{1,}" title="Only Alphabets Is Allowed" name="jobSupervisor" maxlength="50" onkeyup="countCharacter(this, document.getElementById('jobSupervisorChar'))" required />
+                                        <p class="charCountHint">
+                                            <span>* </span>Maximum 50 Characters (<span id="jobSupervisorChar">0</span>/50)
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="horizon-wrap">
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobSupervisorEmail">Email</label>
+                                        <input type="email" name="jobSupervisorEmail" placeholder="e.g. Supervisor Email" required />
+                                    </div>
+
+                                    <div class="input-style width-45 name-address-group">
+                                        <label for="jobSupervisorContact">Contact Number</label>
+                                        <input type="text" name="jobSupervisorContact" placeholder="E.g. 0123456789 - Without Dash" pattern="[0-9]{10,11}" title="Only Number Is Allowed" required />
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="title">
+                                    <h2 class="margin-top-20">
+                                        Job Responsibilities & Skills Required
+                                    </h2>
+                                </div>
 
 
-                        <div class="selection-group margin-top-20 select-style">
-                            <label for="jobRespon">Job Responsibilities</label>
-                            <div id="respon-row" class="task-row">
-                                
-                            </div>
-                            <input type="hidden" name="jobResponStr" id="jobResponStr">
-                            <input id="jobRespon"/>
-                            <p class="charCountHint">
-                                <span>* </span>Maximum 1500 Characters (<span id="maxCharRespon">0</span>/1500)
-                            </p>
-                            <input type="button" id="addNewJobRespon" value="Add New">
-                        </div>
+                                <div class="selection-group margin-top-20 select-style">
+                                    <label for="jobRespon">Job Responsibilities</label>
+                                    <div id="respon-row" class="task-row">
 
-                        <div class="selection-group margin-top-20 select-style width-100">
-                            <label for="jobSkills">Skills Required</label>
-                            <div id="skills-row" class="task-row">
-                                
-                            </div>
-                            <input type="hidden" name="jobSkillsStr" id="jobSkillsStr">
-                            <input id="jobSkills" />
-                            <p class="charCountHint">
-                                <span>* </span>Maximum 250 Characters (<span id="maxCharSkill">0</span>/1500)
-                            </p>
-                            <input type="button" id="addNewJobSkills" value="Add New">
+                                    </div>
+                                    <input type="hidden" name="jobResponStr" id="jobResponStr">
+                                    <input id="jobRespon" />
+                                    <p class="charCountHint">
+                                        <span>* </span>Maximum 1500 Characters (<span id="maxCharRespon">0</span>/1500)
+                                    </p>
+                                    <input type="button" id="addNewJobRespon" value="Add New">
+                                </div>
+
+                                <div class="selection-group margin-top-20 select-style width-100">
+                                    <label for="jobSkills">Skills Required</label>
+                                    <div id="skills-row" class="task-row">
+
+                                    </div>
+                                    <input type="hidden" name="jobSkillsStr" id="jobSkillsStr">
+                                    <input id="jobSkills" />
+                                    <p class="charCountHint">
+                                        <span>* </span>Maximum 250 Characters (<span id="maxCharSkill">0</span>/1500)
+                                    </p>
+                                    <input type="button" id="addNewJobSkills" value="Add New">
+                                </div>
+                                <hr />
+                                <div class="button-group">
+                                    <input type="submit" class="clickable-btn" value="Create" />
+                                    <input type="button" class="clickable-btn" value="Reset All" onclick="resetForm()" />
+                                </div>
+                            </form>
                         </div>
-                        <hr />
-                        <div class="button-group">
-                            <input type="submit" class="clickable-btn" value="Create" />
-                            <input type="reset" class="clickable-btn" value="Reset All" />
-                        </div>
-                    </form>
-                </div>
 
                     </div>
                 </div>
@@ -431,47 +343,70 @@ try{
         }
     });
 
-    document.getElementById('addNewJobRespon').addEventListener('click',() => {
+    document.getElementById('addNewJobRespon').addEventListener('click', () => {
         addNewRow('respon-row', document.getElementById('jobRespon'))
     });
 
-    document.getElementById('addNewJobSkills').addEventListener('click',() => {
+    document.getElementById('addNewJobSkills').addEventListener('click', () => {
         addNewRow('skills-row', document.getElementById('jobSkills'))
     });
-    
+
+    $(document).keypress(
+        function(event){
+            if (event.which == '13') {
+            event.preventDefault();
+            }
+        }
+    );
 </script>
 <script>
+    function resetForm() {
+        document.getElementById('jobForm').reset();
+
+        let responRow = document.getElementById('respon-row');
+        let skillsRow = document.getElementById('skills-row');
+        let responStr = document.getElementById('jobResponStr');
+        let skillsStr = document.getElementById('jobSkillsStr');
+
+        responRow.innerHTML = '';
+        skillsRow.innerHTML = '';
+        responStr.value = '';
+        skillsStr.value = '';
+
+        maxCharRespon = 0;
+        maxCharSkill = 0;
+    }
     //Display Current Character Count
     function countCharacter(input, display) {
         let count = input.value.length;
         display.innerHTML = `${count}`;
     }
 
-    function checkDayDiff(){
+    function checkDayDiff() {
         let startDay = document.getElementById('workingDayStart');
         let endDay = document.getElementById('workingDayEnd');
         let startDayIndex = startDay.selectedIndex;
         let endDayIndex = endDay.selectedIndex;
-        
-        if(startDayIndex > endDayIndex){
+
+        if (startDayIndex > endDayIndex) {
             info('Start Day Cannot Be Greater Than End Day');
             startDay.selectedIndex = 0;
             endDay.selectedIndex = 4;
         }
     }
 
-    function checkTimeDiff(){
+    function checkTimeDiff() {
         let startTime = document.getElementById('startWorkingHour');
         let endTime = document.getElementById('endWorkingHour');
         let [startHour, startMin] = startTime.value.split(':');
         let [endHour, endMin] = endTime.value.split(':');
-        
-        if(startHour > endHour){
+
+        if (startHour > endHour) {
             info('Start Time Cannot Be Greater Than End Time');
             startTime.value = '09:00';
             endTime.value = '18:00';
-        }else if(startHour == endHour){
-            if(startMin > endMin){
+        } else if (startHour == endHour) {
+            if (startMin > endMin) {
                 info('Start Time Cannot Be Greater Than End Time');
                 startTime.value = '09:00';
                 endTime.value = '18:00';
@@ -479,26 +414,26 @@ try{
         }
     }
 
-    function checkIsAlphabet(value){
-      let regex = /^[0-9a-zA-Z ,]+$/;
-      return regex.test(value);
+    function checkIsAlphabet(value) {
+        let regex = /^[0-9a-zA-Z ,]+$/;
+        return regex.test(value);
     }
 
     let maxCharRespon = 0;
     let maxCharSkill = 0;
 
-    function addNewRow(taskGroup, newTaskValue){
+    function addNewRow(taskGroup, newTaskValue) {
         let inputValue = newTaskValue.value;
         let taskRow = document.getElementById(taskGroup);
 
-        if (inputValue === ""){
+        if (inputValue === "") {
             info("Please Enter A Task");
             return;
         }
 
         //Check whether total task row has exceed 1500 characters
         let checkExceed1500 = inputValue.length + (taskGroup == 'respon-row' ? maxCharRespon : maxCharSkill) > 1500;
-        if(checkExceed1500){
+        if (checkExceed1500) {
             info('Maximum 1500 Characters');
             document.getElementById('jobRespon').value = '';
             return;
@@ -506,19 +441,19 @@ try{
 
         //To count the total number of task
         let countTaskRow = taskRow.childElementCount + 1;
-        if(countTaskRow > 10){
+        if (countTaskRow > 10) {
             info('Maximum 10 Task Can Be Added');
             document.getElementById('jobRespon').value = '';
             return;
         }
 
         //Entering Alphabet Only
-        if(!checkIsAlphabet(newTaskValue.value)){
-            info('Please Enter Alphabet, Number, Space, and ',' Only');
+        if (!checkIsAlphabet(newTaskValue.value)) {
+            info('Please Enter Alphabet, Number, Space, and ', ' Only');
             newTaskValue.value = '';
             return;
         }
-        
+
         let newTask = document.createElement("div");
         newTask.className = "row";
         newTask.innerHTML = `<p>${inputValue}</p><span class="deleteRow" onclick="deleteTaskRow(this)">✖</span>`;
@@ -531,10 +466,10 @@ try{
         let tempCount = 0;
 
         tempCount = getTaskRowPElement[getTaskRowPElement.length - 1].innerHTML.length;
-        
-        if(taskGroup == 'respon-row'){
+
+        if (taskGroup == 'respon-row') {
             maxCharRespon += tempCount;
-        }else if(taskGroup == 'skills-row'){
+        } else if (taskGroup == 'skills-row') {
             maxCharSkill += tempCount;
         }
 
@@ -544,15 +479,15 @@ try{
         newTaskValue.focus();
     }
 
-    function deleteTaskRow(taskGroup){
+    function deleteTaskRow(taskGroup) {
         let taskCharCount = taskGroup.parentElement.children[0].innerHTML.length;
         let taskGroupID = taskGroup.parentElement.parentElement.id;
 
         let countDisplay = document.getElementById(`${taskGroupID == 'respon-row' ? 'maxCharRespon' : 'maxCharSkill'}`);
 
-        if(taskGroupID == 'respon-row'){
+        if (taskGroupID == 'respon-row') {
             maxCharRespon -= taskCharCount;
-        }else if(taskGroupID == 'skills-row'){
+        } else if (taskGroupID == 'skills-row') {
             maxCharSkill -= taskCharCount;
         }
 
@@ -561,7 +496,7 @@ try{
         taskGroup.parentElement.remove();
     };
 
-    function setHiddenInputValue(){
+    function setHiddenInputValue() {
         let workingDayStart = document.getElementById('workingDayStart');
         let workingDayEnd = document.getElementById('workingDayEnd');
         let jobWorkingDay = workingDayStart.value + '-' + workingDayEnd.value;
@@ -575,25 +510,36 @@ try{
         let responValue = "";
         let responRow = document.querySelectorAll('#respon-row .row p');
 
+        if(responRow.length == 0){
+            info('Please enter a responsibility');
+            return false;
+        }
+
         let skillsValue = "";
         let skillsRow = document.querySelectorAll('#skills-row .row p');
 
+        if(skillsRow.length == 0){
+            info('Please enter a skill');
+            return false;
+        }
 
         responRow.forEach((task) => {
-        responValue += task.innerHTML + "-";
+            responValue += task.innerHTML + "-";
         });
 
         skillsRow.forEach((task) => {
-        skillsValue += task.innerHTML + "-";
+            skillsValue += task.innerHTML + "-";
         });
 
         document.getElementById('jobResponStr').value = responValue;
         document.getElementById('jobSkillsStr').value = skillsValue;
 
-        if(responRow.length == 0 || skillsRow.length == 0){
+        if (responRow.length == 0 || skillsRow.length == 0) {
             info('Please enter a field area');
             return false;
         }
+        
+        return true;
     }
 </script>
 

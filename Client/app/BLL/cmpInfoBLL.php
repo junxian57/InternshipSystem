@@ -16,13 +16,13 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
         $cmpSize = $_GET['cmpSize'];
         $cmpFieldsArea = trim($_GET['cmpHiddenFieldsArea']);
 
-        if($companySize == 'Micro'){
+        if($cmpSize == 'Micro'){
             $cmpNumberOfInternshipPlacements = 2;
-        }else if($companySize == 'Small'){
+        }else if($cmpSize == 'Small'){
             $cmpNumberOfInternshipPlacements = 8;
-        }else if($companySize == 'Medium'){
+        }else if($cmpSize == 'Medium'){
             $cmpNumberOfInternshipPlacements = 20;
-        }else if($companySize == 'Large'){
+        }else if($cmpSize == 'Large'){
             $cmpNumberOfInternshipPlacements = 50;
         }
         

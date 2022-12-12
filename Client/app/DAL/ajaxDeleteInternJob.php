@@ -12,7 +12,7 @@ if(isset($_GET['internJobID']) && isset($_GET['delete']) && isset($_GET['company
     $resultCheckInternshipMapIsNon = $db->runQuery($sqlCheckInternshipMapIsNon);
 
     if($resultCheckInternshipMapIsNon == null){
-        $sqlDeleteInternJob = "UPDATE SET jobStatus = 'Deleted' WHERE internJobID = '$internJobID' AND companyID = '$companyID'";
+        $sqlDeleteInternJob = "UPDATE InternJob SET jobStatus = 'Deleted' WHERE internJobID = '$internJobID' AND companyID = '$companyID'";
     
         $result = $db->executeQuery($sqlDeleteInternJob);
     

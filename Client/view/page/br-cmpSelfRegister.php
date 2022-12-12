@@ -60,7 +60,7 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
 
     <div class="content">
       <div class="wrapper">
-        <form action="../../app/BLL/cmpSelfRegisterBLL.php" method="GET" onsubmit="formTaskArray()">
+        <form action="../../app/BLL/cmpSelfRegisterBLL.php" method="GET" onsubmit="formTaskArray()" id="registerForm">
           <h3 class="form-title">Company Registration Form</h3>
           <div class="title">
             <h2 class="title-1">Company Name & Contact</h2>
@@ -185,7 +185,7 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
 
           <div class="button-group">
             <button type="submit" name="submit" class="clickable-btn">Submit</button>
-            <button type="reset" class="clickable-btn">Reset All</button>
+            <button type="button" class="clickable-btn" onclick="resetAll()">Reset All</button>
           </div>
         </form>
       </div>
@@ -196,6 +196,13 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
   document.getElementById('addNewField').addEventListener('click',() => {
         addNewRow('fields-row', document.getElementById('cmpFieldArea'))
     });
+
+    function resetAll(){
+      document.getElementById('registerForm').reset();
+
+      let taskRow = document.getElementById('fields-row');
+      taskRow.innerHTML = '';
+    }
 
     function addNewRow(taskGroup, newTaskValue){
       //Entering Alphabet Only
@@ -232,6 +239,11 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
 
+      if(fieldsRow.length == 0){
+        info('Please enter a field area');
+        return false;
+      }
+
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
@@ -248,6 +260,8 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
         info('Please enter a field area');
         return false;
       }
+
+      return true;
     }
 
   </script>
