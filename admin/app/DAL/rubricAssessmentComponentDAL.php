@@ -225,9 +225,9 @@ class rubricAssessmentComponentDAL
      * @param string $session
      * @return bool
      */
-    public function IsValidRubricCmpExists($Title, $RoleForMark, $session)
+    public function IsValidRubricCmpExists($Title, $RoleForMark, $session, $facultyID)
     {
-        $sql = "SELECT * FROM RubricComponentCriteria WHERE Title LIKE'%" . $Title . "%' AND RoleForMark ='" . $RoleForMark . "' AND CriteriaSession LIKE'%" . $session . "%'";
+        $sql = "SELECT * FROM RubricComponentCriteria WHERE Title LIKE'%" . $Title . "%' AND RoleForMark ='" . $RoleForMark . "' AND CriteriaSession LIKE'%" . $session . "%' AND facultyID='" . $facultyID . "'";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             return true;

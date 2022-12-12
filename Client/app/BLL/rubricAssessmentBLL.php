@@ -99,7 +99,7 @@ class rubricAssessmentBLL
     }
     public function IsValidRubric($rubricAssmtDto)
     {
-        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID(), $rubricAssmtDto->getAssmtId())) {
+        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID(), $rubricAssmtDto->getAssmtId(), $rubricAssmtDto->getfacultyID())) {
             $this->errorMessage = 'Rubric ' . $rubricAssmtDto->getTitle() . ' already exists in this session. Try a different one.';
             return false;
         } else {
@@ -107,8 +107,8 @@ class rubricAssessmentBLL
         }
     }
 
-    public function IsRubricExists($Title, $internshipBatchID, $assmtID)
+    public function IsRubricExists($Title, $internshipBatchID, $assmtID, $facultyID)
     {
-        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID, $assmtID);
+        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID, $assmtID, $facultyID);
     }
 }
