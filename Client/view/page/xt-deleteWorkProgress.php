@@ -9,7 +9,7 @@
   if(isset($_GET['monthlyReportID'])){       
     $monthlyReportID = $_GET['monthlyReportID'];        
     $delete_month = "DELETE FROM weeklyReport WHERE monthlyReportID='$monthlyReportID'";     
-    $run_month = mysqli_query($conn,$delete_month);        
+    $run_month = mysqli_query($conn, $delete_month);        
     if($run_month){            
       echo "<script>alert('Deleted successfully!')</script>";     
       echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";

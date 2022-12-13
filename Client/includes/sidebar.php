@@ -99,6 +99,7 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
+        <?php if($studentID){ ?>
         <li>
           <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -113,6 +114,13 @@ if(isset($_SESSION)){
             </li>
           </ul>
         </li>
+        <?php } ?>
+
+        <?php if($studentID){ ?>
+        <li>
+          <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+        </li>
+        <?php } ?>
 
         <li>
           <a href="#"><i class="fa fa-users nav_icon"></i>Company Visitation<span class="fa arrow"></span></a>
@@ -160,7 +168,7 @@ if(isset($_SESSION)){
         </li>
 
         <li>
-          <a href="index.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
+          <a href="../../app/BLL/logoutBLL.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>
         </li>
         <hr style="background-color:transparent; border:none;">
         <hr style="background-color:transparent; border:none;">
