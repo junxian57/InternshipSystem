@@ -1,12 +1,12 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) session_start();
 
-if(isset($_SESSION)){
-    $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
-    $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
-    $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
-    $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
-}else{
+if (isset($_SESSION)) {
+  $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
+  $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
+  $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
+  $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
+} else {
   //header("Location: ../index.php");
 }
 ?>
@@ -14,7 +14,7 @@ if(isset($_SESSION)){
   <div class="navbar-collapse">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
       <ul class="nav" id="side-menu">
-        <?php if($lecturerID){ ?>
+        <?php if ($lecturerID) { ?>
           <li>
             <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Supervisor<span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level collapse">
@@ -22,18 +22,18 @@ if(isset($_SESSION)){
                 <a href="../page/br-StudentSupervisor-Manage.php">Student Management</a>
               </li>
               <li>
-            <a href="#"><i class="fa fa-building-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
-            <ul class="nav nav-second-level collapse">
-              <li>
-                <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
+                <a href="#"><i class="fa fa-building-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
+                <ul class="nav nav-second-level collapse">
+                  <li>
+                    <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
             </ul>
           </li>
         <?php } ?>
 
-        <?php if($companyID){ ?>
+        <?php if ($companyID) { ?>
           <li>
             <a href="#"><i class="fa fa-building-o nav_icon"></i>Company<span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level collapse">
@@ -58,7 +58,7 @@ if(isset($_SESSION)){
           </li>
         <?php } ?>
 
-        <?php if($studentID){ ?>
+        <?php if ($studentID) { ?>
           <li>
             <a href="add-services.php"><i class="fa fa-user nav_icon"></i>Student<span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level collapse">
@@ -99,27 +99,27 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
-        <?php if($studentID){ ?>
-        <li>
-          <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="../page/xt-displayRptTemplate.php">Report Template</a>
-            </li>
-            <li>
-              <a href="../page/xt-viewWorkProgress.php">New Work Progress</a>
-            </li>
-            <li>
-              <a href="../page/xt-viewWorkProgress.php">Print Work Progress</a>
-            </li>
-          </ul>
-        </li>
+        <?php if ($studentID) { ?>
+          <li>
+            <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-displayRptTemplate.php">Report Template</a>
+              </li>
+              <li>
+                <a href="../page/xt-viewWorkProgress.php">New Work Progress</a>
+              </li>
+              <li>
+                <a href="../page/xt-viewWorkProgress.php">Print Work Progress</a>
+              </li>
+            </ul>
+          </li>
         <?php } ?>
 
-        <?php if($studentID){ ?>
-        <li>
-          <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
-        </li>
+        <?php if ($studentID) { ?>
+          <li>
+            <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+          </li>
         <?php } ?>
 
         <li>
@@ -133,19 +133,21 @@ if(isset($_SESSION)){
             </li>
           </ul>
         </li>
-
-        <li>
-          <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">A</a>
-            </li>
-            <li>
-              <a href="#">B</a>
-            </li>
-          </ul>
-        </li>
-
+        <?php if ($studentID) { ?>
+          <li>
+            <a href="jx-displayEvaluationTemplate.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
+          </li>
+        <?php } ?>
+        <?php if ($companyID) { ?>
+          <li>
+            <a href="jx-listStudEvaluationByCompany.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
+          </li>
+        <?php } ?>
+        <?php if ($lecturerID) { ?>
+          <li>
+            <a href="listStudEvaluationByLecture.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
+          </li>
+        <?php } ?>
         <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
