@@ -54,18 +54,25 @@
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-	<title>ITP System | Weekly Work Progress</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+  <title>ITP System | Weekly Work Progress</title>
+  
+  <script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/toastr.min.js"></script>
+  <script src="../../js/customToastr.js"></script>
+
+  <link href="../../css/toastr.min.css" rel="stylesheet">
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
 	<link href="../../css/xt-workProgress.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
-	<link href="../../css/custom.css" rel="stylesheet">
-
-	<script src="../../js/jquery-1.11.1.min.js"></script>
+	
 	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
@@ -87,6 +94,25 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    .container{
+      margin-top: 100px;
+    }
+
+    #reset-btn {
+      width: 70px;
+    }
+
+    #btn-save {
+      width: 70px;
+    }
+
+    #btn-submit {
+      background: #9c9dff;
+      width: 70px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -97,7 +123,7 @@
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
+          <form method="POST" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
@@ -204,10 +230,11 @@
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
+                  <button type="button" class="btn btn-success" id="btn-submit" name="submit">Submit</button>
               </div>
 
               <input type="hidden" id="signature" name="signature">
-              <input type="hidden" name="signatureedit" value="1">
+              <input type="hidden" id="signatureedit" name="signatureedit" value="1">
             </div>
           </form>
         </div>
@@ -355,6 +382,18 @@
               context.stroke();
             }
           }
+        })
+
+        $("#btn-submit").click(function() {
+          let week1 = document.getElementById('week1').value;
+          let week2 = document.getElementById('week2').value;
+          let week3 = document.getElementById('week3').value;
+          let week4 = document.getElementById('week4').value;
+
+            if (week1 == '' || week2 == '' || week3 == '' || week4 == '') {
+              warning("Please fill in all fields");
+            } else {
+            }
         })
   </script>
 
@@ -538,11 +577,11 @@
   </script>
 
   <script>
-    $(document).ready(function(){ 
+    /*$(document).ready(function(){ 
       $(document).bind("contextmenu",function(e){
         return false;
       }); 
-    })
+    })*/
   </script>
 
 <script>

@@ -159,3 +159,16 @@ h3.title1 {
   border: 2px dashed grey;
   height: 250px;
 }
+
+#reset-btn {
+  width: 70px;
+}
+
+#btn-save {
+  width: 70px;
+}
+
+#btn-submit {
+  background: #9c9dff;
+  width: 70px;
+}
