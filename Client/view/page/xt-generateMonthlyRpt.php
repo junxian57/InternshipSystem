@@ -1,11 +1,21 @@
 <?php
 require_once('../../../TCPDF-main/tcpdf.php');
 
-extract($_POST);
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (isset($_SESSION['studentChangePass'])) {
+	header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+    
+if(isset($_SESSION['studentID'])){
+  $studID = $_SESSION['studentID'];
+}
 
 if(isset($_GET['monthlyRptID'])){
   $monthlyReportID = $_GET['monthlyRptID'];
 }
+
+extract($_POST);
 
 if(isset($_POST['signatureedit'])){
   $host = "sql444.main-hosting.eu";
@@ -16,8 +26,10 @@ if(isset($_POST['signatureedit'])){
   $conn = mysqli_connect($host, $user, $password, $database); 
 
   $monthRptID = $monthlyReportID;
-  $studID = "21WMR04845";
-  $cmpID = "CMP00001";
+  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+  $run_month = mysqli_query($conn, $get_month);
+  $row_month = mysqli_fetch_array($run_month);
+  $cmpID = $row_month['companyID'];
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
@@ -28,7 +40,7 @@ if(isset($_POST['signatureedit'])){
   $problem = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
   $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
+  $status = "Submitted";
   $signature = $_POST['signature'];
   $signatureFileName = $studName.'.jpg';
   $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -40,31 +52,29 @@ if(isset($_POST['signatureedit'])){
 
   if($leaveTaken == 'NO' || $leaveTaken == 'No'){
     $leaveReasons = "N/A";
+    $leave = '0';
+    $fromDate = "_____________________";
+    $toDate = "_____________________";
+    $leaveReason = "______________________________________________________________";
   }
   else{
     $leaveReasons = $_POST['leaveReason'];
+    $fromDate = $_POST['fromDate'];
+    $toDate = $_POST['toDate'];
+    $leaveDays = $_POST['leaveDays'];
+    $leaveReason = $_POST['leaveReason'];
+    $leave = $leaveDays;
   }
 
-  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
 
   if (mysqli_query($conn, $sql)) {
-    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-      $leave = '0';
-      $fromDate = "_____________________";
-      $toDate = "_____________________";
-      $leaveReason = "______________________________________________________________";
-    }
-    else{
-      $fromDate = $_POST['fromDate'];
-      $toDate = $_POST['toDate'];
-      $leaveDays = $_POST['leaveDays'];
-      $leaveReason = $_POST['leaveReason'];
-      $leave = $leaveDays;
-    }
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $today = date("F j, Y", time());
-    }
+  }else{
+    echo "Error: " . $sql . mysqli_error($conn);
   }
+}
 
 class PDF extends TCPDF{
   public function Header(){

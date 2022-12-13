@@ -238,12 +238,8 @@
                 </div>
               </div>
 
-              <div class="subtitle">
-                <h2 class="sub-4">Digital Signature</h2>
-              </div>
-
               <div id="signature-pad">
-                  <div id="canvasDiv"></div>
+                  <div id="canvasDiv" style="display: none;"></div>
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
