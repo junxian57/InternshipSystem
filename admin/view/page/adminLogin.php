@@ -179,6 +179,7 @@ if(session_status() != PHP_SESSION_ACTIVE) session_start();
         }
 
         let response = await fetch(url).then(response => response.json());
+        
         if(response == 'Login Successful'){
             window.location.href = '../../view/page/br-cmpAppTableReview.php';
         }else if(response == 'Wrong Email Format'){

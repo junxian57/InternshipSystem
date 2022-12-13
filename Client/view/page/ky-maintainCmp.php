@@ -275,9 +275,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
-                                <button class="clickable-btn Export" name ="Export">Export</button>
-                                <button class="clickable-btn Cancel">Cancel</button>
-                                
+                                <button class="clickable-btn Export" name ="Export">Export</button>                    
                             </div>
                         </form>
                     </div>
