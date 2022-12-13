@@ -1,6 +1,21 @@
 <?php
 session_start();
 error_reporting(0);
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if(isset($_SESSION['companyChangePass'])){
+    header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+
+if(!isset($_SESSION['companyID'])){
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+}else{
+    //Get Company ID from Session
+    $companyID = $_SESSION['companyID'];
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -374,7 +389,7 @@ error_reporting(0);
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Evaluation By Company</button>
                         </div>
-                        <input id="companyID" value="<?php echo $_SESSION['companyID'] ?>" hidden> </input>
+                        <input id="companyID" value="<?php echo $companyID ?>" hidden> </input>
 
                         <div id="RubricCmpTbl" class="tabcontent">
                             <div class="row">
