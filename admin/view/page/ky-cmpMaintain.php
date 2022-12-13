@@ -138,7 +138,7 @@ error_reporting(0);
                                         $cmpPostCode = $company['cmpPostCode'];
                                         $fieldArea = $company['cmpFieldsArea'];
                                         $cmpInternshipPlacement = $company['cmpNumberOfInternshipPlacements'];
-                                        $allowance = $company['cmpAverageAllowanceGiven'];
+                                        //$allowance = $company['cmpAverageAllowanceGiven'];
                                         $status = $company['cmpAccountStatus'];
                                         $rating= $company['cmpRating'];
                                 ?>                          
@@ -153,8 +153,8 @@ error_reporting(0);
                                             <td>
                                                 <div class="button-group">
                                                   
-                                                    <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
-                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                    <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>',  '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
                                                
                                                 </div>
                                             </td>
@@ -272,9 +272,6 @@ error_reporting(0);
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
-                            
-
-
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
                             <div class="title">
@@ -289,7 +286,7 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" pattern="[a-zA-Z ]{1,}" required>
+                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" required>
                                 <i class='fas fa-briefcase icon'></i>
                             </div>
 
@@ -306,12 +303,11 @@ error_reporting(0);
                             </div>
                             
 
-
-                            <div class="pass-box">
+                            <!--<div class="pass-box">
                                 <label>Company Average Allowance :</label>
                                 <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance" pattern="^[0-9]+\.?[0-9]{0,2}$" required>
                                 <i class="uil uil-usd-circle icon"></i>
-                            </div>
+                            </div>-->
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
@@ -450,11 +446,11 @@ error_reporting(0);
                                 <i class='far fa-building icon'></i>
                             </div>
 
-                            <div class="pass-box">
+                            <!--<div class="pass-box">
                                 <label>Company Average Allowance :</label>
                                 <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance2" required readonly>
                                 <i class="uil uil-usd-circle icon"></i>
-                            </div>
+                            </div>-->
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
@@ -481,7 +477,7 @@ error_reporting(0);
     </div>
 
     <script type="text/javascript">
-        function toModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
+        function toModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#login-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id').value = Id;
@@ -494,7 +490,7 @@ error_reporting(0);
             document.getElementById('input_address').value = address;
             document.getElementById('input_field').value = fieldArea;
             document.getElementById('input_placement').value = cmpInternshipPlacement;
-            document.getElementById('input_allowance').value = allowance;
+            //document.getElementById('input_allowance').value = allowance;
             document.getElementById('input_dateJoined').value = dateJoined;
             document.getElementById('input_status').value = status;
             document.getElementById('input_rating').value = rating;
@@ -521,7 +517,7 @@ error_reporting(0);
     </script>
 
     <script type="text/javascript">
-        function viewModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
+        function viewModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#view-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id2').value = Id;
@@ -533,7 +529,7 @@ error_reporting(0);
             document.getElementById('input_address2').value = address;
             document.getElementById('input_field2').value = fieldArea;
             document.getElementById('input_placement2').value = cmpInternshipPlacement;
-            document.getElementById('input_allowance2').value = allowance;
+            //document.getElementById('input_allowance2').value = allowance;
             document.getElementById('input_dateJoined2').value = dateJoined;
             document.getElementById('input_status2').value = status;
             document.getElementById('input_rating2').value = rating;

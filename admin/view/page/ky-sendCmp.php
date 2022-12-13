@@ -15,6 +15,15 @@ if(isset($_POST['submit'])){
 
     $id = $_POST['id'];
     $username = $_POST['username'];
+
+    $sql = "select * from Company WHERE companyID='$id'";
+    $result = mysqli_query($conn, $sql);
+
+    while($row=mysqli_fetch_assoc($result)) {
+        $cmpUsername = $row['cmpUsername'];
+    }
+
+   
     $query = "UPDATE Company SET cmpAccountStatus ='InitialPass' WHERE companyID='$id' ";
     $query_run = mysqli_query($conn, $query);
 
@@ -28,8 +37,8 @@ if(isset($_POST['submit'])){
     
     $passMessage='<html>
     <p>Dear '.$username.', You have been invited to register in ITP system.</p>
-    <p>Your id is '.$id.' and initial password is '.$pass.'</p>
-    <p>Please change your password immediately after login.</p>
+    <p>Your company user name is <b style="color:green;">'.$cmpUsername.'</b> and initial password is <b style="color:green;">'.$pass.'</b></p>
+    <p>Please login with your company user name and initial password, change your password immediately after login.</p>
     <p><a href = "http://localhost/InternshipSystem/Client/view/page/clientLogin.php?">Click here to login</a></p>
     </html>';
     

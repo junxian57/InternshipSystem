@@ -243,7 +243,7 @@ if (isset($_SESSION['studentID'])) {
             }else if(tabName == 'Lecturer'){
                 window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
             }else if(tabName == 'Company'){
-                window.location.href = '../../view/page/ky-enterCmpDetails.php';
+                window.location.href = '../../view/page/ky-maintainCmp.php';
             }
         }else if(response == 'CVRequired'){
             window.location.href = '../../view/page/ky-enterStudDetails.php';

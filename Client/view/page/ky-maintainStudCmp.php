@@ -9,7 +9,7 @@
         die("Error". mysqli_connect_error());
     }
 
-    if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmpEmail']) && isset($_GET['cmpContactPerson']) && isset($_GET['cmpAddress']) && isset($_GET['cmpState']) && isset($_GET['cmpPostcode']) && isset($_GET['cmpCity']) && isset($_GET['cmpSize']) && isset($_GET['cmpHiddenFieldsArea']) && isset($_GET['cmpAverageAllowanceGiven']) && isset($_GET['submit'])){
+    if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmpEmail']) && isset($_GET['cmpContactPerson']) && isset($_GET['cmpAddress']) && isset($_GET['cmpState']) && isset($_GET['cmpPostcode']) && isset($_GET['cmpCity']) && isset($_GET['cmpSize']) && isset($_GET['cmpHiddenFieldsArea']) && isset($_GET['submit'])){
 
         try{
             $cmpID = $_GET['companyID'];
@@ -22,7 +22,7 @@
             $cmpCity = trim($_GET['cmpCity']);
             $cmpSize = $_GET['cmpSize'];
             $cmpFieldsArea = trim($_GET['cmpHiddenFieldsArea']);
-            $allowance = $_GET['cmpAverageAllowanceGiven'];
+            //$allowance = $_GET['cmpAverageAllowanceGiven'];
             $oldPass = $_GET['iniPass'];
             $newPass = $_GET['newPass'];
     
@@ -39,7 +39,7 @@
             if(empty($oldPass)){
                 $query = "UPDATE Company SET cmpEmail='$cmpEmail', cmpContactNumber='$cmpContactNo', cmpContactPerson='$cmpContactPerson', 
                 cmpCompanySize='$cmpSize', cmpAddress='$cmpAddress', cmpFieldsArea='$cmpFieldsArea', cmpNumberOfInternshipPlacements='$cmpNumberOfInternshipPlacements', 
-                cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity', cmpAverageAllowanceGiven='$allowance' WHERE companyID='$cmpID'  ";
+                cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity' WHERE companyID='$cmpID'  ";
                 $query_run = mysqli_query($conn, $query);
     
                 if($query_run)
@@ -75,7 +75,7 @@
                         $hash = password_hash($newPass, PASSWORD_DEFAULT);
                         $query1 = "UPDATE Company SET cmpEmail='$cmpEmail', cmpContactNumber='$cmpContactNo', cmpContactPerson='$cmpContactPerson', 
                         cmpCompanySize='$cmpSize', cmpAddress='$cmpAddress', cmpFieldsArea='$cmpFieldsArea', cmpNumberOfInternshipPlacements='$cmpNumberOfInternshipPlacements', 
-                        cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity', cmpAverageAllowanceGiven='$allowance', cmpPassword='$hash' WHERE companyID='$cmpID'  ";
+                        cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity', cmpPassword='$hash' WHERE companyID='$cmpID'  ";
                         //cmpAverageAllowanceGiven='$allowance'  ;
                         $query_run1 = mysqli_query($conn, $query1);
     
@@ -128,7 +128,7 @@
         $address = $row1['cmpAddress'];
         $fieldArea = $row1['cmpFieldsArea'];
         $cmpInternshipPlacement = $row1['cmpNumberOfInternshipPlacements'];
-        $allowance = $row1['cmpAverageAllowanceGiven'];
+        //$allowance = $row1['cmpAverageAllowanceGiven'];
         $status = $row1['cmpAccountStatus'];
         $rating= $row1['cmpRating'];
         $cmpState = $row1['cmpState'];
@@ -254,8 +254,8 @@
         $pdf->Cell(68, 3, 'Company Fields : '.$fieldArea, 0, 1, 'L');
         $pdf->Ln(1);
         $pdf->Cell(47, 3, 'Internship Placement : '.$cmpInternshipPlacement, 0, 1, 'L');
-        $pdf->Ln(1);
-        $pdf->Cell(47, 3, 'Allowance : RM'.$allowance, 0, 1, 'L');
+        //$pdf->Ln(1);
+        //$pdf->Cell(47, 3, 'Allowance : RM'.$allowance, 0, 1, 'L');
         $pdf->Ln(1);
         $pdf->Cell(47, 3, 'Date Joined : '.$dateJoined, 0, 1, 'L');
 

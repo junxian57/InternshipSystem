@@ -15,6 +15,14 @@ if(isset($_POST['submit'])){
 
     $id = $_POST['id'];
     $username = $_POST['username'];
+
+    $sql = "select * from Student WHERE studentID='$id'";
+    $result = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $email = $row['studEmail'];
+    }
+
     $query = "UPDATE Student SET studAccountStatus ='InitialPass' WHERE studentID='$id' ";
     $query_run = mysqli_query($conn, $query);
 
@@ -28,8 +36,8 @@ if(isset($_POST['submit'])){
     
     $passMessage='<html>
     <p>Dear '.$username.', You have been invited to register in ITP system.</p>
-    <p>Your id is <b style="color:green;">'.$id.'</b> and initial password is <b style="color:green;">'.$pass.'</b></p>
-    <p>Please change your password immediately after login.</p>
+    <p>Your email is <b style="color:green;">'.$email.'</b> and initial password is <b style="color:green;">'.$pass.'</b></p>
+    <p>Please login with your email and initial password, change your password immediately after login.</p>
     <p><a href = "http://localhost/InternshipSystem/Client/view/page/clientLogin.php?">Clic here to login</a></p>
     </html>';
     

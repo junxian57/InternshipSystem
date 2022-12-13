@@ -2,7 +2,7 @@
 session_start();
 include "../../includes/db_connection.php";
 
-if(isset($_SESSION['studentChangePass'])){
+if(isset($_SESSION['companyChangePass'])){
     header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
 
@@ -233,10 +233,6 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                         </select>
                                     </div>
 
-                                    <div class="input-style width-45 name-address-group">
-                                        <label for="cmpSize">Average Allowance Given</label>
-                                        <input class="grey-bg" type="text" name="cmpAverageAllowanceGiven" style="word-wrap: break-word" value="<?php echo $companyInfo[0]['cmpAverageAllowanceGiven']; ?>" readonly required/>
-                                    </div>
                                 </div>
                                 <hr>
                                 <div class="button-group">
