@@ -13,7 +13,6 @@ try {
         $lecturerID = $_SESSION['lecturerID'];
     }
 
-    $getInternBatch = getInternshipBatch();
 } catch (Exception $e) {
     echo "<script>
         alert('Database Connection Error');
