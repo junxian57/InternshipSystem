@@ -152,7 +152,9 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
 
     echo "<script> 
     info(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Rejected\n`)
-    window.location.href = 'br-cmpAppTableReview.php';
+    setTimeout(() => {
+        window.location.href = 'br-cmpAppTableReview.php';
+    }, 2500);
     </script>";
 
 }elseif(isset($_GET['companyID']) && isset($_GET['approve']) && isset($_GET['companyName'])){
@@ -161,7 +163,9 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
 
     echo "<script> 
     addSuccess(`Company ID: $companyID\nCompany Name: $decodeName\nStatus: Approved\n`)
-    window.location.href = 'br-cmpAppTableReview.php';
+    setTimeout(() => {
+        window.location.href = 'br-cmpAppTableReview.php';
+    }, 2500);
     </script>";
 
 }elseif(isset($_GET['companyID']) && isset($_GET['failed']) && isset($_GET['companyName'])){
@@ -170,10 +174,14 @@ if(isset($_GET['companyID']) && isset($_GET['reject']) && isset($_GET['companyNa
 
     echo "<script> 
     warning('Company ID: $companyID\nCompany Name: $decodeName\nStatus: Update Failed\n')
-    window.location.href = 'br-cmpAppTableReview.php';
+    setTimeout(() => {
+        window.location.href = 'br-cmpAppTableReview.php';
+    }, 2500);
     </script>";
 }
 ?>
-
+<script>
+    
+</script>
 
 </html>

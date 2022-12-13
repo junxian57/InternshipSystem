@@ -38,7 +38,10 @@ if(isset($_GET['studentEmail']) && isset($_GET['studentPass']) && isset($_GET['s
 
                 $_SESSION['studentChangePass'] = true;
                 echo json_encode($changePassArr);
-            }else{
+            }elseif($result[0]['studentCVdocument'] == null){
+                echo json_encode('CVRequired');
+            }
+            else{
                 echo json_encode("Login Successful");
             }
 

@@ -10,7 +10,8 @@ if(isset($_GET['supervisor'])){
 
     $sql = "SELECT L.lecName, L.lecturerID, L.departmentID, F.facultyID, F.facAcronym, L.currNoOfStudents, L.maxNoOfStudents
             FROM Lecturer L, Faculty F, Department D
-            WHERE (L.lecName LIKE '%$supervisor%' OR L.lecturerID LIKE '%$supervisor%') AND L.supervisorQualification = 1 AND
+            WHERE L.lecName LIKE '%$supervisor%' AND 
+            L.supervisorQualification = 1 AND
             L.currNoOfStudents < L.maxNoOfStudents AND
             L.departmentID = D.departmentID AND
             D.facultyID = F.facultyID

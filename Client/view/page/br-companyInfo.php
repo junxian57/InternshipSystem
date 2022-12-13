@@ -89,7 +89,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                     <h3 class="page-title">Company Information</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
-                        <form action="../../app/BLL/cmpInfoBLL.php" onsubmit="formTaskArray()" method="GET">                  
+                        <form action="../../app/BLL/cmpInfoBLL.php" onsubmit="return formTaskArray()" method="GET">                  
                         <input type="hidden" value="<?php echo $companyID; ?>" name="companyID">
                             <div class="title">
                                 <h2>Company Name & Contact</h2>
@@ -350,6 +350,11 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
 
+      if(fieldsRow.length == 0){
+        info('Please enter a field area');
+        return false;
+      }
+
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
@@ -366,6 +371,8 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         info('Please enter a field area');
         return false;
       }
+
+      return true;
     }
 
     async function checkCmpSizeDownGrade(){
@@ -395,14 +402,12 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
             cmpConvertToPlacementNo = 50;           
         }
 
-        console.log(response[0]['totalMaxQuota'])
-
         if(response == 'Failed'){
             warning('Unable To Proceed Current Operation');
             document.getElementById('cmpSize').value = '<?php echo $companyInfo[0]['cmpCompanySize'];?>';
         }else{
             if(cmpConvertToPlacementNo < response[0]['totalMaxQuota']){
-                warning('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement\n\nNumber Of Placement\nMicro = 2\nSmall = 8\nMedium = 20\nLarge = 50');
+                warning('You Are Not Allowed To Downgrade Company Size\nReason: Current Company Size Has More Than '+response[0]['totalMaxQuota']+' Internship Placement');
                 document.getElementById('cmpSize').getElementsByTagName('option')[defaultOption].selected = 'selected';
             }
         }

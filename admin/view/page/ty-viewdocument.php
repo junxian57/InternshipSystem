@@ -70,13 +70,6 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                             <?php
                             echo $all_document;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

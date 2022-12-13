@@ -1,105 +1,68 @@
 <?php
-	include('../../includes/db_connection.php');
+session_start();
+error_reporting(0);
+include('includes/dbconnection.php');
+/*if (strlen($_SESSION['bpmsaid'] == 0)) {
+	//header('location:logout.php');
+} else {*/
+?>
 
+<?php
+if(isset($_POST['signaturesave'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
   $database = "u928796707_internshipWeb";
-                                              
+                                
   $conn = mysqli_connect($host, $user, $password, $database); 
-	
-  if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-	if (isset($_SESSION['studentChangePass'])) {
-		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+  $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_array($result);
+	$lastID = $row['monthlyReportID'];
+	if($lastID == "") {
+		$monthlyReportID = "MRPT1001";
+	} else {
+		$monthlyReportID = substr($lastID, 4);
+		$monthlyReportID = intval($monthlyReportID);
+		$monthlyReportID = "MRPT".($monthlyReportID + 1);
 	}
-    
-  if(isset($_SESSION['studentID'])){
-    $studID = $_SESSION['studentID'];
-    $getStudApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
-		$runStudApp = mysqli_query($conn, $getStudApp);
-    if(!(mysqli_num_rows($runStudApp) > 0)){
-			echo "<script>alert('Access blocked! You have not found an internship company yet!')</script>";     
-      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-		}
+
+  $studID = "21WMR04845";
+  $cmpID = "CMP00001";
+  $studName = $_POST['studName'];
+  $cmpName = $_POST['cmpName'];
+  $monthYear = $_POST['monthYear'];
+  $week1 = $_POST['week1'];
+  $week2 = $_POST['week2'];
+  $week3 = $_POST['week3'];
+  $week4 = $_POST['week4'];
+  $problem = $_POST['problem'];
+  $leaveTaken = $_POST['leaveTaken'];
+  $leaveTakens = $_POST['leaveDays'];
+  $status = "Saved";
+
+  if($leaveTaken == 'NO'){
+    $leaveReasons = "N/A";
   }
-?>
-
-<?php
-	$host = "sql444.main-hosting.eu";
-  $user = "u928796707_group34";
-  $password = "u1VF3KYO1r|";
-  $database = "u928796707_internshipWeb";
-                                              
-  $conn = mysqli_connect($host, $user, $password, $database); 
-
-  $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
-  $run_stud = mysqli_query($conn, $get_stud);
-  $row_stud = mysqli_fetch_array($run_stud);
-  $studName = $row_stud['studName'];
-
-  $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
-  $runInternApp = mysqli_query($conn, $getInternApp);
-  $rowInternApp = mysqli_fetch_array($runInternApp);
-  $internAppID = $rowInternApp['internAppID'];
-  $internJobID = $rowInternApp['internJobID'];
-
-  $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
-  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
-  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
-  $cmpID = $rowCmpInfo['companyID'];
-
-	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
-  $run_cmp = mysqli_query($conn, $get_cmp);
-	$row_cmp = mysqli_fetch_array($run_cmp);
-	$cmpName = $row_cmp['cmpName'];
-  
-  if(isset($_POST['signaturesave'])){
-    $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
-	  $result = mysqli_query($conn, $query);
-	  $row = mysqli_fetch_array($result);
-	  $lastID = $row['monthlyReportID'];
-	  if($lastID == "") {
-		  $monthlyReportID = "MRPT1001";
-	  } else {
-		  $monthlyReportID = substr($lastID, 4);
-		  $monthlyReportID = intval($monthlyReportID);
-		  $monthlyReportID = "MRPT".($monthlyReportID + 1);
-	  }
-
-    $studName = $_POST['studName'];
-    $cmpName = $_POST['cmpName'];
-    $monthYear = $_POST['monthYear'];
-    $week1 = $_POST['week1'];
-    $week2 = $_POST['week2'];
-    $week3 = $_POST['week3'];
-    $week4 = $_POST['week4'];
-    $problem = $_POST['problem'];
-    $leaveTaken = $_POST['leaveTaken'];
-    $leaveTakens = $_POST['leaveDays'];
-    $status = "Saved";
-
-    if($leaveTaken == 'NO'){
-      $leaveReasons = "N/A";
-    }
-    else{
-      $leaveReasons = $_POST['leaveReason'];
-    }
-
-    $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
-    if (mysqli_query($conn, $sql)) {
-      echo "<script>alert('The report have been saved into database.')</script>";     
-      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-    } else {
-      echo "Error: " . $sql . mysqli_error($conn);
-    }   
+  else{
+    $leaveReasons = $_POST['leaveReason'];
   }
+
+  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
+  if (mysqli_query($conn, $sql)) {
+    echo "<script>alert('The report have been saved into database.')</script>";     
+    echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+  } else {
+    echo "Error: " . $sql . mysqli_error($conn);
+  }   
+}
 ?>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>ITP System | Weekly Work Progress</title>
+	<title>ITP System | Final Report</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
@@ -139,8 +102,8 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
+					<h3 class="title1">Final Report</h3>
+          <form method="post" action="xt-recordFinalReport.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
@@ -149,12 +112,12 @@
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo $studName;?>">
+                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
                 </div>
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName;?>">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
                 </div>
 
                 <div class="viewInput">

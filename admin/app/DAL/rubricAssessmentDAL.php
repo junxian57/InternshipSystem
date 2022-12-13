@@ -177,9 +177,9 @@ class rubricAssessmentDAL
      * @param string $assmtID
      * @return bool
      */
-    public function IsRubricExists($tiitle, $id, $assmtID)
+    public function IsRubricExists($tiitle, $id, $facultyID)
     {
-        $sql = "SELECT * FROM RubricAssessment WHERE Title='" . $tiitle . "' AND assessmentID <>'" . $assmtID . "'AND internshipBatchID = $id ";
+        $sql = "SELECT * FROM RubricAssessment WHERE Title LIKE'%" . $tiitle . "%' AND internshipBatchID = $id AND facultyID = '$facultyID' ";
         $result = $this->databaseConnectionObj->runQuery($sql);
 
         if (!empty($result)) {

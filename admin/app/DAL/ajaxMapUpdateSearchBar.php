@@ -15,7 +15,7 @@ if(isset($_GET['faculty']) && isset($_GET['supervisor']) && isset($_GET['tab1'])
             WHERE
             L.departmentID = D.departmentID AND
             D.facultyID = F.facultyID AND
-            (L.lecName LIKE '%$supervisor%' OR L.lecturerID LIKE '%$supervisor%') AND 
+            L.lecName LIKE '%$supervisor%' AND 
             F.facultyID = '$faculty' AND
             L.currNoOfStudents > 0 AND    
             L.supervisorQualification = 1;";
@@ -81,7 +81,7 @@ if(isset($_GET['faculty']) && isset($_GET['supervisor']) && isset($_GET['tab1'])
             FROM Lecturer L, Faculty F, Department D
             WHERE L.departmentID = D.departmentID AND
             D.facultyID = F.facultyID AND
-            (L.lecName LIKE '%$supervisor%' OR L.lecturerID LIKE '%$supervisor%') AND 
+            L.lecName LIKE '%$supervisor%' AND 
             F.facultyID LIKE '$facultyID' AND
             L.supervisorQualification = 1 AND
             L.currNoOfStudents > 0

@@ -307,7 +307,7 @@ if (isset($_POST['update'])) {
         echo "
             <script>
                 alert('Student details update successfully');
-                document.location.href = 'ky-enterStudDetails.php';
+                document.location.href = 'ky-maintainStud.php';
             </script>
             ";
     } else {

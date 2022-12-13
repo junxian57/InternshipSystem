@@ -8,6 +8,17 @@ if(isset($_SESSION['companyChangePass'])){
     header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
 
+if(isset($_GET['edited']) && isset($_GET['success']) && $_GET['edited'] == 1 && $_GET['success'] == 1){
+    echo "<script> 
+        alert('Job Edited Successfully');
+    </script>";
+}elseif(isset($_GET['edited']) && isset($_GET['failed']) && $_GET['edited'] == 0 && $_GET['failed'] == 1){
+    echo "<script> 
+        alert('Job Edited Failed');
+    </script>";
+}
+
+
 if(!isset($_SESSION['companyID'])){
     echo "<script>
         window.location.href = 'clientLogin.php';
@@ -107,7 +118,7 @@ try{
 
                                                         $buttonGroup = "
                                                         <a target='_blank' class='edit button' href='br-companyViewJob.php?edit=1&internJobID=".$internJobID."'>View</a>
-                                                        <button class='remove button' onclick='deleteInternJob('".$internJobID."')'> Delete </button>";
+                                                        <button class='remove button' onclick='deleteInternJob(`".$internJobID."`)'> Delete </button>";
 
                                                     }
                                                     echo '<tr>';

@@ -1,31 +1,78 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-?>
+	include('../../includes/db_connection.php');
 
-<?php
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if(isset($_SESSION['studentID'])){
+    $studID = $_SESSION['studentID'];
+  }
+
 	if(isset($_GET['monthlyReportID'])){
     $monthlyReportID = $_GET['monthlyReportID'];
   }
 ?>
 
+<?php
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                              
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+  $run_stud = mysqli_query($conn, $get_stud);
+  $row_stud = mysqli_fetch_array($run_stud);
+  $studName = $row_stud['studName'];
+
+  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+  $run_month = mysqli_query($conn, $get_month);
+  $row_month = mysqli_fetch_array($run_month);
+  $cmpID = $row_month['companyID'];
+  $monthOfTraining = $row_month['monthOfTraining'];
+  $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
+  $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
+  $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
+  $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
+  $issuesEncountered = $row_month['issuesEncountered'];
+  $leaveTaken = $row_month['leaveTaken'];
+  $leaveReason = $row_month['leaveReason'];
+  if($leaveTaken != "0"){
+    $leave = "Yes";
+  }else{
+    $leave = "No";
+  }
+
+	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+  $run_cmp = mysqli_query($conn, $get_cmp);
+	$row_cmp = mysqli_fetch_array($run_cmp);
+	$cmpName = $row_cmp['cmpName'];
+?>
+
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-	<title>ITP System | Weekly Work Progress</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+  <title>ITP System | Weekly Work Progress</title>
+  
+  <script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/toastr.min.js"></script>
+  <script src="../../js/customToastr.js"></script>
+
+  <link href="../../css/toastr.min.css" rel="stylesheet">
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
 	<link href="../../css/xt-workProgress.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
-	<link href="../../css/custom.css" rel="stylesheet">
-
-	<script src="../../js/jquery-1.11.1.min.js"></script>
+	
 	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
@@ -47,6 +94,25 @@ include('includes/dbconnection.php');
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    .container{
+      margin-top: 100px;
+    }
+
+    #reset-btn {
+      width: 70px;
+    }
+
+    #btn-save {
+      width: 70px;
+    }
+
+    #btn-submit {
+      background: #9c9dff;
+      width: 70px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -57,48 +123,16 @@ include('includes/dbconnection.php');
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="post" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
+          <form method="POST" action="<?php echo "xt-generateMonthlyRpt.php?monthlyRptID=$monthlyReportID"; ?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-
-              <?php
-								$host = "sql444.main-hosting.eu";
-                $user = "u928796707_group34";
-                $password = "u1VF3KYO1r|";
-                $database = "u928796707_internshipWeb";
-                                              
-                $conn = mysqli_connect($host, $user, $password, $database); 
-
-                $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-                $run_month = mysqli_query($conn, $get_month);
-                $row_month = mysqli_fetch_array($run_month);
-                $cmpID = $row_month['companyID'];
-                $monthOfTraining = $row_month['monthOfTraining'];
-                $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
-                $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
-                $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
-                $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
-                $issuesEncountered = $row_month['issuesEncountered'];
-                $leaveTaken = $row_month['leaveTaken'];
-                $leaveReason = $row_month['leaveReason'];
-                if($leaveTaken != "0"){
-                  $leave = "Yes";
-                }else{
-                  $leave = "No";
-                }
-
-								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
-                $run_cmp = mysqli_query($conn, $get_cmp);
-								$row_cmp = mysqli_fetch_array($run_cmp);
-								$cmpName = $row_cmp['cmpName'];
-              ?>
               
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
+                  <input type="text" name="studName" readonly value="<?php echo $studName;?>">
                 </div>
                 
                 <div class="viewInput">
@@ -196,10 +230,11 @@ include('includes/dbconnection.php');
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
+                  <button type="button" class="btn btn-success" id="btn-submit" name="submit">Submit</button>
               </div>
 
               <input type="hidden" id="signature" name="signature">
-              <input type="hidden" name="signatureedit" value="1">
+              <input type="hidden" id="signatureedit" name="signatureedit" value="1">
             </div>
           </form>
         </div>
@@ -347,6 +382,18 @@ include('includes/dbconnection.php');
               context.stroke();
             }
           }
+        })
+
+        $("#btn-submit").click(function() {
+          let week1 = document.getElementById('week1').value;
+          let week2 = document.getElementById('week2').value;
+          let week3 = document.getElementById('week3').value;
+          let week4 = document.getElementById('week4').value;
+
+            if (week1 == '' || week2 == '' || week3 == '' || week4 == '') {
+              warning("Please fill in all fields");
+            } else {
+            }
         })
   </script>
 
@@ -530,11 +577,11 @@ include('includes/dbconnection.php');
   </script>
 
   <script>
-    $(document).ready(function(){ 
+    /*$(document).ready(function(){ 
       $(document).bind("contextmenu",function(e){
         return false;
       }); 
-    })
+    })*/
   </script>
 
 <script>

@@ -1,10 +1,16 @@
 <?php
+    session_start();
+    error_reporting(0);
+
+    if(isset($_SESSION['studentChangePass'])){
+        header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+    }
     if(session_status() != PHP_SESSION_ACTIVE) session_start();
-    
+
     if(isset($_SESSION['studentID'])){
         $id = $_SESSION['studentID'];
      }
-    //$studentID = '22REI00002';
+    
 ?>
 
 <head>

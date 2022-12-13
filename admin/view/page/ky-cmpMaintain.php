@@ -1,15 +1,25 @@
 <?php
-include('../../includes/db_connection.php');
-//if(session_status() != PHP_SESSION_ACTIVE) session_start();
 session_start();
 error_reporting(0);
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+  }
+
+include('../../includes/db_connection.php');
 ?>
 <!DOCTYPE HTML>
 <html>
 
 <head>
 <title>ITP SYSTEM</title>
-<script type="application/x-javascript">
+    <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -19,47 +29,43 @@ error_reporting(0);
         }
     </script>
 
-    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/font-awesome.css" rel="stylesheet" />
+    <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/style.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link href="../../scss/navtab.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/modernizr.custom.js"></script>
-    <link
-      href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="../../css/animate.css"
-      rel="stylesheet"
-      type="text/css"
-      media="all"
-    />
+    <script src="../../js/modernizr.custom.js"></script>>
+    <script src="../../js/wow.min.js"></script>
+    <script src="../../js/metisMenu.min.js"></script>
+    <script src="../../js/custom.js"></script>
+    <link href="../../css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
+
+    <script>
+        new WOW().init();
+    </script>
+    
     <link 
         href="../../scss/ky-Maintain.css"
         rel="stylesheet"  
         type='text/css' 
     />
     
-    <script src="../../js/wow.min.js"></script>
-    <script>
-      new WOW().init();
-    </script>
-    <script src="../../js/metisMenu.min.js"></script>
-    <script src="../../js/custom.js"></script>
-    <link href="../../css/custom.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+
 </head>
 
 <body class="cbp-spmenu-push">
     <div class="main-content">
-    <?php include_once('../../includes/sidebar.php'); ?>
+        <?php include_once('../../includes/sidebar.php'); ?>
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
@@ -73,106 +79,80 @@ error_reporting(0);
                                 <p>Hint: Table Below Is Scrollable</p>
                             </div> -->
                             <div class="table-responsive black-border">
-                            <div class="table_section">
-                            <table class="table-view" id="myTable">
-                            <thead>
-                                <tr>
-                                <th>Company Id</th>
-                                <th>Company Name</th>
-                                <th>Email</th>
-                                <th>Contact No</th>
-                                <th>Account Status</th>
-                                <th>Date Joined</th>
-                                <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    $db = new DBController();
-                                    $sql = "select * from Company"; 
-                                    $result = $db->runQuery($sql);
-                                    
-                                    // $server = "localhost";
-                                    // $username = "root";
-                                    // $password = "";
-                                    // $database = "westorn";
-
-                                    // $conn = mysqli_connect($server, $username, $password, $database);
-                                    // if (!$conn){
-                                    //     die("Error". mysqli_connect_error());
-                                    // }
-                                    // while($row=mysqli_fetch_assoc($result)) {
-                                    //     $Id = $row['companyID'];
-                                    //     $name = $row['cmpName'];
-                                    //     $dateJoined = $row['cmpDateJoined'];
-                                    
-                                    //     $email = $row['cmpEmail'];
-                                    //     $phone = $row['cmpContactNumber'];
-                                    //     $cmpUsername = $row['cmpUsername'];
-                                    //     $size = $row['cmpCompanySize'];
-                                    //     $address = $row['cmpAddress'];
-                                    //     $fieldArea = $row['cmpFieldsArea'];
-                                    //     $cmpInternshipPlacement = $row['cmpNumberOfInternshipPlacements'];
-                                    //     $allowance = $row['cmpAverageAllowanceGiven'];
-                                    //     $status = $row['cmpAccountStatus'];
-                                    //     $rating= $row['cmpRating'];
-
-                                    if(count($result) > 0){
-                                         foreach ($result as $company) { //Associative Array
-                                        //     $tempArray = array(
-                                        //         "companyID" = $company['companyID'],
-                                        //         "cmpName" =  $company['cmpName']
-                                        //     );
-                                        $Id = $company['companyID'];
-                                        $name = $company['cmpName'];
-                                        $dateJoined = $company['cmpDateJoined'];
-                                    
-                                        $email = $company['cmpEmail'];
-                                        $phone = $company['cmpContactNumber'];
-                                        $cmpUsername = $company['cmpUsername'];
-                                        $cmpContactPerson = $company['cmpContactPerson'];
-                                        $size = $company['cmpCompanySize'];
-                                        $address = $company['cmpAddress'];
-                                        $cmpState = $company['cmpState'];
-                                        $cmpCity = $company['cmpCity'];
-                                        $cmpPostCode = $company['cmpPostCode'];
-                                        $fieldArea = $company['cmpFieldsArea'];
-                                        $cmpInternshipPlacement = $company['cmpNumberOfInternshipPlacements'];
-                                        $allowance = $company['cmpAverageAllowanceGiven'];
-                                        $status = $company['cmpAccountStatus'];
-                                        $rating= $company['cmpRating'];
-                                ?>                          
-                                        <tr>                                   
-                                            <td><?php echo $Id ?></td>
-                                            <td><?php echo $name ?></td>
-                                            <td><a href="mailto:<?php echo $email ?>">Email</td>
-                                            <td><?php echo $phone ?></td>
-                                            <td><?php echo $status ?></td> 
-                                            <td><?php echo $dateJoined ?></td> 
-                                
-                                            <td>
-                                                <div class="button-group">
-                                                  
-                                                    <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
-                                                    <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $allowance ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                               
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php                                                                           
-                                        }
-                                    }
-                                    
-                                ?>
-                                
-                            </tbody>
-                        </table>
+                                <div class="table_section">
+                                    <table class="table-view" id="myTable">
+                                        <thead>
+                                            <tr>
+                                            <th>Company Id</th>
+                                            <th>Company Name</th>
+                                            <th>Email</th>
+                                            <th>Contact No</th>
+                                            <th>Account Status</th>
+                                            <th>Date Joined</th>
+                                            <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                                $db = new DBController();
+                                                $sql = "select * from Company"; 
+                                                $result = $db->runQuery($sql);
+                                                
+                                                if(count($result) > 0){
+                                                    foreach ($result as $company) { 
+                                                    $Id = $company['companyID'];
+                                                    $name = $company['cmpName'];
+                                                    $dateJoined = $company['cmpDateJoined'];
+                                                
+                                                    $email = $company['cmpEmail'];
+                                                    $phone = $company['cmpContactNumber'];
+                                                    $cmpUsername = $company['cmpUsername'];
+                                                    $cmpContactPerson = $company['cmpContactPerson'];
+                                                    $size = $company['cmpCompanySize'];
+                                                    $address = $company['cmpAddress'];
+                                                    $cmpState = $company['cmpState'];
+                                                    $cmpCity = $company['cmpCity'];
+                                                    $cmpPostCode = $company['cmpPostCode'];
+                                                    $fieldArea = $company['cmpFieldsArea'];
+                                                    $cmpInternshipPlacement = $company['cmpNumberOfInternshipPlacements'];
+                                                    //$allowance = $company['cmpAverageAllowanceGiven'];
+                                                    $status = $company['cmpAccountStatus'];
+                                                    $rating= $company['cmpRating'];
+                                            ?>                          
+                                                    <tr>                                   
+                                                        <td><?php echo $Id ?></td>
+                                                        <td><?php echo $name ?></td>
+                                                        <td><a href="mailto:<?php echo $email ?>">Email</td>
+                                                        <td><?php echo $phone ?></td>
+                                                        <td><?php echo $status ?></td> 
+                                                        <td><?php echo $dateJoined ?></td> 
+                                            
+                                                        <td>
+                                                            <div class="button-group">
+                                                            
+                                                                <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>', '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                                <button onclick="toModal('<?php echo $Id ?>', '<?php echo $name ?>', '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $cmpContactPerson ?>', '<?php echo $size ?>',  '<?php echo $address ?>', '<?php echo $fieldArea ?>', '<?php echo $cmpInternshipPlacement ?>',  '<?php echo $dateJoined ?>', '<?php echo $status ?>' ,'<?php echo $rating ?>','<?php echo $cmpCity ?>','<?php echo $cmpPostCode ?>','<?php echo $cmpState ?>')"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <?php                                                                           
+                                                    }
+                                                }
+                                                
+                                            ?>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-            
-                 </div>
+                </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>
+    </div>
+    <footer><?php include_once('../../includes/footer.php'); ?></footer>
 </body>
 
 
@@ -223,7 +203,7 @@ error_reporting(0);
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
                                 <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" readonly>
-                                <i class='far fa-calendar-check icon'></i>
+                                <i class='fa fa-calendar icon'></i>
                             </div>
 
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
@@ -272,9 +252,6 @@ error_reporting(0);
                                 <i class="uil uil-estate icon"></i>
                             </div>
 
-                            
-
-
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
                             <div class="title">
@@ -289,8 +266,8 @@ error_reporting(0);
 
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
-                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" pattern="[a-zA-Z ]{1,}" required>
-                                <i class='fas fa-briefcase icon'></i>
+                                <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field" required>
+                                <i class='fa fa-briefcase icon'></i>
                             </div>
 
                             <div class="pass-box">
@@ -302,16 +279,15 @@ error_reporting(0);
                                     <option value="Medium" <?php echo ($size == 'Medium') ? 'selected' : '' ?>>Medium: 75 - 200</option>
                                     <option value="Large" <?php echo ($size == 'Large') ? 'selected' : '' ?>>Large: > 200</option>
                                 </select>
-                                <i class='far fa-building icon'></i>
+                                <i class='fa fa-building icon'></i>
                             </div>
                             
 
-
-                            <div class="pass-box">
+                            <!--<div class="pass-box">
                                 <label>Company Average Allowance :</label>
                                 <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance" pattern="^[0-9]+\.?[0-9]{0,2}$" required>
                                 <i class="uil uil-usd-circle icon"></i>
-                            </div>
+                            </div>-->
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
@@ -329,7 +305,7 @@ error_reporting(0);
                                     <option value="Approved" <?php echo ($status == 'Approved') ? 'selected' : '' ?> >Approved</option>   
                                     <option value="Successful" <?php echo ($status == 'Successful') ? 'selected' : '' ?> >Successful</option>   
                                 </select>
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-lightbulb-o icon'></i>
                             </div>
                             
 
@@ -393,7 +369,7 @@ error_reporting(0);
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
                                 <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined2" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
+                                <i class='fa fa-calendar icon'></i>
                             </div>
 
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
@@ -441,20 +417,20 @@ error_reporting(0);
                             <div class="pass-box">
                                 <label>Company Fields Area:</label>
                                 <input type="text" placeholder="Enter fields area" name="cmpFields" id="input_field2" required readonly>
-                                <i class='fas fa-briefcase icon'></i>
+                                <i class='fa fa-briefcase icon'></i>
                             </div>
 
                             <div class="pass-box">
                                 <label>Company Size :</label>
                                 <input type="text" placeholder="Enter company size" name="cmpSize" id="input_size2" readonly>
-                                <i class='far fa-building icon'></i>
+                                <i class='fa fa-building icon'></i>
                             </div>
 
-                            <div class="pass-box">
+                            <!--<div class="pass-box">
                                 <label>Company Average Allowance :</label>
                                 <input type="text" placeholder="Enter average allowance" name="allowance" id="input_allowance2" required readonly>
                                 <i class="uil uil-usd-circle icon"></i>
-                            </div>
+                            </div>-->
 
                             <div class="pass-box">
                                 <label> Company Rating :</label>
@@ -465,7 +441,7 @@ error_reporting(0);
                             <div class="pass-box">
                                 <label>Account Status :</label>
                                 <input type="text" placeholder="Enter status" name="status" id="input_status2" required readonly>
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-lightbulb-o icon'></i>
                             </div>
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
   
@@ -481,7 +457,7 @@ error_reporting(0);
     </div>
 
     <script type="text/javascript">
-        function toModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
+        function toModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#login-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id').value = Id;
@@ -494,7 +470,7 @@ error_reporting(0);
             document.getElementById('input_address').value = address;
             document.getElementById('input_field').value = fieldArea;
             document.getElementById('input_placement').value = cmpInternshipPlacement;
-            document.getElementById('input_allowance').value = allowance;
+            //document.getElementById('input_allowance').value = allowance;
             document.getElementById('input_dateJoined').value = dateJoined;
             document.getElementById('input_status').value = status;
             document.getElementById('input_rating').value = rating;
@@ -521,7 +497,7 @@ error_reporting(0);
     </script>
 
     <script type="text/javascript">
-        function viewModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , allowance, dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
+        function viewModal(Id, name, email , phone , cmpContactPerson , size , address , fieldArea , cmpInternshipPlacement , dateJoined, status, rating, cmpCity, cmpPostCode, cmpState){
            
         $('#view-modal').fadeIn().css("display", "flex");
             document.getElementById('input_id2').value = Id;
@@ -533,7 +509,7 @@ error_reporting(0);
             document.getElementById('input_address2').value = address;
             document.getElementById('input_field2').value = fieldArea;
             document.getElementById('input_placement2').value = cmpInternshipPlacement;
-            document.getElementById('input_allowance2').value = allowance;
+            //document.getElementById('input_allowance2').value = allowance;
             document.getElementById('input_dateJoined2').value = dateJoined;
             document.getElementById('input_status2').value = status;
             document.getElementById('input_rating2').value = rating;

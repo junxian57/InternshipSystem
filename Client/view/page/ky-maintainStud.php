@@ -191,7 +191,6 @@ if(isset($_SESSION['studentChangePass'])){
                                     <hr />
                                     <div class="button-group">
                                         <button type = "submit" name="update" class="clickable-btn Update">Update</button>
-                                        <a href="#" class="clickable-btn Export">Cancel</a>
                                     </div>
 
 

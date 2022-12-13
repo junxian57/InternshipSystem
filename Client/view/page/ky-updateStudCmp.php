@@ -99,7 +99,7 @@
 
     
 
-if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmpEmail']) && isset($_GET['cmpContactPerson']) && isset($_GET['cmpAddress']) && isset($_GET['cmpState']) && isset($_GET['cmpPostcode']) && isset($_GET['cmpCity']) && isset($_GET['cmpSize']) && isset($_GET['cmpHiddenFieldsArea']) && isset($_GET['cmpAverageAllowanceGiven']) && isset($_GET['submit'])){
+if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmpEmail']) && isset($_GET['cmpContactPerson']) && isset($_GET['cmpAddress']) && isset($_GET['cmpState']) && isset($_GET['cmpPostcode']) && isset($_GET['cmpCity']) && isset($_GET['cmpSize']) && isset($_GET['cmpHiddenFieldsArea']) && isset($_GET['submit'])){
 
     try{
         $cmpID = $_GET['companyID'];
@@ -112,7 +112,7 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
         $cmpCity = trim($_GET['cmpCity']);
         $cmpSize = $_GET['cmpSize'];
         $cmpFieldsArea = trim($_GET['cmpHiddenFieldsArea']);
-        $allowance = $_GET['cmpAverageAllowanceGiven'];
+        //$allowance = $_GET['cmpAverageAllowanceGiven'];
         //$iniPass = $_GET['iniPass'];
         //$newPass = $_GET['newPass'];
 
@@ -135,7 +135,7 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
            // $hash = password_hash($newPass, PASSWORD_DEFAULT);
             $query2 = "UPDATE Company SET cmpEmail='$cmpEmail', cmpContactNumber='$cmpContactNo', cmpContactPerson='$cmpContactPerson', 
             cmpCompanySize='$cmpSize', cmpAddress='$cmpAddress', cmpFieldsArea='$cmpFieldsArea', cmpNumberOfInternshipPlacements='$cmpNumberOfInternshipPlacements', 
-            cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity', cmpAverageAllowanceGiven='$allowance' WHERE companyID='$cmpID'  ";
+            cmpState='$cmpState', cmpPostCode='$cmpPostCode', cmpCity='$cmpCity' WHERE companyID='$cmpID'  ";
             //cmpAverageAllowanceGiven='$allowance'  ;
             $query_run2 = mysqli_query($conn, $query2);
 
@@ -143,7 +143,7 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
             {
                 echo '<script>alert("Company details update and comfirm successful."); 
                         </script>';
-                header("Location: ../../view/page/ky-enterCmpDetails.php?update=1&success=1");
+                header("Location: ../../view/page/br-companyInfo.php?update=1&success=1");
             }
             else
             {
@@ -151,14 +151,6 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
                         </script>';
                 header("Location: ../../view/page/ky-enterCmpDetails.php?update=0&failed=1");
             }
-        //}
-        //else{
-            //echo '<script>alert("Initial password is incorrect.");
-            
-                  //          window.history.back(1);
-                  //     </script>';
-                
-       // }
         
         exit(0);
     }catch(PDOException $e){

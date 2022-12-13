@@ -69,13 +69,6 @@ $all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
                             <?php
                             echo $all_message;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,9 +76,9 @@ $all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
         </div>
 
         <script>
-            let menuLeft = message.getElementById('cbp-spmenu-s1'),
-                showLeftPush = message.getElementById('showLeftPush'),
-                body = message.body;
+            let menuLeft = document.getElementById('cbp-spmenu-s1'),
+                showLeftPush = document.getElementById('showLeftPush'),
+                body = document.body;
 
             showLeftPush.onclick = function() {
                 classie.toggle(this, 'active');
@@ -99,31 +92,15 @@ $all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
-            async function deleteMessage(messageID) {
-                    let text = "Do you want to delete this message?\nChoose OK or Cancel.";
-
-                    if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxDeleteMessage.php?messageID=${messageID}&Message=Message`;
-                        let response = await fetch(url);
-                        let data = await response.json();
-
-                        if (data == "Success") {
-                            location.reload();
-                            alert("Update Successfully");
-                        } else {
-                            alert("Update Failed");
-                        }
-                    }
-                }
         </script>
 
         <!--Table JS sorting,searchinh,pagination-->
         <script>
-            $(message).ready(function() {
+            $(document).ready(function() {
                 $('#messageCmpTbl').DataTable({
-                    //custom search bar
+                    //custom search bar 
                     "language": {
-                        searchPlaceholder: "Search Message"
+                        searchPlaceholder: "Search Document"
                     },
                     "searchBox": {
                         "addClass": 'form-control input-lg col-xs-12'

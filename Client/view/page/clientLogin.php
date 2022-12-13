@@ -9,7 +9,7 @@ if (isset($_GET['passwordChangeSuccess'])) {
 }
 
 if (isset($_SESSION['studentID'])) {
-    header("Location: ../../view/page/ky-enterStudDetails.php");
+    header("Location: ../../view/page/ky-maintainStud.php");
 } elseif (isset($_SESSION['lecturerID'])) {
     header("Location: ../../view/page/br-StudentSupervisor-Manage.php");
 } elseif (isset($_SESSION['companyID'])) {
@@ -239,16 +239,16 @@ if (isset($_SESSION['studentID'])) {
 
         if(response == 'Login Successful'){
             if(tabName == 'Student'){
-                window.location.href = '../../view/page/ky-enterStudDetails.php';
+                window.location.href = '../../view/page/ky-maintainStud.php';
             }else if(tabName == 'Lecturer'){
                 window.location.href = '../../view/page/br-StudentSupervisor-Manage.php';
             }else if(tabName == 'Company'){
-                window.location.href = '../../view/page/ky-enterCmpDetails.php';
+                window.location.href = '../../view/page/ky-maintainCmp.php';
             }
-        }
-        if (response == 'Wrong Email Format') {
+        }else if(response == 'CVRequired'){
+            window.location.href = '../../view/page/ky-enterStudDetails.php';
+        }else if (response == 'Wrong Email Format') {
             warning('Please enter a valid email address');
-
         } else if (response == 'Wrong Password' || response == 'Email Not Found') {
             warning('Wrong Email or Password');
         }

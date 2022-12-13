@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('../../includes/db_connection.php');
 
-if(isset($_SESSION['studentChangePass'])){
+if(isset($_SESSION['companyChangePass'])){
     header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
 
@@ -88,7 +88,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                 <h3 class="page-title">Company Information</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
-                        <form action="ky-maintainStudCmp.php" onsubmit="formTaskArray()" method="GET">                  
+                        <form action="ky-maintainStudCmp.php" onsubmit="return formTaskArray()" method="GET">                  
                         <input type="hidden" value="<?php echo $companyInfo[0]['companyID']; ?>" name="companyID">
                             <div class="title">
                                 <h2>Company Name & Contact</h2>
@@ -267,17 +267,11 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                                     </select>
                                 </div>
 
-                                <div class="input-style width-45 name-address-group">
-                                    <label for="cmpSize">Average Allowance Given</label>
-                                    <input class="grey-bg" type="text" name="cmpAverageAllowanceGiven" style="word-wrap: break-word" value="<?php echo $companyInfo[0]['cmpAverageAllowanceGiven']; ?>" readonly required/>
-                                </div>
                             </div>
                             <hr>
                             <div class="button-group">
                                 <input type="button" class="clickable-btn" value="Edit" onclick="removeDisable()" id="edit-form-btn"/>
-                                <button class="clickable-btn Export" name ="Export">Export</button>
-                                <button class="clickable-btn Cancel">Cancel</button>
-                                
+                                <button class="clickable-btn Export" name ="Export">Export</button>                    
                             </div>
                         </form>
                     </div>
@@ -386,6 +380,11 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
 
+      if(fieldsRow.length == 0){
+        info('Please enter a field area');
+        return false;
+      }
+
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
@@ -402,6 +401,8 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         alert('Please enter a field area');
         return false;
       }
+
+      return true;
     }
 </script>
 

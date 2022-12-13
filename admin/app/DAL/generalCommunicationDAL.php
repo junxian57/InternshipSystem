@@ -147,7 +147,7 @@ class generalCommunicationDAL
 
 
     /**
-     * Checks whether given Document Title exists in this session or not
+     * Checks whether given message Title exists in this session or not
      *
      * @param string $msgTitle
      * @param int $id
@@ -156,7 +156,7 @@ class generalCommunicationDAL
      */
     public function IsMessageExists($msgTitle, $messageID)
     {
-        // $sql = "SELECT * FROM Document WHERE Title='" . $documentTitle . "' AND documentID = $documentID ";
+        
         // $result = $this->databaseConnectionObj->runQuery($sql);
 
         // if (!empty($result)) {

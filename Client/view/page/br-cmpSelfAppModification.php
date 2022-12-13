@@ -364,6 +364,11 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
 
+      if(fieldsRow.length == 0){
+        info('Please enter a field area');
+        return false;
+      }
+
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
@@ -381,8 +386,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
         return false;
       }
 
+      return true;
     }
-
-
   </script>
 </html>

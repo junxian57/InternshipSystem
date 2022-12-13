@@ -17,10 +17,6 @@ if(isset($_SESSION)){
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
       <ul class="nav" id="side-menu">
         <li>
-          <a href="dashboard.php"><i class="fa fa-home nav_icon"></i>Dashboard</a>
-        </li>
-
-        <li>
           <a href="#"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
             <li>
@@ -34,7 +30,7 @@ if(isset($_SESSION)){
 
         <?php if($adminID || $committeeID) { ?>
           <li>
-          <a href="#"><i class="fas fa-wrench"></i>Maintenance<span class="fa arrow"></span> </a>
+          <a href="#"><i class="fa fa-wrench nav_icon"></i>Maintenance<span class="fa arrow"></span> </a>
             <ul class="nav nav-third-level collapse">
               <li>
                 <a href="../page/ky-cmpMaintain.php">Maintain Company</a>
@@ -50,7 +46,7 @@ if(isset($_SESSION)){
 
         <?php if($adminID || $committeeID) { ?>
           <li>
-          <a href="#"><i class="fas fa-wrench"></i>Invitation<span class="fa arrow"></span> </a>
+          <a href="#"><i class="fa fa-users nav_icon"></i>Invitation<span class="fa arrow"></span> </a>
             <ul class="nav nav-third-level collapse">
               <li>
                 <a href="../page/ky-intCmpRegister.php">Invite Company</a>
@@ -88,18 +84,6 @@ if(isset($_SESSION)){
             </ul>
           </li>
         <?php } ?>
-        <li class="">
-          <a href="about-us.php"><i class="fa fa-book nav_icon"></i>About <span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">About Us</a>
-            </li>
-            <li>
-              <a href="contact-us.php">Contact Us</a>
-            </li>
-          </ul>
-          <!-- /nav-second-level -->
-        </li>
 
         <li>
           <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
@@ -170,6 +154,35 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
+
+
+        <li>
+          <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Upload Document<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="ty-createdocument.php">Upload Document</a>
+            </li>
+            <li>
+              <a href="ty-viewdocument.php">View and Edit Document</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li>
+          <a href="all-communcation.php"><i class="fa fa-comments nav_icon"></i>Communication<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="joel-createMessage.php">Create Message</a>
+            </li>
+            <li>
+              <a href="joel-viewMessage.php">View and Update Message</a>
+            </li>
+          </ul>
+        </li>
+
+        
+  
         <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
@@ -182,14 +195,6 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
-        <li>
-          <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li><a href="#">A</a></li>
-
-            <li><a href="#">B</a></li>
-          </ul>
-        </li>
 
         <li>
           <a href="../../app/BLL/logoutBLL.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>

@@ -20,7 +20,7 @@ if (!$conn){
         $username = $_POST['cmpContactPerson'];
         $size = $_POST['cmpSize'];
         $fields = $_POST['cmpFields'];
-        $allowance = $_POST['allowance'];
+        //$allowance = $_POST['allowance'];
         $dateJoined = $_POST['dateJoined'];
         $status = $_POST['status'];
         $rating = $_POST['rating'];
@@ -29,7 +29,7 @@ if (!$conn){
         $cmpState = $_POST['cmpState'];
         
 
-        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpContactPerson='$username', cmpCompanySize='$size', cmpAddress='$address', cmpFieldsArea='$fields', cmpNumberOfInternshipPlacements='$placement', cmpAverageAllowanceGiven='$allowance', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating', cmpCity='$cmpCity', cmpPostCode='$cmpPostCode', cmpState='$cmpState' WHERE companyID='$id'  ";
+        $query = "UPDATE Company SET cmpName='$name', cmpEmail='$email', cmpContactNumber='$phone', cmpContactPerson='$username', cmpCompanySize='$size', cmpAddress='$address', cmpFieldsArea='$fields', cmpNumberOfInternshipPlacements='$placement', cmpDateJoined='$dateJoined', cmpAccountStatus='$status', cmpRating='$rating', cmpCity='$cmpCity', cmpPostCode='$cmpPostCode', cmpState='$cmpState' WHERE companyID='$id'  ";
         $query_run = mysqli_query($conn, $query);
 
         if($query_run)

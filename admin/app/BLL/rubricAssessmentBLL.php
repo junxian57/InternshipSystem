@@ -47,7 +47,7 @@ class rubricAssessmentBLL
                 $all_rubricAssessment_html .= '<td>' . $i++ . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getAssmtId() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getfacultyID() . '</td>';
-                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';        
+                $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTitle() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getRoleForMark() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getTotalWeight() . '</td>';
                 $all_rubricAssessment_html .= '<td>' . $rubricAssessment->getstatus() . '</td>';
@@ -120,7 +120,7 @@ class rubricAssessmentBLL
     }
     public function IsValidRubric($rubricAssmtDto)
     {
-        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID(), $rubricAssmtDto->getAssmtId())) {
+        if ($this->IsRubricExists($rubricAssmtDto->getTitle(), $rubricAssmtDto->GetInternshipBatchID(), $rubricAssmtDto->getfacultyID())) {
             $this->errorMessage = 'Rubric ' . $rubricAssmtDto->getTitle() . ' already exists in this session. Try a different one.';
             return false;
         } else {
@@ -128,8 +128,8 @@ class rubricAssessmentBLL
         }
     }
 
-    public function IsRubricExists($Title, $internshipBatchID, $assmtID)
+    public function IsRubricExists($Title, $internshipBatchID, $facultyID)
     {
-        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID, $assmtID);
+        return $this->rubricAssessmentDal->IsRubricExists($Title, $internshipBatchID, $facultyID);
     }
 }

@@ -1,14 +1,15 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) session_start();
 
+include_once('db_connection.php');
+$db = new DBController();
+
 if(isset($_SESSION)){
     $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
-    $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
-    $adminID = isset($_SESSION['adminID']) ? $_SESSION['adminID'] : false;
     $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
     $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
 }else{
-  //header("Location: ../index.php");
+  header("Location: ../view/page/clientLogin.php");
 }
 ?>
 
@@ -19,7 +20,17 @@ if(isset($_SESSION)){
     <!--toggle button end-->
     <!--logo -->
     <div class="logo">
-      <a href="dashboard.php">
+      <a href="
+        <?php
+          if($lecturerID){
+            echo "../view/page/br-StudentSupervisor-Manage.php";
+          }else if($studentID){
+            echo "../view/page/ky-maintainStud.php";
+          }else if($companyID){
+            echo "../view/page/br-companyInfo.php";
+          }
+        ?>
+      ">
         Internship System
       </a>
     </div>
@@ -48,7 +59,6 @@ if(isset($_SESSION)){
               </div>
             </li>
             <li>
-
               <div class="notification_desc">
                 <?php if ($num > 0) {
                   while ($result = mysqli_fetch_array($ret1)) {
@@ -63,8 +73,6 @@ if(isset($_SESSION)){
               <div class="clearfix"></div>
               </a>
             </li>
-
-
             <li>
               <div class="notification_bottom">
                 <a href="new-appointment.php">See all notifications</a>
@@ -79,44 +87,51 @@ if(isset($_SESSION)){
     <!--notification menu end -->
     <div class="profile_details">
       <?php
-      //$adid = $_SESSION['bpmsaid'];
-      //$ret = mysqli_query($con, "select AdminName from tbladmin where ID='$adid'");
-      //$row = mysqli_fetch_array($ret);
-      //$name = $row['AdminName'];
+        if($companyID){
+          //Get company name from database
+          $sqlGetCmpName = "SELECT cmpName FROM Company WHERE companyID = '$companyID';";
+          $resultGetCmpName = $db->runQuery($sqlGetCmpName);
+          $name = $resultGetCmpName[0]['cmpName'];
+        }elseif($studentID){
+          //Get student name from database
+          $sqlGetStudName = "SELECT studName FROM Student WHERE studentID = '$studentID';";
+          $resultGetStudName = $db->runQuery($sqlGetStudName);
+          $name = $resultGetStudName[0]['studName'];
+        }elseif($lecturerID){
+          //Get lecturer name from database
+          $sqlGetLectName = "SELECT lecName FROM Lecturer WHERE lecturerID = '$lecturerID';";
+          $resultGetLectName = $db->runQuery($sqlGetLectName);
+          $name = $resultGetLectName[0]['lecName'];
+        }
 
       ?>
       <?php if($companyID) { ?>
-          <li>
-            <li class="dropdown profile_details_drop">
+            <li class="dropdown profile_details_drop" style="list-style-type: none;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <div class="profile_img">
+                  <div class="user-name">
+                    <p><?php echo $name; ?></p>
+                    <span>Company</span>
+                  </div>
+                  <i class="fa fa-angle-down lnr"></i>
+                  <i class="fa fa-angle-up lnr"></i>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
+              <ul class="dropdown-menu drp-mnu">
+                <li> <a href="../../../Client/view/page/ky-maintainCmp.php"><i class="fa fa-user"></i> Profile</a> </li>
+                <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
+                <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
+              </ul>
+            </li>
+        <?php } ?>
+
+        <?php if($studentID) { ?>    
+          <li class="dropdown profile_details_drop" style="list-style-type: none;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <div class="profile_img">
-                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
                 <div class="user-name">
                   <p><?php echo $name; ?></p>
-                  <span>Company</span>
-                </div>
-                <i class="fa fa-angle-down lnr"></i>
-                <i class="fa fa-angle-up lnr"></i>
-                <div class="clearfix"></div>
-              </div>
-            </a>
-            <ul class="dropdown-menu drp-mnu">
-              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
-              <li> <a href="../../../Client/view/page/ky-maintainCmp.php"><i class="fa fa-user"></i> Profile</a> </li>
-              <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
-              <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
-            </ul>
-        </li>
-        <?php } ?>
-
-        <?php if($studentID) { ?>
-          <li>
-            <li class="dropdown profile_details_drop">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <div class="profile_img">
-                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
-                <div class="user-name">
-                  <!--<p><?php echo $name; ?></p>-->
                   <span>Student</span>
                 </div>
                 <i class="fa fa-angle-down lnr"></i>
@@ -125,23 +140,20 @@ if(isset($_SESSION)){
               </div>
             </a>
             <ul class="dropdown-menu drp-mnu">
-              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
               <li> <a href="../../../Client/view/page/ky-maintainStud.php"><i class="fa fa-user"></i> Profile</a> </li>
               <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
               <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
             </ul>
-        </li>
+          </li>
         <?php } ?>
 
-        <?php if($lecturerID) { ?>
-          <li>
-            <li class="dropdown profile_details_drop">
+        <?php if($lecturerID) { ?>   
+          <li class="dropdown profile_details_drop" style="list-style-type: none;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <div class="profile_img">
-                <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
                 <div class="user-name">
-                  <!--<p><?php echo $name; ?></p>-->
-                  <span>Student</span>
+                  <p><?php echo $name; ?></p>
+                  <span>Lecturer</span>
                 </div>
                 <i class="fa fa-angle-down lnr"></i>
                 <i class="fa fa-angle-up lnr"></i>
@@ -149,12 +161,11 @@ if(isset($_SESSION)){
               </div>
             </a>
             <ul class="dropdown-menu drp-mnu">
-              <li> <a href=""><i class="fa fa-cog"></i> Settings</a> </li>
               <li> <a href="../../../Client/view/page/ky-maintainStud.php"><i class="fa fa-user"></i> Profile</a> </li>
               <li> <a href="../page/clientChangePassword.php"><i class="fa fa-cog"></i> Change Password</a> </li>
               <li> <a href="../../app/BLL/logoutBLL.php"><i class="fa fa-user"></i> Logout</a> </li>
             </ul>
-        </li>
+          </li>
         <?php } ?>
     </div>
     <div class="clearfix"> </div>
