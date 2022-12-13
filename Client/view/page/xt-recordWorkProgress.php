@@ -1,10 +1,28 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                              
+  $conn = mysqli_connect($host, $user, $password, $database); 
+	
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if(isset($_SESSION['studentID'])){
+    $studID = $_SESSION['studentID'];
+    $getStudApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
+		$runStudApp = mysqli_query($conn, $getStudApp);
+    if(!(mysqli_num_rows($runStudApp) > 0)){
+			echo "<script>alert('Access blocked! You have not found an internship company yet!')</script>";     
+      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+		}
+  }
 ?>
 
 <?php
@@ -28,7 +46,6 @@ if(isset($_POST['signaturesave'])){
 		$monthlyReportID = "MRPT".($monthlyReportID + 1);
 	}
 
-  $studID = "21WMR04845";
   $cmpID = "CMP00001";
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
@@ -108,11 +125,25 @@ if(isset($_POST['signaturesave'])){
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
+
+              <?php
+								$host = "sql444.main-hosting.eu";
+                $user = "u928796707_group34";
+                $password = "u1VF3KYO1r|";
+                $database = "u928796707_internshipWeb";
+                                              
+                $conn = mysqli_connect($host, $user, $password, $database); 
+
+                $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                $run_stud = mysqli_query($conn, $get_stud);
+                $row_stud = mysqli_fetch_array($run_stud);
+                $studName = $row_stud['studName'];
+              ?>
               
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
+                  <input type="text" name="studName" readonly value="<?php echo $studName;?>">
                 </div>
                 
                 <div class="viewInput">

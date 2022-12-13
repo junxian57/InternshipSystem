@@ -1,10 +1,15 @@
 <?php
-    if(session_status() != PHP_SESSION_ACTIVE) session_start();
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
     
-    if(isset($_SESSION['studentID'])){
-        $studID = $_SESSION['studentID'];
-     }
-    //$studentID = '22REI00002';
+  if(isset($_SESSION['studentID'])){
+    $studID = $_SESSION['studentID'];
+  }
 ?>
 
 <!DOCTYPE HTML>
@@ -55,7 +60,7 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">View Work Progress</h3><a href='xt-recordWorkProgress.php?studID=<?php echo $studID;?>' class='btn btn-success' id='btn-save' name='record'>Record Work Progress</a>
+					<h3 class="title1">View Work Progress</h3><a href='xt-recordWorkProgress.php' class='btn btn-success' id='btn-save' name='record'>Record Work Progress</a>
 					<hr>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
@@ -113,7 +118,7 @@
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND reportStatus = 'Saved'";
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus = 'Saved'";
                 $run_month = mysqli_query($conn, $get_month);
                 while($row_month = mysqli_fetch_array($run_month)){
                   $monthlyRptID = $row_month['monthlyReportID'];
@@ -190,7 +195,7 @@
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '21WMR04845' AND reportStatus='Submitted'";
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus='Submitted'";
                 $run_month = mysqli_query($conn, $get_month);
                 while($row_month = mysqli_fetch_array($run_month)){
                   $monthlyRptID = $row_month['monthlyReportID'];
