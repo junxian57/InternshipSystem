@@ -1,11 +1,12 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+    if(session_status() != PHP_SESSION_ACTIVE) session_start();
+    
+    if(isset($_SESSION['studentID'])){
+        $studID = $_SESSION['studentID'];
+     }
+    //$studentID = '22REI00002';
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,7 +55,7 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">View Work Progress</h3><?php echo "<a href='xt-recordWorkProgress.php' class='btn btn-success' id='btn-save' name='record'>";?>Record Work Progress</a>
+					<h3 class="title1">View Work Progress</h3><a href='xt-recordWorkProgress.php?studID=<?php echo $studID;?>' class='btn btn-success' id='btn-save' name='record'>Record Work Progress</a>
 					<hr>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
