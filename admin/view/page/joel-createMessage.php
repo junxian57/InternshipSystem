@@ -135,7 +135,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Message')
                                     <label for="inputState">Sender</label>
                                     <!--Change option to array for Sender-->
                                     <select id="inputState" name="msgSender" class="form-control" required>
-                                        <option selected disabled value="0">Options</option>
+                                        <option selected disabled value="0">Users</option>
                                         <?php
                                         $options = array('Admin', 'ITP Committee');
                                         foreach ($options as $option) {
@@ -156,9 +156,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Create Message')
                                     <label for="inputState">Receiver</label>
                                     <!--Change option to array for Receiver-->
                                     <select id="inputState" name="msgReceiver" class="form-control" required>
-                                        <option selected disabled value="0">Options</option>
+                                        <option selected disabled value="0">Users</option>
                                         <?php
-                                        $options = array('Student', 'Admin', 'ITP Committee');
+                                        $options = array('Student', 'Admin', 'ITP Committee','Company','Supervisors');
                                         foreach ($options as $option) {
                                             if ($_GET['act'] == "edit") {
                                                 if ($aGeneralComm->getmsgReceiver() == $option) {
