@@ -242,7 +242,7 @@
             echo "
             <script>
                 alert('CV update successfully');
-                document.location.href = 'ky-updateCV.php';
+                document.location.href = 'ky-maintainStud.php';
             </script>
             ";
         }
@@ -281,7 +281,7 @@
             echo "
             <script>
                 alert('CV upload and udate update successfully');
-                document.location.href = 'ky-updateCV.php';
+                document.location.href = 'ky-maintainStud.php';
             </script>
             ";
             //move_uploaded_file($file_name,$path);

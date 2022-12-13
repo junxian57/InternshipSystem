@@ -1,8 +1,18 @@
 <?php
-include('../../includes/db_connection.php');
-//if(session_status() != PHP_SESSION_ACTIVE) session_start();
 session_start();
 error_reporting(0);
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+  }
+
+include('../../includes/db_connection.php');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -92,37 +102,8 @@ error_reporting(0);
                                     $sql = "select * from Company"; 
                                     $result = $db->runQuery($sql);
                                     
-                                    // $server = "localhost";
-                                    // $username = "root";
-                                    // $password = "";
-                                    // $database = "westorn";
-
-                                    // $conn = mysqli_connect($server, $username, $password, $database);
-                                    // if (!$conn){
-                                    //     die("Error". mysqli_connect_error());
-                                    // }
-                                    // while($row=mysqli_fetch_assoc($result)) {
-                                    //     $Id = $row['companyID'];
-                                    //     $name = $row['cmpName'];
-                                    //     $dateJoined = $row['cmpDateJoined'];
-                                    
-                                    //     $email = $row['cmpEmail'];
-                                    //     $phone = $row['cmpContactNumber'];
-                                    //     $cmpUsername = $row['cmpUsername'];
-                                    //     $size = $row['cmpCompanySize'];
-                                    //     $address = $row['cmpAddress'];
-                                    //     $fieldArea = $row['cmpFieldsArea'];
-                                    //     $cmpInternshipPlacement = $row['cmpNumberOfInternshipPlacements'];
-                                    //     $allowance = $row['cmpAverageAllowanceGiven'];
-                                    //     $status = $row['cmpAccountStatus'];
-                                    //     $rating= $row['cmpRating'];
-
                                     if(count($result) > 0){
-                                         foreach ($result as $company) { //Associative Array
-                                        //     $tempArray = array(
-                                        //         "companyID" = $company['companyID'],
-                                        //         "cmpName" =  $company['cmpName']
-                                        //     );
+                                        foreach ($result as $company) { 
                                         $Id = $company['companyID'];
                                         $name = $company['cmpName'];
                                         $dateJoined = $company['cmpDateJoined'];

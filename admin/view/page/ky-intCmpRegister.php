@@ -1,7 +1,19 @@
 <?php
+include('../../includes/db_connection.php');
+
 session_start();
 error_reporting(0);
-include('../../includes/db_connection.php');
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+  }
+  
 ?>
 
 <!DOCTYPE HTML>

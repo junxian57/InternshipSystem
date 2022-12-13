@@ -30,7 +30,7 @@ if(isset($_SESSION)){
 
         <?php if($adminID || $committeeID) { ?>
           <li>
-          <a href="#"><i class="fas fa-wrench"></i>Maintenance<span class="fa arrow"></span> </a>
+          <a href="#"><i class="fa fa-wrench nav_icon"></i>Maintenance<span class="fa arrow"></span> </a>
             <ul class="nav nav-third-level collapse">
               <li>
                 <a href="../page/ky-cmpMaintain.php">Maintain Company</a>
@@ -46,7 +46,7 @@ if(isset($_SESSION)){
 
         <?php if($adminID || $committeeID) { ?>
           <li>
-          <a href="#"><i class="fas fa-wrench"></i>Invitation<span class="fa arrow"></span> </a>
+          <a href="#"><i class="fa fa-users nav_icon"></i>Invitation<span class="fa arrow"></span> </a>
             <ul class="nav nav-third-level collapse">
               <li>
                 <a href="../page/ky-intCmpRegister.php">Invite Company</a>
