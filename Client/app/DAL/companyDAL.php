@@ -25,9 +25,9 @@ function getRemainQuota($companyID){
     $sql = "SELECT SUM(IJ.jobMaxNumberQuota) AS TotalQuota, C.cmpNumberOfInternshipPlacements 
             FROM InternJob IJ, Company C 
             WHERE IJ.companyID = C.companyID AND
-            IJ.companyID = '$companyID'
-            GROUP BY IJ.companyID
-            HAVING SUM(IJ.jobMaxNumberQuota) < C.cmpNumberOfInternshipPlacements;";
+            IJ.companyID = '$companyID' AND
+            IJ.jobStatus <> 'Deleted'
+            GROUP BY IJ.companyID;";
 
     $result = $db->runQuery($sql);
 

@@ -143,7 +143,7 @@ if(isset($_GET['companyID']) && isset($_GET['cmpContactNo']) && isset($_GET['cmp
             {
                 echo '<script>alert("Company details update and comfirm successful."); 
                         </script>';
-                header("Location: ../../view/page/ky-maintainCmp.php?update=1&success=1");
+                header("Location: ../../view/page/br-companyInfo.php?update=1&success=1");
             }
             else
             {

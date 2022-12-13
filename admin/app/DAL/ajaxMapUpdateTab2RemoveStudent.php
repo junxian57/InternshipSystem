@@ -35,7 +35,7 @@ if(isset($_GET['studentID']) && isset($_GET['tab2'])){
     }
 
     //Remove Student from Lecturer
-    $sqlRemoveStudent = "UPDATE Student SET lecturerID = NULL WHERE studentID = '$studentID';";
+    $sqlRemoveStudent = "UPDATE Student SET lecturerID = NULL, studAccountStatus = 'Pending Map' WHERE studentID = '$studentID';";
     
     try{
         $result = $db->executeQuery($sqlRemoveStudent);

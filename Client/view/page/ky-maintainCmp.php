@@ -88,7 +88,7 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
                 <h3 class="page-title">Company Information</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="wrapper">
-                        <form action="ky-maintainStudCmp.php" onsubmit="formTaskArray()" method="GET">                  
+                        <form action="ky-maintainStudCmp.php" onsubmit="return formTaskArray()" method="GET">                  
                         <input type="hidden" value="<?php echo $companyInfo[0]['companyID']; ?>" name="companyID">
                             <div class="title">
                                 <h2>Company Name & Contact</h2>
@@ -384,6 +384,11 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
 
+      if(fieldsRow.length == 0){
+        info('Please enter a field area');
+        return false;
+      }
+
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
@@ -400,6 +405,8 @@ if(isset($_GET['success']) && isset($_GET['update']) && $_GET['update'] == "1" &
         alert('Please enter a field area');
         return false;
       }
+
+      return true;
     }
 </script>
 

@@ -15,7 +15,7 @@ if(isset($_GET['lectureID']) && isset($_GET['studentIDArr'])){
     $studentIDArr = str_replace("]", "", $studentIDArr);
 
     //Update Student Lecturer Mapping
-    $sql = "UPDATE Student SET lecturerID = '$lectureID' WHERE studentID IN ($studentIDArr);";
+    $sql = "UPDATE Student SET lecturerID = '$lectureID', studAccountStatus = 'Active' WHERE studentID IN ($studentIDArr);";
 
     $result = $db->executeQuery($sql);
 

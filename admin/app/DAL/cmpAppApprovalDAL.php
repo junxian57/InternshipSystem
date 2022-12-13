@@ -18,12 +18,11 @@ if(isset($_GET['companyID']) && isset($_GET['approve'])){
 
     //Create Company Account
     $shuffleNumber = substr(str_shuffle('0123456789'), 0, 3);
-    $shuffleCharacter1 = substr(str_shuffle('!@#$%&*'), 0, 1);
-    $shuffleCharacter2 = substr(str_shuffle('0123456789abcdefgh'), 0, 1);
-    $companyAccount = explode(' ', $companyName)[0].$shuffleCharacter1.$shuffleNumber.$shuffleCharacter2;
+    $shuffleCharacter2 = substr(str_shuffle('0123456789abcdefghijklmnopqrstu'), 0, 3);
+    $companyAccount = explode(' ', $companyName)[0].'@'.$shuffleNumber.$shuffleCharacter2;
     
     //Create Company Initial Password
-    $initialPassword = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&*'), 0, 8);
+    $initialPassword = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 8);
     $afterHashed = password_hash($initialPassword, PASSWORD_DEFAULT);
 
     //Update Company Account, Password, Status

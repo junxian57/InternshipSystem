@@ -127,7 +127,7 @@ if(!isset($_SESSION['companyID'])){
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                 <div class="wrapper">
-                    <form action="../../app/BLL/cmpViewJobBLL.php" onsubmit="setHiddenInputValue()" method="GET">
+                    <form action="../../app/BLL/cmpViewJobBLL.php" onsubmit="return setHiddenInputValue()" method="GET">
                         <input type="hidden" name="internJobID" value="<?php echo $internJobID; ?>">
                         <div class="title">
                             <h2 class="margin-top-20">
@@ -169,6 +169,7 @@ if(!isset($_SESSION['companyID'])){
                                 value="<?php echo $jobMaxNumberQuota; ?>"
                                 required
                                 <?php echo ($editable == true) ? "" : "disabled"; ?>
+                                <?php echo ($quotaLeft == 0) ? "disabled" : ""; ?>
                             />
                             </div>
                         </div>
@@ -452,7 +453,7 @@ if(!isset($_SESSION['companyID'])){
                             if($editable){
                         ?>
                             <div class="button-group">
-                                <input type="submit" name="amend" class="clickable-btn" value="Create" />
+                                <input type="submit" name="amend" class="clickable-btn" value="Update" />
                             </div>
                         <?php
                             }
@@ -509,6 +510,14 @@ if(!isset($_SESSION['companyID'])){
     document.getElementById('addNewJobSkills').addEventListener('click',() => {
         addNewRow('skills-row', document.getElementById('jobSkills'))
     });
+
+    $(document).keypress(
+        function(event){
+            if (event.which == '13') {
+            event.preventDefault();
+            }
+        }
+    );
     
 </script>
 <script>
@@ -646,9 +655,18 @@ if(!isset($_SESSION['companyID'])){
         let responValue = "";
         let responRow = document.querySelectorAll('#respon-row .row p');
 
+        if(responRow.length == 0){
+            info('Please enter a responsibility');
+            return false;
+        }
+
         let skillsValue = "";
         let skillsRow = document.querySelectorAll('#skills-row .row p');
 
+        if(skillsRow.length == 0){
+            info('Please enter a skill');
+            return false;
+        }
 
         responRow.forEach((task) => {
         responValue += task.innerHTML + "-";
@@ -665,6 +683,8 @@ if(!isset($_SESSION['companyID'])){
             info('Please enter a field area');
             return false;
         }
+
+        return true;
     }
 </script>
 

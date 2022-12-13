@@ -100,16 +100,16 @@ if(isset($_SESSION)){
         </li>
 
         <li>
-          <a href="xt-recordWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="xt-displayRptTemplate.php">Report Template</a>
+              <a href="../page/xt-displayRptTemplate.php">Report Template</a>
             </li>
             <li>
-              <a href="xt-recordWorkProgress.php">Sample Report Format</a>
+              <a href="../page/xt-viewWorkProgress.php">New Work Progress</a>
             </li>
             <li>
-              <a href="print-work-progress.php">Print Reports</a>
+              <a href="../page/xt-viewWorkProgress.php">Print Work Progress</a>
             </li>
           </ul>
         </li>

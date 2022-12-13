@@ -1,3 +1,17 @@
+<?php
+  if (session_status() == PHP_SESSION_NONE) session_start();
+
+  include_once('db_connection.php');
+  $db = new DBController();
+  
+  if(isset($_SESSION)){
+      $committeeID = isset($_SESSION['committeeID']) ? $_SESSION['committeeID'] : false;
+      $adminID = isset($_SESSION['adminID']) ? $_SESSION['adminID'] : false;
+  }else{
+    header("Location: ../view/page/clientLogin.php");
+  }
+?>
+
 <div class="sticky-header header-section ">
   <div class="header-left">
     <!--toggle button start-->
@@ -66,19 +80,25 @@
     <!--notification menu end -->
     <div class="profile_details">
       <?php
-      //$adid = $_SESSION['bpmsaid'];
-      //$ret = mysqli_query($con, "select AdminName from tbladmin where ID='$adid'");
-      //$row = mysqli_fetch_array($ret);
-      //$name = $row['AdminName'];
+       if($committeeID){
+        //Get Committee Name from DB
+        $sqlGetCommitteeName = "SELECT commName FROM ITPCommittee WHERE committeeID = '$committeeID';";
+        $resultGetCommitteeName = $db->runQuery($sqlGetCommitteeName);
+        $name = $resultGetCommitteeName[0]['commName'];  
+      }else if($adminID){
+        //Get Admin Name from DB
+        $sqlGetAdminName = "SELECT adminUserName FROM Admin WHERE adminID = '$adminID';";
+        $resultGetAdminName = $db->runQuery($sqlGetAdminName);
+        $name = $resultGetAdminName[0]['adminName'];
+      }
 
       ?>
       <ul>
         <li class="dropdown profile_details_drop">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <div class="profile_img">
-              <span class="prfil-img"><img src="images/download (1).png" alt="" width="50" height="60"> </span>
               <div class="user-name">
-                <p><?php //echo $name; ?></p>
+                <p><?php echo $name; ?></p>
                 <span>Administrator</span>
               </div>
               <i class="fa fa-angle-down lnr"></i>
