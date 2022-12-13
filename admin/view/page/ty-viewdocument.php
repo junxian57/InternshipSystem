@@ -19,7 +19,7 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
 <html>
 
 <head>
-    <title>ITP System | View Documents</title>
+    <title>ITP SYSTEM | View Documents</title>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -70,13 +70,6 @@ $all_document = $documentManagementBLLObj->GenerateHtmlForAllDocument();
                             <?php
                             echo $all_document;
                             ?>
-
-                            <div class="modal fade text-center" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

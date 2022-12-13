@@ -18,27 +18,32 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
+
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/modernizr.custom.js"></script>
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/modernizr.custom.js"></script>>
     <script src="../../js/wow.min.js"></script>
-    <script>
-        new WOW().init();
-    </script>
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-invite.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
 
+    <script>
+        new WOW().init();
+    </script>
+
+    <link rel="stylesheet" href="../../scss/ky-invite.css">
+    
 </head>
 
 <body class="cbp-spmenu-push">
@@ -51,77 +56,74 @@ include('../../includes/db_connection.php');
                     <h3 class="page-title">Student Invitation</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <!-- Tab Content 1-->
-                        <div id="StudentToSupervisor" class="tabcontent">
-                            
+                        <div id="StudentToSupervisor" class="tabcontent">   
                             <div class="table-responsive black-border">
-                            <div class="table_section">
-                            <table  class="table-view" id="myTable">
-                            <thead>
-                                <tr>
-                                <th>User Id</th>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Programme</th> 
-                                <th>Status</th>
-                                <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                <?php
-                                    
-                                    $db = new DBController();
-                                        
-                                    $sql = "select * from Student where studAccountStatus ='Pending Invite' "; 
-                                    $result = $db->runQuery($sql);
-
-                                    if(count($result) > 0){
-                                         foreach ($result as $student) {
-                                        
-                                            $Id = $student['studentID'];
-                                            $username = $student['studName'];
-                                            $gender = $student['studGender'];
-                                            $email = $student['studEmail'];
-                                            $phone = $student['studContactNumber'];
-                                            $programme = $student['programmeID'];
-                                            $status = $student['studAccountStatus'];
-                                        
-                                            echo '<tr>
-                                                <td>' .$Id. '</td>
-                                                <td>' .$username. '</td>
-                                                <td>' .$gender. '</td>
-                                                <td>' .$email. '</td>
-                                                <td>' .$phone. '</td>
-                                                <td>' .$programme. '</td>
-                                                <td>' .$status. '</td>
-                                                <td>
-                                                <form action="ky-sendStud.php" method="post">
-                                                <input type="hidden" name="email" id="email" value="'.$email.'">
-                                                <input type="hidden" name="username" id="username" value="'.$username.'">
-                                                <input type="hidden" name="id" id="id" value="'.$Id.'">
-                                                    <div class="button">
-                                                        <input type="submit" name="submit" value="Invite">
-                                                    </div>
-                                                </form>
+                                <div class="table_section">
+                                    <table  class="table-view" id="myTable">
+                                        <thead>
+                                            <tr>
+                                            <th>User Id</th>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Programme</th> 
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                            <?php
+                                                
+                                                $db = new DBController();
                                                     
-                                                </td>
-                                            </tr>';
-                                                                                                                     
-                                        }
-                                    }
-                                    
-                                ?>
-                                    
-                            </tbody>
-                        </table>
+                                                $sql = "select * from Student where studAccountStatus ='Pending Invite' "; 
+                                                $result = $db->runQuery($sql);
+
+                                                if(count($result) > 0){
+                                                    foreach ($result as $student) {
+                                                        $Id = $student['studentID'];
+                                                        $username = $student['studName'];
+                                                        $gender = $student['studGender'];
+                                                        $email = $student['studEmail'];
+                                                        $phone = $student['studContactNumber'];
+                                                        $programme = $student['programmeID'];
+                                                        $status = $student['studAccountStatus'];
+                                                    
+                                                        echo '<tr>
+                                                            <td>' .$Id. '</td>
+                                                            <td>' .$username. '</td>
+                                                            <td>' .$gender. '</td>
+                                                            <td>' .$email. '</td>
+                                                            <td>' .$phone. '</td>
+                                                            <td>' .$programme. '</td>
+                                                            <td>' .$status. '</td>
+                                                            <td>
+                                                            <form action="ky-sendStud.php" method="post">
+                                                            <input type="hidden" name="email" id="email" value="'.$email.'">
+                                                            <input type="hidden" name="username" id="username" value="'.$username.'">
+                                                            <input type="hidden" name="id" id="id" value="'.$Id.'">
+                                                                <div class="button">
+                                                                    <input style="width:50px; height:28px;" type="submit" name="submit" value="Invite">
+                                                                    </div>
+                                                            </form>
+                                                                
+                                                            </td>
+                                                        </tr>';                                                                         
+                                                    }
+                                                }  
+                                            ?>     
+                                        </tbody>
+                                    </table>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
-                                
-                 </div>
+                </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>   
+    </div>
+    <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
     
     <script type="text/javascript">
