@@ -40,31 +40,29 @@ if(isset($_POST['signatureedit'])){
 
   if($leaveTaken == 'NO' || $leaveTaken == 'No'){
     $leaveReasons = "N/A";
+    $leave = '0';
+    $fromDate = "_____________________";
+    $toDate = "_____________________";
+    $leaveReason = "______________________________________________________________";
   }
   else{
     $leaveReasons = $_POST['leaveReason'];
+    $fromDate = $_POST['fromDate'];
+    $toDate = $_POST['toDate'];
+    $leaveDays = $_POST['leaveDays'];
+    $leaveReason = $_POST['leaveReason'];
+    $leave = $leaveDays;
   }
 
   $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
 
   if (mysqli_query($conn, $sql)) {
-    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-      $leave = '0';
-      $fromDate = "_____________________";
-      $toDate = "_____________________";
-      $leaveReason = "______________________________________________________________";
-    }
-    else{
-      $fromDate = $_POST['fromDate'];
-      $toDate = $_POST['toDate'];
-      $leaveDays = $_POST['leaveDays'];
-      $leaveReason = $_POST['leaveReason'];
-      $leave = $leaveDays;
-    }
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $today = date("F j, Y", time());
-    }
+  }else{
+    echo "Error: " . $sql . mysqli_error($conn);
   }
+}
 
 class PDF extends TCPDF{
   public function Header(){

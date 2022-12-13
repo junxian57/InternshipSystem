@@ -153,25 +153,25 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
@@ -183,7 +183,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
+                  <textarea type="text" name="problem" id="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -229,12 +229,12 @@
                   <div id="canvasDiv"></div>
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
-                  <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
-                  <button type="button" class="btn btn-success" id="btn-submit" name="submit">Submit</button>
+                  <button type="button" class="btn btn-success" id="btn-save" name="save">Submit</button>
               </div>
 
               <input type="hidden" id="signature" name="signature">
               <input type="hidden" id="signatureedit" name="signatureedit" value="1">
+              <div id="autoSave"></div>
             </div>
           </form>
         </div>
@@ -384,15 +384,20 @@
           }
         })
 
-        $("#btn-submit").click(function() {
+        $("#btn-save").click(function() {
           let week1 = document.getElementById('week1').value;
           let week2 = document.getElementById('week2').value;
           let week3 = document.getElementById('week3').value;
           let week4 = document.getElementById('week4').value;
+          let problem = document.getElementById('problem').value;
+          var minLength = 100;
 
-            if (week1 == '' || week2 == '' || week3 == '' || week4 == '') {
+            if (week1 == '' || week2 == '' || week3 == '' || week4 == '' || problem == '') {
               warning("Please fill in all fields");
-            } else {
+            }else if(week1.length < minLength || week2.length < minLength || week3.length < minLength || week4.length < minLength || problem.length < minLength) {
+              info("Please write a summary of your work in at least 100 words.");
+            }else{
+              window.location.href = '../../view/page/xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID; ?>';
             }
         })
   </script>
@@ -561,7 +566,7 @@
     select_element.addEventListener("change", () => {
       
     var selected = select_element.options[select_element.selectedIndex ].value
-      if(selected == "No"){
+      if(selected == "No" || selected == "NO"){
         document.getElementById("fromDate").disabled = true;
         document.getElementById("fromDate").value = "";
         document.getElementById("toDate").disabled = true;
@@ -577,11 +582,11 @@
   </script>
 
   <script>
-    /*$(document).ready(function(){ 
+    $(document).ready(function(){ 
       $(document).bind("contextmenu",function(e){
         return false;
       }); 
-    })*/
+    })
   </script>
 
 <script>
