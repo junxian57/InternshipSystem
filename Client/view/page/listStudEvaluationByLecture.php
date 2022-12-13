@@ -57,7 +57,7 @@ error_reporting(0);
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Evaluation By Supervisor</button>
                         </div>
-                        <input id="lectureID" value="<?php echo $_GET['lectureID'] ?>" hidden> </input>
+                        <input id="lectureID" value="<?php echo $_SESSION['lecturerID'] ?>" hidden> </input>
 
                         <div id="RubricCmpTbl" class="tabcontent">
                             <div class="row">
