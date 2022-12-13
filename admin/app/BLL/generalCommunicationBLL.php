@@ -102,8 +102,7 @@ class generalCommunicationBLL
             $all_generalCommunication_html .= '<th>Sender</th>';
             $all_generalCommunication_html .= '<th>Receiver</th>';
             $all_generalCommunication_html .= '<th>Message Date</th>';
-            $all_generalCommunication_html .= '<th>Message Content</th>';
-           
+            $all_generalCommunication_html .= '<th>Message Content</th>';     
             $all_generalCommunication_html .= '</tr>';
             $all_generalCommunication_html .= '</thead>';
             $all_generalCommunication_html .= '<tbody>';
