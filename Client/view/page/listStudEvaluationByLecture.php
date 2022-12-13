@@ -1,6 +1,25 @@
 <?php
 session_start();
 error_reporting(0);
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+try {
+    if (!isset($_SESSION['lecturerID'])) {
+        echo "<script>
+            window.location.href = 'clientLogin.php';
+        </script>";
+    } else {
+        //Get lecturerID ID from Session
+        $lecturerID = $_SESSION['lecturerID'];
+    }
+
+    $getInternBatch = getInternshipBatch();
+} catch (Exception $e) {
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -57,7 +76,7 @@ error_reporting(0);
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Evaluation By Supervisor</button>
                         </div>
-                        <input id="lectureID" value="<?php echo $_GET['lectureID'] ?>" hidden> </input>
+                        <input id="lectureID" value="<?php echo $lecturerID ?>" hidden> </input>
 
                         <div id="RubricCmpTbl" class="tabcontent">
                             <div class="row">
