@@ -11,10 +11,12 @@ if(isset($_SESSION['companyChangePass'])){
 if(isset($_GET['edited']) && isset($_GET['success']) && $_GET['edited'] == 1 && $_GET['success'] == 1){
     echo "<script> 
         alert('Job Edited Successfully');
+        window.location.href = 'br-companyJobList.php';
     </script>";
 }elseif(isset($_GET['edited']) && isset($_GET['failed']) && $_GET['edited'] == 0 && $_GET['failed'] == 1){
     echo "<script> 
         alert('Job Edited Failed');
+        window.location.href = 'br-companyJobList.php';
     </script>";
 }
 

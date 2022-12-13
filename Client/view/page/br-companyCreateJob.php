@@ -47,22 +47,24 @@ try {
                     window.location.href = 'br-companyInfo.php';
                 </script>";
         }
+
+        $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
+        $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
+    }else{
+        $currQuota = 0;
+        $cmpMaxQuota = $companyInfo[0]['cmpNumberOfInternshipPlacements'];
     }
 
-    $currQuota = $getCmpRemainingQuota[0]['TotalQuota'] == null ? 0 : $getCmpRemainingQuota[0]['TotalQuota'];
+    $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
 
-    $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'] == null ?
-        (int)$companyInfo[0]['cmpNumberOfInternshipPlacements'] : (int)$getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
+    if ($quotaLeft == 0 || $quotaLeft <= 0) {
+        echo "<script> 
+            alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for further assistance.'); 
 
-        $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
+            window.location.href='br-companyInfo.php';
+        </script>";
+    }
 
-        if ($quotaLeft == 0 || $quotaLeft <= 0) {
-            echo "<script> 
-                alert('You have NO internship placements left.\\nPlease contact TARUMT ITP Committee for further assistance.'); 
-    
-                window.location.href='br-companyInfo.php';
-            </script>";
-        }
 } catch (PDOException $e) {
     echo "<script>
         alert('Database Connection Error');
