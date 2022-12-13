@@ -138,6 +138,22 @@ if(isset($_POST['signaturesave'])){
                 $run_stud = mysqli_query($conn, $get_stud);
                 $row_stud = mysqli_fetch_array($run_stud);
                 $studName = $row_stud['studName'];
+
+                $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
+                $runInternApp = mysqli_query($conn, $getInternApp);
+                $rowInternApp = mysqli_fetch_array($runInternApp);
+                $internAppID = $rowInternApp['internAppID'];
+                $internJobID = $rowInternApp['internJobID'];
+
+                $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+                $runCmpInfo = mysqli_query($conn, $getCmpInfo);
+                $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
+                $cmpID = $rowCmpInfo['companyID'];
+
+								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                $run_cmp = mysqli_query($conn, $get_cmp);
+								$row_cmp = mysqli_fetch_array($run_cmp);
+								$cmpName = $row_cmp['cmpName'];
               ?>
               
               <div class="inputBox">
@@ -148,7 +164,7 @@ if(isset($_POST['signaturesave'])){
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName;?>">
                 </div>
 
                 <div class="viewInput">
