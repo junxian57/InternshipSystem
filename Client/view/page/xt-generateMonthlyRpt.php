@@ -1,11 +1,21 @@
 <?php
 require_once('../../../TCPDF-main/tcpdf.php');
 
-extract($_POST);
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (isset($_SESSION['studentChangePass'])) {
+	header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+    
+if(isset($_SESSION['studentID'])){
+  $studID = $_SESSION['studentID'];
+}
 
 if(isset($_GET['monthlyRptID'])){
   $monthlyReportID = $_GET['monthlyRptID'];
 }
+
+extract($_POST);
 
 if(isset($_POST['signatureedit'])){
   $host = "sql444.main-hosting.eu";
@@ -16,8 +26,10 @@ if(isset($_POST['signatureedit'])){
   $conn = mysqli_connect($host, $user, $password, $database); 
 
   $monthRptID = $monthlyReportID;
-  $studID = "21WMR04845";
-  $cmpID = "CMP00001";
+  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+  $run_month = mysqli_query($conn, $get_month);
+  $row_month = mysqli_fetch_array($run_month);
+  $cmpID = $row_month['companyID'];
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
