@@ -41,7 +41,7 @@ if ($_GET['act'] == "edit") {
 <html>
 
 <head>
-    <title>ITP System | Edit Document</title>
+    <title>ITP SYSTEM | Edit Document</title>
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
