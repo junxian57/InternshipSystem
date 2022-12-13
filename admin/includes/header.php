@@ -89,7 +89,7 @@
         //Get Admin Name from DB
         $sqlGetAdminName = "SELECT adminUserName FROM Admin WHERE adminID = '$adminID';";
         $resultGetAdminName = $db->runQuery($sqlGetAdminName);
-        $name = $resultGetAdminName[0]['adminName'];
+        $name = $resultGetAdminName[0]['adminUserName'];
       }
 
       ?>
