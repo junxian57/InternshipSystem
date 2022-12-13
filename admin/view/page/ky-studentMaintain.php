@@ -1,6 +1,17 @@
 <?php
 session_start();
 error_reporting(0);
+
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+      echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+  }
+  
 include('../../includes/db_connection.php');
 ?>
 
@@ -18,28 +29,31 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
+    
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/modernizr.custom.js"></script>
+    <link href="../../scss/navtab.css" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/modernizr.custom.js"></script>>
     <script src="../../js/wow.min.js"></script>
-    <script>
-        new WOW().init();
-    </script>
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../scss/ky-Maintain.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.co">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script>
+        new WOW().init();
+    </script>
+    
+    <link rel="stylesheet" href="../../scss/ky-Maintain.css">
 </head>
 
 <body class="cbp-spmenu-push">
@@ -55,82 +69,84 @@ include('../../includes/db_connection.php');
                         <div id="StudentToSupervisor" class="tabcontent">
                             
                             <div class="table-responsive black-border">
-                            <div class="table_section">
-                            <table  class="table-view" id="myTable">
-                            <thead>
-                                <tr>
-                                <th>User Id</th>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Programme</th> 
-                                <th>Resume</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                <div class="table_section">
+                                    <table  class="table-view" id="myTable">
+                                        <thead>
+                                            <tr>
+                                            <th>User Id</th>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Programme</th> 
+                                            <th>Resume</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>   
+                                            <?php
+                                                $db = new DBController();
+                                                    
+                                                $sql = "select * from Student"; 
+                                                $result = $db->runQuery($sql);
+
+                                                if(count($result) > 0){
+                                                    foreach ($result as $student) {
+
+                                                        $Id = $student['studentID'];
+                                                        $programme = $student['programmeID'];
+                                                        $lecturer = $student['lecturerID'];
+                                                        $internBatch = $student['internshipBatchID'];
+                                                        $username = $student['studName'];
+                                                        $gender = $student['studGender'];
+                                                        $email = $student['studEmail'];
+                                                        $phone = $student['studContactNumber'];
+                                                        $address = $student['studHomeAddress'];
+                                                        $dateJoined = $student['studDateJoined'];
+                                                        $applicationQuota = $student['studApplicationQuota'];
+                                                        $currentApplication = $student['studCurrentNoOfApp'];
+                                                        $status = $student['studAccountStatus'];
+                                                        $tutorial = $student['tutorialGroupNo'];
+                                                        $pdf = $student['studentCVdocument'];
+                
+                                            ?>
+
+                                                    <tr>
+                                                        <td><?php echo $Id ?></td>
+                                                        <td><?php echo $username ?></td>
+                                                        <td><?php echo $gender ?></td>
+                                                        <td><a href="mailto:<?php echo $email ?>">Email</td>
+                                                        <td><?php echo $phone ?></td>
+                                                        <td><?php echo $programme ?></td>
+                                                        <td><a href="../../../Client/app/BLL/previewCV.php?path=<?php echo $pdf; ?>">Download</a></td>
+                                                        <td><?php echo $status ?></td>
+                                                        <td>
+                                                            <div class="button-group">
+                                                            <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' ,'<?php echo $status ?>' ,'<?php echo $tutorial ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
+                                                            <button onclick="toModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' , '<?php echo $status ?>' ,'<?php echo $tutorial ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <?php                                                                           
+                                                    }
+                                                }
+                                                
+                                            ?>
                                 
-                                <?php
-                                    $db = new DBController();
-                                        
-                                    $sql = "select * from Student"; 
-                                    $result = $db->runQuery($sql);
-
-                                    if(count($result) > 0){
-                                         foreach ($result as $student) {
-
-                                            $Id = $student['studentID'];
-                                            $programme = $student['programmeID'];
-                                            $lecturer = $student['lecturerID'];
-                                            $internBatch = $student['internshipBatchID'];
-                                            $username = $student['studName'];
-                                            $gender = $student['studGender'];
-                                            $email = $student['studEmail'];
-                                            $phone = $student['studContactNumber'];
-                                            $address = $student['studHomeAddress'];
-                                            $dateJoined = $student['studDateJoined'];
-                                            $applicationQuota = $student['studApplicationQuota'];
-                                            $currentApplication = $student['studCurrentNoOfApp'];
-                                            $status = $student['studAccountStatus'];
-                                            $tutorial = $student['tutorialGroupNo'];
-                                            $pdf = $student['studentCVdocument'];
-    
-        
-                                ?>
-
-                                        <tr>
-                                            <td><?php echo $Id ?></td>
-                                            <td><?php echo $username ?></td>
-                                            <td><?php echo $gender ?></td>
-                                            <td><a href="mailto:<?php echo $email ?>">Email</td>
-                                            <td><?php echo $phone ?></td>
-                                            <td><?php echo $programme ?></td>
-                                            <td><a href="../../../Client/app/BLL/previewCV.php?path=<?php echo $pdf; ?>">Download</a></td>
-                                            <td><?php echo $status ?></td>
-                                            <td>
-                                                <div class="button-group">
-                                                <button onclick="viewModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' ,'<?php echo $status ?>' ,'<?php echo $tutorial ?>')"><i class="fa fa-eye" style ="color:red"></i></button>
-                                                <button onclick="toModal('<?php echo $Id ?>', '<?php echo $programme ?>', '<?php echo $lecturer ?>', '<?php echo $internBatch ?>', '<?php echo $username ?>', '<?php echo $gender ?>',  '<?php echo $email ?>', '<?php echo $phone ?>', '<?php echo $address ?>', '<?php echo $dateJoined ?>', '<?php echo $applicationQuota ?>', '<?php echo $currentApplication ?>' , '<?php echo $status ?>' ,'<?php echo $tutorial ?>' )"><i class="uil uil-pen" style="color:#0298cf"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        
-                                        <?php                                                                           
-                                        }
-                                    }
-                                    
-                                ?>
-                    
-                            </tbody>
-                        </table>
-                    </div>
+                                        </tbody>
+                                    </table>
+                                </div>
             
-                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <footer><?php include_once('../../includes/footer.php'); ?></footer>   
+    </div>
+    <footer><?php include_once('../../includes/footer.php'); ?></footer>   
 </body>
      
 
@@ -181,7 +197,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
                                 <input type="text" id="input_dateJoined2" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
+                                <i class='fa fa-calendar icon'></i>
                             </div>
 
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
@@ -223,7 +239,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Tutorial Group :</label>
                                 <input type="text" placeholder="Enter tutorial group"  id="input_tutorial2" required readonly>
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-graduation-cap icon'></i>
                             </div>
 
                             <div class="pass-box">
@@ -241,7 +257,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Account Status :</label>
                                 <input type="text" placeholder="Enter account status" id="input_status2" required readonly>
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-lightbulb-o icon'></i>
                             </div>
 
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
@@ -309,7 +325,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Date Jioned :</label>
                                 <input type="text" name="dateJoined" id="input_dateJoined" required readonly>
-                                <i class='far fa-calendar-check icon'></i>
+                                <i class='fa fa-calendar icon'></i>
                             </div>
                             <label style="color:silver; margin-top: 10px;">____________________________________________________________________________________________</label>
 
@@ -350,7 +366,7 @@ include('../../includes/db_connection.php');
                             <div class="pass-box">
                                 <label>Tutorial Group :</label>
                                 <input type="text" placeholder="Enter tutorial group" name="tutorial" id="input_tutorial" required>
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-graduation-cap icon'></i>
                             </div>
                             
                             <div class="pass-box">
@@ -377,7 +393,7 @@ include('../../includes/db_connection.php');
                                     <option value="Withdrawal" <?php echo ($status1 == 'Withdrawal') ? 'selected' : '' ?> >Withdrawal</option>   
                                 </select>
                                 
-                                <i class='far fa-lightbulb icon'></i>
+                                <i class='fa fa-lightbulb-o icon'></i>
 
                                 
                             </div>
