@@ -106,6 +106,7 @@
 									</th>
                   <th style="border-right: 0;">Action</th>
 									<th style="border-left: 0;"></th>
+									<th style="border-left: 0;"></th>
 								</tr>
 							</thead>
 
