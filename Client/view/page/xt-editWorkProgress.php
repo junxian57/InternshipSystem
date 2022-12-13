@@ -1,16 +1,56 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-?>
+	include('../../includes/db_connection.php');
 
-<?php
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if(isset($_SESSION['studentID'])){
+    $studID = $_SESSION['studentID'];
+  }
+
 	if(isset($_GET['monthlyReportID'])){
     $monthlyReportID = $_GET['monthlyReportID'];
   }
+?>
+
+<?php
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                              
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
+  $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+  $run_stud = mysqli_query($conn, $get_stud);
+  $row_stud = mysqli_fetch_array($run_stud);
+  $studName = $row_stud['studName'];
+
+  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+  $run_month = mysqli_query($conn, $get_month);
+  $row_month = mysqli_fetch_array($run_month);
+  $cmpID = $row_month['companyID'];
+  $monthOfTraining = $row_month['monthOfTraining'];
+  $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
+  $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
+  $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
+  $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
+  $issuesEncountered = $row_month['issuesEncountered'];
+  $leaveTaken = $row_month['leaveTaken'];
+  $leaveReason = $row_month['leaveReason'];
+  if($leaveTaken != "0"){
+    $leave = "Yes";
+  }else{
+    $leave = "No";
+  }
+
+	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+  $run_cmp = mysqli_query($conn, $get_cmp);
+	$row_cmp = mysqli_fetch_array($run_cmp);
+	$cmpName = $row_cmp['cmpName'];
 ?>
 
 <!DOCTYPE HTML>
@@ -62,43 +102,11 @@ include('includes/dbconnection.php');
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-
-              <?php
-								$host = "sql444.main-hosting.eu";
-                $user = "u928796707_group34";
-                $password = "u1VF3KYO1r|";
-                $database = "u928796707_internshipWeb";
-                                              
-                $conn = mysqli_connect($host, $user, $password, $database); 
-
-                $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-                $run_month = mysqli_query($conn, $get_month);
-                $row_month = mysqli_fetch_array($run_month);
-                $cmpID = $row_month['companyID'];
-                $monthOfTraining = $row_month['monthOfTraining'];
-                $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
-                $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
-                $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
-                $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
-                $issuesEncountered = $row_month['issuesEncountered'];
-                $leaveTaken = $row_month['leaveTaken'];
-                $leaveReason = $row_month['leaveReason'];
-                if($leaveTaken != "0"){
-                  $leave = "Yes";
-                }else{
-                  $leave = "No";
-                }
-
-								$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
-                $run_cmp = mysqli_query($conn, $get_cmp);
-								$row_cmp = mysqli_fetch_array($run_cmp);
-								$cmpName = $row_cmp['cmpName'];
-              ?>
               
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
+                  <input type="text" name="studName" readonly value="<?php echo $studName;?>">
                 </div>
                 
                 <div class="viewInput">
