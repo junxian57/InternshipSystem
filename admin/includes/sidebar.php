@@ -84,18 +84,6 @@ if(isset($_SESSION)){
             </ul>
           </li>
         <?php } ?>
-        <li class="">
-          <a href="about-us.php"><i class="fa fa-book nav_icon"></i>About <span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">About Us</a>
-            </li>
-            <li>
-              <a href="contact-us.php">Contact Us</a>
-            </li>
-          </ul>
-          <!-- /nav-second-level -->
-        </li>
 
         <li>
           <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
@@ -175,15 +163,6 @@ if(isset($_SESSION)){
             <li>
               <a href="#">Manage Alerts</a>
             </li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li><a href="#">A</a></li>
-
-            <li><a href="#">B</a></li>
           </ul>
         </li>
 

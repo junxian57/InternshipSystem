@@ -54,7 +54,7 @@ include('includes/dbconnection.php');
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">View Final Report</h3><?php echo "<a href='xt-recordWorkProgress.php' class='btn btn-success' id='btn-save' name='record'>";?>Record Final Report</a>
+					<h3 class="title1">View Final Report</h3><?php echo "<a href='xt-recordFinalReport.php' class='btn btn-success' id='btn-save' name='record'>";?>Record Final Report</a>
 					<hr>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
