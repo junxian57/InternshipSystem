@@ -123,7 +123,7 @@
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="POST" enctype="multipart/form-data" id="signatureform">
+          <form method="POST" action="" target="frame" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
@@ -183,7 +183,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" id="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
+                  <textarea type="text" name="problem" id="problem" required placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -221,14 +221,20 @@
                 </div>
               </div>
 
+              <div class="subtitle">
+                <h2 class="sub-4">Digital Signature</h2>
+              </div>
+
               <div id="signature-pad">
-                  <div id="canvasDiv" style="display: none;"></div>
+                  <div id="canvasDiv"></div>
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
+
+              <iframe name="frame" style="display: none;"></iframe>
             </div>
           </form>
         </div>
