@@ -22,7 +22,7 @@ if ($_GET['act'] == "edit") {
         $msgContent = $_POST['msgContent'];
         $msgReceiver = $_POST ['msgReceiver'];
         $msgSender = $_POST ['msgSender'];
-        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,$msgReceiver, $msgSender, $msgContent);
+        $newgeneralComm = new generalCommunicationDTO($messageID, $msgTitle,$msgSender, $msgReceiver, $msgContent);
         $generalCommunicationBLLObj->UpdGeneralComm($newgeneralComm);
     }
 } else {
