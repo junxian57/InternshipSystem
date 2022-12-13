@@ -148,6 +148,29 @@ if (isset($_SESSION)) {
             <a href="listStudEvaluationByLecture.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           </li>
         <?php } ?>
+       
+       
+        <li>
+          <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Document<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="ty-documentList.php">Document List</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li>
+          <a href="all-communcation.php"><i class="fa fa-comments nav_icon"></i>Communication<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="joel-messageList.php">View Available Message</a>
+            </li>
+          </ul>
+        </li>
+       
+       
+       
         <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
@@ -160,6 +183,8 @@ if (isset($_SESSION)) {
           </ul>
         </li>
 
+
+        
         <li>
           <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
