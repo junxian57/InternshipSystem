@@ -225,7 +225,7 @@
                   <div id="canvasDiv" style="display: none;"></div>
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
-                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Submit">
+                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Save">
               </div>
 
               <input type="hidden" id="signature" name="signature">

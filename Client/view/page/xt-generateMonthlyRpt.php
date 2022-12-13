@@ -40,7 +40,7 @@ if(isset($_POST['signatureedit'])){
   $problem = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
   $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
+  $status = "Submitted";
   $signature = $_POST['signature'];
   $signatureFileName = $studName.'.jpg';
   $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -66,7 +66,7 @@ if(isset($_POST['signatureedit'])){
     $leave = $leaveDays;
   }
 
-  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
 
   if (mysqli_query($conn, $sql)) {
     date_default_timezone_set("Asia/Kuala_Lumpur");

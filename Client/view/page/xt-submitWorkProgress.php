@@ -123,7 +123,7 @@
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Weekly Work Progress</h3>
-          <form method="POST" action="" target="frame" enctype="multipart/form-data" id="signatureform">
+          <form method="POST" action="xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID;?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
@@ -153,25 +153,25 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words." readonly><?php echo $firstWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words." readonly><?php echo $secondWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words." readonly><?php echo $thirdWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words." readonly><?php echo $forthWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
@@ -183,7 +183,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" id="problem" required placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
+                  <textarea type="text" name="problem" id="problem" required placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?" readonly><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -194,7 +194,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Any leave taken?</span><br>
-                  <select name="leaveTaken" id="leaveTaken">
+                  <select name="leaveTaken" id="leaveTaken" readonly>
                     <option value="YES" <?php if($leave=="Yes") echo 'selected="selected"'; ?> >Yes</option>
                     <option value="No" <?php if($leave=="No") echo 'selected="selected"'; ?> >No</option>
                   </select>
@@ -228,63 +228,17 @@
               <div id="signature-pad">
                   <div id="canvasDiv"></div>
                   <br>
-                  <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
+                  <a class="btn btn-danger" id="reset-btn" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>">Edit</a>
                   <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
-
-              <iframe name="frame" style="display: none;"></iframe>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
-  <?php
-    if(isset($_POST['signatureedit'])){
-      $host = "sql444.main-hosting.eu";
-      $user = "u928796707_group34";
-      $password = "u1VF3KYO1r|";
-      $database = "u928796707_internshipWeb";
-                                    
-      $conn = mysqli_connect($host, $user, $password, $database); 
-    
-      $monthRptID = $monthlyReportID;
-      $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-      $run_month = mysqli_query($conn, $get_month);
-      $row_month = mysqli_fetch_array($run_month);
-      $cmpID = $row_month['companyID'];
-      $studName = $_POST['studName'];
-      $cmpName = $_POST['cmpName'];
-      $monthYear = $_POST['monthYear'];
-      $week1 = $_POST['week1'];
-      $week2 = $_POST['week2'];
-      $week3 = $_POST['week3'];
-      $week4 = $_POST['week4'];
-      $problem = $_POST['problem'];
-      $leaveTaken = $_POST['leaveTaken'];
-      $leaveTakens = $_POST['leaveDays'];
-      $status = "Saved";
-      
-      if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-        $leaveReasons = "N/A";
-      }
-      else{
-        $leaveReasons = $_POST['leaveReason'];
-      }
-    
-      $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
-    
-      if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('The report have been saved into database.')</script>";     
-        echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-      }else{
-        echo "Error: " . $sql . mysqli_error($conn);
-      }
-    }
-  ?>
 
   <script>
     $(document).ready(() => {
@@ -428,7 +382,7 @@
           }
         })
 
-        /*$("#btn-save").click(function() {
+        $("#btn-save").click(function() {
           let week1 = document.getElementById('week1').value;
           let week2 = document.getElementById('week2').value;
           let week3 = document.getElementById('week3').value;
@@ -443,7 +397,7 @@
             }else{
               //window.location.href = '../../view/page/xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID; ?>';
             }
-        })*/
+        })
   </script>
 
   <script>
