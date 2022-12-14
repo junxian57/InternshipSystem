@@ -1,7 +1,24 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/db_connection.php');
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+try {
+    if (!isset($_SESSION['lecturerID'])) {
+        echo "<script>
+            window.location.href = 'clientLogin.php';
+        </script>";
+    } else {
+        //Get lecturerID ID from Session
+        $lecturerID = $_SESSION['lecturerID'];
+        $lecName = $_SESSION['lecName'];
+    }
+} catch (Exception $e) {
+    echo "<script>
+        alert('Database Connection Error');
+        window.location.href = 'clientLogin.php';
+    </script>";
+}
+
+//include('includes/db_connection.php');
 $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'] . '/internshipSystem/admin/';
 require_once $systemPathPrefix . "/app/BLL/rubricAssessmentBLL.php";
 require_once $systemPathPrefix . "/app/DTO/rubricAssessmentDTO.php";
@@ -19,6 +36,7 @@ $rubricAssessmentDALObj  = new rubricAssessmentDAL();
 } else {
 
 	}*/
+
 $rubricAssmtBllObj = new rubricAssessmentBLL();
 
 $markingSchemeBllObj = new markingSchemeBLL();
@@ -329,7 +347,7 @@ function generateMarkingSchemeID($markingSchemeID)
                                 <div class="form-group col-md-2">
                                     <label>Intern Start Day</label>
                                     <?php
-                                    include('includes/db_connection.php');
+                                    include_once('../../includes/db_connection.php');
                                     $db_handle = new DBController();
                                     $query = "SELECT * FROM InternshipBatch";
                                     $results = $db_handle->runQuery($query);
@@ -369,7 +387,7 @@ function generateMarkingSchemeID($markingSchemeID)
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Company Name</label>
-                                    <input type="text" id="" class="form-control" placeholder="XXX Sdn Bhd" value="<?php echo $cmpName?>" readonly="readonly">
+                                    <input type="text" id="" class="form-control" placeholder="XXX Sdn Bhd" value="<?php echo $cmpName ?>" readonly="readonly">
                                 </div>
                                 <div class="form-group col-md-12"> <label>Assessment Instruction</label><textarea rows="6" readonly class="form-control" id="Instructions" name="Instructions" placeholder="Component Name" required><?php echo $aRubricAssmt->getInstructions() ?></textarea></div>
                                 <div class="form-group col-md-12 checkbox-group">
@@ -422,7 +440,7 @@ function generateMarkingSchemeID($markingSchemeID)
                                         <label class="">University College Supervisior Name:</label>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <input type="text" id="Title" name="Title" class="form-control " readonly>
+                                        <input type="text" id="Title" name="Title" class="form-control " value="<?php echo $lecName ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
