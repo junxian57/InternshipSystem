@@ -183,24 +183,24 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
             <div class="horizon-wrap">
               <div class="input-style name-address-group">
                 <label for="companyName">Company Name</label>
-                <input type="text" name="companyName" readonly value="<?php $studentArr[0]['cmpName'] ?>"/>
+                <input type="text" name="companyName" readonly value="<?php echo $studentArr[0]['cmpName'] ?>"/>
               </div>
 
               <div class="input-style name-address-group">
                 <label for="companySupervisor">Supervisor</label>
-                <input type="text" name="companySupervisor" readonly value="<?php $studentArr[0]['jobCmpSupervisor'] ?>"/>
+                <input type="text" name="companySupervisor" readonly value="<?php echo $studentArr[0]['jobCmpSupervisor'] ?>"/>
               </div>
             </div>
 
             <div class="horizon-wrap">
               <div class="input-style name-address-group">
                 <label for="companyContact">Contact No.</label>
-                <input type="text" name="companyContact" readonly value="<?php  $studentArr[0]['jobSupervisorContactNo'] ?>"/>
+                <input type="text" name="companyContact" readonly value="<?php echo $studentArr[0]['jobSupervisorContactNo'] ?>"/>
               </div>
 
               <div class="input-style name-address-group">
                 <label for="companyEmail">Email Address</label>
-                <input type="email" name="companyEmail" readonly value="<?php $studentArr[0]['jobSupervisorEmail'] ?>"/>
+                <input type="email" name="companyEmail" readonly value="<?php echo $studentArr[0]['jobSupervisorEmail'] ?>"/>
               </div>
             </div>
             
@@ -214,7 +214,7 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
 
               <div class="input-style name-address-group">
                 <label for="internEndDate">Internship End Date</label>
-                <input type="text" name="internEndDate" readonly value="<?php $studentArr[0]['appInternEndDate'] ?>"/>
+                <input type="text" name="internEndDate" readonly value="<?php echo $studentArr[0]['appInternEndDate'] ?>"/>
               </div>
             </div>
 

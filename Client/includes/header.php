@@ -23,11 +23,11 @@ if(isset($_SESSION)){
       <a href="
         <?php
           if($lecturerID){
-            echo "../view/page/br-StudentSupervisor-Manage.php";
+            echo "../page/br-StudentSupervisor-Manage.php";
           }else if($studentID){
-            echo "../view/page/ky-maintainStud.php";
+            echo "../page/ky-maintainStud.php";
           }else if($companyID){
-            echo "../view/page/br-companyInfo.php";
+            echo "../page/br-companyInfo.php";
           }
         ?>
       ">
