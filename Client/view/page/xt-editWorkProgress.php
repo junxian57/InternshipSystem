@@ -206,12 +206,12 @@
 
                 <div class="viewInput">
                   <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?> disabled>
+                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?>" disabled>
                 </div>
             
                 <div class="viewInput">
                   <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?> disabled>
+                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?>" disabled>
                 </div>
 
                 <div class="viewInput">
@@ -285,6 +285,20 @@
   ?>
 
   <script>
+    $(document).ready(function(){
+      var form = $('#signatureform'),
+        original = form.serialize()
+      
+        form.submit(function(){
+        window.onbeforeunload = null
+      })
+
+      window.onbeforeunload = function(){
+        if (form.serialize() != original)
+          return 'Are you sure you want to leave?'
+      }
+    })
+    
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');
@@ -494,20 +508,39 @@
         }
       });
     });*/
-    let submit = document.getElementById("toDate");
-    let output = document.getElementById("leaveDays");
-
-    submit.addEventListener("change", () => {
+    function dateStrToObj(dateStr) {
+      const [year, month, date] = dateStr.split('-').map(Number)
+      return new Date(year, month - 1, date)
+    }
+    
+    function onChange() {
+      let output = document.getElementById("leaveDays");
       let fromDate = new Date(document.getElementById("fromDate").value);
       let toDate = new Date(document.getElementById("toDate").value);
-
-      if(fromDate.getTime() && toDate.getTime()){
-        let timeDifference = toDate.getTime() - fromDate.getTime();
-
-        let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
-        output.value = dayDifference;
+      const startDateStr = document.querySelector('#fromDate').value
+      const endDateStr = document.querySelector('#toDate').value
+      
+      if (!startDateStr || !endDateStr) return
+      const startDate = dateStrToObj(startDateStr)
+      const endDate = dateStrToObj(endDateStr)
+      
+      if (endDate.valueOf() < startDate.valueOf()) {
+        warning('End date is before start date!');
+        document.getElementById("toDate").value = document.getElementById("fromDate").value
       }
-    });
+      else{
+        if(fromDate.getTime() && toDate.getTime()){
+          let timeDifference = toDate.getTime() - fromDate.getTime();
+
+          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+          output.value = dayDifference;
+        }
+      }
+    }
+    
+    for (const dateInput of document.querySelectorAll('input[type=date]')) {
+      dateInput.addEventListener('change', onChange)
+    }
   </script>
 
   <script>
@@ -615,12 +648,29 @@
         document.getElementById("toDate").value = "";
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
-      }else{
+      }else if(selected == "Yes" || selected == "YES"){
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;
       }
     });
+
+    window.onload = function() {
+      
+      var selected = select_element.options[select_element.selectedIndex ].value
+        if(selected == "No" || selected == "NO"){
+          document.getElementById("fromDate").disabled = true;
+          document.getElementById("fromDate").value = "";
+          document.getElementById("toDate").disabled = true;
+          document.getElementById("toDate").value = "";
+          document.getElementById("leaveDays").value = "0";
+          document.getElementById("leaveReason").disabled = true;
+        }else if(selected == "Yes" || selected == "YES"){
+          document.getElementById("fromDate").disabled = false;
+          document.getElementById("toDate").disabled = false;
+          document.getElementById("leaveReason").disabled = false;
+        }
+      };
   </script>
 
   <script>
