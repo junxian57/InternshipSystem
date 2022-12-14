@@ -317,16 +317,16 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                 <div class="form-group col-md-12 checkbox-group">
 
                                     <fieldset>
-                                        <legend>Select Rubric Criteria Field </legend>
+                                        <legend>Select Company Field </legend>
                                         <div>
                                             <table>
                                                 <thead>
                                                     <tr>
                                                         <th>Company ID</th>
                                                         <th>Company Name</th>
-                                                        <th></th>
+                                                        <th>Contact Person</th>
                                                         <th>Size</th>
-                                                        <th>Acccpted Student</th>
+                                                        <th>Address</th>
                                                         <th>Checkbox</th>
                                                     </tr>
                                                 </thead>
@@ -341,15 +341,16 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
 
                                     <fieldset>
-                                        <legend>Existing Selected Rubric Criteria Field </legend>
+                                        <legend>Existing Company List Field </legend>
                                         <div class="table-responsive">
                                             <table name="test">
                                                 <thead>
                                                     <tr>
-                                                        <th>Company ID</th>
+                                                    <th>Company ID</th>
                                                         <th>Company Name</th>
+                                                        <th>Contact Person</th>
                                                         <th>Size</th>
-                                                        <th>Acccpted Student</th>
+                                                        <th>Address</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
