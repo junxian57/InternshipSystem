@@ -46,8 +46,8 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
   $studentID = $_GET['studentID'];
   
   $result = getStudentAndInternCompany($studentID);
-
-  if(count($result) > 0 ){
+  
+  if( $result != null && count($result) > 0){
     foreach($result as $student){
       $studentArr[] = array(
         "studentID" => $student['studentID'],
@@ -70,7 +70,10 @@ if(isset($_GET['studentID']) && isset($_GET['individualView']) && isset($_GET['a
       );
     }
   }else{
-    echo "<script>alert('No Data Found');</script>";
+    echo "<script>
+    alert('No Data Found');
+    window.location.href = 'br-StudentSupervisor-Manage.php';
+    </script>";
   }
 }
 ?>

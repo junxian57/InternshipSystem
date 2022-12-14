@@ -31,6 +31,14 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
         $companyPostcode = trim($result[0]['cmpPostCode']);
         $companyContactPerson = trim($result[0]['cmpContactPerson']);
         $companySize = trim($result[0]['cmpCompanySize']);
+        $companyStatus = trim($result[0]['cmpAccountStatus']);
+
+        if($companyStatus != 'Rejected'){
+            echo "<script>
+            alert('Your company has been registered / waiting for approval from the ITP Committee.');
+            window.location.href = 'clientLogin.php';
+            </script>";
+        }
 
     }else{
         echo "<script>
@@ -93,7 +101,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
 
     <div class="content">
       <div class="wrapper">
-        <form action="../../app/BLL/cmpSelfAppModifyBLL.php" method="GET" onsubmit="formTaskArray()">
+        <form action="../../app/BLL/cmpSelfAppModifyBLL.php" method="POST" onsubmit="return formTaskArray()" enctype="multipart/form-data">
         <input type="hidden" name="companyID" value="<?php echo $companyID;?>">
           <h3 class="form-title">Company Registration Form</h3>
           <div class="title">
@@ -102,10 +110,11 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
           <div class="input-style name-address-group vertical-wrap">
             <input
               type="text"
-              style="width: 100%"
+              style="width: 100%; background-color:lightgrey;"
               placeholder="Company Name"
+              name="cmpName"
               value="<?php echo $companyName; ?>"
-              disabled
+              readonly
             />
             <p><span>** </span>Not Subject To Change Once Registered</p>
           </div>
@@ -247,6 +256,17 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
             <input type="button" id="addNewField" value="Add New">
           </div>
 
+          <div class="company-details-group input-style certBox">
+            <label for="cmpCertification" onchange="changeFileName()">
+              Upload Company Certification (e.g. SSM, etc.) <br/>
+              <i class="fa fa-2x fa-file"></i>
+              <input id="cmpCertification" name="cmpCertification" type="file" accept=".jpg, .jpeg, .png, .pdf"/>
+              <br/>
+              <span id="fileName"></span>
+            </label>
+            <p>Accept .jpg, .jpeg, .png and .pdf Format Only</p>
+          </div>
+
           <div class="button-group">
             <button type="submit" name="amend" class="clickable-btn">Amend</button>
           </div>
@@ -256,9 +276,16 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
   </body>
 
   <script>
-  document.getElementById('addNewField').addEventListener('click',() => {
+    document.getElementById('addNewField').addEventListener('click',() => {
         addNewRow('fields-row', document.getElementById('cmpFieldArea'))
     });
+
+    function changeFileName(){
+      let inputImage = document.querySelector("#cmpCertification").files[0];
+      let fileName = document.getElementById('fileName');
+
+      fileName.innerText = inputImage.name;
+    }
 
     function addNewRow(taskGroup, newTaskValue){
       //Entering Alphabet Only
@@ -363,9 +390,15 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
     function formTaskArray(){
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
-
+      let inputFile = document.getElementById("cmpCertification");
+      
       if(fieldsRow.length == 0){
         info('Please enter a field area');
+        return false;
+      }
+      
+      if (inputFile.files.length === 0){
+        info('Please upload a file');
         return false;
       }
 

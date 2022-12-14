@@ -51,9 +51,10 @@ function cmpApplicationSubmit($companyObj){
     $companyFieldsArea = $companyObj->getCompanyFieldsArea();
     $cmpDateJoined = date("Y-m-d");
     $cmpNumberOfInternshipPlacements = $companyObj->getCompanyNumberOfInternshipPlacements();
+    $certLocation = $companyObj->getCompanyCert();
 
-    $sqlInsertCompany = "INSERT INTO Company (companyID, cmpName, cmpEmail, cmpContactNumber, cmpState, cmpAddress, cmpAccountStatus, cmpCompanySize, cmpFieldsArea,cmpDateJoined, cmpPostcode, cmpCity, cmpContactPerson, cmpNumberOfInternshipPlacements)
-                        VALUES ('$companyID', '$companyName', '$companyEmail', '$companyContact', '$companyState', '$companyAddress', '$companyStatus', '$companySize', '$companyFieldsArea', '$cmpDateJoined','$companyPostcode', '$companyCity', '$companyContactPerson', $cmpNumberOfInternshipPlacements);";
+    $sqlInsertCompany = "INSERT INTO Company (companyID, cmpName, cmpEmail, cmpContactNumber, cmpState, cmpAddress, cmpAccountStatus, cmpCompanySize, cmpFieldsArea,cmpDateJoined, cmpPostcode, cmpCity, cmpContactPerson, cmpNumberOfInternshipPlacements, cmpCert)
+                        VALUES ('$companyID', '$companyName', '$companyEmail', '$companyContact', '$companyState', '$companyAddress', '$companyStatus', '$companySize', '$companyFieldsArea', '$cmpDateJoined','$companyPostcode', '$companyCity', '$companyContactPerson', $cmpNumberOfInternshipPlacements, '$certLocation');";
     
     $result = $db->executeQuery($sqlInsertCompany);
 
@@ -78,7 +79,7 @@ function cmpUpdateInfo($companyObj){
     $companySize = $companyObj->getCompanySize();
     $companyFieldsArea = $companyObj->getCompanyFieldsArea();
     $cmpNumberOfInternshipPlacements = $companyObj->getCompanyNumberOfInternshipPlacements();
-
+    
     $sqlUpdateCompany = "UPDATE Company SET cmpEmail = '$companyEmail', cmpContactNumber = '$companyContact', cmpState = '$companyState', cmpAddress = '$companyAddress', cmpCompanySize = '$companySize', cmpFieldsArea = '$companyFieldsArea', cmpPostcode = '$companyPostcode', cmpCity = '$companyCity', cmpContactPerson = '$companyContactPerson', cmpNumberOfInternshipPlacements = $cmpNumberOfInternshipPlacements WHERE companyID = '$companyID';";
     
     $result = $db->executeQuery($sqlUpdateCompany);
@@ -105,8 +106,9 @@ function cmpUpdateAmendInfo($companyObj){
     $companyFieldsArea = $companyObj->getCompanyFieldsArea();
     $companyStatus = $companyObj->getCompanyStatus();
     $cmpNumberOfInternshipPlacements = $companyObj->getCompanyNumberOfInternshipPlacements();
+    $certLocation = $companyObj->getCompanyCert();
 
-    $sqlUpdateAmendedCmpInfo = "UPDATE Company SET cmpEmail = '$companyEmail', cmpContactNumber = '$companyContact', cmpState = '$companyState', cmpAddress = '$companyAddress', cmpCompanySize = '$companySize', cmpFieldsArea = '$companyFieldsArea', cmpPostcode = '$companyPostcode', cmpCity = '$companyCity', cmpContactPerson = '$companyContactPerson', cmpAccountStatus = '$companyStatus', cmpNumberOfInternshipPlacements = $cmpNumberOfInternshipPlacements WHERE companyID = '$companyID';";
+    $sqlUpdateAmendedCmpInfo = "UPDATE Company SET cmpEmail = '$companyEmail', cmpContactNumber = '$companyContact', cmpState = '$companyState', cmpAddress = '$companyAddress', cmpCompanySize = '$companySize', cmpFieldsArea = '$companyFieldsArea', cmpPostcode = '$companyPostcode', cmpCity = '$companyCity', cmpContactPerson = '$companyContactPerson', cmpAccountStatus = '$companyStatus', cmpNumberOfInternshipPlacements = $cmpNumberOfInternshipPlacements, cmpCert = '$certLocation' WHERE companyID = '$companyID';";
 
     $result = $db->executeQuery($sqlUpdateAmendedCmpInfo);
 

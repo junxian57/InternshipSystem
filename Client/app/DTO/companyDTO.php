@@ -5,7 +5,7 @@ require_once $systemPathPrefix.'app/DAL/companyDAL.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/config/email.php';
 
 class Company{
-    private $companyID, $companyName, $companyAddress, $companyEmail, $companyContact, $companyStatus, $companyContactPerson, $companyState, $companyCity, $companyPostcode, $companySize, $companyFieldsArea, $cmpNumberOfInternshipPlacements;
+    private $companyID, $companyName, $companyAddress, $companyEmail, $companyContact, $companyStatus, $companyContactPerson, $companyState, $companyCity, $companyPostcode, $companySize, $companyFieldsArea, $cmpNumberOfInternshipPlacements, $cmpCert;
 
     function generateCompanyID(){
         $company = getLastCompanyID();
@@ -70,6 +70,32 @@ class Company{
         }    
     }
 
+    function replaceCertLocation(){
+        $certLocation = $this->getCompanyCert();
+
+        //Check the file is pdf or image
+        $fileType = $certLocation['type'];
+
+        if($fileType != "application/pdf" && $fileType != "image/jpg" && $fileType != "image/png" && $fileType != "image/jpeg"){
+            return false;
+        }
+
+        $newFileName = $this->getCompanyID()."-".$this->getCompanyName().".".explode('/',$fileType)[1];
+
+        $systemPathPrefix = $_SERVER['DOCUMENT_ROOT'].'/InternshipSystem/Client/';
+        $newLocation = $systemPathPrefix."view/document/CompanyCert/";
+        $newLocation = $newLocation . $newFileName;
+
+        $newFilePath = move_uploaded_file($certLocation["tmp_name"], $newLocation);
+
+        if($newFilePath){
+            $this->setCompanyCert($newLocation);
+        }else{
+            return false;
+        }
+
+    }
+
     function getCompanyID(){
         return $this->companyID;
     }
@@ -120,6 +146,10 @@ class Company{
 
     function getCompanyNumberOfInternshipPlacements(){
         return $this->cmpNumberOfInternshipPlacements;
+    }
+
+    function getCompanyCert(){
+        return $this->cmpCert;
     }
 
     function setCompanyID($companyID){
@@ -184,6 +214,11 @@ class Company{
 
     function setCompanyNumberOfInternshipPlacements($cmpNumberOfInternshipPlacements){
         $this->cmpNumberOfInternshipPlacements = $cmpNumberOfInternshipPlacements;
+        return $this;
+    }
+
+    function setCompanyCert($cmpCert){
+        $this->cmpCert = $cmpCert;
         return $this;
     }
 }
