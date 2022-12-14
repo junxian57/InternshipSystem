@@ -13,8 +13,12 @@
 	if (isset($_SESSION['studentChangePass'])) {
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
-    
-  if(isset($_SESSION['studentID'])){
+
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
     $getStudApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
 		$runStudApp = mysqli_query($conn, $getStudApp);
@@ -23,15 +27,6 @@
       echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
 		}
   }
-?>
-
-<?php
-	$host = "sql444.main-hosting.eu";
-  $user = "u928796707_group34";
-  $password = "u1VF3KYO1r|";
-  $database = "u928796707_internshipWeb";
-                                              
-  $conn = mysqli_connect($host, $user, $password, $database); 
 
   $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
   $run_stud = mysqli_query($conn, $get_stud);
@@ -80,13 +75,17 @@
     $status = "Saved";
 
     if($leaveTaken == 'NO'){
+      $fromDate = "NULL";
+      $toDate = "NULL";
       $leaveReasons = "N/A";
     }
     else{
+      $fromDate = $_POST['fromDate'];
+      $toDate = $_POST['toDate'];
       $leaveReasons = $_POST['leaveReason'];
     }
 
-    $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
+    $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveFrom, leaveTill, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$fromDate','$toDate','$leaveReasons', '$status')";
     if (mysqli_query($conn, $sql)) {
       echo "<script>alert('The report have been saved into database.')</script>";     
       echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
@@ -99,7 +98,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>ITP System | Weekly Work Progress</title>
+	<title>ITP System | Work Progress Report</title>
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
@@ -139,7 +138,7 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Weekly Work Progress</h3>
+					<h3 class="title1">Work Progress Report</h3>
           <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
@@ -255,6 +254,20 @@
   </div>
 
   <script>
+    $(document).ready(function(){
+      var form = $('#signatureform'),
+        original = form.serialize()
+      
+        form.submit(function(){
+        window.onbeforeunload = null
+      })
+
+      window.onbeforeunload = function(){
+        if (form.serialize() != original)
+          return 'Are you sure you want to leave?'
+      }
+    })
+
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');

@@ -7,7 +7,11 @@
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
     
-  if(isset($_SESSION['studentID'])){
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
   }
 ?>
