@@ -398,7 +398,7 @@ if(!isset($_SESSION['companyID'])){
                                     <select id="internshipBatchID" name="internshipBatchID" class="form-control" onchange="insertStudDetail();">
                                         <option selected disabled value="">Choose...</option>
                                         <?php
-                                        include('../../includes/db_connection.php');
+                                        include_once('../../includes/db_connection.php');
                                         $db_handle = new DBController();
                                         $query = "SELECT * FROM InternshipBatch";
                                         $results = $db_handle->runQuery($query);
