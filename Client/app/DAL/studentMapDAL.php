@@ -34,8 +34,10 @@ function getStudentAndInternCompany($studentID){
           IAM.studentID = S.studentID AND
           IAM.internJobID = IJ.internJobID AND
           IJ.companyID = C.companyID AND
+          IAM.appStatus = 'Accepted' AND
+          IAM.appStudentFeedback = 'Accept Offer' AND
           S.studentID = '$studentID' AND
-          (S.studAccountStatus LIKE 'Active' OR S.studAccountStatus LIKE 'Intern' OR S.studAccountStatus LIKE 'Graduated');";
+          S.studAccountStatus IN ('Active', 'Intern', 'Graduated');";
     
     $result = $db->runQuery($sql);
 
