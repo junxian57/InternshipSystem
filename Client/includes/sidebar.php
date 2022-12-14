@@ -101,6 +101,20 @@ if (isset($_SESSION)) {
 
         <?php if ($studentID) { ?>
           <li>
+            <a href="../page/xt-companiesList.php"><i class="fa fa-book nav_icon"></i>Companies<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-companiesList.php">Companies List</a>
+              </li>
+              <li>
+                <a href="../page/xt-searchJob.php">Search Job</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
+        <?php if ($studentID) { ?>
+          <li>
             <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse">
               <li>
@@ -119,6 +133,25 @@ if (isset($_SESSION)) {
         <?php if ($studentID) { ?>
           <li>
             <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-studInterviewList.php">My Interview</a>
+              </li>
+              <li>
+                <a href="../page/xt-studOfferList.php">My Offer</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
+        <?php if ($companyID) { ?>
+          <li>
+            <a href="xt-companyResponse.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-companyResponse.php">Application List</a>
+              </li>
+            </ul>
           </li>
         <?php } ?>
 

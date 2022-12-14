@@ -1,10 +1,19 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
 
 <?php
@@ -32,7 +41,6 @@ if(isset($_GET['internJobID'])){
 		$internAppID = "InAM".($internAppID + 1);
 	}
 
-  $studID = "22REI00003";
 	$appStatus = "Pending Review";
 
 	$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
@@ -166,7 +174,8 @@ if(isset($_GET['internJobID'])){
 																						
 								$conn = mysqli_connect($host, $user, $password, $database); 
 						
-								$get_internApp = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003'";
+								$i = 0;
+								$get_internApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID'";
 								$run_internApp = mysqli_query($conn, $get_internApp);
 								while($row_internApp = mysqli_fetch_array($run_internApp)){
 									$internApp_ID = $row_internApp['internAppID'];

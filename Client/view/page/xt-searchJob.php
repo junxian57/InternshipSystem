@@ -1,10 +1,19 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
 <!DOCTYPE HTML>
 <html>

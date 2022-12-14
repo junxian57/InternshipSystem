@@ -1,13 +1,16 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-?>
+	include('../../includes/db_connection.php');
 
-<?php
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+    
+  if (!isset($_SESSION['companyID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $companyID = $_SESSION['companyID'];
+  }
+
 	if(isset($_GET['InternAppID'])){
     $internAppID = $_GET['InternAppID'];
   }
@@ -291,7 +294,7 @@ include('includes/dbconnection.php');
 
       if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
         $success = $mailConfig->singleEmail(
-          $studEmail, 
+          'wongxt-wm19@student.tarc.edu.my', 
           $subject, 
           rejectApp($studName, $cmpName, $internAppID, $reason)
         );
