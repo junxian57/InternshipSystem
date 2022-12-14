@@ -294,7 +294,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                         include('includes/db_connection.php');
                                         $db_handle = new DBController();
                                         $query = "SELECT * FROM InternshipBatch";
-                                        //$query = "SELECT * FROM InternshipBatch ib,VisitationCompany vc WHERE ib.internshipBatchID=vc.internshipBatchID order BY ib.internshipBatchID";
                                         $results = $db_handle->runQuery($query);
 
                                         for ($i = 0; $i < count($results); $i++) {
