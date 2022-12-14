@@ -2,12 +2,6 @@
 session_start();
 error_reporting(0);
 include('includes/db_connection.php');
-//old
-require_once('../../app/BLL/rubricAssessmentBLL.php');
-require_once("../../app/DTO/rubricAssessmentDTO.php");
-require_once("../../app/DTO/rubricAssessmentCriteriaDTO.php");
-require_once("../../app/DAL/rubricAssessmentDAL.php");
-//old
 
 require_once('../../app/BLL/visitationListBLL.php');
 require_once("../../app/DTO/visitationListDTO.php");
@@ -24,11 +18,6 @@ if (!isset($_SESSION['adminID'])) {
     }
 }
 
-//old
-$rubricAssessmentDALObj  = new rubricAssessmentDAL();
-$rubricAssmtBllObj = new rubricAssessmentBLL();
-//old
-
 $visitationListDALObj  = new visitationListDAL();
 $visitationBllObj = new visitationListBLL();
 
@@ -36,18 +25,16 @@ $visitationBllObj = new visitationListBLL();
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation List') {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
-    $assessmentID = $_POST['Visitation_CompanyID'];
+    $Visitation_CompanyID = $_POST['Visitation_CompanyID'];
     $internshipBatchID = $_POST['internshipBatchID'];
-    $internAppID = $_POST['internAppID'];
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
-    $newvisitationList = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $createByID, $createDate);
-    $newvisitationList->setinternAppID($internAppID);
-    if (count($_POST['CompanyID']) == count($_POST['cmpName'])) {
-        $countRow = count($_POST['CompanyID']);
+    $newvisitationList = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $CreateByID, $CreateDate);
+    if (count($_POST['companyID']) == count($_POST['cmpName'])) {
+        $countRow = count($_POST['companyID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfvisitationCompanyListDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['CompanyID'][$i], $_POST['cmpName'][$i]);
+            $newOfvisitationCompanyListDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['companyID'][$i], $_POST['cmpName'][$i]);
         }
     }
 
@@ -337,6 +324,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                                     <tr>
                                                         <th>Company ID</th>
                                                         <th>Company Name</th>
+                                                        <th></th>
                                                         <th>Size</th>
                                                         <th>Acccpted Student</th>
                                                         <th>Checkbox</th>
@@ -435,20 +423,18 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
         }
 
-        //internAppID
+        //getCompanyDetail
         async function fetchvisitationCmpName() {
-            const internBatchID = document.getElementById('InternStartDate').value;
-            const facultyID = document.getElementById("facultyID").value;
-            const getManagerPhp = '../../app/DAL/ajaxGetRubricCriteria.php?RoleForMark=' + RoleForMark + '&facultyID=' + facultyID;
-            let getComponentLvlRespond = await fetch(getManagerPhp);
-            let CmpLvlObj = await getComponentLvlRespond.json();
-            return CmpLvlObj;
+            const getCompanyPhp = '../../app/DAL/ajaxGetCompanyList.php?getCompany="Yes"';
+            let getCompanyRespond = await fetch(getCompanyPhp);
+            let CmpObj = await getCompanyRespond.json();
+            return CmpObj;
         }
 
         let countScore = 0;
 
         async function insertvisitationCmpName() {
-            insertvisitationCmpName();
+            InsertCriteriaTable();
             const selectedvisitationCompanyListtable = document.getElementById("selected-visitation-Company-List-table");
             if (selectedvisitationCompanyListtable.hasChildNodes()) {
                 removeAllChildNodes(selectedvisitationCompanyListtable);
@@ -462,7 +448,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
         }
 
         async function InsertCriteriaTable() {
-            const criteriaResult = await fetchvisitationCmpName();
+            const cmpResult = await fetchvisitationCmpName();
             const supervisorTable = document.getElementById("visitation-Company-List-table");
 
 
@@ -471,31 +457,24 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
             }
 
 
-            if (criteriaResult !== "No Data Found") {
+            if (cmpResult !== "No Data Found") {
 
-                for (let i = 0; i < criteriaResult.length; i++) {
-                    var str = criteriaResult[i].score;
-                    if (typeof str.split('-')[1] != "undefined") {
-                        var maxScore = str.split('-')[1];
-                    } else {
-                        var maxScore = str;
-                    }
-
+                for (let i = 0; i < cmpResult.length; i++) {
                     let trLeft = document.createElement("tr");
-                    trLeft.setAttribute("data-criterionID", criteriaResult[i].criterionID);
-                    trLeft.setAttribute("data-CriteriaSession", criteriaResult[i].CriteriaSession);
-                    trLeft.setAttribute("data-Title", criteriaResult[i].Title);
-                    trLeft.setAttribute("data-score", criteriaResult[i].score);
-                    trLeft.setAttribute("data-maxScore", maxScore);
+                    trLeft.setAttribute("data-companyID", cmpResult[i].companyID);
+                    trLeft.setAttribute("data-cmpName", cmpResult[i].cmpName);
+                    trLeft.setAttribute("data-Title", cmpResult[i].cmpContactPerson);
+                    trLeft.setAttribute("data-score", cmpResult[i].cmpCompanySize);
+                    trLeft.setAttribute("data-maxScore", cmpResult[i].cmpAddress);
 
                     trLeft.innerHTML = `
-                    <td>${criteriaResult[i].criterionID}</td>
-                    <td>${criteriaResult[i].CriteriaSession}
-                    </td>
-                    <td>${criteriaResult[i].Title}</td>
-                    <td>${maxScore}</td>
+                    <td>${cmpResult[i].companyID}</td>
+                    <td>${cmpResult[i].cmpName}</td>
+                    <td>${cmpResult[i].cmpContactPerson}</td>
+                    <td>${cmpResult[i].cmpCompanySize}</td>
+                    <td>${cmpResult[i].cmpAddress}</td>
                     <td>
-                        <input type="checkbox" data-CriteriaSession="${criteriaResult[i].CriteriaSession}" name="${criteriaResult[i].criterionID}" class="tab-3-checkbox">
+                        <input type="checkbox" data-companyID="${cmpResult[i].companyID}" name="${cmpResult[i].companyID}" class="tab-3-checkbox">
                     </td>
                 `;
                     supervisorTable.appendChild(trLeft);
@@ -517,89 +496,45 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
             const studentTable = document.getElementById("selected-visitation-Company-List-table");
             const rCount = table.rows.length;
             for (var i = 0; i < table.rows.length; i++) {
-                if (table.rows[i].cells[4].children[0].checked) {
-                    if (isExistingAssign(table.rows[i].getAttribute('data-CriteriaSession'), table.rows[i].getAttribute('data-Title'))) {
+                if (table.rows[i].cells[5].children[0].checked) {
+                    if (isExistingAssign(table.rows[i].getAttribute('data-cmpName'), table.rows[i].getAttribute('data-Title'))) {
                         let trRight = document.createElement("tr");
-                        trRight.setAttribute("data-CriteriaSession", table.rows[i].getAttribute('data-CriteriaSession'));
+                        trRight.setAttribute("data-cmpName", table.rows[i].getAttribute('data-cmpName'));
                         trRight.setAttribute("data-Title", table.rows[i].getAttribute('data-Title'));
                         trRight.setAttribute("data-maxScore", table.rows[i].getAttribute('data-maxScore'));
                         trRight.innerHTML = `
-                    <td>${table.rows[i].getAttribute('data-criterionID')}<input hidden name="criterionID[]" value="${table.rows[i].getAttribute('data-criterionID')}"></input></td>
-                    <td>${table.rows[i].getAttribute('data-CriteriaSession')}</td>
+                    <td>${table.rows[i].getAttribute('data-companyID')}<input hidden name="companyID[]" value="${table.rows[i].getAttribute('data-companyID')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-cmpName')}<input hidden name="cmpName[]" value="${table.rows[i].getAttribute('data-cmpName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-Title')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
                     <td>
-                    <button type="button" onClick="removeChildNode(this,Number.parseInt(${table.rows[i].getAttribute('data-maxScore')}));">
+                    <button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                     
                     </td>
                 `;
                         studentTable.appendChild(trRight);
-
-                        countScore += Number.parseInt(table.rows[i].getAttribute('data-maxScore'));
                     }
                 }
 
             }
-            const testTable = document.getElementById("test-table");
-            let trRight = document.createElement("tr");
-            if (testTable.hasChildNodes()) {
-                removeAllChildNodes(testTable);
-            }
-
-            trRight.innerHTML = `
-            
-            <td style="width:35%">Total Score</td>
-            <td>${countScore}</td>
-            `;
-            testTable.appendChild(trRight);
-            checkScoreIsMatch(countScore);
-            //alert(value_check);
         }
 
-        function removeChildNode(currentRow, currentScore) {
+        function removeChildNode(currentRow) {
             $(currentRow).closest('tr').remove();
-            countScore -= Number.parseInt(currentScore)
-            checkScoreIsMatch(countScore);
-            const testTable = document.getElementById("test-table");
-            let trRight = document.createElement("tr");
             if (testTable.hasChildNodes()) {
                 removeAllChildNodes(testTable);
             }
-
-            trRight.innerHTML = `
-            
-            <td style="width:35%">Total Score</td>
-            <td>${countScore}</td>
-            `;
-            testTable.appendChild(trRight);
         }
 
-        function checkScoreIsMatch(countScore) {
-            let inputScore = document.getElementById("TotalWeight").value;
-            inputScore = Number.parseInt(inputScore);
-            if (countScore < inputScore) {
-                info("Your Selected Rubric Criteria Score Must Be Match With Input Total Weight");
-                $("#SubmitButton").attr("disabled", "disabled");
-                document.getElementById('SubmitButton').style = "pointer-events: none;";
-            } else if (countScore > inputScore) {
-                warning("Your Selected Rubric Criteria Score are More than Input Total Weight");
-                $("#SubmitButton").attr("disabled", "disabled");
-                document.getElementById('SubmitButton').style = "pointer-events: none;";
-            } else if (countScore == inputScore) {
-                document.getElementById('SubmitButton').removeAttribute('disabled');
-                document.getElementById('SubmitButton').style = "";
-            }
-        }
-
-        function isExistingAssign(criteriaSession, title) {
+        function isExistingAssign(cmpName, title) {
             var table = document.getElementById("selected-visitation-Company-List-table");
             var rCount = table.rows.length;
             //console.log(table.rows[0].cells[1].getAttribute('data-Title'));
             var value_check = "";
             for (var i = 0; i < table.rows.length; i++) {
-                if (table.rows[i].getAttribute('data-CriteriaSession') == criteriaSession && table.rows[i].getAttribute('data-Title') == title) {
+                if (table.rows[i].getAttribute('data-cmpName') == cmpName && table.rows[i].getAttribute('data-Title') == title) {
                     return false;
                 }
             }

@@ -1,29 +1,28 @@
 <?php
 include_once("../../includes/db_connection.php");
-if (isset($_GET['internshipBatchID']) && isset($_GET['internAppID'])) {
-    $internshipBatchID = $_GET['internshipBatchID'];
-    $internAppID = $_GET['internAppID'];
+if (isset($_GET['getCompany']) == "Yes") {
     $db_handle1 = new DBController();
     //add faculty ID
-    $query = "SELECT * from RubricComponentCriteria rcc 
-    left JOIN RubricComponent rc on rcc.criterionID=rc.criterionID 
-    WHERE rc.valueName='Excellent' AND rcc.RoleForMark= '$RoleForMark' AND rcc.facultyID='$facultyID' AND rcc.status = 'activate'ORDER BY rcc.criterionID ASC";
+    $query = "SELECT DISTINCT(cmp.companyID), cmp.cmpName, cmp.cmpContactPerson,cmp.cmpCompanySize ,cmp.cmpAddress
+    FROM Company cmp, InternJob ij
+    WHERE cmp.companyID=ij.companyID
+    order BY cmp.companyID";
     $results = $db_handle1->runQuery($query);
     $array = array();
 
     if (!empty($results)) {
         for ($i = 0; $i < count($results); $i++) {
-            $criterionID = $results[$i]['criterionID'];
-            $Title = $results[$i]['Title'];
-            $CriteriaSession = $results[$i]['CriteriaSession'];
-            $description = $results[$i]['description'];
-            $score = $results[$i]['score'];
+            $companyID = $results[$i]['companyID'];
+            $cmpName = $results[$i]['cmpName'];
+            $cmpContactPerson = $results[$i]['cmpContactPerson'];
+            $cmpCompanySize = $results[$i]['cmpCompanySize'];
+            $cmpAddress = $results[$i]['cmpAddress'];
             $array[] = array(
-                'criterionID' => $criterionID,
-                'Title' => $Title,
-                'CriteriaSession' => $CriteriaSession,
-                'description' => $description,
-                'score' => $score
+                'companyID' => $companyID,
+                'cmpName' => $cmpName,
+                'cmpContactPerson' => $cmpContactPerson,
+                'cmpCompanySize' => $cmpCompanySize,
+                'cmpAddress' => $cmpAddress
             );
         }
         echo json_encode($array);
