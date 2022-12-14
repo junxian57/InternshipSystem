@@ -12,7 +12,30 @@ if (!isset($_SESSION['adminID'])) {
 }
 //include_once("../../includes/db_connection.php");
 
+require_once('../../app/BLL/visitationMapBLL.php');
+require_once("../../app/DTO/visitationMapDTO.php");
+require_once("../../app/DAL/visitationMapDAL.php");
+
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation List') {
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    $date = date('Y-m-d');
+    $Visitation_CompanyID = $_POST['Visitation_CompanyID'];
+    $Visitation_CriteriaID = $_POST['Visitation_CriteriaID'];
+    $Visitation_assignedsupervisorname = $_SESSION['Visitation_assignedsupervisorname'];
+    $CreateDate = $date;
+    if (count($_POST['companyID']) == count($_POST['cmpName'])) {
+        $countRow = count($_POST['companyID']);
+        for ($i = 0; $i < $countRow; $i++) {
+            $newOfvisitationCompanyListDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['companyID'][$i], $_POST['cmpName'][$i]);
+        }
+    }
+
+    $visitationBllObj->AddvisitationList($newvisitationList, $newOfvisitationCompanyListDto);
+}
+
 ?>
+
+
 <!DOCTYPE HTML>
 <html>
 
@@ -229,7 +252,7 @@ if (!isset($_SESSION['adminID'])) {
                         <!-- Tab Button -->
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'SupervisorCmpMappingTab')">Assign supervisor<span class="arrow-icon">&#129050</span>company</button>
-                            <button class="tablinks" onclick="changeTab(event, 'AutoSupervisorCmpMappingTab')">Automated mapping</button>
+                            
                         </div>
 
                         <!-- Tab Content 1 SupervisorCmpMappingTab-->
@@ -242,7 +265,7 @@ if (!isset($_SESSION['adminID'])) {
                             <div class="search-group">
                                 <div class="form-group">
                                     <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
-                                    <select name="internBatch-group" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
+                                    <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
                                         <option value="" selected disabled>Select Visitation List</option>
                                         <?php
                                         include('includes/db_connection.php');
