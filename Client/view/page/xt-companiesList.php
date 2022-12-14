@@ -85,11 +85,6 @@
 											<span aria-hidden="true">Email ▼</span>
 										</button>
 									</th>
-									<th class="num" style=" width: 150px;">
-										<button>
-											<span aria-hidden="true">Allowance (RM) ▼</span>
-										</button>
-									</th>
 								</tr>
 							</thead>
 
@@ -116,7 +111,6 @@
 									<td><?php echo $cmpName; ?></td>
 									<td><?php echo $cmpAddress; ?></td>
 									<td><?php echo $cmpEmail; ?></td>
-									<td><?php echo $cmpAverageAllowanceGiven; ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>
