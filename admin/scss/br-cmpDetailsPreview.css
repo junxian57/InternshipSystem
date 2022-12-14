@@ -314,6 +314,23 @@ header .page-title * {
 .wrapper .company-details-group p span {
   color: red;
 }
+.wrapper .company-details-group #cvBtn {
+  background: #313e85;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.wrapper .company-details-group #cvBtn:hover {
+  background: #5f6ec1;
+}
+.wrapper .toLeft {
+  text-align: left;
+}
 .wrapper .button-group {
   padding: 1.2em 0;
 }

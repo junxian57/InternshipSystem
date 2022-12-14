@@ -157,7 +157,6 @@ try{
             "bLengthChange": false,
             "info": false,
             "dom": 'lrtp',
-            responsive : true
         });
     });
 </script>

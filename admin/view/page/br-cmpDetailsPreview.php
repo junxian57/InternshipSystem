@@ -30,6 +30,7 @@ if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action'])
         $companyPostcode = $result[0]['cmpPostCode'];
         $companyContactPerson = $result[0]['cmpContactPerson'];
         $companySize = $result[0]['cmpCompanySize'];
+        $companyCert = $result[0]['cmpCert'];
     }
 }else{ 
         echo "<script>
@@ -148,6 +149,15 @@ if(isset($_GET['companyID']) && isset($_GET['status']) && isset($_GET['action'])
                         ?>
                       </div>
                 </div>
+
+                <div class="title">
+                    <h2 class="title-3">Support Document</h2>
+                </div>
+               
+                <div class="company-details-group input-style toLeft">
+                    <a id="cvBtn" target="_blank" href="../../app/BLL/previewCompanyCert.php?path=<?php echo $companyCert; ?>">Preview</a>
+                </div>
+                
                 <hr>
 
                 <div class="button-group">

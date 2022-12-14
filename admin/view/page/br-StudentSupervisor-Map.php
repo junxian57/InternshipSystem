@@ -991,6 +991,7 @@ try {
     //Tab 1 - Update Supervisor and Student Mapping
     async function tab1UpdateMapDb() {
         let confirm = window.confirm("Are you sure you want to update the map?");
+
         if (confirm == true) {
             let lecturerID = document.getElementById("tab1-supervisor").getAttribute("data-lectureid");
             let studentIDArr = document.querySelectorAll("#tab1-preview-table tr td:nth-child(2)");

@@ -60,7 +60,7 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
 
     <div class="content">
       <div class="wrapper">
-        <form action="../../app/BLL/cmpSelfRegisterBLL.php" method="GET" onsubmit="formTaskArray()" id="registerForm">
+        <form action="../../app/BLL/cmpSelfRegisterBLL.php" method="POST" onsubmit="return formTaskArray()" id="registerForm" enctype="multipart/form-data">
           <h3 class="form-title">Company Registration Form</h3>
           <div class="title">
             <h2 class="title-1">Company Name & Contact</h2>
@@ -183,6 +183,17 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
             <input type="button" id="addNewField" value="Add New">
           </div>
 
+          <div class="company-details-group input-style certBox">
+            <label for="cmpCertification" onchange="changeFileName()">
+              Upload Company Certification (e.g. SSM, etc.) <br/>
+              <i class="fa fa-2x fa-file"></i>
+              <input id="cmpCertification" name="cmpCertification" type="file" accept=".jpg, .jpeg, .png, .pdf"/>
+              <br/>
+              <span id="fileName"></span>
+            </label>
+            <p>Accept .jpg, .jpeg, .png and .pdf Format Only</p>
+          </div>
+
           <div class="button-group">
             <button type="submit" name="submit" class="clickable-btn">Submit</button>
             <button type="button" class="clickable-btn" onclick="resetAll()">Reset All</button>
@@ -196,6 +207,13 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
   document.getElementById('addNewField').addEventListener('click',() => {
         addNewRow('fields-row', document.getElementById('cmpFieldArea'))
     });
+
+    function changeFileName(){
+      let inputImage = document.querySelector("#cmpCertification").files[0];
+      let fileName = document.getElementById('fileName');
+
+      fileName.innerText = inputImage.name;
+    }
 
     function resetAll(){
       document.getElementById('registerForm').reset();
@@ -238,12 +256,18 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
     function formTaskArray(){
       let taskValue = "";
       let fieldsRow = document.querySelectorAll('#fields-row .row p');
-
+      let inputFile = document.getElementById("cmpCertification");
+      
       if(fieldsRow.length == 0){
         info('Please enter a field area');
         return false;
       }
-
+      
+      if (inputFile.files.length === 0){
+        info('Please upload a file');
+        return false;
+      }
+      
       fieldsRow.forEach((task) => {
         taskValue += task.innerHTML + "-";
       });
