@@ -100,10 +100,10 @@ if(!isset($_SESSION['companyID'])){
             
             if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
                 echo "<script> 
-                    alert('Something went wrong.\\nPlease Try Again.');
-                    window.location.href = 'br-companyInfo.php';
+                alert('Something went wrong.\\nPlease Try Again.');
+                window.location.href = 'br-companyInfo.php';
                 /script>"; 
-    
+                
             }else{
                 $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
             }

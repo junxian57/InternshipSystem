@@ -47,9 +47,11 @@ if(isset($_GET['studentLecMap'])){
         }
     }
 
+    $mailConfig2 = new EmailConfig();
+
     //Send Email to lecturer
     foreach($tempArray as $lectureID => $lectureInfo){
-        $sent = $mailConfig->singleEmail(
+        $sent = $mailConfig2->singleEmail(
             $lectureInfo['lectureEmail'], 
             "Internship Student Has Been Assigned", 
             createHTMLmailForLecturer($lectureInfo['lectureName'])

@@ -1,13 +1,27 @@
 <?php
 require_once('../../../TCPDF-main/tcpdf.php');
 
-extract($_POST);
+if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (isset($_SESSION['studentChangePass'])) {
+	header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+}
+    
+if (!isset($_SESSION['studentID'])) {
+  echo "<script>
+    window.location.href = 'clientLogin.php';
+  </script>";
+} else {
+  $studID = $_SESSION['studentID'];
+}
 
 if(isset($_GET['monthlyRptID'])){
   $monthlyReportID = $_GET['monthlyRptID'];
 }
 
-if(isset($_POST['signatureedit'])){
+extract($_POST);
+
+if(isset($_POST['submitRpt'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -16,8 +30,11 @@ if(isset($_POST['signatureedit'])){
   $conn = mysqli_connect($host, $user, $password, $database); 
 
   $monthRptID = $monthlyReportID;
-  $studID = "21WMR04845";
-  $cmpID = "CMP00001";
+  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+  $run_month = mysqli_query($conn, $get_month);
+  $row_month = mysqli_fetch_array($run_month);
+  $studentID = $row_month['studentID'];
+  $cmpID = $row_month['companyID'];
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
   $monthYear = $_POST['monthYear'];
@@ -28,7 +45,7 @@ if(isset($_POST['signatureedit'])){
   $problem = $_POST['problem'];
   $leaveTaken = $_POST['leaveTaken'];
   $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
+  $status = "Submitted";
   $signature = $_POST['signature'];
   $signatureFileName = $studName.'.jpg';
   $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -37,34 +54,39 @@ if(isset($_POST['signatureedit'])){
   $file = '../../../Client/view/signature/'.$signatureFileName;
   file_put_contents($file, $data);
   $sign = '../../../Client/view/signature/'.$studName.'.jpg';
+  date_default_timezone_set("Asia/Kuala_Lumpur");
+  $date = date('Y/m/d h:i:s', time());
+  $boolean = 1;
 
-  if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-    $leaveReasons = "N/A";
-  }
-  else{
-    $leaveReasons = $_POST['leaveReason'];
-  }
-
-  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
-
-  if (mysqli_query($conn, $sql)) {
+  if($week1 == '' || $week2 == '' || $week3 == '' || $week4 == '' || $problem == ''){
+    echo "<script>alert('Failed to submit! Some field is empty!')</script>";    
+    echo "<script>window.open('xt-editWorkProgress.php?monthlyReportID=$monthlyReportID','_self')</script>"; 
+  }else{
     if($leaveTaken == 'NO' || $leaveTaken == 'No'){
+      $leaveReasons = "N/A";
       $leave = '0';
       $fromDate = "_____________________";
       $toDate = "_____________________";
       $leaveReason = "______________________________________________________________";
     }
     else{
-      $fromDate = $_POST['fromDate'];
-      $toDate = $_POST['toDate'];
+      $leaveReasons = $row_month['leaveReason'];
+      $fromDate = $row_month['leaveFrom'];
+      $toDate = $row_month['leaveTill'];
       $leaveDays = $_POST['leaveDays'];
-      $leaveReason = $_POST['leaveReason'];
+      $leaveReason = $row_month['leaveReason'];
       $leave = $leaveDays;
     }
-    date_default_timezone_set("Asia/Kuala_Lumpur");
-    $today = date("F j, Y", time());
+  
+    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', submitDateTime='$date', submitOnTime = '$boolean', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
+  
+    if (mysqli_query($conn, $sql)) {
+      $today = date("F j, Y", time());
+    }else{
+      echo "Error: " . $sql . mysqli_error($conn);
     }
   }
+}
 
 class PDF extends TCPDF{
   public function Header(){
@@ -235,7 +257,7 @@ $pdf->MultiCell(123, 5, '
 ', 1, 1);
 $pdf->Ln(5);
 
-$pdf->Output('progress-report.pdf', 'I');
+$pdf->Output(__DIR__ . '/monthlyRpt/'.$monthlyReportID.'_'.$studName.'_'.$monthYear.'.pdf', 'FI');
 
 unlink($sign);
 ?>

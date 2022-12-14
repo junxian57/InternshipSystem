@@ -62,7 +62,9 @@ if(isset($_GET['newLectureID']) && isset($_GET['oldLectureID']) && isset($_GET['
             );
         }
 
-        $mailConfig->singleEmail(
+        $mailConfig2 = new EmailConfig();
+
+        $mailConfig2->singleEmail(
             $lectureEmail, 
             "Internship Student Has Been Transferred", 
             createHTMLmailForLecturer($oldLectureName, $newLectureName)

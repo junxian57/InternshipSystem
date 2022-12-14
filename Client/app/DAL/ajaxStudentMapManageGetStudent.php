@@ -15,7 +15,7 @@ if(isset($_GET['batchNumber']) && isset($_GET['lecturerID'])){
                         S.programmeID = P.programmeID AND
                         S.internshipBatchID = '$batchNumber' AND 
                         S.lecturerID = '$lecturerID' AND
-                        (S.studAccountStatus = 'Active' OR S.studAccountStatus = 'Intern');";
+                        S.studAccountStatus IN ('Active', 'Intern');";
 
         $result = $db->runQuery($sqlGetStudent);
 

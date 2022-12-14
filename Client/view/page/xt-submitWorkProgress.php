@@ -18,7 +18,9 @@
 	if(isset($_GET['monthlyReportID'])){
     $monthlyReportID = $_GET['monthlyReportID'];
   }
+?>
 
+<?php
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -65,7 +67,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-  <title>ITP System | Edit Work Progress</title>
+  <title>ITP System | Submit Work Progress</title>
   
   <script src="../../js/jquery-1.11.1.min.js"></script>
   <script src="../../js/toastr.min.js"></script>
@@ -109,6 +111,11 @@
       margin-left: 50px;
     }
 
+    .reminder{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
     .container{
       margin-top: 30px;
       margin-bottom: 50px;
@@ -136,13 +143,13 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Edit Work Progress</h3>
-          <form method="POST" enctype="multipart/form-data" id="signatureform">
+					<h3 class="title1">Submit Work Progress</h3>
+          <h5 class="reminder" style="color: red;">*Please check your information before submit.</h5>
+          <form method="POST" action="xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID;?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-              
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
@@ -167,25 +174,25 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words." readonly><?php echo $firstWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words." readonly><?php echo $secondWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words." readonly><?php echo $thirdWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words." readonly><?php echo $forthWeekDeliverables; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
@@ -197,7 +204,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" id="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
+                  <textarea type="text" name="problem" id="problem" required placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?" readonly><?php echo $issuesEncountered; ?></textarea>
                 </div>
               </div>
 
@@ -208,7 +215,7 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Any leave taken?</span><br>
-                  <select name="leaveTaken" id="leaveTaken">
+                  <select name="leaveTaken" id="leaveTaken" readonly>
                     <option value="YES" <?php if($leave=="Yes") echo 'selected="selected"'; ?> >Yes</option>
                     <option value="No" <?php if($leave=="No") echo 'selected="selected"'; ?> >No</option>
                   </select>
@@ -235,12 +242,15 @@
                 </div>
               </div>
 
+              <div class="subtitle">
+                <h2 class="sub-4">Digital Signature</h2>
+              </div>
+
               <div id="signature-pad">
-                  <div id="canvasDiv" style="display: none;"></div>
+                  <div id="canvasDiv"></div>
                   <br>
-                  <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
-                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Save">
-                  <input type="submit" class="btn btn-success" id="btn-submit" name="submit" value="Submit">
+                  <a class="btn btn-danger" id="reset-btn" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>">Edit</a>
+                  <input type="submit" class="btn btn-success" id="btn-save" name="submitRpt" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
@@ -251,112 +261,7 @@
     </div>
   </div>
 
-  <?php
-    if(isset($_POST['signatureedit'])){
-      $host = "sql444.main-hosting.eu";
-      $user = "u928796707_group34";
-      $password = "u1VF3KYO1r|";
-      $database = "u928796707_internshipWeb";
-                                    
-      $conn = mysqli_connect($host, $user, $password, $database); 
-    
-      $monthRptID = $monthlyReportID;
-      $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-      $run_month = mysqli_query($conn, $get_month);
-      $row_month = mysqli_fetch_array($run_month);
-      $cmpID = $row_month['companyID'];
-      $studName = $_POST['studName'];
-      $cmpName = $_POST['cmpName'];
-      $monthYear = $_POST['monthYear'];
-      $week1 = $_POST['week1'];
-      $week2 = $_POST['week2'];
-      $week3 = $_POST['week3'];
-      $week4 = $_POST['week4'];
-      $problem = $_POST['problem'];
-      $leaveTaken = $_POST['leaveTaken'];
-      $leaveFrom = $_POST['fromDate'];
-      $leaveTill = $_POST['toDate'];
-      $leaveTakens = $_POST['leaveDays'];
-      $status = "Saved";
-      
-      if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-        $leaveReasons = "N/A";
-      }
-      else{
-        $leaveReasons = $_POST['leaveReason'];
-      }
-    
-      $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
-    
-      if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('The report have been saved into database.')</script>";     
-        echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-      }else{
-        echo "Error: " . $sql . mysqli_error($conn);
-      }
-    }
-?>
-
-<?php
-  if(isset($_POST['submit'])){
-    $host = "sql444.main-hosting.eu";
-    $user = "u928796707_group34";
-    $password = "u1VF3KYO1r|";
-    $database = "u928796707_internshipWeb";
-                                    
-    $conn = mysqli_connect($host, $user, $password, $database); 
-    
-    $monthRptID = $monthlyReportID;
-    $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-    $run_month = mysqli_query($conn, $get_month);
-    $row_month = mysqli_fetch_array($run_month);
-    $cmpID = $row_month['companyID'];
-    $studName = $_POST['studName'];
-    $cmpName = $_POST['cmpName'];
-    $monthYear = $_POST['monthYear'];
-    $week1 = $_POST['week1'];
-    $week2 = $_POST['week2'];
-    $week3 = $_POST['week3'];
-    $week4 = $_POST['week4'];
-    $problem = $_POST['problem'];
-    $leaveTaken = $_POST['leaveTaken'];
-    $leaveFrom = $_POST['fromDate'];
-    $leaveTill = $_POST['toDate'];
-    $leaveTakens = $_POST['leaveDays'];
-    $status = "Saved";
-      
-    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-      $leaveReasons = "N/A";
-    }
-    else{
-      $leaveReasons = $_POST['leaveReason'];
-    }
-    
-    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
-    
-    if (mysqli_query($conn, $sql)) {
-      echo "<script>window.open('xt-submitWorkProgress.php?monthlyReportID=$monthlyReportID','_self')</script>";
-    }else{
-      echo "Error: " . $sql . mysqli_error($conn);
-    }
-  }
-?>
-
   <script>
-    $(document).ready(function(){
-      var form = $('#signatureform'),
-        original = form.serialize()
-      
-        form.submit(function(){
-        window.onbeforeunload = null
-      })
-
-      window.onbeforeunload = function(){
-        if (form.serialize() != original)
-          return 'Are you sure you want to leave?'
-      }
-    })
-
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');
@@ -498,7 +403,7 @@
           }
         })
 
-        /*$("#btn-submit").click(function() {
+        $("#btn-save").click(function() {
           let week1 = document.getElementById('week1').value;
           let week2 = document.getElementById('week2').value;
           let week3 = document.getElementById('week3').value;
@@ -511,9 +416,9 @@
             }else if(week1.length < minLength || week2.length < minLength || week3.length < minLength || week4.length < minLength || problem.length < minLength) {
               info("Please write a summary of your work in at least 100 words.");
             }else{
-              window.location.href = '../../view/page/xt-submitWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>';
+              //window.location.href = '../../view/page/xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID; ?>';
             }
-        })*/
+        })
   </script>
 
   <script>
@@ -566,39 +471,20 @@
         }
       });
     });*/
-    function dateStrToObj(dateStr) {
-      const [year, month, date] = dateStr.split('-').map(Number)
-      return new Date(year, month - 1, date)
-    }
-    
-    function onChange() {
-      let output = document.getElementById("leaveDays");
+    let submit = document.getElementById("toDate");
+    let output = document.getElementById("leaveDays");
+
+    submit.addEventListener("change", () => {
       let fromDate = new Date(document.getElementById("fromDate").value);
       let toDate = new Date(document.getElementById("toDate").value);
-      const startDateStr = document.querySelector('#fromDate').value
-      const endDateStr = document.querySelector('#toDate').value
-      
-      if (!startDateStr || !endDateStr) return
-      const startDate = dateStrToObj(startDateStr)
-      const endDate = dateStrToObj(endDateStr)
-      
-      if (endDate.valueOf() < startDate.valueOf()) {
-        warning('End date is before start date!');
-        document.getElementById("toDate").value = document.getElementById("fromDate").value
-      }
-      else{
-        if(fromDate.getTime() && toDate.getTime()){
-          let timeDifference = toDate.getTime() - fromDate.getTime();
 
-          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
-          output.value = dayDifference;
-        }
+      if(fromDate.getTime() && toDate.getTime()){
+        let timeDifference = toDate.getTime() - fromDate.getTime();
+
+        let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+        output.value = dayDifference;
       }
-    }
-    
-    for (const dateInput of document.querySelectorAll('input[type=date]')) {
-      dateInput.addEventListener('change', onChange)
-    }
+    });
   </script>
 
   <script>
@@ -706,29 +592,12 @@
         document.getElementById("toDate").value = "";
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
-      }else if(selected == "Yes" || selected == "YES"){
+      }else{
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;
       }
     });
-
-    window.onload = function() {
-      
-      var selected = select_element.options[select_element.selectedIndex ].value
-        if(selected == "No" || selected == "NO"){
-          document.getElementById("fromDate").disabled = true;
-          document.getElementById("fromDate").value = "";
-          document.getElementById("toDate").disabled = true;
-          document.getElementById("toDate").value = "";
-          document.getElementById("leaveDays").value = "0";
-          document.getElementById("leaveReason").disabled = true;
-        }else if(selected == "Yes" || selected == "YES"){
-          document.getElementById("fromDate").disabled = false;
-          document.getElementById("toDate").disabled = false;
-          document.getElementById("leaveReason").disabled = false;
-        }
-      };
   </script>
 
   <script>
