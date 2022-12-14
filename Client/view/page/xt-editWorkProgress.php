@@ -7,16 +7,18 @@
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
     
-  if(isset($_SESSION['studentID'])){
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
   }
 
 	if(isset($_GET['monthlyReportID'])){
     $monthlyReportID = $_GET['monthlyReportID'];
   }
-?>
 
-<?php
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -40,6 +42,8 @@
   $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
   $issuesEncountered = $row_month['issuesEncountered'];
   $leaveTaken = $row_month['leaveTaken'];
+  $leaveFrom = $row_month['leaveFrom'];
+  $leaveTill = $row_month['leaveTill'];
   $leaveReason = $row_month['leaveReason'];
   if($leaveTaken != "0"){
     $leave = "Yes";
@@ -202,12 +206,12 @@
 
                 <div class="viewInput">
                   <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" disabled>
+                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?> disabled>
                 </div>
             
                 <div class="viewInput">
                   <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" disabled>
+                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?> disabled>
                 </div>
 
                 <div class="viewInput">
