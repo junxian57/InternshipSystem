@@ -96,18 +96,24 @@
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<title>ITP System | Work Progress Report</title>
+
+  <script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/toastr.min.js"></script>
+  <script src="../../js/customToastr.js"></script>
+  <link href="../../css/toastr.min.css" rel="stylesheet">
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
 	<link href="../../css/xt-workProgress.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
-	<link href="../../css/custom.css" rel="stylesheet">
 
-	<script src="../../js/jquery-1.11.1.min.js"></script>
 	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
@@ -129,6 +135,22 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    .tablesr{
+      margin-top: 100px;
+    }
+
+    .title1{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .container{
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -407,7 +429,7 @@
               context.stroke();
             }
           }
-        })
+    })
   </script>
 
   <script>
@@ -460,20 +482,40 @@
         }
       });
     });*/
-    let submit = document.getElementById("toDate");
-    let output = document.getElementById("leaveDays");
 
-    submit.addEventListener("change", () => {
+    function dateStrToObj(dateStr) {
+      const [year, month, date] = dateStr.split('-').map(Number)
+      return new Date(year, month - 1, date)
+    }
+    
+    function onChange() {
+      let output = document.getElementById("leaveDays");
       let fromDate = new Date(document.getElementById("fromDate").value);
       let toDate = new Date(document.getElementById("toDate").value);
-
-      if(fromDate.getTime() && toDate.getTime()){
-        let timeDifference = toDate.getTime() - fromDate.getTime();
-
-        let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
-        output.value = dayDifference;
+      const startDateStr = document.querySelector('#fromDate').value
+      const endDateStr = document.querySelector('#toDate').value
+      
+      if (!startDateStr || !endDateStr) return
+      const startDate = dateStrToObj(startDateStr)
+      const endDate = dateStrToObj(endDateStr)
+      
+      if (endDate.valueOf() < startDate.valueOf()) {
+        warning('End date is before start date!');
+        document.getElementById("toDate").value = document.getElementById("fromDate").value
       }
-    });
+      else{
+        if(fromDate.getTime() && toDate.getTime()){
+          let timeDifference = toDate.getTime() - fromDate.getTime();
+
+          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+          output.value = dayDifference;
+        }
+      }
+    }
+    
+    for (const dateInput of document.querySelectorAll('input[type=date]')) {
+      dateInput.addEventListener('change', onChange)
+    }
   </script>
 
   <script>
@@ -574,7 +616,7 @@
     select_element.addEventListener("change", () => {
       
     var selected = select_element.options[select_element.selectedIndex ].value
-      if(selected == "No"){
+      if(selected == "No" || selected == "NO"){
         document.getElementById("fromDate").disabled = true;
         document.getElementById("fromDate").value = "";
         document.getElementById("toDate").disabled = true;
@@ -582,7 +624,7 @@
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
         document.getElementById("leaveReason").value = "N/A";
-      }else{
+      }else if(selected == "Yes" || selected == "YES"){
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;

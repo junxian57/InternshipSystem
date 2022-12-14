@@ -7,7 +7,11 @@ if (isset($_SESSION['studentChangePass'])) {
 	header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 }
     
-if(isset($_SESSION['studentID'])){
+if (!isset($_SESSION['studentID'])) {
+  echo "<script>
+    window.location.href = 'clientLogin.php';
+  </script>";
+} else {
   $studID = $_SESSION['studentID'];
 }
 
@@ -17,7 +21,7 @@ if(isset($_GET['monthlyRptID'])){
 
 extract($_POST);
 
-if(isset($_POST['signatureedit'])){
+if(isset($_POST['submitRpt'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
@@ -29,6 +33,7 @@ if(isset($_POST['signatureedit'])){
   $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
   $run_month = mysqli_query($conn, $get_month);
   $row_month = mysqli_fetch_array($run_month);
+  $studentID = $row_month['studentID'];
   $cmpID = $row_month['companyID'];
   $studName = $_POST['studName'];
   $cmpName = $_POST['cmpName'];
@@ -49,30 +54,37 @@ if(isset($_POST['signatureedit'])){
   $file = '../../../Client/view/signature/'.$signatureFileName;
   file_put_contents($file, $data);
   $sign = '../../../Client/view/signature/'.$studName.'.jpg';
+  date_default_timezone_set("Asia/Kuala_Lumpur");
+  $date = date('Y/m/d h:i:s', time());
+  $boolean = 1;
 
-  if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-    $leaveReasons = "N/A";
-    $leave = '0';
-    $fromDate = "_____________________";
-    $toDate = "_____________________";
-    $leaveReason = "______________________________________________________________";
-  }
-  else{
-    $leaveReasons = $_POST['leaveReason'];
-    $fromDate = $_POST['fromDate'];
-    $toDate = $_POST['toDate'];
-    $leaveDays = $_POST['leaveDays'];
-    $leaveReason = $_POST['leaveReason'];
-    $leave = $leaveDays;
-  }
-
-  $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
-
-  if (mysqli_query($conn, $sql)) {
-    date_default_timezone_set("Asia/Kuala_Lumpur");
-    $today = date("F j, Y", time());
+  if($week1 == '' || $week2 == '' || $week3 == '' || $week4 == '' || $problem == ''){
+    echo "<script>alert('Failed to submit! Some field is empty!')</script>";    
+    echo "<script>window.open('xt-editWorkProgress.php?monthlyReportID=$monthlyReportID','_self')</script>"; 
   }else{
-    echo "Error: " . $sql . mysqli_error($conn);
+    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
+      $leaveReasons = "N/A";
+      $leave = '0';
+      $fromDate = "_____________________";
+      $toDate = "_____________________";
+      $leaveReason = "______________________________________________________________";
+    }
+    else{
+      $leaveReasons = $row_month['leaveReason'];
+      $fromDate = $row_month['leaveFrom'];
+      $toDate = $row_month['leaveTill'];
+      $leaveDays = $_POST['leaveDays'];
+      $leaveReason = $row_month['leaveReason'];
+      $leave = $leaveDays;
+    }
+  
+    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', submitDateTime='$date', submitOnTime = '$boolean', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
+  
+    if (mysqli_query($conn, $sql)) {
+      $today = date("F j, Y", time());
+    }else{
+      echo "Error: " . $sql . mysqli_error($conn);
+    }
   }
 }
 
@@ -245,7 +257,7 @@ $pdf->MultiCell(123, 5, '
 ', 1, 1);
 $pdf->Ln(5);
 
-$pdf->Output('progress-report.pdf', 'I');
+$pdf->Output(__DIR__ . '/monthlyRpt/'.$monthlyReportID.'_'.$studName.'_'.$monthYear.'.pdf', 'FI');
 
 unlink($sign);
 ?>
