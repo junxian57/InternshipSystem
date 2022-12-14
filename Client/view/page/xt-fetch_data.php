@@ -11,7 +11,7 @@
   if(isset($_POST['cmpName'])){
     $cmpName = $_POST['cmpName'];
 
-    $get_company = "SELECT * FROM Company WHERE cmpName LIKE '$cmpName%'";
+    $get_company = "SELECT * FROM Company WHERE cmpName LIKE '%{$cmpName}%'";
     $run_company = mysqli_query($conn, $get_company);
     if($row_company = mysqli_fetch_array($run_company)){
       $company_ID = $row_company['companyID'];
