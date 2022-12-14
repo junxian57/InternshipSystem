@@ -46,7 +46,7 @@
                 {
                     echo "
                     <script>
-                        alert('Student details update successfully');
+                        alert('Company details update successfully');
                         document.location.href = 'ky-maintainCmp.php';
                     </script>
                     ";
@@ -55,7 +55,7 @@
                 {
                     echo "
                     <script>
-                        alert('Student details update failed, please try again.');
+                        alert('Company details update failed, please try again.');
                         document.location.href = 'ky-maintainCmp.php';
                     </script>
                     ";
