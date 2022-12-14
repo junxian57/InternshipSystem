@@ -4,7 +4,9 @@ include_once("../../includes/db_connection.php");
 if (isset($_GET['internshipBatchID'])) {
     $internshipBatchID = $_GET['internshipBatchID'];
     $db_handle1 = new DBController();
-    $query = "SELECT * FROM InternshipBatch WHERE internshipBatchID = '$internshipBatchID'";
+    //$query = "SELECT * FROM InternshipBatch WHERE internshipBatchID = '$internshipBatchID'";
+    $query = "SELECT * FROM InternshipBatch ib,VisitationCompany vc WHERE ib.internshipBatchID !=vc.internshipBatchID AND internshipBatchID = '$internshipBatchID'";
+    //$query = "SELECT * FROM InternshipBatch ib,VisitationCompany vc WHERE ib.internshipBatchID=vc.internshipBatchID order BY ib.internshipBatchID";
     $results = $db_handle1->runQuery($query);
     $array = array();
 
