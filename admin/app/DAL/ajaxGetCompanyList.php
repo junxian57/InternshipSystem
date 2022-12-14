@@ -35,22 +35,25 @@ if (isset($_GET['getCompany']) == "Yes") {
     $Visitation_CompanyID = $_GET['Visitation_CompanyID'];
     $db_handle1 = new DBController();
 
-    $query = "SELECT * FROM RubricAssessmentCriteria rac INNER JOIN RubricComponent rc ON rac.criterionID=rc.criterionID INNER JOIN RubricAssessment ra on rac.assessmentID=ra.assessmentID 
-    INNER JOIN RubricComponentCriteria rcc on rcc.criterionID=rc.criterionID WHERE rac.assessmentID ='$assessmentID' AND rc.valueName='Excellent' ORDER BY rac.criterionID ASC;";
+    $query = "SELECT c.cmpName,c.cmpState,c.cmpAddress,c.cmpContactNumber,c.cmpContactPerson FROM VisitationCompany vc JOIN VisitationCompanyList vcl on vc.Visitation_CompanyID=vcl.Visitation_CompanyID JOIN Company c ON vcl.CompanyID=c.companyID
+    WHERE vc.Visitation_CompanyID='$Visitation_CompanyID'
+    ORDER BY vcl.CompanyID";
     $results = $db_handle1->runQuery($query);
     $array = array();
 
     if (!empty($results)) {
         for ($i = 0; $i < count($results); $i++) {
-            $criterionID = $results[$i]['criterionID'];
-            $Title = $results[$i]['Title'];
-            $CriteriaSession = $results[$i]['CriteriaSession'];
-            $score = $results[$i]['score'];
+            $cmpName = $results[$i]['cmpName'];
+            $cmpState = $results[$i]['cmpState'];
+            $cmpAddress = $results[$i]['cmpAddress'];
+            $cmpContactNumber = $results[$i]['cmpContactNumber'];
+            $cmpContactPerson = $results[$i]['cmpContactPerson'];
             $array[] = array(
-                'criterionID' => $criterionID,
-                'Title' => $Title,
-                'CriteriaSession' => $CriteriaSession,
-                'score' => $score
+                'cmpName' => $cmpName,
+                'cmpState' => $cmpState,
+                'cmpAddress' => $cmpAddress,
+                'cmpContactNumber' => $cmpContactNumber,
+                'cmpContactPerson' => $cmpContactPerson
             );
         }
         echo json_encode($array);
