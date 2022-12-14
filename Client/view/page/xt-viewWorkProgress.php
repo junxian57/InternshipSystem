@@ -108,8 +108,7 @@
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th style="border-right: 0;"></th>
-									<th style="border-left: 0; border-right:0">Action</th>
+                  <th style="border-right: 0;">Action</th>
 									<th style="border-left: 0;"></th>
 								</tr>
 							</thead>
@@ -143,7 +142,6 @@
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
                   <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
-									<td style="border-right: 0;"><a class="view" href="xt-submitWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Submit</a></td>
 									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>
