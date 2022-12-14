@@ -67,7 +67,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-  <title>ITP System | Weekly Work Progress</title>
+  <title>ITP System | Submit Work Progress</title>
   
   <script src="../../js/jquery-1.11.1.min.js"></script>
   <script src="../../js/toastr.min.js"></script>
@@ -102,8 +102,23 @@
 	</script>
 
   <style>
-    .container{
+    .tablesr{
       margin-top: 100px;
+    }
+
+    .title1{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .reminder{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .container{
+      margin-top: 30px;
+      margin-bottom: 50px;
     }
 
     #reset-btn {
@@ -128,13 +143,13 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Weekly Work Progress</h3>
+					<h3 class="title1">Submit Work Progress</h3>
+          <h5 class="reminder" style="color: red;">*Please check your information before submit.</h5>
           <form method="POST" action="xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID;?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-              
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>

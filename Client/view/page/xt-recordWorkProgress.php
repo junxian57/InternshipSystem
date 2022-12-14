@@ -135,6 +135,22 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    .tablesr{
+      margin-top: 100px;
+    }
+
+    .title1{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .container{
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
