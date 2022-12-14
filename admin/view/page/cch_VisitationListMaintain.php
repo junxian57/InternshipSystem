@@ -23,7 +23,7 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
 <html>
 
 <head>
-    <title>ITP System | View Messages</title>
+    <title>ITP System | View Visitation Company</title>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -61,13 +61,13 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="tables">
-                    <h3 class="page-title">Messages</h3>
+                    <h3 class="page-title">Visitation Company</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                         <div id="messageTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Preview Message Table</h4>
+                                    <h4>Preview Visitation Company table</h4>
                                 </div>
                             </div>
 

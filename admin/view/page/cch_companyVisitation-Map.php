@@ -331,7 +331,7 @@ if (!isset($_SESSION['adminID'])) {
 
 
                                 <fieldset>
-                                    <legend>Existing Selected Rubric Criteria Field </legend>
+                                    <legend>Existing Selected Lecturer Field </legend>
                                     <div class="table-responsive">
                                         <table name="test">
                                             <thead>
