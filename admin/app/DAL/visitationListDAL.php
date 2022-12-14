@@ -22,24 +22,22 @@ class visitationListDAL
     {
         //$db = new DBController();
         $listOfVisitationDto = array();
-        $sql = "SELECT vc.*, iam.* FROM VisitationCompany vc JOIN InternApplicationMap ij on vc.internAppID=iam.internAppID;";
+        $sql = "SELECT * from VisitationCompany";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {
                 $Visitation_CompanyID = $result[$i]['Visitation_CompanyID'];
                 $internshipBatchID = $result[$i]['internshipBatchID'];
-                $internAppID = $result[$i]['internAppID'];
                 $Status = $result[$i]['status'];
-                $CreateByID = $result[$i]['CreateByID'];
+                $CreateByID = $result[$i]['CreateByid'];
                 $CreateDate = $result[$i]['CreateDate'];
-                $listOfvisitationListDto[] = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $CreateByID, $CreateDate);
+                $listOfVisitationDto[] = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $CreateByID, $CreateDate);
 
                 //Set status
-                $listOfvisitationListDto[$i]->setStatus($Status);
-                $listOfvisitationListDto[$i]->setinternAppID($internAppID);
+                $listOfVisitationDto[$i]->setStatus($Status);
             }
         }
-        return $listOfvisitationListDto;
+        return $listOfVisitationDto;
     }
 
     /**

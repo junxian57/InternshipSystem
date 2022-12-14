@@ -97,11 +97,12 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                     classie.toggle(showLeftPush, 'disabled');
                 }
             }
-            async function deleteMessage(messageID) {
+            async function terminateVisitationList(Visitation_ID) {
                 let text = "Do you want to delete the message?\nChoose OK or Cancel.";
 
                 if (confirm(text)) {
-                    let url = `../../app/DAL/ajaxDeleteMessage.php?messageID=${messageID}&Message=Message`;
+                    let url = `../../app/DAL/ajaxDeleteVisitationList.php?Visitation_ID=${Visitation_ID}`;
+                    console.log(url);
                     let response = await fetch(url);
                     let data = await response.json();
 

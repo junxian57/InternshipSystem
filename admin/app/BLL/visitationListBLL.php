@@ -42,8 +42,7 @@ class visitationListBLL
             foreach ($all_visitationList as $visitationList) {
                 $all_visitationList_html .= '<tr>';
                 $all_visitationList_html .= '<td>' . $i++ . '</td>';
-                $all_visitationList_html .= '<td>' . $visitationList->getAssmtId() . '</td>';
-                $all_visitationList_html .= '<td>' . $visitationList->getinternAppID() . '</td>';
+                $all_visitationList_html .= '<td>' . $visitationList->getVisitation_CompanyID() . '</td>';
                 $all_visitationList_html .= '<td>' . $visitationList->getstatus() . '</td>';
                 if ($visitationList->getstatus() == "terminate") {
                     $all_visitationList_html .= '<td>
@@ -54,7 +53,7 @@ class visitationListBLL
                     $all_visitationList_html .= '<td>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?assessmentID=' . $visitationList->getVisitation_CompanyID() . '"></a>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/RubricAssessment-Maintain.php?act=edit&id=' . $visitationList->getVisitation_CompanyID() . '"></a>
-				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationList->getVisitation_CompanyID() . '"aria-hidden="true" onClick="terminateRubricAssmt(this.id)"></a>
+				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationList->getVisitation_CompanyID() . '"aria-hidden="true" onClick="terminateVisitationList(this.id)"></a>
 			    </td>';
                 }
 
@@ -111,7 +110,7 @@ class visitationListBLL
     }
     public function IsValidvisitationList($visitationListDTO)
     {
-        if ($this->IsCompanySelectionExists($visitationListDTO->getVisitation_CompanyID(),$visitationListDTO->GetInternshipBatchID(), $visitationListDTO->getinternAppID())) {
+        if ($this->IsCompanySelectionExists($visitationListDTO->getVisitation_CompanyID(), $visitationListDTO->GetInternshipBatchID(), $visitationListDTO->getinternAppID())) {
             $this->errorMessage = 'Rubric ' . $visitationListDTO->getTitle() . ' already exists in this session. Try a different one.';
             return false;
         } else {
