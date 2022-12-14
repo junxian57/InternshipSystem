@@ -45,7 +45,7 @@ if ($_GET['internshipBatchID'] && $_GET['studid']) {
     $query2 = "SELECT * FROM StudentResult Where studResultID='$studResultid'";
     $results2 = $db_handle->runQuery($query2);
 
-    $getCompanyQuery = "SELECT c.cmpName,ij.jobCmpSupervisor FROM `Company` c JOIN InternJob ij on c.companyID=ij.companyID WHERE ij.internJobID='$internJobID'";
+    $getCompanyQuery = "SELECT c.cmpName,ij.jobCmpSupervisor,c.cmpCert FROM `Company` c JOIN InternJob ij on c.companyID=ij.companyID WHERE ij.internJobID='$internJobID'";
     $getCompanyResult = $db_handle->runQuery($getCompanyQuery);
 
     if ($aMarkingScheme) {
@@ -260,6 +260,19 @@ function generateMarkingSchemeID($markingSchemeID)
         display: block;
         max-height: 50px;
     }
+
+    #textarea {
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        border: 1px solid gray;
+        font: medium -moz-fixed;
+        font: -webkit-small-control;
+        height: 315px;
+        overflow: auto;
+        padding: 2px;
+        resize: both;
+        width: 727px;
+    }
 </style>
 
 <head>
@@ -459,9 +472,12 @@ function generateMarkingSchemeID($markingSchemeID)
 
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" id="textarea">
 
-                                            <textarea class="col-md-12 form-control" rows="15" readonly>Affix company stamp</textarea>
+                                            <label>Company Cert</label>
+                                            <img id="cvBtn" target="_blank" src="../../../admin/app/BLL/previewCompanyCert.php?path=<?php echo $getCompanyResult[0]['cmpCert']; ?>"></img>
+
+
                                         </div>
                                     </div>
                                 </div>
