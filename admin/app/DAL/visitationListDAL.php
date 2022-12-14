@@ -101,24 +101,23 @@ class visitationListDAL
      */
     public function AddvisitationCompanyList($visitationListDTO, $visitationCompanyListDTO)
     {
-        $sql = "INSERT INTO VisitationCompany (`Visitation_CompanyID`, `internshipBatchID`,`internAppID` ,`status`,`CreateByID`,`CreateDate`)
+        $sql = "INSERT INTO VisitationCompany (`Visitation_CompanyID`, `internshipBatchID` ,`status`,`CreateByID`,`CreateDate`)
                 VALUES (
                   '" . $visitationListDTO->getVisitation_CompanyID() . "',
                   '" . $visitationListDTO->getInternshipBatchID() . "',
-                  '" . $visitationListDTO->getinternAppID() . "',
                   'activate',
                   '" . $visitationListDTO->getCreateByID() . "',
                   '" . $visitationListDTO->getCreateDate() . "'
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
         foreach ($visitationCompanyListDTO as $visitationCompanyListDto1) {
-            $sql1 = "INSERT INTO VisitationCompanyList (`Visitation_CompanyID`,`Visitation_BatchID`,`CompanyID`)
+            $sql1 = "INSERT INTO VisitationCompanyList (`Visitation_CompanyID`,`CompanyID`,`cmpName`)
                     VALUES (
                       '" . $visitationCompanyListDto1->getVisitation_CompanyID() . "',
                       '" . $visitationCompanyListDto1->getCompanyID() . "',
-                      '" . $visitationCompanyListDto1->getstudentID() . "',
-                      '" . $visitationCompanyListDto1->getlecturerID() . "'
+                      '" . $visitationCompanyListDto1->getcmpname() . "'
                     )";
+            echo $sql1;
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
         }
         if ($result &&  $result2) {
