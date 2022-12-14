@@ -41,6 +41,54 @@ class generalCommunicationDAL
         return $listOfgeneralCommunicationDTO;
     }
 
+
+    public function GetCertainMessage()
+    {
+        //$db = new DBController();
+        $listOfgeneralCommunicationDTO = array();
+        $sql = "SELECT * FROM Message1 where msgReceiver = 'Student' " ;
+        $result = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($result)) {
+            for ($i = 0; $i < count($result); $i++) {
+                $messageID = $result[$i]['messageID'];
+                $msgTitle = $result[$i]['msgTitle'];
+                $msgSender = $result[$i]['msgSender'];
+                $msgReceiver = $result[$i]['msgReceiver'];
+                $msgDate = $result[$i]['msgDate'];
+                $msgContent = $result[$i]['msgContent'];
+                $listOfgeneralCommunicationDTO[] = new generalCommunicationDTO($messageID, $msgTitle, $msgSender, $msgReceiver, $msgContent);
+
+                //Set msgDate
+                $listOfgeneralCommunicationDTO[$i]->setMsgDate($msgDate);
+            }
+        }
+        return $listOfgeneralCommunicationDTO;
+    }
+
+    public function GetCompanyMessage()
+    {
+        //$db = new DBController();
+        $listOfgeneralCommunicationDTO = array();
+        $sql = "SELECT * FROM Message1 where msgReceiver = 'Company' " ;
+        $result = $this->databaseConnectionObj->runQuery($sql);
+        if (!empty($result)) {
+            for ($i = 0; $i < count($result); $i++) {
+                $messageID = $result[$i]['messageID'];
+                $msgTitle = $result[$i]['msgTitle'];
+                $msgSender = $result[$i]['msgSender'];
+                $msgReceiver = $result[$i]['msgReceiver'];
+                $msgDate = $result[$i]['msgDate'];
+                $msgContent = $result[$i]['msgContent'];
+                $listOfgeneralCommunicationDTO[] = new generalCommunicationDTO($messageID, $msgTitle, $msgSender, $msgReceiver, $msgContent);
+
+                //Set msgDate
+                $listOfgeneralCommunicationDTO[$i]->setMsgDate($msgDate);
+            }
+        }
+        return $listOfgeneralCommunicationDTO;
+    }
+
+
     /**
      * Get a student
      *
