@@ -47,6 +47,13 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    #studentCV{
+      width: 890px;
+      height: 1000px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -193,13 +200,16 @@
             </div>
 
             <div class="subtitle">
-              <h2 class="sub-3">Supporting Document</h2>
+              <h2 class="sub-3">Supporting Document - Student CV</h2>
             </div>
             
             <div class="inputBox">
               <div class="viewInput">
-                <span>Student CV</span>
-                <input type="file" name="cmpCompanySize" readonly value="<?php echo$cmpCompanySize; ?>">
+                <div id="studentCV">
+                <?php
+                  echo '<iframe src="../../../Client/view/document/StudentCV/'.$studentID.' - '.$studName.'.pdf" width="100%" style="height:100%"></iframe>';
+                ?>
+                </div>
               </div>
             </div>
             
