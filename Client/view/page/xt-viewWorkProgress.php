@@ -7,7 +7,11 @@
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
     
-  if(isset($_SESSION['studentID'])){
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
   }
 ?>
@@ -104,8 +108,7 @@
 											<span aria-hidden="true">Status</span>
 										</button>
 									</th>
-                  <th style="border-right: 0;"></th>
-									<th style="border-left: 0; border-right:0">Action</th>
+                  <th style="border-right: 0;">Action</th>
 									<th style="border-left: 0;"></th>
 								</tr>
 							</thead>
@@ -139,7 +142,6 @@
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
                   <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
-									<td style="border-right: 0;"><a class="view" href="xt-submitWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Submit</a></td>
 									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>
@@ -209,6 +211,11 @@
                 	$run_cmp = mysqli_query($conn, $get_cmp);
 									$row_cmp = mysqli_fetch_array($run_cmp);
 									$cmpName = $row_cmp['cmpName'];
+
+									$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                	$run_stud = mysqli_query($conn, $get_stud);
+									$row_stud = mysqli_fetch_array($run_stud);
+									$studName = $row_stud['studName'];
               ?>
 								<tr>
 									<td><?php echo $monthlyRptID; ?></td>
@@ -216,7 +223,9 @@
 									<td><?php echo $cmpName; ?></td>
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">View</a></td>
+									
+
+                  <td><?php echo '<a href="../page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>

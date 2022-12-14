@@ -7,7 +7,11 @@
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
     
-  if(isset($_SESSION['studentID'])){
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
   }
 
@@ -40,6 +44,8 @@
   $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
   $issuesEncountered = $row_month['issuesEncountered'];
   $leaveTaken = $row_month['leaveTaken'];
+  $leaveFrom = $row_month['leaveFrom'];
+  $leaveTill = $row_month['leaveTill'];
   $leaveReason = $row_month['leaveReason'];
   if($leaveTaken != "0"){
     $leave = "Yes";
@@ -61,7 +67,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-  <title>ITP System | Weekly Work Progress</title>
+  <title>ITP System | Submit Work Progress</title>
   
   <script src="../../js/jquery-1.11.1.min.js"></script>
   <script src="../../js/toastr.min.js"></script>
@@ -96,8 +102,23 @@
 	</script>
 
   <style>
-    .container{
+    .tablesr{
       margin-top: 100px;
+    }
+
+    .title1{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .reminder{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .container{
+      margin-top: 30px;
+      margin-bottom: 50px;
     }
 
     #reset-btn {
@@ -122,13 +143,13 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Weekly Work Progress</h3>
+					<h3 class="title1">Submit Work Progress</h3>
+          <h5 class="reminder" style="color: red;">*Please check your information before submit.</h5>
           <form method="POST" action="xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID;?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-              
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
@@ -202,12 +223,12 @@
 
                 <div class="viewInput">
                   <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" disabled>
+                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?>" disabled>
                 </div>
             
                 <div class="viewInput">
                   <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" disabled>
+                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?>" disabled>
                 </div>
 
                 <div class="viewInput">
@@ -229,7 +250,7 @@
                   <div id="canvasDiv"></div>
                   <br>
                   <a class="btn btn-danger" id="reset-btn" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>">Edit</a>
-                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Submit">
+                  <input type="submit" class="btn btn-success" id="btn-save" name="submitRpt" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
