@@ -7,7 +7,11 @@
 		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
     
-  if(isset($_SESSION['studentID'])){
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
     $studID = $_SESSION['studentID'];
   }
 
@@ -40,6 +44,8 @@
   $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
   $issuesEncountered = $row_month['issuesEncountered'];
   $leaveTaken = $row_month['leaveTaken'];
+  $leaveFrom = $row_month['leaveFrom'];
+  $leaveTill = $row_month['leaveTill'];
   $leaveReason = $row_month['leaveReason'];
   if($leaveTaken != "0"){
     $leave = "Yes";
@@ -202,12 +208,12 @@
 
                 <div class="viewInput">
                   <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" disabled>
+                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?>" disabled>
                 </div>
             
                 <div class="viewInput">
                   <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" disabled>
+                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?>" disabled>
                 </div>
 
                 <div class="viewInput">
@@ -229,7 +235,7 @@
                   <div id="canvasDiv"></div>
                   <br>
                   <a class="btn btn-danger" id="reset-btn" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>">Edit</a>
-                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Submit">
+                  <input type="submit" class="btn btn-success" id="btn-save" name="submitRpt" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">

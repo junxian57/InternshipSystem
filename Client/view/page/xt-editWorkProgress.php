@@ -230,6 +230,7 @@
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Save">
+                  <input type="submit" class="btn btn-success" id="btn-submit" name="submit" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
@@ -263,6 +264,8 @@
       $week4 = $_POST['week4'];
       $problem = $_POST['problem'];
       $leaveTaken = $_POST['leaveTaken'];
+      $leaveFrom = $_POST['fromDate'];
+      $leaveTill = $_POST['toDate'];
       $leaveTakens = $_POST['leaveDays'];
       $status = "Saved";
       
@@ -273,7 +276,7 @@
         $leaveReasons = $_POST['leaveReason'];
       }
     
-      $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+      $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
     
       if (mysqli_query($conn, $sql)) {
         echo "<script>alert('The report have been saved into database.')</script>";     
@@ -282,7 +285,52 @@
         echo "Error: " . $sql . mysqli_error($conn);
       }
     }
-  ?>
+?>
+
+<?php
+  if(isset($_POST['submit'])){
+    $host = "sql444.main-hosting.eu";
+    $user = "u928796707_group34";
+    $password = "u1VF3KYO1r|";
+    $database = "u928796707_internshipWeb";
+                                    
+    $conn = mysqli_connect($host, $user, $password, $database); 
+    
+    $monthRptID = $monthlyReportID;
+    $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
+    $run_month = mysqli_query($conn, $get_month);
+    $row_month = mysqli_fetch_array($run_month);
+    $cmpID = $row_month['companyID'];
+    $studName = $_POST['studName'];
+    $cmpName = $_POST['cmpName'];
+    $monthYear = $_POST['monthYear'];
+    $week1 = $_POST['week1'];
+    $week2 = $_POST['week2'];
+    $week3 = $_POST['week3'];
+    $week4 = $_POST['week4'];
+    $problem = $_POST['problem'];
+    $leaveTaken = $_POST['leaveTaken'];
+    $leaveFrom = $_POST['fromDate'];
+    $leaveTill = $_POST['toDate'];
+    $leaveTakens = $_POST['leaveDays'];
+    $status = "Saved";
+      
+    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
+      $leaveReasons = "N/A";
+    }
+    else{
+      $leaveReasons = $_POST['leaveReason'];
+    }
+    
+    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+    
+    if (mysqli_query($conn, $sql)) {
+      echo "<script>window.open('xt-submitWorkProgress.php?monthlyReportID=$monthlyReportID','_self')</script>";
+    }else{
+      echo "Error: " . $sql . mysqli_error($conn);
+    }
+  }
+?>
 
   <script>
     $(document).ready(function(){
@@ -298,7 +346,7 @@
           return 'Are you sure you want to leave?'
       }
     })
-    
+
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');
@@ -440,7 +488,7 @@
           }
         })
 
-        /*$("#btn-save").click(function() {
+        /*$("#btn-submit").click(function() {
           let week1 = document.getElementById('week1').value;
           let week2 = document.getElementById('week2').value;
           let week3 = document.getElementById('week3').value;
@@ -453,7 +501,7 @@
             }else if(week1.length < minLength || week2.length < minLength || week3.length < minLength || week4.length < minLength || problem.length < minLength) {
               info("Please write a summary of your work in at least 100 words.");
             }else{
-              //window.location.href = '../../view/page/xt-generateMonthlyRpt.php?monthlyRptID=<?php echo $monthlyReportID; ?>';
+              window.location.href = '../../view/page/xt-submitWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>';
             }
         })*/
   </script>
