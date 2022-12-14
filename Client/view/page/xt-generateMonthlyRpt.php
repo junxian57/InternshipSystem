@@ -54,6 +54,9 @@ if(isset($_POST['submitRpt'])){
   $file = '../../../Client/view/signature/'.$signatureFileName;
   file_put_contents($file, $data);
   $sign = '../../../Client/view/signature/'.$studName.'.jpg';
+  date_default_timezone_set("Asia/Kuala_Lumpur");
+  $date = date('Y/m/d h:i:s', time());
+  $boolean = 1;
 
   if($week1 == '' || $week2 == '' || $week3 == '' || $week4 == '' || $problem == ''){
     echo "<script>alert('Failed to submit! Some field is empty!')</script>";    
@@ -75,10 +78,9 @@ if(isset($_POST['submitRpt'])){
       $leave = $leaveDays;
     }
   
-    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
+    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveReason='$leaveReasons', submitDateTime='$date', submitOnTime = '$boolean', reportStatus = '$status' WHERE monthlyReportID='$monthRptID'";
   
     if (mysqli_query($conn, $sql)) {
-      date_default_timezone_set("Asia/Kuala_Lumpur");
       $today = date("F j, Y", time());
     }else{
       echo "Error: " . $sql . mysqli_error($conn);
@@ -255,7 +257,7 @@ $pdf->MultiCell(123, 5, '
 ', 1, 1);
 $pdf->Ln(5);
 
-$pdf->Output('progress-report.pdf', 'I');
+$pdf->Output(__DIR__ . '/monthlyRpt/'.$monthlyReportID.'_'.$studName.'_'.$monthYear.'.pdf', 'FI');
 
 unlink($sign);
 ?>

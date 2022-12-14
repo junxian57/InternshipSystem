@@ -211,6 +211,11 @@
                 	$run_cmp = mysqli_query($conn, $get_cmp);
 									$row_cmp = mysqli_fetch_array($run_cmp);
 									$cmpName = $row_cmp['cmpName'];
+
+									$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                	$run_stud = mysqli_query($conn, $get_stud);
+									$row_stud = mysqli_fetch_array($run_stud);
+									$studName = $row_stud['studName'];
               ?>
 								<tr>
 									<td><?php echo $monthlyRptID; ?></td>
@@ -218,7 +223,9 @@
 									<td><?php echo $cmpName; ?></td>
 									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-recordWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">View</a></td>
+									
+
+                  <td><?php echo '<a href="../page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>
