@@ -35,6 +35,7 @@ function getStudentAndInternCompany($studentID){
           IAM.internJobID = IJ.internJobID AND
           IJ.companyID = C.companyID AND
           IAM.appStatus = 'Accepted' AND
+          IAM.appStudentFeedback = 'Accept Offer' AND
           S.studentID = '$studentID' AND
           S.studAccountStatus IN ('Active', 'Intern', 'Graduated');";
     
