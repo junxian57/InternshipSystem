@@ -115,17 +115,27 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
+        <?php if($adminID || $committeeID) { ?>
         <li>
-          <a href="../admin/view/page/viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <a href="../page/xt-companiesSelection.php"><i class="fa fa-book nav_icon"></i>Companies Selection<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
-              <a href="../admin/view/page/viewWorkProgress.php">All Work Progress</a>
-            </li>
-            <li>
-              <a href="printWorkProgress.php">Print Reports</a>
+              <a href="../page/xt-companiesSelection.php">Company List</a>
             </li>
           </ul>
         </li>
+        <?php } ?>
+
+        <?php if($adminID || $committeeID) { ?>
+        <li>
+          <a href="../page/xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="../page/xt-viewWorkProgress.php">All Work Progress</a>
+            </li>
+          </ul>
+        </li>
+        <?php } ?>
 
         <li>
           <a href="#"><i class="fa fa-users nav_icon"></i>Company Visitation<span class="fa arrow"></span></a>

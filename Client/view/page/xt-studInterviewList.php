@@ -1,10 +1,19 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -62,7 +71,7 @@ include('includes/dbconnection.php');
                                             
                     $conn = mysqli_connect($host, $user, $password, $database); 
 
-                    $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted'";
+                    $get_interview = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStatus = 'Shortlisted'";
                     $run_interview = mysqli_query($conn, $get_interview);
                     while($row_interview = mysqli_fetch_array($run_interview)){
                       $internAppID = $row_interview['internAppID'];
@@ -134,7 +143,7 @@ include('includes/dbconnection.php');
                   <center>
                     <ul class="job-pagination">
                       <?php
-                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Shortlisted'";
+                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStatus = 'Shortlisted'";
                         $result = mysqli_query($conn,$query);
                       ?> 
                     </ul>
@@ -176,7 +185,7 @@ include('includes/dbconnection.php');
         $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Interview' WHERE internAppID='$internAppID'";
         if ((mysqli_query($conn, $query))){
             $success = $mailConfig->singleEmail(
-              $jobSupervisorEmail, 
+              'wongxt-wm19@student.tarc.edu.my', 
               'Accept Interview Session', 
               acceptInterview($jobCmpSupervisor, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation)
             );
@@ -211,7 +220,7 @@ include('includes/dbconnection.php');
         $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
         if ((mysqli_query($conn, $query))){
           $success = $mailConfig->singleEmail(
-            $jobSupervisorEmail, 
+            'wongxt-wm19@student.tarc.edu.my', 
             'Reject Interview Session', 
             rejectInterview($jobCmpSupervisor, $studentName)
           );

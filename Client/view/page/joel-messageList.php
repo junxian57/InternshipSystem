@@ -10,8 +10,33 @@ require_once $systemPathPrefix . "/app/DAL/generalCommunicationDAL.php";
 	//header('location:logout.php');
 } else {*/
 
+
+    
 $generalCommunicationBLLObj  = new generalCommunicationBLL();
-$all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
+
+if (session_status() == PHP_SESSION_NONE) session_start();
+
+if (isset($_SESSION)) {
+  $companyID = isset($_SESSION['companyID']) ? $_SESSION['companyID'] : false;
+  $studentID = isset($_SESSION['studentID']) ? $_SESSION['studentID'] : false;
+  $lecturerID = isset($_SESSION['lecturerID']) ? $_SESSION['lecturerID'] : false;
+  
+  if($companyID){
+	$all_message = $generalCommunicationBLLObj->GenerateHtmlForCompanyMessageView();
+  }else if ($studentID){
+	$all_message = $generalCommunicationBLLObj->GenerateHtmlForCertainMessageView();
+  }else if ($lecturerID){
+	$all_message = $generalCommunicationBLLObj->GenerateHtmlForAllMessageView();
+  }
+  
+} else {
+  //header("Location: ../index.php");
+}
+
+
+
+
+
 
 ?>
 <!DOCTYPE HTML>

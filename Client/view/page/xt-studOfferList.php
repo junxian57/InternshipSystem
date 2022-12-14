@@ -1,13 +1,24 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-require '../../../config/email.php';
-$mailConfig = new EmailConfig();
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
+
+  require '../../../config/email.php';
+  $mailConfig = new EmailConfig();
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -64,7 +75,7 @@ $mailConfig = new EmailConfig();
                                             
                     $conn = mysqli_connect($host, $user, $password, $database); 
 
-                    $get_offer = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Accepted'";
+                    $get_offer = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStatus = 'Accepted'";
                     $run_offer = mysqli_query($conn, $get_offer);
                     while($row_offer = mysqli_fetch_array($run_offer)){
                       $internAppID = $row_offer['internAppID'];
@@ -139,7 +150,7 @@ $mailConfig = new EmailConfig();
                   <center>
                     <ul class="job-pagination">
                       <?php
-                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStatus = 'Accepted'";
+                        $query = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStatus = 'Accepted'";
                         $result = mysqli_query($conn,$query);
                       ?> 
                     </ul>

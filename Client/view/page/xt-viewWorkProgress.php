@@ -152,13 +152,13 @@
 					<div id="Submitted" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterSProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
 							</div>
 						</div>
-						<table id="progressTable" class="sortable">
+						<table id="progressSTable" class="sortable">
 							<thead>
 								<tr>
 									<th>
@@ -301,6 +301,28 @@
 			}
 		}
 		document.querySelector('#filterProgress').addEventListener('keyup', filterProgressTable, false);
+	
+		function filterSProgressTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#progressSTable tbody").rows;
+    
+    	for (var i = 0; i < rows.length; i++) {
+				var firstCol = rows[i].cells[0].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[1].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[3].textContent.toUpperCase();
+				var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+      	var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#filterSProgress').addEventListener('keyup', filterSProgressTable, false);
+	
+	
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>

@@ -346,7 +346,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                             <table name="test">
                                                 <thead>
                                                     <tr>
-                                                    <th>Company ID</th>
+                                                        <th>Company ID</th>
                                                         <th>Company Name</th>
                                                         <th>Contact Person</th>
                                                         <th>Size</th>
@@ -542,21 +542,23 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
             return true;
         }
 
+        function removeAllChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
+
         function resetSelect(table1, table2) {
             if (table2.hasChildNodes()) {
                 removeAllChildNodes(table2);
             }
-            const testTable = document.getElementById("test-table");
-            if (testTable.hasChildNodes()) {
-                removeAllChildNodes(testTable);
-            }
+
             var rCount = table1.rows.length;
             for (var i = 0; i < table1.rows.length; i++) {
-                if (table1.rows[i].cells[4].children[0].checked) {
-                    table1.rows[i].cells[4].children[0].checked = false;
+                if (table1.rows[i].cells[5].children[0].checked) {
+                    table1.rows[i].cells[5].children[0].checked = false;
                 }
             }
-            countScore = 0;
         }
     </script>
 

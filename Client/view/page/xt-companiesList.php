@@ -1,8 +1,21 @@
 <?php
-	session_start();
-	error_reporting(0);
-  include('../../includes/db_connection.php');
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -72,11 +85,6 @@
 											<span aria-hidden="true">Email ▼</span>
 										</button>
 									</th>
-									<th class="num" style=" width: 150px;">
-										<button>
-											<span aria-hidden="true">Allowance (RM) ▼</span>
-										</button>
-									</th>
 								</tr>
 							</thead>
 
@@ -103,7 +111,6 @@
 									<td><?php echo $cmpName; ?></td>
 									<td><?php echo $cmpAddress; ?></td>
 									<td><?php echo $cmpEmail; ?></td>
-									<td><?php echo $cmpAverageAllowanceGiven; ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>

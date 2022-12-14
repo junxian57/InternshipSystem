@@ -1,10 +1,19 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
 
 <?php
@@ -33,14 +42,25 @@ include('includes/dbconnection.php');
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<title>ITP System | Job Details</title>
+	
+	
+	<script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/toastr.min.js"></script>
+  <script src="../../js/customToastr.js"></script>
+	
+	<link href="../../css/toastr.min.css" rel="stylesheet">
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
 	<link href="../../css/xt-jobDetails.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -170,7 +190,7 @@ function  confirmationMsgBox(){
             		<p><?php echo $jobTrainingPeriod; ?> Months</p><br>
         			</div>   
 							<div class="button-group">
-								<button type="submit" class="backBtn"><a href='xt-searchJob.php';></a>Back</button>
+								<button class="backBtn"><a href='xt-searchJob.php'>Back</a></button>
               	<button type="submit" class="applyBtn" id="applyBtn">Apply</button>
             	</div>
 						</div>
@@ -242,6 +262,53 @@ function  confirmationMsgBox(){
 				classie.toggle(showLeftPush, 'disabled');
 			}
 		}
+
+		function dateStrToObj(dateStr) {
+      const [year, month, date] = dateStr.split('-').map(Number);
+      return new Date(year, month - 1, date);
+    }
+    
+    function onChange() {
+			let internStart = new Date(document.getElementById("internStart").value);
+      let internEnd = new Date(document.getElementById("internEnd").value);
+      const startDateStr = document.querySelector('#internStart').value;
+      const endDateStr = document.querySelector('#internEnd').value;
+      
+      if (!startDateStr || !endDateStr) return
+      const startDate = dateStrToObj(startDateStr);
+      const endDate = dateStrToObj(endDateStr);
+      
+      if (endDate.valueOf() < startDate.valueOf()) {
+        warning('Intern End date is before intern start date!');
+        document.getElementById("internEnd").value = document.getElementById("internStart").value;
+      }
+			else{
+        if(internStart.getTime() && internEnd.getTime()){
+          let timeDifference = internEnd.getTime() - internStart.getTime();
+
+          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+          if(dayDifference < 60){
+						info("Minimum training period is 3 months");
+						var d = new Date(internStart);
+						var y = d.getFullYear();
+						var da = d.getDate();
+						if(d.getMonth() >= 10){
+							var y = d.getFullYear() + 1;
+							var mm = d.getMonth() + 4;
+							var m = mm - 12;
+						}else{
+							var y = d.getFullYear();
+							var m = d.getMonth() + 4;
+						}
+						document.getElementById("internEnd").value = (da+'-'+m+'-'+y);
+					}
+        }
+      }
+    }
+    
+    for (const dateInput of document.querySelectorAll('input[type=date]')) {
+      dateInput.addEventListener('change', onChange);
+    }
 	</script>
 
 	<script>
