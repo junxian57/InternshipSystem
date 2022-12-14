@@ -103,6 +103,7 @@
   outline: none;
   display: none;
   position: absolute;
+  z-index: 1;
 }
 .tabcontent :is(#result-box-1, #result-box-2) li {
   padding: 5px;

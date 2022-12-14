@@ -47,7 +47,9 @@ if(isset($_GET['lectureID']) && isset($_GET['studentIDArr'])){
             );
         }
 
-        $mailConfig->singleEmail(
+        $mailConfig2 = new EmailConfig();
+
+        $mailConfig2->singleEmail(
             $lectureEmail, 
             "Internship Student Has Been Assigned", 
             createHTMLmailForLecturer($lectureName)
