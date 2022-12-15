@@ -17,9 +17,6 @@ require_once("../../app/DAL/rubricAssessmentDAL.php");
 
 
 
-require_once('../../app/DAL/ComponentLvlDAL.php');
-require_once('../../app/BLL/componentLvlBLL.php');
-require_once('../../app/DTO/componentLvlDTO.php');
 
 require_once('../../app/BLL/rubricAssessmentComponentBLL.php');
 require_once("../../app/DTO/rubricAssessmentComponentDTO.php");
@@ -28,10 +25,6 @@ require_once("../../app/DAL/rubricAssessmentComponentDAL.php");
 
 $rubricAssessmentBllObj  = new rubricAssessmentBLL();
 $all_rubricAssessment = $rubricAssessmentBllObj->GenerateHtmlForAllRubricAssessment();
-
-$rubricCmpLvlBLLObj = new componentLvlBLL();
-
-$all_rubricCmpLvl = $rubricCmpLvlBLLObj->GenerateHtmlForAllRubricCmpLvl();
 
 $rubricAssessmentComponentBllObj = new rubricAssessmentComponentBLL();
 $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRubricCmpCriteria();
@@ -83,7 +76,6 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'RubricCmpTbl')">Rubric Assessment</button>
                             <button class="tablinks" onclick="changeTab(event, 'RubricCmpCriteriaTab')">Rubric Component Criteria</button>
-                            <button class="tablinks" onclick="changeTab(event, 'RubricCmpLvlTab')">Rubric Component Level</button>
                         </div>
 
 
@@ -115,24 +107,6 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
                             <?php
                             echo $all_rubricCmpCriteria;
                             ?>
-                        </div>
-
-                        <div id="RubricCmpLvlTab" class="tabcontent">
-
-                            <div class="row">
-                                <div class="table-title">
-                                    <h4>Preview Table</h4>
-                                </div>
-                                <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" data-target="#cmpLvlModal" data-toggle="modal" href="../popUp/addeditComponentLevel.php?act">Add New Rubric Component Level</button>
-                                </div>
-                            </div>
-
-                            <?php
-                            echo $all_rubricCmpLvl;
-                            ?>
-
-
                         </div>
                     </div>
                 </div>
@@ -252,27 +226,6 @@ $all_rubricCmpCriteria = $rubricAssessmentComponentBllObj->GenerateHtmlForAllRub
             <script>
                 $(document).ready(function() {
                     $('#rubricCmpTbl').DataTable({
-                        //custom search bar 
-                        "language": {
-                            searchPlaceholder: "Search records"
-                        },
-                        "searchBox": {
-                            "addClass": 'form-control input-lg col-xs-12'
-                        },
-
-                        "fnDrawCallback": function() {
-                            $("input[type='search']").attr("id", "searchBox");
-                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
-                            //$('#searchBox').css("width", "250px");
-                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
-
-                            $('.sorting').css("width", "");
-                            //$('#test1').style.remove('width');
-                        },
-                    });
-                    $('#RubricCmpLvlTbl').DataTable({
                         //custom search bar 
                         "language": {
                             searchPlaceholder: "Search records"

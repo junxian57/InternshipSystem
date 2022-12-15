@@ -33,7 +33,6 @@ class visitationListBLL
             $all_visitationList_html .= '<tr>';
             $all_visitationList_html .= '<th id="test1">#</th>';
             $all_visitationList_html .= '<th>Visitation ID</th>';
-            $all_visitationList_html .= '<th>internApp </th>';
             $all_visitationList_html .= '<th>Status</th>';
             $all_visitationList_html .= '<th>Action</th>';
             $all_visitationList_html .= '</tr>';

@@ -251,6 +251,35 @@ header .page-title * {
 .wrapper .input-style input[type=button]:hover {
   background: #535ea6;
 }
+.wrapper .certBox {
+  text-align: center;
+  padding: 3%;
+  border: 1px solid #f2891f;
+}
+.wrapper .certBox label {
+  cursor: pointer;
+}
+.wrapper .certBox label i {
+  font-size: 3em;
+  color: #313e85;
+  margin-top: 10px;
+}
+.wrapper .certBox label input {
+  display: none;
+}
+.wrapper .certBox label #fileName {
+  color: #f2891f;
+}
+.wrapper .certBox p {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9em !important;
+  background-color: rgb(236, 249, 172);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 5px;
+}
 .wrapper .fieldArea {
   border: 1px solid #f2891f;
   padding: 10px;

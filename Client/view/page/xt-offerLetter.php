@@ -292,7 +292,7 @@ else{
 
   if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query)) && (mysqli_query($conn, $query2))){
     $success = $mailConfig->singleEmailWithAttachment(
-      $studEmail, 
+      'wongxt-wm19@student.tarc.edu.my', 
       $subject, 
       acceptApp($studName, $internAppID, $position, $allowance),
       'offerLetter/offerLetter_'.$studName.'.pdf'

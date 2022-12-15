@@ -1,12 +1,16 @@
 <?php
 session_start();
 error_reporting(0);
+if (session_status() != PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['adminID'])) {
+    if (!isset($_SESSION['committeeID'])) {
+        echo "<script>
+          window.location.href = 'adminLogin.php';
+      </script>";
+    }
+}
 //include_once("../../includes/db_connection.php");
-
-require_once('../../app/BLL/generalCommunicationBLL.php');
-require_once("../../app/DTO/generalCommunicationDTO.php");
-require_once("../../app/DAL/generalCommunicationDAL.php");
-
 require_once('../../app/BLL/visitationListBLL.php');
 require_once("../../app/DTO/visitationListDTO.php");
 require_once("../../app/DAL/visitationListDAL.php");
@@ -16,14 +20,14 @@ require_once("../../app/DAL/visitationListDAL.php");
 } else {*/
 
 $visitationListBLLObj  = new visitationListBLL();
-$all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
+$visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
 
 ?>
 <!DOCTYPE HTML>
 <html>
 
 <head>
-    <title>ITP System | View Messages</title>
+    <title>ITP System | View Visitation Company</title>
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -61,23 +65,126 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="tables">
-                    <h3 class="page-title">Messages</h3>
+                    <h3 class="page-title">Visitation Company</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-
-                        <div id="messageTbl" class="tabcontent" style="display:block">
+                        <div class="tab">
+                            <button class="tablinks" id="activeTab" onclick="changeTab(event, 'visitationListTbl')">Visitation Company list</button>
+                            <button class="tablinks" onclick="changeTab(event, 'supervisorCompanyMapListTbl')">Maping list</button>
+                        </div>
+                        <div id="visitationListTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
-                                    <h4>Preview Message Table</h4>
+                                    <h4>Preview Visitation Company table</h4>
                                 </div>
                             </div>
 
                             <?php
-                            echo $all_message;
+                            echo $visitationList;
+                            ?>
+                        </div>
+                        <div id="supervisorCompanyMapListTbl" class="tabcontent">
+                            <div class="row">
+                                <div class="table-title">
+                                    <h4>Preview Maping Table</h4>
+                                </div>
+                                <div class="text-right col-sm-12">
+                                    <button type="button" class="btn btn-primary" onclick="location.href='cch_AddVisitationList.php'">Add New Company List/Batch</button>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $all_supervisorCompanyMapList;
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                let menuLeft = document.getElementById('cbp-spmenu-s1'),
+                    showLeftPush = document.getElementById('showLeftPush'),
+                    body = document.body;
+
+                showLeftPush.onclick = function() {
+                    classie.toggle(this, 'active');
+                    classie.toggle(body, 'cbp-spmenu-push-toright');
+                    classie.toggle(menuLeft, 'cbp-spmenu-open');
+                    disableOther('showLeftPush');
+                };
+
+                function disableOther(button) {
+                    if (button !== 'showLeftPush') {
+                        classie.toggle(showLeftPush, 'disabled');
+                    }
+                }
+
+                async function activateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricAssmt(rubricAssmtID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function activateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxReactivateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+
+                async function terminateRubricCriteria(RubricCriteriaID) {
+                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxTerminateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    }
+                }
+            </script>
         </div>
 
         <script>
@@ -101,7 +208,7 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                 let text = "Do you want to delete the message?\nChoose OK or Cancel.";
 
                 if (confirm(text)) {
-                    let url = `../../app/DAL/ajaxDeleteVisitationList.php?Visitation_ID=${Visitation_ID}`;
+                    let url = `../../app/DAL/ajaxTerminateVisitationList.php?Visitation_ID=${Visitation_ID}`;
                     console.log(url);
                     let response = await fetch(url);
                     let data = await response.json();
@@ -114,12 +221,37 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                     }
                 }
             }
+            
+            
         </script>
+        <!--change tab-->
+        <script>
+                function changeTab(evt, tabName) {
+                    let i, tabcontent, tablinks;
+
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.querySelectorAll(".tabcontent");
+                    tabcontent.forEach(i => {
+                        i.style.display = "none";
+                    });
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.querySelectorAll(".tablinks");
+                    tablinks.forEach(i => {
+                        i.classList.remove("active");
+                    });
+
+                    // Show the current tab, and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+                document.getElementById("activeTab").click();
+            </script>
 
         <!--Table JS sorting,searchinh,pagination-->
         <script>
             $(document).ready(function() {
-                $('#messageCmpTbl').DataTable({
+                $('#visitationListTbl').DataTable({
                     //custom search bar 
                     "language": {
                         searchPlaceholder: "Search Document"
@@ -140,8 +272,30 @@ $all_message = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                         //$('#test1').style.remove('width');
                     },
                 });
+                $('#supervisorCompanyMapListTbl').DataTable({
+                        //custom search bar 
+                        "language": {
+                            searchPlaceholder: "Search records"
+                        },
+                        "searchBox": {
+                            "addClass": 'form-control input-lg col-xs-12'
+                        },
+
+                        "fnDrawCallback": function() {
+                            $("input[type='search']").attr("id", "searchBox");
+                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                            //$('#searchBox').css("width", "250px");
+                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+
+                            $('.sorting').css("width", "");
+                            //$('#test1').style.remove('width');
+                        },
+                    });
             });
         </script>
+        
         <script src="../../js/classie.js"></script>
         <script src="../../js/bootstrap.js"> </script>
 

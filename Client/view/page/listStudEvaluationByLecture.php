@@ -84,7 +84,7 @@ try {
                                     <select id="internshipBatchID" name="internshipBatchID" class="form-control" onchange="insertStudDetail();">
                                         <option selected disabled value="">Choose...</option>
                                         <?php
-                                        include('../../includes/db_connection.php');
+                                        include_once('../../includes/db_connection.php');
                                         $db_handle = new DBController();
                                         $query = "SELECT * FROM InternshipBatch";
                                         $results = $db_handle->runQuery($query);
@@ -188,6 +188,7 @@ try {
                     const internshipBatchID = document.getElementById("internshipBatchID").value;
                     const lectureID = document.getElementById("lectureID").value;
                     const getStudPhp = '../../app/DAL/ajaxGetStudListForEvaluation.php?lectureID=' + lectureID + '&internshipBatchID=' + internshipBatchID;
+                    console.log(getStudPhp);
                     let getStudRespond = await fetch(getStudPhp);
                     let StudObj = await getStudRespond.json();
                     return StudObj;

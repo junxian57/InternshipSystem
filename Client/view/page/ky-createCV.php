@@ -255,7 +255,7 @@ if (isset($_POST['update'])) {
 
     $queryGetRubricAssessmentID = "SELECT assessmentID,RoleForMark FROM `RubricAssessment` ra , Programme p , Department d
         WHERE ra.facultyID=d.facultyID AND d.departmentID=p.departmentID
-        AND ra.internshipBatchID='$internBatch' AND p.programmeID='$programme'";
+        AND ra.internshipBatchID='$internBatch' AND p.programmeID='$programme' AND ra.status='activate'";
 
     $result1 = mysqli_query($conn, $queryGetRubricAssessmentID);
 

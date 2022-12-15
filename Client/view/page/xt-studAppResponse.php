@@ -1,13 +1,16 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-?>
+	include('../../includes/db_connection.php');
 
-<?php
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+    
+  if (!isset($_SESSION['companyID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $companyID = $_SESSION['companyID'];
+  }
+
 	if(isset($_GET['InternAppID'])){
     $internAppID = $_GET['InternAppID'];
   }
@@ -44,6 +47,13 @@ include('includes/dbconnection.php');
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    #studentCV{
+      width: 890px;
+      height: 1000px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -220,13 +230,16 @@ include('includes/dbconnection.php');
             </div>
 
             <div class="subtitle">
-              <h2 class="sub-3">Supporting Document</h2>
+              <h2 class="sub-3">Supporting Document - Student CV</h2>
             </div>
             
             <div class="inputBox">
               <div class="viewInput">
-                <span>Student CV</span>
-                <input type="file" name="studCV" readonly value="<?php echo$studCV; ?>">
+                <div id="studentCV">
+                <?php
+                  echo '<iframe src="../../../Client/view/document/StudentCV/'.$studentID.' - '.$studName.'.pdf" width="100%" style="height:100%"></iframe>';
+                ?>
+                </div>
               </div>
             </div>
             
@@ -291,7 +304,7 @@ include('includes/dbconnection.php');
 
       if ((mysqli_query($conn, $sql)) && (mysqli_query($conn, $query))){
         $success = $mailConfig->singleEmail(
-          $studEmail, 
+          'wongxt-wm19@student.tarc.edu.my', 
           $subject, 
           rejectApp($studName, $cmpName, $internAppID, $reason)
         );

@@ -75,7 +75,7 @@ if(isset($_GET['studentEmail']) && isset($_GET['studentPass']) && isset($_GET['s
 
         if(password_verify($lecturerPass, $lecturerHashedPass)){
             $_SESSION['lecturerID'] = $result[0]['lecturerID'];
-            
+            $_SESSION['lecName'] = $result[0]['lecName'];
             echo json_encode("Login Successful");
         }else{
             echo json_encode("Wrong Password");

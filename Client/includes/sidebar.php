@@ -21,13 +21,14 @@ if (isset($_SESSION)) {
               <li>
                 <a href="../page/br-StudentSupervisor-Manage.php">Student Management</a>
               </li>
+
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
               <li>
-                <a href="#"><i class="fa fa-building-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level collapse">
-                  <li>
-                    <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
-                  </li>
-                </ul>
+                <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
               </li>
             </ul>
           </li>
@@ -101,6 +102,20 @@ if (isset($_SESSION)) {
 
         <?php if ($studentID) { ?>
           <li>
+            <a href="../page/xt-companiesList.php"><i class="fa fa-book nav_icon"></i>Companies<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-companiesList.php">Companies List</a>
+              </li>
+              <li>
+                <a href="../page/xt-searchJob.php">Search Job</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
+        <?php if ($studentID) { ?>
+          <li>
             <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse">
               <li>
@@ -119,6 +134,25 @@ if (isset($_SESSION)) {
         <?php if ($studentID) { ?>
           <li>
             <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-studInterviewList.php">My Interview</a>
+              </li>
+              <li>
+                <a href="../page/xt-studOfferList.php">My Offer</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
+        <?php if ($companyID) { ?>
+          <li>
+            <a href="xt-companyResponse.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-companyResponse.php">Application List</a>
+              </li>
+            </ul>
           </li>
         <?php } ?>
 
@@ -138,18 +172,6 @@ if (isset($_SESSION)) {
             <a href="jx-displayEvaluationTemplate.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           </li>
         <?php } ?>
-        <?php if ($companyID) { ?>
-          <li>
-            <a href="jx-listStudEvaluationByCompany.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
-          </li>
-        <?php } ?>
-        <?php if ($lecturerID) { ?>
-          <li>
-            <a href="listStudEvaluationByLecture.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
-          </li>
-        <?php } ?>
-       
-       
         <li>
           <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Document<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -168,9 +190,9 @@ if (isset($_SESSION)) {
             </li>
           </ul>
         </li>
-       
-       
-       
+
+
+
         <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
@@ -184,7 +206,7 @@ if (isset($_SESSION)) {
         </li>
 
 
-        
+
         <li>
           <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
