@@ -21,13 +21,14 @@ if (isset($_SESSION)) {
               <li>
                 <a href="../page/br-StudentSupervisor-Manage.php">Student Management</a>
               </li>
+
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
               <li>
-                <a href="#"><i class="fa fa-building-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level collapse">
-                  <li>
-                    <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
-                  </li>
-                </ul>
+                <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
               </li>
             </ul>
           </li>
