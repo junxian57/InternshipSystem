@@ -60,6 +60,7 @@ if(isset($_GET['rejectInterview'])){
 
 if(isset($_GET['internAppID'])){
   $internAppID = $_GET['internAppID'];
+  $appStudRejectReason = $_POST['appStudRejectReason'];
   $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
   $run_intvw = mysqli_query($conn, $sql);
   $row_intvw = mysqli_fetch_array($run_intvw);
@@ -83,8 +84,13 @@ if(isset($_GET['internAppID'])){
   $run_stud = mysqli_query($conn, $get_stud);
   $row_stud = mysqli_fetch_array($run_stud);
   $studentName = $row_stud['studName'];
+
+	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+  $run_cmp = mysqli_query($conn, $get_cmp);
+	$row_cmp = mysqli_fetch_array($run_cmp);
+	$cmpName = $row_cmp['cmpName'];
   
-  $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview' WHERE internAppID='$internAppID'";
+  $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Reject Interview', appStudRejectReason = '$appStudRejectReason' WHERE internAppID='$internAppID'";
   if ((mysqli_query($conn, $query))){
     $success = $mailConfig->singleEmail(
       'wongxt-wm19@student.tarc.edu.my', 
@@ -234,7 +240,7 @@ function rejectInterview($name, $studentName){
         <div class="closeR">+</div>
       </div> 
       <form id="rejectForm" method="POST" action="xt-rejectInterview.php?internAppID=<?php echo $internAppID; ?>">
-        <textarea id="reason" name="reason" rows="4" placeholder="Reason of Reject Interview Session*" required></textarea>
+        <textarea id="reason" name="appStudRejectReason" rows="4" placeholder="Reason of Reject Interview Session*" required></textarea>
         <button type="submit" id="confirmBtn" class="confirmBtn" name="confirm">Confirm</button>
       </form>
     </div>
