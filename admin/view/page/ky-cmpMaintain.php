@@ -88,7 +88,7 @@ include('../../includes/db_connection.php');
                                             <th>Email</th>
                                             <th>Contact No</th>
                                             <th>Account Status</th>
-                                            <th>Date Joined</th>
+                                            <th>Date Added</th>
                                             <th>Action</th>
                                             </tr>
                                         </thead>
@@ -144,7 +144,10 @@ include('../../includes/db_connection.php');
                                             
                                         </tbody>
                                     </table>
-                                </div>
+                                    <form action="ky-exportCmpDetails.php" method="POST">
+                                        <button class="clickable-btn Export" type = "submit" name="ExportAllcmp">Export All Company Details</button>
+                                    </form>
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -201,7 +204,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
+                                <label>Date Added :</label>
                                 <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined" readonly>
                                 <i class='fa fa-calendar icon'></i>
                             </div>
@@ -367,7 +370,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
+                                <label>Date Added :</label>
                                 <input type="text" placeholder="Date Joined" name ="dateJoined" id="input_dateJoined2" required readonly>
                                 <i class='fa fa-calendar icon'></i>
                             </div>
