@@ -127,7 +127,7 @@
                               </table>
                               <div class='cmpLFooter'>
                                 <a class='cmpL-btn' id='acceptOffer' href='xt-studOfferList.php?acceptOffer=<?php echo "$internAppID"; ?>' style='background: #6af071;'>Accept</a>
-                                <a class='cmpL-btn' id='declineOffer' href='xt-studOfferList.php?declineOffer=<?php echo "$internAppID"; ?>' style='background: tomato;'>Decline</a>
+                                <a class='cmpL-btn' id='declineOffer' href='xt-rejectOffer.php?declineOffer=<?php echo "$internAppID"; ?>' style='background: tomato;'>Decline</a>
                               </div>
                             <?php }elseif ($appStudFeedback == 'Accept Offer'){ ?>
                                 </tbody>
@@ -204,7 +204,7 @@
         }
       }
 
-      if(isset($_GET['declineOffer'])){
+      /*if(isset($_GET['declineOffer'])){
         $internAppID = $_GET['declineOffer'];
         $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
         $run_off = mysqli_query($conn, $sql);
@@ -237,7 +237,7 @@
         }else{
           echo "Error: " . $sql . mysqli_error($conn);
         }
-      }
+      }*/
 
       function acceptOffer($name, $jobTitle, $cmpName, $internStartDate, $studName){
         $html = "
@@ -261,7 +261,7 @@
         return $html;
       }
 
-      function declineOffer($name, $jobTitle, $studName){
+      /*function declineOffer($name, $jobTitle, $studName){
         $html = "
         <html>
           <head>
@@ -278,7 +278,7 @@
         </html>";
   
         return $html;
-      }
+      }*/
     ?>
 
   <script src="../../js/classie.js"></script>

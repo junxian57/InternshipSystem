@@ -83,6 +83,14 @@
   height: 35px;
 }
 
+.rejectOffer {
+  font-weight: 600;
+  color: white;
+  background: tomato;
+  width: 85px;
+  height: 35px;
+}
+
 .backBtn {
   font-weight: 600;
   color: white;
