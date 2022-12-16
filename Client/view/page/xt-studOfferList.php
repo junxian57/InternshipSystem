@@ -122,7 +122,7 @@
                             <td><?php echo $appInternEndDate; ?></td>
                           </tr>
                           <?php
-                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Decline Offer')){ ?>
+                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Reject Offer')){ ?>
                                 </tbody>
                               </table>
                               <div class='cmpLFooter'>
@@ -135,7 +135,7 @@
                               <div class='cmpLFooter'>
                                 <a class='cmpL-btn' id='acceptOffer' style='background: #6af071;'>Accepted</a>
                               </div>
-                            <?php }elseif ($appStudFeedback == 'Decline Offer'){ ?>
+                            <?php }elseif ($appStudFeedback == 'Reject Offer'){ ?>
                                 </tbody>
                               </table>
                               <div class='cmpLFooter'>
