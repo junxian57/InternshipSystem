@@ -387,6 +387,11 @@
 											<span aria-hidden="true">Student Response</span>
 										</button>
 									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Remarks</span>
+										</button>
+									</th>
                   <th>Action</th>
 								</tr>
 							</thead>
@@ -408,6 +413,7 @@
 											$studentID = $row_internApp['studentID'];
 											$app_Status = $row_internApp['appStatus'];
 											$appStudentFeedback = $row_internApp['appStudentFeedback'];
+											$appStudRejectReason = $row_internApp['appStudRejectReason'];
 
 											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
 											$runStud = mysqli_query($conn, $getStud);
@@ -426,6 +432,7 @@
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
 									<td><?php echo $appStudentFeedback; ?></td>
+									<td style="color: red;"><?php echo $appStudRejectReason; ?></td>
                   <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
