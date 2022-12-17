@@ -1,6 +1,7 @@
 <?php
     session_start();
     error_reporting(0);
+    include('../../includes/db_connection.php');
 
     if(isset($_SESSION['studentChangePass'])){
         header('Location: clientChangePassword.php?requireChangePass&notAllowed');
@@ -54,6 +55,25 @@
                     <form action="ky-manageUpdateCV.php" method="post">
                     
                         <h3 class="page-title">Update student CV</h3>
+                        <hr />
+                        <?php
+                            $db = new DBController();
+                                
+                            $sql = "select * from Student where studentID ='$id'"; 
+                            $result = $db->runQuery($sql);
+
+                            if(count($result) > 0){
+                                foreach ($result as $student) {
+
+                                    $pdf = $student['studentCVdocument'];
+                        ?>
+                                    <h4 style=" margin-top: 40px;" >Current CV:   <a href="../../app/BLL/previewCV.php?path=<?php echo $pdf; ?>">view</a></h4>
+                                    
+                                <?php                                                                           
+                                }
+                            }
+                            
+                        ?>
 
                         <input type="hidden" name="stdID" value="<?php echo $studentID ?>">
 

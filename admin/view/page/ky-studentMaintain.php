@@ -29,7 +29,7 @@ include('../../includes/db_connection.php');
             window.scrollTo(0, 1);
         }
     </script>
-    
+
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="../../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
@@ -137,6 +137,9 @@ include('../../includes/db_connection.php');
                                 
                                         </tbody>
                                     </table>
+                                    <form action="ky-exportCmpDetails.php" method="POST">
+                                        <button class="clickable-btn Export" type = "submit" name="ExportAllstud">Export All Student Details</button>
+                                    </form>
                                 </div>
             
                             </div>
@@ -195,7 +198,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
+                                <label>Date Added :</label>
                                 <input type="text" id="input_dateJoined2" required readonly>
                                 <i class='fa fa-calendar icon'></i>
                             </div>
@@ -323,7 +326,7 @@ include('../../includes/db_connection.php');
                             </div>
 
                             <div class="pass-box">
-                                <label>Date Jioned :</label>
+                                <label>Date Added :</label>
                                 <input type="text" name="dateJoined" id="input_dateJoined" required readonly>
                                 <i class='fa fa-calendar icon'></i>
                             </div>

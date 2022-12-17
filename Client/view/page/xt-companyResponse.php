@@ -10,6 +10,13 @@
 	} else {
     $companyID = $_SESSION['companyID'];
   }
+
+	$host = "sql444.main-hosting.eu";
+	$user = "u928796707_group34";
+	$password = "u1VF3KYO1r|";
+	$database = "u928796707_internshipWeb";
+																						
+	$conn = mysqli_connect($host, $user, $password, $database); 
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -108,13 +115,6 @@
 
 							<tbody>
 							<?php
-								$host = "sql444.main-hosting.eu";
-								$user = "u928796707_group34";
-								$password = "u1VF3KYO1r|";
-								$database = "u928796707_internshipWeb";
-																						
-								$conn = mysqli_connect($host, $user, $password, $database); 
-
 									$get_intern = "SELECT * FROM InternJob WHERE companyID = '$companyID'";
 									$run_intern = mysqli_query($conn, $get_intern);
 									while($row_intern = mysqli_fetch_array($run_intern)){
@@ -201,13 +201,6 @@
 							<tbody>
 							<?php $i = 0; ?>
 							<?php
-								$host = "sql444.main-hosting.eu";
-								$user = "u928796707_group34";
-								$password = "u1VF3KYO1r|";
-								$database = "u928796707_internshipWeb";
-																						
-								$conn = mysqli_connect($host, $user, $password, $database); 
-
 									$get_intern = "SELECT * FROM InternJob WHERE companyID = '$companyID'";
 									$run_intern = mysqli_query($conn, $get_intern);
 									while($row_intern = mysqli_fetch_array($run_intern)){
@@ -293,6 +286,11 @@
 											<span aria-hidden="true">Student Response</span>
 										</button>
 									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Remarks</span>
+										</button>
+									</th>
                   <th>Action</th>
 								</tr>
 							</thead>
@@ -300,13 +298,6 @@
 							<tbody>
 							<?php $i = 0; ?>
 							<?php
-								$host = "sql444.main-hosting.eu";
-								$user = "u928796707_group34";
-								$password = "u1VF3KYO1r|";
-								$database = "u928796707_internshipWeb";
-																						
-								$conn = mysqli_connect($host, $user, $password, $database); 
-
 									$get_intern = "SELECT * FROM InternJob WHERE companyID = '$companyID'";
 									$run_intern = mysqli_query($conn, $get_intern);
 									while($row_intern = mysqli_fetch_array($run_intern)){
@@ -321,6 +312,7 @@
 											$studentID = $row_internApp['studentID'];
 											$app_Status = $row_internApp['appStatus'];
 											$appStudentFeedback = $row_internApp['appStudentFeedback'];
+											$appStudRejectReason = $row_internApp['appStudRejectReason'];
 
 											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
 											$runStud = mysqli_query($conn, $getStud);
@@ -339,6 +331,7 @@
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
 									<td><?php echo $appStudentFeedback; ?></td>
+									<td style="color: red;"><?php echo $appStudRejectReason; ?></td>
                   <td><a class="view" href="xt-studAppResponse.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
@@ -394,6 +387,11 @@
 											<span aria-hidden="true">Student Response</span>
 										</button>
 									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Remarks</span>
+										</button>
+									</th>
                   <th>Action</th>
 								</tr>
 							</thead>
@@ -401,13 +399,6 @@
 							<tbody>
 							<?php $i = 0; ?>
 							<?php
-								$host = "sql444.main-hosting.eu";
-								$user = "u928796707_group34";
-								$password = "u1VF3KYO1r|";
-								$database = "u928796707_internshipWeb";
-																						
-								$conn = mysqli_connect($host, $user, $password, $database); 
-
 									$get_intern = "SELECT * FROM InternJob WHERE companyID = '$companyID'";
 									$run_intern = mysqli_query($conn, $get_intern);
 									while($row_intern = mysqli_fetch_array($run_intern)){
@@ -422,6 +413,7 @@
 											$studentID = $row_internApp['studentID'];
 											$app_Status = $row_internApp['appStatus'];
 											$appStudentFeedback = $row_internApp['appStudentFeedback'];
+											$appStudRejectReason = $row_internApp['appStudRejectReason'];
 
 											$getStud = "SELECT * FROM Student WHERE studentID = '$studentID'";
 											$runStud = mysqli_query($conn, $getStud);
@@ -440,6 +432,7 @@
 									<td><?php echo $jobTitle; ?></td>
                   <td><?php echo $app_Status; ?></td>
 									<td><?php echo $appStudentFeedback; ?></td>
+									<td style="color: red;"><?php echo $appStudRejectReason; ?></td>
                   <td><a class="view" href="xt-studentAppReview.php?InternAppID=<?php echo $internApp_ID; ?>">View</a></td>
                 </tr>
 								<?php } } ?>
@@ -497,13 +490,6 @@
 							<tbody>
 							<?php $i = 0; ?>
 							<?php
-								$host = "sql444.main-hosting.eu";
-								$user = "u928796707_group34";
-								$password = "u1VF3KYO1r|";
-								$database = "u928796707_internshipWeb";
-																						
-								$conn = mysqli_connect($host, $user, $password, $database); 
-
 									$get_intern = "SELECT * FROM InternJob WHERE companyID = '$companyID'";
 									$run_intern = mysqli_query($conn, $get_intern);
 									while($row_intern = mysqli_fetch_array($run_intern)){

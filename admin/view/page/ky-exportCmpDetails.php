@@ -178,4 +178,94 @@ include('../../includes/db_connection.php');
         
     }
 
+    //use PhpOffice\PhpSpreadsheet\Spreadsheet;
+    //use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+    //use PhpOffice\PhpSpreadsheet\Writer\Xls;
+    //use PhpOffice\PhpSpreadsheet\Writer\Csv;
+
+    if(isset($_POST['ExportAllcmp'])){
+
+        $date = Date('Y-m-d');
+        $filename = "Companies details - $date";
+
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; Filename = $filename.xls");
+        require 'ky-cmpData.php';
+    }
+
+
+        /*if(count($result1) > 0){
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->setCellValue('A1', 'ID');
+            $sheet->setCellValue('B1', 'Name');
+            $sheet->setCellValue('C1', 'Date Added');
+            $sheet->setCellValue('D1', 'Email');
+            $sheet->setCellValue('E1', 'Contact Number');
+            $sheet->setCellValue('F1', 'Companu Contact Person');
+            $sheet->setCellValue('G1', 'Size');
+            $sheet->setCellValue('H1', 'Address');
+            $sheet->setCellValue('I1', 'State');
+            $sheet->setCellValue('J1', 'City');
+            $sheet->setCellValue('K1', 'Post Code');
+            $sheet->setCellValue('L1', 'Company Fields Area');
+            $sheet->setCellValue('M1', 'Company Internship Placement');
+            $sheet->setCellValue('N1', 'Account Status');
+            $sheet->setCellValue('O1', 'Rating');
+
+            $rowCount = 2;
+            foreach ($result1 as $company1) {
+
+                $sheet->setCellValue('A'.$company1['companyID']);
+                $sheet->setCellValue('B'.$company1['cmpName']);
+                $sheet->setCellValue('C'.$company1['cmpDateJoined']);
+                $sheet->setCellValue('D'.$company1['cmpEmail']);
+                $sheet->setCellValue('E'.$company1['cmpContactNumber']);
+                $sheet->setCellValue('F'.$company1['cmpContactPerson']);
+                $sheet->setCellValue('G'.$company1['cmpCompanySize']);
+                $sheet->setCellValue('H'.$company1['cmpAddress']);
+                $sheet->setCellValue('I'.$company1['cmpState']);
+                $sheet->setCellValue('J'.$company1['cmpCity']);
+                $sheet->setCellValue('K'.$company1['cmpPostCode']);
+                $sheet->setCellValue('L'.$company1['cmpFieldsArea']);
+                $sheet->setCellValue('M'.$company1['cmpNumberOfInternshipPlacements']);
+                $sheet->setCellValue('N'.$company1['cmpAccountStatus']);
+                $sheet->setCellValue('O'.$company1['cmpRating']);
+                $rowCount++;
+            
+            }
+            $writer = new Xls($spreadsheet);
+            $final_filename = $fileName.'.xls';
+
+            // $writer->save($final_filename);
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attactment; filename="'.urlencode($final_filename).'"');
+            $writer->save('php://output');
+
+            }
+            else
+            {
+                echo "
+                    <script>
+                        alert('No record found');
+                        document.location.href = 'ky-cmpMaintain.php';
+                    </script>
+                    ";
+                exit(0);
+            }
+            */
+
+    if(isset($_POST['ExportAllstud'])){
+
+        $date = Date('Y-m-d');
+        $filename = "Students details - $date";
+
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; Filename = $filename.xls");
+        require 'ky-studData.php';
+    }
+        
+        
 ?>

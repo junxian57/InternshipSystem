@@ -21,13 +21,14 @@ if (isset($_SESSION)) {
               <li>
                 <a href="../page/br-StudentSupervisor-Manage.php">Student Management</a>
               </li>
+
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level collapse">
               <li>
-                <a href="#"><i class="fa fa-building-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level collapse">
-                  <li>
-                    <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
-                  </li>
-                </ul>
+                <a href="../page/listStudEvaluationByLecture.php">Evaluation Student Performance</a>
               </li>
             </ul>
           </li>
@@ -171,18 +172,6 @@ if (isset($_SESSION)) {
             <a href="jx-displayEvaluationTemplate.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           </li>
         <?php } ?>
-        <?php if ($companyID) { ?>
-          <li>
-            <a href="jx-listStudEvaluationByCompany.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
-          </li>
-        <?php } ?>
-        <?php if ($lecturerID) { ?>
-          <li>
-            <a href="listStudEvaluationByLecture.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
-          </li>
-        <?php } ?>
-       
-       
         <li>
           <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Document<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -201,9 +190,9 @@ if (isset($_SESSION)) {
             </li>
           </ul>
         </li>
-       
-       
-       
+
+
+
         <li>
           <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
           <ul class="nav nav-second-level collapse">
@@ -217,7 +206,7 @@ if (isset($_SESSION)) {
         </li>
 
 
-        
+
         <li>
           <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">

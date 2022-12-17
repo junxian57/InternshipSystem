@@ -119,7 +119,7 @@
                               </table>
                               <div class='cmpLFooter'>
                                 <a class='cmpL-btn' id='acceptInterview' href='xt-studInterviewList.php?acceptInterview=$internAppID' style='background: #6af071;'>Accept</a>
-                                <a class='cmpL-btn' id='rejectInterview' href='xt-studInterviewList.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
+                                <a class='cmpL-btn' id='rejectInterview' href='xt-rejectInterview.php?rejectInterview=$internAppID' style='background: tomato;'>Reject</a>
                               </div>";
                             }elseif ($appStudFeedback == 'Accept Interview'){
                               echo "</tbody>
@@ -131,7 +131,7 @@
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptInterview' style='background: tomato;'>Rejected</a>
+                                <a class='cmpL-btn' id='rejectedInterview' style='background: tomato;'>Rejected</a>
                               </div>";
                             }
                           ?>
@@ -195,7 +195,7 @@
         }
       }
 
-      if(isset($_GET['rejectInterview'])){
+      /*if(isset($_GET['rejectInterview'])){
         $internAppID = $_GET['rejectInterview'];
         $sql = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
         $run_intvw = mysqli_query($conn, $sql);
@@ -228,7 +228,7 @@
             echo "<script>alert('You have rejected the interview session.')</script>";
           }
         }
-      }
+      }*/
 
       function acceptInterview($name, $studentName, $appInterviewDateTime, $appInterviewDuration, $appInterviewLocation){
         $html = "
@@ -250,7 +250,7 @@
         return $html;
       }
 
-      function rejectInterview($name, $studentName){
+      /*function rejectInterview($name, $studentName){
         $html = "
         <html>
           <head>
@@ -265,7 +265,7 @@
         </html>";
   
         return $html;
-      }
+      }*/
     ?>
 
   <script src="../../js/classie.js"></script>
