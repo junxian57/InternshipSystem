@@ -95,6 +95,11 @@
                       $run_cmp = mysqli_query($conn, $get_cmp);
 								      $row_cmp = mysqli_fetch_array($run_cmp);
 								      $cmpName = $row_cmp['cmpName'];
+
+                      $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                      $run_stud = mysqli_query($conn, $get_stud);
+				              $row_stud = mysqli_fetch_array($run_stud);
+				              $studAccountStatus = $row_stud['studAccountStatus'];
                   ?>
 
                   <div class='cmpL'>
@@ -122,7 +127,7 @@
                             <td><?php echo $appInternEndDate; ?></td>
                           </tr>
                           <?php
-                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Reject Offer')){ ?>
+                            if(($appStudFeedback <> 'Accept Offer') && ($appStudFeedback <> 'Reject Offer') && ($studAccountStatus <> 'Intern')){ ?>
                                 </tbody>
                               </table>
                               <div class='cmpLFooter'>
@@ -133,13 +138,19 @@
                                 </tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptOffer' style='background: #6af071;'>Accepted</a>
+                                <a class='cmpL-btn' id='acceptOffer' style='background: transparent; border: 2px dashed black; cursor: default; color: green; font-size: 14px;'>Accepted</a>
                               </div>
                             <?php }elseif ($appStudFeedback == 'Reject Offer'){ ?>
                                 </tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='declinedOffer' style='background: tomato;'>Declined</a>
+                                <a class='cmpL-btn' id='declinedOffer' style='background: transparent; border: 2px dashed black; cursor:default; color: red;'>Declined</a>
+                              </div>
+                            <?php }elseif ($studAccountStatus == 'Intern'){ ?>
+                                </tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='declinedOffer' style='background: transparent; border: 2px dashed black; cursor:default; color: blue; font-size: 14px;'>Unable to view. You have accept another internship company!</a>
                               </div>
                             <?php } ?>
                        
@@ -192,7 +203,8 @@
 				$cmpName = $row_cmp['cmpName'];
 
         $query = "UPDATE InternApplicationMap SET appStudentFeedback ='Accept Offer' WHERE internAppID = '$internAppID'";
-        if ((mysqli_query($conn, $query))){
+        $updateStudStatus = "UPDATE Student SET studAccountStatus ='Intern' WHERE studentID = '$studentID'";
+        if ((mysqli_query($conn, $query)) && (mysqli_query($conn, $updateStudStatus))){
             $success = $mailConfig->singleEmail(
               'wongxt-wm19@student.tarc.edu.my', 
               'Accept Internship Offer', 
@@ -200,6 +212,7 @@
             );
             if($success){
               echo "<script>alert('You have accepted the internship offer.')</script>";
+              echo "<script>window.open('xt-studOfferList.php','_self')</script>";
             }
         }
       }
