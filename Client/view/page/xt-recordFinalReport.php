@@ -1,77 +1,119 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
-?>
+	include('../../includes/db_connection.php');
 
-<?php
-if(isset($_POST['signaturesave'])){
   $host = "sql444.main-hosting.eu";
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
   $database = "u928796707_internshipWeb";
-                                
+                                              
   $conn = mysqli_connect($host, $user, $password, $database); 
+	
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-  $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
-	$result = mysqli_query($conn, $query);
-	$row = mysqli_fetch_array($result);
-	$lastID = $row['monthlyReportID'];
-	if($lastID == "") {
-		$monthlyReportID = "MRPT1001";
-	} else {
-		$monthlyReportID = substr($lastID, 4);
-		$monthlyReportID = intval($monthlyReportID);
-		$monthlyReportID = "MRPT".($monthlyReportID + 1);
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
 	}
 
-  $studID = "21WMR04845";
-  $cmpID = "CMP00001";
-  $studName = $_POST['studName'];
-  $cmpName = $_POST['cmpName'];
-  $monthYear = $_POST['monthYear'];
-  $week1 = $_POST['week1'];
-  $week2 = $_POST['week2'];
-  $week3 = $_POST['week3'];
-  $week4 = $_POST['week4'];
-  $problem = $_POST['problem'];
-  $leaveTaken = $_POST['leaveTaken'];
-  $leaveTakens = $_POST['leaveDays'];
-  $status = "Saved";
-
-  if($leaveTaken == 'NO'){
-    $leaveReasons = "N/A";
-  }
-  else{
-    $leaveReasons = $_POST['leaveReason'];
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+    $getStudApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
+		$runStudApp = mysqli_query($conn, $getStudApp);
+    if(!(mysqli_num_rows($runStudApp) > 0)){
+			echo "<script>alert('Access blocked! You have not found an internship company yet!')</script>";     
+      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+		}
   }
 
-  $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$leaveReasons', '$status')";
-  if (mysqli_query($conn, $sql)) {
-    echo "<script>alert('The report have been saved into database.')</script>";     
-    echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
-  } else {
-    echo "Error: " . $sql . mysqli_error($conn);
-  }   
-}
+  $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+  $run_stud = mysqli_query($conn, $get_stud);
+  $row_stud = mysqli_fetch_array($run_stud);
+  $studName = $row_stud['studName'];
+
+  $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
+  $runInternApp = mysqli_query($conn, $getInternApp);
+  $rowInternApp = mysqli_fetch_array($runInternApp);
+  $internAppID = $rowInternApp['internAppID'];
+  $internJobID = $rowInternApp['internJobID'];
+
+  $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
+  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
+  $cmpID = $rowCmpInfo['companyID'];
+
+	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+  $run_cmp = mysqli_query($conn, $get_cmp);
+	$row_cmp = mysqli_fetch_array($run_cmp);
+	$cmpName = $row_cmp['cmpName'];
+  
+  if(isset($_POST['signaturesave'])){
+    $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
+	  $result = mysqli_query($conn, $query);
+	  $row = mysqli_fetch_array($result);
+	  $lastID = $row['monthlyReportID'];
+	  if($lastID == "") {
+		  $monthlyReportID = "MRPT1001";
+	  } else {
+		  $monthlyReportID = substr($lastID, 4);
+		  $monthlyReportID = intval($monthlyReportID);
+		  $monthlyReportID = "MRPT".($monthlyReportID + 1);
+	  }
+
+    $studName = $_POST['studName'];
+    $cmpName = $_POST['cmpName'];
+    $monthYear = $_POST['monthYear'];
+    $week1 = $_POST['week1'];
+    $week2 = $_POST['week2'];
+    $week3 = $_POST['week3'];
+    $week4 = $_POST['week4'];
+    $problem = $_POST['problem'];
+    $leaveTaken = $_POST['leaveTaken'];
+    $leaveTakens = $_POST['leaveDays'];
+    $status = "Saved";
+
+    if($leaveTaken == 'NO'){
+      $fromDate = "NULL";
+      $toDate = "NULL";
+      $leaveReasons = "N/A";
+    }
+    else{
+      $fromDate = $_POST['fromDate'];
+      $toDate = $_POST['toDate'];
+      $leaveReasons = $_POST['leaveReason'];
+    }
+
+    $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveFrom, leaveTill, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$fromDate','$toDate','$leaveReasons', '$status')";
+    if (mysqli_query($conn, $sql)) {
+      echo "<script>alert('The report have been saved into database.')</script>";     
+      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+    } else {
+      echo "Error: " . $sql . mysqli_error($conn);
+    }   
+  }
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<title>ITP System | Final Report</title>
+
+  <script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/toastr.min.js"></script>
+  <script src="../../js/customToastr.js"></script>
+  <link href="../../css/toastr.min.css" rel="stylesheet">
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-workProgress.css" rel="stylesheet">
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
-	<link href="../../css/custom.css" rel="stylesheet">
+	<link href="../../css/xt-finalReport.css" rel="stylesheet">
 
-	<script src="../../js/jquery-1.11.1.min.js"></script>
 	<script src="../../js/modernizr.custom.js"></script>
 	<script src="../../js/wow.min.js"></script>
 	<script src="../../js/metisMenu.min.js"></script>
@@ -93,6 +135,22 @@ if(isset($_POST['signaturesave'])){
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+  <style>
+    .tablesr{
+      margin-top: 100px;
+    }
+
+    .title1{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
+    .container{
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+  </style>
 </head>
 
 <body class="cbp-spmenu-push">
@@ -103,7 +161,7 @@ if(isset($_POST['signaturesave'])){
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Final Report</h3>
-          <form method="post" action="xt-recordFinalReport.php" enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
@@ -112,101 +170,119 @@ if(isset($_POST['signaturesave'])){
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
-                  <input type="text" name="studName" readonly value="<?php echo 'Wong Xiao Tong';?>">
+                  <input type="text" name="studName" readonly value="<?php echo $studName;?>">
                 </div>
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="Smart Teq Solution Sdn Bhd">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName;?>">
                 </div>
 
                 <div class="viewInput">
-                  <span>Month / Year</span>
-                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo date('F Y'); ?>">
+                  <span>Intern Start Date</span>
+                  <input type="date" name="internStartDate" id="internStartDate" readonly value="<?php echo date('F Y'); ?>">
+                </div> 
+
+                <div class="viewInput">
+                  <span>Intern End Date</span>
+                  <input type="date" name="internEndDate" id="internEndDate" readonly value="<?php echo date('F Y'); ?>">
                 </div> 
               </div>
 
               <div class="subtitle">
-                <h2 class="sub-2">Weekly Projects / Activities</h2>
+                <h2 class="sub-2">Acknowledgements</h2>
               </div>
             
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" onPaste="return false" placeholder="Summarize Week 1 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="acknowledgements" id="acknowledgements" oninput="countWord()" onPaste="return false" placeholder="Expression of appreciation to the company, faculty, individuals, etc."></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
+              </div>
 
+              <div class="subtitle">
+                <h2 class="sub-3">Abstract</h2>
+              </div>
+
+              <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" onPaste="return false" placeholder="Summarize Week 2 projects and activities within 300 words."></textarea>
+                  <textarea type="text" name="abstract" id="abstract" oninput="countWord2()" onPaste="return false" placeholder="Summary of report with 200 to 300 words. It is to be written in the past tense. The abstract description should include the organisation and department with which the student was attached to, the assigned tasks, the achievements, and the learning experience gained during the training period."></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
-
-                <div class="viewInput" style="width:100%;">
-                  <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" onPaste="return false" placeholder="Summarize Week 3 projects and activities within 300 words."></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
-                </div> 
-
-                <div class="viewInput" style="width:100%;">
-                  <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" onPaste="return false" placeholder="Summarize Week 4 projects and activities within 300 words."></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
-                </div> 
-              </div>
-            
-              <div class="subtitle">
-                <h2 class="sub-3">Problems Faced / Comments / Additional information</h2>
-              </div>
-            
-              <div class="inputBox">
-                <div class="viewInput" style="width:100%;">
-                  <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"></textarea>
-                </div>
               </div>
 
               <div class="subtitle">
-                <h2 class="sub-4">Leave Application / Leave Taken</h2>
+                <h2 class="sub-4">Chapter 1: Introduction</h2>
               </div>
 
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Any leave taken?</span><br>
-                  <select name="leaveTaken" id="leaveTaken">
-                    <option value="YES">Yes</option>
-                    <option value="NO" selected>No</option>
-                  </select>
-                </div>
+                  <span>Industrial training scheme</span>
+                  <textarea type="text" name="trainingScheme" id="trainingScheme" oninput="countWord3()" onPaste="return false" placeholder="A brief description on the course objectives, duration, etc"></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 200]</span></div>
+                </div> 
 
-                <div class="viewInput">
-                  <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" disabled>
-                </div>
+                <div class="viewInput" style="width:100%;">
+                  <span>Industrial training scopes</span>
+                  <textarea type="text" name="trainingScope" id="trainingScope" oninput="countWord4()" onPaste="return false" placeholder="A summary of trainee’s job roles and responsibilities, etc."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Company background</span>
+                  <textarea type="text" name="cmpBackground" id="cmpBackground" oninput="countWord5()" onPaste="return false" placeholder="Describe the background and details of the company."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show5">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Business operation</span>
+                  <textarea type="text" name="businessOperation" id="businessOperation" oninput="countWord6()" onPaste="return false" placeholder="Describe the basic operation perform by the company."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show6">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Structures of project</span>
+                  <textarea type="text" name="projectStructure" id="projectStructure" oninput="countWord7()" onPaste="return false" placeholder="Describe the structures of organisation/project."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show7">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Training department</span>
+                  <textarea type="text" name="trainingDept" id="trainingDept" oninput="countWord8()" onPaste="return false" placeholder="Explain the structure your training department."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show8">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Training personnel</span>
+                  <textarea type="text" name="trainingPersonnel" id="trainingPersonnel" oninput="countWord9()" onPaste="return false" placeholder="Describe the personnel of training organisation and department."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show9">0</span><span> / 200]</span></div>
+                </div> 
+              </div>
             
-                <div class="viewInput">
-                  <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" disabled>
-                </div>
-
-                <div class="viewInput">
-                  <span>Number of Days Taken</span>
-                  <input type="text" name="leaveDays" id="leaveDays" value="0" readonly>
-                </div>
-
-                <div class="viewInput">
-                  <span>Reasons for taking leave</span>
-                  <input type="text" name="leaveReason" id="leaveReason" value="N/A" disabled>
+              <div class="subtitle">
+                <h2 class="sub-5">Chapter 2: Project Background and Responsibilities</h2>
+              </div>
+            
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <textarea type="text" name="projectBackground" id="projectBackground" oninput="countWord10()" onPaste="return false" placeholder="Describe the project background, job responsibilities, experiences, details of work undertaken, problems faced, technology exposure, whether you have become aware of business opportunities and gained entrepreneurial skills as well as describe how you plan practise entrepreneurship in the future."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show10">0</span><span> / 500]</span></div>
                 </div>
               </div>
 
               <div class="subtitle">
-                <h2 class="sub-4">Digital Signature</h2>
+                <h2 class="sub-6">Chapter 3: Conclusions & Recommendations</h2>
+              </div>
+
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <textarea type="text" name="conclusion" id="conclusion" oninput="countWord11()" onPaste="return false" placeholder="State your opinion and recommendations regarding experiences in the industry and future expectation, etc."></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show11">0</span><span> / 500]</span></div>
+                </div>
               </div>
 
               <div id="signature-pad">
-                  <div id="canvasDiv"></div>
+                  <div id="canvasDiv" style="display: none;"></div>
                   <br>
                   <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
                   <button type="button" class="btn btn-success" id="btn-save" name="save">Save</button>
@@ -222,6 +298,20 @@ if(isset($_POST['signaturesave'])){
   </div>
 
   <script>
+    $(document).ready(function(){
+      var form = $('#signatureform'),
+        original = form.serialize()
+      
+        form.submit(function(){
+        window.onbeforeunload = null
+      })
+
+      window.onbeforeunload = function(){
+        if (form.serialize() != original)
+          return 'Are you sure you want to leave?'
+      }
+    })
+
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');
@@ -361,7 +451,7 @@ if(isset($_POST['signaturesave'])){
               context.stroke();
             }
           }
-        })
+    })
   </script>
 
   <script>
@@ -414,25 +504,45 @@ if(isset($_POST['signaturesave'])){
         }
       });
     });*/
-    let submit = document.getElementById("toDate");
-    let output = document.getElementById("leaveDays");
 
-    submit.addEventListener("change", () => {
+    function dateStrToObj(dateStr) {
+      const [year, month, date] = dateStr.split('-').map(Number)
+      return new Date(year, month - 1, date)
+    }
+    
+    function onChange() {
+      let output = document.getElementById("leaveDays");
       let fromDate = new Date(document.getElementById("fromDate").value);
       let toDate = new Date(document.getElementById("toDate").value);
-
-      if(fromDate.getTime() && toDate.getTime()){
-        let timeDifference = toDate.getTime() - fromDate.getTime();
-
-        let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
-        output.value = dayDifference;
+      const startDateStr = document.querySelector('#fromDate').value
+      const endDateStr = document.querySelector('#toDate').value
+      
+      if (!startDateStr || !endDateStr) return
+      const startDate = dateStrToObj(startDateStr)
+      const endDate = dateStrToObj(endDateStr)
+      
+      if (endDate.valueOf() < startDate.valueOf()) {
+        warning('End date is before start date!');
+        document.getElementById("toDate").value = document.getElementById("fromDate").value
       }
-    });
+      else{
+        if(fromDate.getTime() && toDate.getTime()){
+          let timeDifference = toDate.getTime() - fromDate.getTime();
+
+          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+          output.value = dayDifference;
+        }
+      }
+    }
+    
+    for (const dateInput of document.querySelectorAll('input[type=date]')) {
+      dateInput.addEventListener('change', onChange)
+    }
   </script>
 
   <script>
     function countWord() {
-      var words = document.getElementById("week1").value;
+      var words = document.getElementById("acknowledgements").value;
       var count = 0;
       var split = words.split(' ');
       for (var i = 0; i < split.length; i++) {
@@ -445,7 +555,7 @@ if(isset($_POST['signaturesave'])){
     }
 
     function countWord2() {
-      var words = document.getElementById("week2").value;
+      var words = document.getElementById("abstract").value;
       var count = 0;
       var split = words.split(' ');
       for (var i = 0; i < split.length; i++) {
@@ -458,7 +568,7 @@ if(isset($_POST['signaturesave'])){
     }
 
     function countWord3() {
-      var words = document.getElementById("week3").value;
+      var words = document.getElementById("trainingScheme").value;
       var count = 0;
       var split = words.split(' ');
       for (var i = 0; i < split.length; i++) {
@@ -471,7 +581,7 @@ if(isset($_POST['signaturesave'])){
     }
 
     function countWord4() {
-      var words = document.getElementById("week4").value;
+      var words = document.getElementById("trainingScope").value;
       var count = 0;
       var split = words.split(' ');
       for (var i = 0; i < split.length; i++) {
@@ -482,8 +592,99 @@ if(isset($_POST['signaturesave'])){
     
       document.getElementById("show4").innerHTML = count;
     }
+
+    function countWord5() {
+      var words = document.getElementById("cmpBackground").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
     
-    document.getElementById("week1").addEventListener("keypress", function(evt){
+      document.getElementById("show5").innerHTML = count;
+    }
+
+    function countWord6() {
+      var words = document.getElementById("businessOperation").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show6").innerHTML = count;
+    }
+
+    function countWord7() {
+      var words = document.getElementById("projectStructure").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show7").innerHTML = count;
+    }
+
+    function countWord8() {
+      var words = document.getElementById("trainingDept").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show8").innerHTML = count;
+    }
+
+    function countWord9() {
+      var words = document.getElementById("trainingPersonnel").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show9").innerHTML = count;
+    }
+
+    function countWord10() {
+      var words = document.getElementById("projectBackground").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show10").innerHTML = count;
+    }
+
+    function countWord11() {
+      var words = document.getElementById("conclusion").value;
+      var count = 0;
+      var split = words.split(' ');
+      for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+          count += 1;
+        }
+      }
+    
+      document.getElementById("show11").innerHTML = count;
+    }
+    
+    document.getElementById("acknowledgements").addEventListener("keypress", function(evt){
       var words = this.value.split(/\s+/);
       var numWords = words.length;    // Get # of words in array
       var maxWords = 300;
@@ -493,7 +694,7 @@ if(isset($_POST['signaturesave'])){
       }
     });
 
-    document.getElementById("week2").addEventListener("keypress", function(evt){
+    document.getElementById("abstract").addEventListener("keypress", function(evt){
       var words = this.value.split(/\s+/);
       var numWords = words.length;    // Get # of words in array
       var maxWords = 300;
@@ -503,20 +704,90 @@ if(isset($_POST['signaturesave'])){
       }
     });
 
-    document.getElementById("week3").addEventListener("keypress", function(evt){
+    document.getElementById("trainingScheme").addEventListener("keypress", function(evt){
       var words = this.value.split(/\s+/);
       var numWords = words.length;    // Get # of words in array
-      var maxWords = 300;
+      var maxWords = 200;
       
       if(numWords > maxWords){
         evt.preventDefault(); // Cancel event
       }
     });
 
-    document.getElementById("week4").addEventListener("keypress", function(evt){
+    document.getElementById("trainingScope").addEventListener("keypress", function(evt){
       var words = this.value.split(/\s+/);
       var numWords = words.length;    // Get # of words in array
-      var maxWords = 300;
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("cmpBackground").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("businessOperation").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("projectStructure").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("trainingDept").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("trainingPersonnel").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 200;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("projectBackground").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 500;
+      
+      if(numWords > maxWords){
+        evt.preventDefault(); // Cancel event
+      }
+    });
+
+    document.getElementById("conclusion").addEventListener("keypress", function(evt){
+      var words = this.value.split(/\s+/);
+      var numWords = words.length;    // Get # of words in array
+      var maxWords = 500;
       
       if(numWords > maxWords){
         evt.preventDefault(); // Cancel event
@@ -528,7 +799,7 @@ if(isset($_POST['signaturesave'])){
     select_element.addEventListener("change", () => {
       
     var selected = select_element.options[select_element.selectedIndex ].value
-      if(selected == "No"){
+      if(selected == "No" || selected == "NO"){
         document.getElementById("fromDate").disabled = true;
         document.getElementById("fromDate").value = "";
         document.getElementById("toDate").disabled = true;
@@ -536,7 +807,7 @@ if(isset($_POST['signaturesave'])){
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
         document.getElementById("leaveReason").value = "N/A";
-      }else{
+      }else if(selected == "Yes" || selected == "YES"){
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;

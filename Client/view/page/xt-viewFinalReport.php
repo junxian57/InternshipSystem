@@ -1,11 +1,21 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-/*if (strlen($_SESSION['bpmsaid'] == 0)) {
-	//header('location:logout.php');
-} else {*/
+	include('../../includes/db_connection.php');
+
+  if(session_status() != PHP_SESSION_ACTIVE) session_start();
+
+	if (isset($_SESSION['studentChangePass'])) {
+		header('Location: clientChangePassword.php?requireChangePass&notAllowed');
+	}
+    
+  if (!isset($_SESSION['studentID'])) {
+    echo "<script>
+        window.location.href = 'clientLogin.php';
+    </script>";
+	} else {
+    $studID = $_SESSION['studentID'];
+  }
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -51,10 +61,10 @@ include('includes/dbconnection.php');
 	<div class="main-content">
 		<?php include_once('../../includes/sidebar.php'); ?>
 		<?php include_once('../../includes/header.php'); ?>
-		<div id="page-wrapper">
+		<div id="page-wrapper"> 
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">View Final Report</h3><?php echo "<a href='xt-recordFinalReport.php' class='btn btn-success' id='btn-save' name='record'>";?>Record Final Report</a>
+					<h3 class="title1">View Final Report</h3><a href='xt-recordFinalReport.php' class='btn btn-success' id='btn-save' name='record'>Record Final Report</a>
 					<hr>
 					<div class="tab">
 						<button class="tablinks" id="activeTab" onclick="statusType(event, 'Saved')">Saved</button>
@@ -75,7 +85,7 @@ include('includes/dbconnection.php');
 								<tr>
 									<th>
 										<button>
-											<span aria-hidden="true">Final Report ID</span>
+											<span aria-hidden="true">Monthly Report ID</span>
 										</button>
 									</th>
 									<th>
@@ -90,12 +100,7 @@ include('includes/dbconnection.php');
 									</th>
                   <th>
 										<button>
-											<span aria-hidden="true">Intern Start Date</span>
-										</button>
-									</th>
-                  <th>
-										<button>
-											<span aria-hidden="true">Intern End Date</span>
+											<span aria-hidden="true">Month of Training</span>
 										</button>
 									</th>
                   <th>
@@ -117,24 +122,13 @@ include('includes/dbconnection.php');
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStudentFeedback = 'Accept Offer'";
-                $runInternApp = mysqli_query($conn, $getInternApp);
-                $rowInternApp = mysqli_fetch_array($runInternApp);
-                $internApp_ID = $rowInternApp['internAppID'];
-                $internJobID = $rowInternApp['internJobID'];
-                $appInternStartDate = $rowInternApp['appInternStartDate'];
-                $appInternEndDate = $rowInternApp['appInternEndDate'];
-
-                $get_final = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus = 'Saved'";
-                $run_final = mysqli_query($conn, $get_final);
-                while($row_final = mysqli_fetch_array($run_final)){
-                  $finalReportID = $row_final['finalReportID'];
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus = 'Saved'";
+                $run_month = mysqli_query($conn, $get_month);
+                while($row_month = mysqli_fetch_array($run_month)){
+                  $monthlyRptID = $row_month['monthlyReportID'];
+                  $cmpID = $row_month['companyID'];
+                  $monthOfTraining = $row_month['monthOfTraining'];
 									$status = $row_month['reportStatus'];
-
-                  $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
-                  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
-                  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
-                  $cmpID = $rowCmpInfo['companyID'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);
@@ -142,14 +136,13 @@ include('includes/dbconnection.php');
 									$cmpName = $row_cmp['cmpName'];
               ?>
 								<tr>
-									<td><?php echo $finalRptID; ?></td>
+									<td><?php echo $monthlyRptID; ?></td>
 									<td><?php echo $cmpID; ?></td>
 									<td><?php echo $cmpName; ?></td>
-                  <td><?php echo $appInternStartDate; ?></td>
-									<td><?php echo $appInternEndDate; ?></td>
+									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-editFinalReport.php?finalReportID=<?php echo $finalReportID; ?>">Edit</a></td>
-									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteFinalReport.php?finalReportID=<?php echo $finalReportID; ?>">Delete</a></td>
+                  <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
+									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>
@@ -159,18 +152,18 @@ include('includes/dbconnection.php');
 					<div id="Submitted" class="tabcontent">
 						<div class="panel-body">
             	<div class="input-group">
-								<input type="text" class="form-control" id="filterProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
+								<input type="text" class="form-control" id="filterSProgress" data-filters="#dev-cat" data-action="filter" placeholder="Search..." style="background-color: transparent;">
 								<a class="input-group-addon" style="border: 1px solid #797d7a;">
 									<i class="fa fa-search"></i>
 								</a>
 							</div>
 						</div>
-						<table id="progressTable" class="sortable">
+						<table id="progressSTable" class="sortable">
 							<thead>
 								<tr>
-                <th>
+									<th>
 										<button>
-											<span aria-hidden="true">Final Report ID</span>
+											<span aria-hidden="true">Monthly Report ID</span>
 										</button>
 									</th>
 									<th>
@@ -185,12 +178,7 @@ include('includes/dbconnection.php');
 									</th>
                   <th>
 										<button>
-											<span aria-hidden="true">Intern Start Date</span>
-										</button>
-									</th>
-                  <th>
-										<button>
-											<span aria-hidden="true">Intern End Date</span>
+											<span aria-hidden="true">Month of Training</span>
 										</button>
 									</th>
                   <th>
@@ -211,39 +199,34 @@ include('includes/dbconnection.php');
                                               
                 $conn = mysqli_connect($host, $user, $password, $database); 
 
-                $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '22REI00003' AND appStudentFeedback = 'Accept Offer'";
-                $runInternApp = mysqli_query($conn, $getInternApp);
-                $rowInternApp = mysqli_fetch_array($runInternApp);
-                $internApp_ID = $rowInternApp['internAppID'];
-                $internJobID = $rowInternApp['internJobID'];
-                $appInternStartDate = $rowInternApp['appInternStartDate'];
-                $appInternEndDate = $rowInternApp['appInternEndDate'];
-
-                $get_final = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus = 'Saved'";
-                $run_final = mysqli_query($conn, $get_final);
-                while($row_final = mysqli_fetch_array($run_final)){
-                  $finalReportID = $row_final['finalReportID'];
+                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus='Submitted'";
+                $run_month = mysqli_query($conn, $get_month);
+                while($row_month = mysqli_fetch_array($run_month)){
+                  $monthlyRptID = $row_month['monthlyReportID'];
+                  $cmpID = $row_month['companyID'];
+                  $monthOfTraining = $row_month['monthOfTraining'];
 									$status = $row_month['reportStatus'];
-
-                  $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
-                  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
-                  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
-                  $cmpID = $rowCmpInfo['companyID'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);
 									$row_cmp = mysqli_fetch_array($run_cmp);
 									$cmpName = $row_cmp['cmpName'];
+
+									$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                	$run_stud = mysqli_query($conn, $get_stud);
+									$row_stud = mysqli_fetch_array($run_stud);
+									$studName = $row_stud['studName'];
               ?>
 								<tr>
-									<td><?php echo $finalRptID; ?></td>
+									<td><?php echo $monthlyRptID; ?></td>
 									<td><?php echo $cmpID; ?></td>
 									<td><?php echo $cmpName; ?></td>
-                  <td><?php echo $appInternStartDate; ?></td>
-									<td><?php echo $appInternEndDate; ?></td>
+									<td><?php echo $monthOfTraining; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-editFinalReport.php?finalReportID=<?php echo $finalReportID; ?>">Edit</a></td>
-								</tr>
+									
+
+                  <td><?php echo '<a href="../page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View</a></td>
+                </tr>
                 <?php } ?>
 							</tbody>
 						</table>
@@ -318,6 +301,28 @@ include('includes/dbconnection.php');
 			}
 		}
 		document.querySelector('#filterProgress').addEventListener('keyup', filterProgressTable, false);
+	
+		function filterSProgressTable(event) {
+    	var filter = event.target.value.toUpperCase();
+    	var rows = document.querySelector("#progressSTable tbody").rows;
+    
+    	for (var i = 0; i < rows.length; i++) {
+				var firstCol = rows[i].cells[0].textContent.toUpperCase();
+      	var secondCol = rows[i].cells[1].textContent.toUpperCase();
+				var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+      	var forthCol = rows[i].cells[3].textContent.toUpperCase();
+				var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+      	var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+      	if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || forthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1) {
+					rows[i].style.display = "";
+				} else {
+        	rows[i].style.display = "none";
+      	}      
+			}
+		}
+		document.querySelector('#filterSProgress').addEventListener('keyup', filterSProgressTable, false);
+	
+	
 	</script>
 
 	<script src="../../js/jquery.nicescroll.js"></script>

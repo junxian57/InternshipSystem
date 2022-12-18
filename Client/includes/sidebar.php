@@ -116,16 +116,16 @@ if (isset($_SESSION)) {
 
         <?php if ($studentID) { ?>
           <li>
-            <a href="xt-viewWorkProgress.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+            <a href="xt-displayRptTemplate.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse">
               <li>
-                <a href="../page/xt-displayRptTemplate.php">Report Template</a>
+                <a href="../page/xt-displayRptTemplate.php">Report Template & Sample</a>
               </li>
               <li>
-                <a href="../page/xt-viewWorkProgress.php">New Work Progress</a>
+                <a href="../page/xt-viewWorkProgress.php">Monthly Work Progress</a>
               </li>
               <li>
-                <a href="../page/xt-viewWorkProgress.php">Print Work Progress</a>
+                <a href="../page/xt-viewFinalReport.php">Final Report</a>
               </li>
             </ul>
           </li>

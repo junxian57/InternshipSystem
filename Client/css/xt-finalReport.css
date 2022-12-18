@@ -93,15 +93,23 @@
 }
 
 .subtitle h2.sub-2::after {
-  width: 65%;
+  width: 75%;
 }
 
 .subtitle h2.sub-3::after {
-  width: 36%;
+  width: 87%;
 }
 
 .subtitle h2.sub-4::after {
-  width: 58%;
+  width: 70%;
+}
+
+.subtitle h2.sub-5::after {
+  width: 50%;
+}
+
+.subtitle h2.sub-6::after {
+  width: 60%;
 }
 
 .saveBtn {
