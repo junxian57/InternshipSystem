@@ -16,21 +16,26 @@ require_once('../../app/BLL/visitationMapBLL.php');
 require_once("../../app/DTO/visitationMapDTO.php");
 require_once("../../app/DAL/visitationMapDAL.php");
 
-if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation List') {
+$visitationListDALObj  = new visitationMapDAL();
+$visitationBllObj = new visitationMapBLL();
+
+if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor Company Mapping') {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
-    $Visitation_CompanyID = $_POST['Visitation_CompanyID'];
-    $Visitation_CriteriaID = $_POST['Visitation_CriteriaID'];
-    $Visitation_assignedsupervisorname = $_SESSION['Visitation_assignedsupervisorname'];
+    $Visitation_CompanyID = $_POST['Visitation_AppMapID'];
+    $Visitation_CriteriaID = $_POST['Visitation_CompanyID'];
+    $CreateByID = $_SESSION['adminID'];
+    $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
-    if (count($_POST['companyID']) == count($_POST['cmpName'])) {
-        $countRow = count($_POST['companyID']);
+    $newcompanyvisitationMapList = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $CreateByID, $CreateDate);
+    if (count($_POST['lecturerID']) == count($_POST['lecName'])) {
+        $countRow = count($_POST['lecturerID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfvisitationCompanyListDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['companyID'][$i], $_POST['cmpName'][$i]);
+            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['companyID'][$i], $_POST['cmpName'][$i]);
         }
     }
 
-    $visitationBllObj->AddvisitationList($newvisitationList, $newOfvisitationCompanyListDto);
+    $visitationBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
 }
 
 ?>
@@ -212,6 +217,19 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
         color: #fff;
     }
 
+    .button-group .clickable-btn:nth-child(3) {
+        margin-left: 870px;
+        background-color: #735ea6;
+        color: #fff;
+        border: 1px solid #735ea6;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .button-group .clickable-btn:nth-child(3):hover {
+        background-color: #935ea6;
+        color: #fff;
+    }
+
     .checkbox-group table th:first-child,
     .checkbox-group table td:first-child {
         width: 20%;
@@ -252,8 +270,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                         <!-- Tab Button -->
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'SupervisorCmpMappingTab')">Assign supervisor<span class="arrow-icon">&#129050</span>company</button>
-                            
+
                         </div>
+
 
                         <!-- Tab Content 1 SupervisorCmpMappingTab-->
                         <div id="SupervisorCmpMappingTab" class="tabcontent">
@@ -263,6 +282,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                 </div>
                             </div>
                             <div class="search-group">
+                                <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationListDALObj->generateID() ?>" readonly="readonly"></div>
                                 <div class="form-group">
                                     <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
                                     <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
@@ -331,7 +351,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                                         $lecGender = $company['lecGender'];
                                                         $lecContactNumber = $company['lecContactNumber'];
                                                         $lecJobPosition = $company['lecJobPosition'];
-                                                        ?>
+                                                ?>
                                                         <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
                                                             <td><?php echo $lecturerID ?></td>
                                                             <td><?php echo $lecName ?></td>
@@ -364,6 +384,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                                     <th>Gender</th>
                                                     <th>Conctact No</th>
                                                     <th>Position</th>
+                                                    <th>Assign Company</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -380,9 +401,13 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                             </div>
                             <div class="button-group">
                                 <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('lec-table'), document.getElementById('selected-visitation-Company-List-table'))">
+                                <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('lec-table'), document.getElementById('selected-visitation-Company-List-table'),document.getElementById('Visitation_CompanyID'))">
+                                <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Supervisor Company Mapping" readonly class="clickable-btn ">Save</button>
                             </div>
                         </div>
+
+
+
 
                         <!-- Tab Content 2 automatedmap-->
                         <div id="AutoSupervisorCmpMappingTab" class="tabcontent">
@@ -437,6 +462,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
                     dataTable.clear().draw();
 
+                    $("#Visitation_CompanyID").attr("disabled", "disabled");
+                    document.getElementById('Visitation_CompanyID').style = "pointer-events: none;";
+
                     let count = 1;
                     if (StudResult !== "No Data Found") {
                         StudResult.forEach(i => {
@@ -455,6 +483,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                         //alert("No Data Found");
                         return;
                     }
+
                 }
 
                 function assign() {
@@ -477,7 +506,22 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                     <td>${table.rows[i].getAttribute('data-contactNo')}</td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>
                     <td>
-                    <button type="button" onClick="removeChildNode(this);">
+                    <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
+                    <option value="" selected disabled>Select Visitation List</option>
+                                        <?php
+                                        include('includes/db_connection.php');
+                                        $db_handle = new DBController();
+                                        $query = "SELECT * FROM VisitationCompany";
+                                        $results = $db_handle->runQuery($query);
+
+                                        for ($i = 0; $i < count($results); $i++) {
+                                            echo "<option value='" . $results[$i]['Visitation_CompanyID'] . "'>" . $results[$i]['Visitation_CompanyID'] . "</option>";
+                                        }
+                                        ?>                                      
+
+                    </select>
+                    </td>
+                    <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                     
@@ -515,7 +559,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                     }
                 }
 
-                function resetSelect(table1, table2) {
+                function resetSelect(table1, table2, input1) {
                     if (table2.hasChildNodes()) {
                         removeAllChildNodes(table2);
                     }
@@ -525,6 +569,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                         if (table1.rows[i].cells[5].children[0].checked) {
                             table1.rows[i].cells[5].children[0].checked = false;
                         }
+                    }
+
+                    if(input1.id == "Visitation_CompanyID"){
+                        document.getElementById('Visitation_CompanyID').removeAttribute('disabled');
+                        document.getElementById('Visitation_CompanyID').style = "";
                     }
 
                 }

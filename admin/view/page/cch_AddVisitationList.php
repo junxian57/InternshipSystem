@@ -435,7 +435,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
         let countScore = 0;
 
         async function insertvisitationCmpName() {
-            InsertCriteriaTable();
+            InsertVisitationTable();
             const selectedvisitationCompanyListtable = document.getElementById("selected-visitation-Company-List-table");
             if (selectedvisitationCompanyListtable.hasChildNodes()) {
                 removeAllChildNodes(selectedvisitationCompanyListtable);
@@ -448,7 +448,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
         }
 
-        async function InsertCriteriaTable() {
+        async function InsertVisitationTable() {
             const cmpResult = await fetchvisitationCmpName();
             const supervisorTable = document.getElementById("visitation-Company-List-table");
 
