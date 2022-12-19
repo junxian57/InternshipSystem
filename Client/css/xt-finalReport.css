@@ -105,11 +105,11 @@
 }
 
 .subtitle h2.sub-5::after {
-  width: 50%;
+  width: 40%;
 }
 
 .subtitle h2.sub-6::after {
-  width: 60%;
+  width: 40%;
 }
 
 .saveBtn {

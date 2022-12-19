@@ -1,4 +1,11 @@
 <?php
+	$host = "sql444.main-hosting.eu";
+	$user = "u928796707_group34";
+	$password = "u1VF3KYO1r|";
+	$database = "u928796707_internshipWeb";
+															
+	$conn = mysqli_connect($host, $user, $password, $database); 
+
 	include('../../includes/db_connection.php');
 
   if(session_status() != PHP_SESSION_ACTIVE) session_start();
@@ -14,6 +21,19 @@
 	} else {
     $studID = $_SESSION['studentID'];
   }
+
+	$getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
+  $runInternApp = mysqli_query($conn, $getInternApp);
+ 	$rowInternApp = mysqli_fetch_array($runInternApp);
+  $internAppID = $rowInternApp['internAppID'];
+  $internJobID = $rowInternApp['internJobID'];
+	$appInternStartDate = $rowInternApp['appInternStartDate'];
+	$appInternEndDate = $rowInternApp['appInternEndDate'];
+
+	$getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
+  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
+  $cmpID = $rowCmpInfo['companyID'];
 ?>
 
 <!DOCTYPE HTML>
@@ -100,7 +120,12 @@
 									</th>
                   <th>
 										<button>
-											<span aria-hidden="true">Month of Training</span>
+											<span aria-hidden="true">Intern Start Date</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Intern End Date</span>
 										</button>
 									</th>
                   <th>
@@ -115,20 +140,11 @@
 
 							<tbody>
 							<?php
-								$host = "sql444.main-hosting.eu";
-                $user = "u928796707_group34";
-                $password = "u1VF3KYO1r|";
-                $database = "u928796707_internshipWeb";
-                                              
-                $conn = mysqli_connect($host, $user, $password, $database); 
-
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus = 'Saved'";
-                $run_month = mysqli_query($conn, $get_month);
-                while($row_month = mysqli_fetch_array($run_month)){
-                  $monthlyRptID = $row_month['monthlyReportID'];
-                  $cmpID = $row_month['companyID'];
-                  $monthOfTraining = $row_month['monthOfTraining'];
-									$status = $row_month['reportStatus'];
+                $get_final = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus = 'Saved'";
+                $run_final = mysqli_query($conn, $get_final);
+                while($row_final = mysqli_fetch_array($run_final)){
+                  $finalRptID = $row_final['finalReportID'];
+									$status = $row_final['reportStatus'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);
@@ -136,13 +152,14 @@
 									$cmpName = $row_cmp['cmpName'];
               ?>
 								<tr>
-									<td><?php echo $monthlyRptID; ?></td>
+									<td><?php echo $finalRptID; ?></td>
 									<td><?php echo $cmpID; ?></td>
 									<td><?php echo $cmpName; ?></td>
-									<td><?php echo $monthOfTraining; ?></td>
+									<td><?php echo $appInternStartDate; ?></td>
+									<td><?php echo $appInternEndDate; ?></td>
                   <td><?php echo $status; ?></td>
-                  <td><a class="view" href="xt-editWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Edit</a></td>
-									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteWorkProgress.php?monthlyReportID=<?php echo $monthlyRptID; ?>">Delete</a></td>
+                  <td><a class="view" href="xt-editFinalReport.php?finalReportID=<?php echo $finalRptID; ?>">Edit</a></td>
+									<td><a class="view" onclick='javascript:confirmationDelete($(this));return false;' href="xt-deleteFinalReport.php?finalReportID=<?php echo $finalRptID; ?>">Delete</a></td>
                 </tr>
                 <?php } ?>
 							</tbody>
@@ -178,7 +195,12 @@
 									</th>
                   <th>
 										<button>
-											<span aria-hidden="true">Month of Training</span>
+											<span aria-hidden="true">Intern Start Date</span>
+										</button>
+									</th>
+									<th>
+										<button>
+											<span aria-hidden="true">Intern End Date</span>
 										</button>
 									</th>
                   <th>
@@ -192,39 +214,24 @@
 
 							<tbody>
 							<?php
-								$host = "sql444.main-hosting.eu";
-                $user = "u928796707_group34";
-                $password = "u1VF3KYO1r|";
-                $database = "u928796707_internshipWeb";
-                                              
-                $conn = mysqli_connect($host, $user, $password, $database); 
-
-                $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus='Submitted'";
-                $run_month = mysqli_query($conn, $get_month);
-                while($row_month = mysqli_fetch_array($run_month)){
-                  $monthlyRptID = $row_month['monthlyReportID'];
-                  $cmpID = $row_month['companyID'];
-                  $monthOfTraining = $row_month['monthOfTraining'];
-									$status = $row_month['reportStatus'];
+                $get_final = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus = 'Submitted'";
+                $run_final = mysqli_query($conn, $get_final);
+                while($row_final = mysqli_fetch_array($run_final)){
+                  $finalRptID = $row_final['finalReportID'];
+									$status = $row_final['reportStatus'];
 
 									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
                 	$run_cmp = mysqli_query($conn, $get_cmp);
 									$row_cmp = mysqli_fetch_array($run_cmp);
 									$cmpName = $row_cmp['cmpName'];
-
-									$get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
-                	$run_stud = mysqli_query($conn, $get_stud);
-									$row_stud = mysqli_fetch_array($run_stud);
-									$studName = $row_stud['studName'];
               ?>
 								<tr>
-									<td><?php echo $monthlyRptID; ?></td>
+									<td><?php echo $finalRptID; ?></td>
 									<td><?php echo $cmpID; ?></td>
 									<td><?php echo $cmpName; ?></td>
-									<td><?php echo $monthOfTraining; ?></td>
+									<td><?php echo $appInternStartDate; ?></td>
+									<td><?php echo $appInternEndDate; ?></td>
                   <td><?php echo $status; ?></td>
-									
-
                   <td><?php echo '<a href="../page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View</a></td>
                 </tr>
                 <?php } ?>
