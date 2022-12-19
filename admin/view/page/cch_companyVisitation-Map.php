@@ -314,7 +314,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                         <th>Company Conctact No</th>
                                         <th>Comapny Conctact Person</th>
                                     </thead>
-                                    <tbody id="tab1-table">
+                                    <tbody id="tab1-table2">
 
                                     </tbody>
                                 </table>
@@ -351,7 +351,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                         $lecGender = $company['lecGender'];
                                                         $lecContactNumber = $company['lecContactNumber'];
                                                         $lecJobPosition = $company['lecJobPosition'];
-                                                ?>
+                                                        ?>
                                                         <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
                                                             <td><?php echo $lecturerID ?></td>
                                                             <td><?php echo $lecName ?></td>
@@ -450,7 +450,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 async function fetchVisitCmpResult() {
                     const visitationID = document.getElementById("Visitation_CompanyID").value;
                     const getStudPhp = '../../app/DAL/ajaxGetCompanyList.php?Visitation_CompanyID=' + visitationID;
-                    console.log(getStudPhp);
                     let getStudRespond = await fetch(getStudPhp);
                     let StudObj = await getStudRespond.json();
                     return StudObj;
@@ -488,8 +487,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                 function assign() {
                     var table = document.getElementById("lec-table");
+
                     const lecSelectedTable = document.getElementById("selected-visitation-Company-List-table");
                     const rCount = table.rows.length;
+                    // var cmpvisittable = document.querySelectorAll("#tab-table2");
+                    let dataTable = $(`#tab1-table`).DataTable();
                     for (var i = 0; i < table.rows.length; i++) {
                         if (table.rows[i].cells[5].children[0].checked) {
                             if (isExistingAssign(table.rows[i].getAttribute('data-lecturerID'))) {
@@ -508,16 +510,30 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     <td>
                     <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
                     <option value="" selected disabled>Select Visitation List</option>
-                                        <?php
-                                        include('includes/db_connection.php');
-                                        $db_handle = new DBController();
-                                        $query = "SELECT * FROM VisitationCompany";
-                                        $results = $db_handle->runQuery($query);
+                    
+                    `
 
-                                        for ($i = 0; $i < count($results); $i++) {
-                                            echo "<option value='" . $results[$i]['Visitation_CompanyID'] . "'>" . $results[$i]['Visitation_CompanyID'] . "</option>";
-                                        }
-                                        ?>                                      
+                                // var data = dataTable.rows().data();
+                                // data.each(function(value, index) {
+                                //     console.log(`For index ${index}, data value is ${value}`);
+                                // });
+                                var table = $('#tab-table').DataTable();
+
+                                dataTable.rows().every(function() {
+
+                                    var Row = this.data(); //store every row data in a variable
+
+                                    console.log(Row[1]); //show Row + Cell index
+
+                                });
+
+                                `
+
+
+                        
+                                       
+                                       
+                                                               
 
                     </select>
                     </td>
@@ -571,7 +587,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         }
                     }
 
-                    if(input1.id == "Visitation_CompanyID"){
+                    if (input1.id == "Visitation_CompanyID") {
                         document.getElementById('Visitation_CompanyID').removeAttribute('disabled');
                         document.getElementById('Visitation_CompanyID').style = "";
                     }
