@@ -1,4 +1,12 @@
 <?php
+
+  $host = "sql444.main-hosting.eu";
+  $user = "u928796707_group34";
+  $password = "u1VF3KYO1r|";
+  $database = "u928796707_internshipWeb";
+                                              
+  $conn = mysqli_connect($host, $user, $password, $database); 
+
 	include('../../includes/db_connection.php');
 
   if(session_status() != PHP_SESSION_ACTIVE) session_start();
@@ -15,41 +23,43 @@
     $studID = $_SESSION['studentID'];
   }
 
-	if(isset($_GET['monthlyReportID'])){
-    $monthlyReportID = $_GET['monthlyReportID'];
+	if(isset($_GET['finalReportID'])){
+    $finalReportID = $_GET['finalReportID'];
   }
-
-  $host = "sql444.main-hosting.eu";
-  $user = "u928796707_group34";
-  $password = "u1VF3KYO1r|";
-  $database = "u928796707_internshipWeb";
-                                              
-  $conn = mysqli_connect($host, $user, $password, $database); 
 
   $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
   $run_stud = mysqli_query($conn, $get_stud);
   $row_stud = mysqli_fetch_array($run_stud);
   $studName = $row_stud['studName'];
 
-  $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-  $run_month = mysqli_query($conn, $get_month);
-  $row_month = mysqli_fetch_array($run_month);
-  $cmpID = $row_month['companyID'];
-  $monthOfTraining = $row_month['monthOfTraining'];
-  $firstWeekDeliverables = $row_month['firstWeekDeliverables'];
-  $secondWeekDeliverables = $row_month['secondWeekDeliverables'];
-  $thirdWeekDeliverables = $row_month['thirdWeekDeliverables'];
-  $forthWeekDeliverables = $row_month['forthWeekDeliverables'];
-  $issuesEncountered = $row_month['issuesEncountered'];
-  $leaveTaken = $row_month['leaveTaken'];
-  $leaveFrom = $row_month['leaveFrom'];
-  $leaveTill = $row_month['leaveTill'];
-  $leaveReason = $row_month['leaveReason'];
-  if($leaveTaken != "0"){
-    $leave = "Yes";
-  }else{
-    $leave = "No";
-  }
+  $get_final = "SELECT * FROM finalReport WHERE finalReportID = '$finalReportID'";
+  $run_final = mysqli_query($conn, $get_final);
+  $row_final = mysqli_fetch_array($run_final);
+
+  $internAppID = $row_final['internAppID'];
+  $acknowledgements = $row_final['acknowledgements'];
+  $abstract = $row_final['abstract'];
+  $trainingScheme = $row_final['trainingScheme'];
+  $trainingScope = $row_final['trainingScope'];
+  $cmpBackground = $row_final['cmpBackground'];
+  $businessOperation = $row_final['businessOperation'];
+  $projectStructure = $row_final['projectStructure'];
+  $trainingDept = $row_final['trainingDept'];
+  $trainingPersonnel = $row_final['trainingPersonnel'];
+  $projectBackground = $row_final['projectBackground'];
+  $conclusion = $row_final['recommendation'];
+
+  $getInternApp = "SELECT * FROM InternApplicationMap WHERE internAppID = '$internAppID'";
+  $runInternApp = mysqli_query($conn, $getInternApp);
+ 	$rowInternApp = mysqli_fetch_array($runInternApp);
+  $internJobID = $rowInternApp['internJobID'];
+	$appInternStartDate = $rowInternApp['appInternStartDate'];
+	$appInternEndDate = $rowInternApp['appInternEndDate'];
+
+  $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
+  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
+  $cmpID = $rowCmpInfo['companyID'];
 
 	$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
   $run_cmp = mysqli_query($conn, $get_cmp);
@@ -65,7 +75,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-  <title>ITP System | Edit Work Progress</title>
+  <title>ITP System | Edit Final Report</title>
   
   <script src="../../js/jquery-1.11.1.min.js"></script>
   <script src="../../js/toastr.min.js"></script>
@@ -136,7 +146,7 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Edit Work Progress</h3>
+					<h3 class="title1">Edit Final Report</h3>
           <form method="POST" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
@@ -151,87 +161,109 @@
                 
                 <div class="viewInput">
                   <span>Name of Company</span>
-                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName; ?>">
+                  <input type="text" name="cmpName" id="cmpName" readonly value="<?php echo $cmpName;?>">
                 </div>
 
                 <div class="viewInput">
-                  <span>Month / Year</span>
-                  <input type="text" name="monthYear" id="monthYear" readonly value="<?php echo $monthOfTraining; ?>">
+                  <span>Intern Start Date</span>
+                  <input type="date" name="internStartDate" id="internStartDate" readonly value="<?php echo $appInternStartDate; ?>">
                 </div> 
+
+                <div class="viewInput">
+                  <span>Intern End Date</span>
+                  <input type="date" name="internEndDate" id="internEndDate" readonly value="<?php echo $appInternEndDate; ?>">
+                </div>  
               </div>
 
               <div class="subtitle">
-                <h2 class="sub-2">Weekly Projects / Activities</h2>
+                <h2 class="sub-2">Acknowledgements</h2>
               </div>
             
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Week 1</span>
-                  <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words."><?php echo $firstWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="acknowledgements" id="acknowledgements" oninput="countWord()" onPaste="return false" placeholder="Expression of appreciation to the company, faculty, individuals, etc."><?php echo $acknowledgements; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
+              </div>
 
+              <div class="subtitle">
+                <h2 class="sub-3">Abstract</h2>
+              </div>
+
+              <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Week 2</span>
-                  <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words."><?php echo $secondWeekDeliverables; ?></textarea>
+                  <textarea type="text" name="abstract" id="abstract" oninput="countWord2()" onPaste="return false" placeholder="Summary of report with 200 to 300 words. It is to be written in the past tense. The abstract description should include the organisation and department with which the student was attached to, the assigned tasks, the achievements, and the learning experience gained during the training period."><?php echo $abstract; ?></textarea>
                   <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
-
-                <div class="viewInput" style="width:100%;">
-                  <span>Week 3</span>
-                  <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words."><?php echo $thirdWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
-                </div> 
-
-                <div class="viewInput" style="width:100%;">
-                  <span>Week 4</span>
-                  <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words."><?php echo $forthWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
-                </div> 
-              </div>
-            
-              <div class="subtitle">
-                <h2 class="sub-3">Problems Faced / Comments / Additional information</h2>
-              </div>
-            
-              <div class="inputBox">
-                <div class="viewInput" style="width:100%;">
-                  <span>Problems Faced / Comments / Additional information (if any)</span>
-                  <textarea type="text" name="problem" id="problem" placeholder="Have you encountered any problems during the internship this month? What was the problem and how did you solve it?"><?php echo $issuesEncountered; ?></textarea>
-                </div>
               </div>
 
               <div class="subtitle">
-                <h2 class="sub-4">Leave Application / Leave Taken</h2>
+                <h2 class="sub-4">Chapter 1: Introduction</h2>
               </div>
 
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <span>Any leave taken?</span><br>
-                  <select name="leaveTaken" id="leaveTaken">
-                    <option value="YES" <?php if($leave=="Yes") echo 'selected="selected"'; ?> >Yes</option>
-                    <option value="No" <?php if($leave=="No") echo 'selected="selected"'; ?> >No</option>
-                  </select>
-                </div>
+                  <span>Industrial training scheme</span>
+                  <textarea type="text" name="trainingScheme" id="trainingScheme" oninput="countWord3()" onPaste="return false" placeholder="A brief description on the course objectives, duration, etc"><?php echo $trainingScheme; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 200]</span></div>
+                </div> 
 
-                <div class="viewInput">
-                  <span>Leave From</span>
-                  <input type="date" name="fromDate" id="fromDate" value="<?php echo $leaveFrom;?>" disabled>
-                </div>
+                <div class="viewInput" style="width:100%;">
+                  <span>Industrial training scopes</span>
+                  <textarea type="text" name="trainingScope" id="trainingScope" oninput="countWord4()" onPaste="return false" placeholder="A summary of trainee’s job roles and responsibilities, etc."><?php echo $trainingScope; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Company background</span>
+                  <textarea type="text" name="cmpBackground" id="cmpBackground" oninput="countWord5()" onPaste="return false" placeholder="Describe the background and details of the company."><?php echo $cmpBackground; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show5">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Business operation</span>
+                  <textarea type="text" name="businessOperation" id="businessOperation" oninput="countWord6()" onPaste="return false" placeholder="Describe the basic operation perform by the company."><?php echo $businessOperation; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show6">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Structures of project</span>
+                  <textarea type="text" name="projectStructure" id="projectStructure" oninput="countWord7()" onPaste="return false" placeholder="Describe the structures of organisation/project."><?php echo $projectStructure; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show7">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Training department</span>
+                  <textarea type="text" name="trainingDept" id="trainingDept" oninput="countWord8()" onPaste="return false" placeholder="Explain the structure your training department."><?php echo $trainingDept; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show8">0</span><span> / 200]</span></div>
+                </div> 
+
+                <div class="viewInput" style="width:100%;">
+                  <span>Training personnel</span>
+                  <textarea type="text" name="trainingPersonnel" id="trainingPersonnel" oninput="countWord9()" onPaste="return false" placeholder="Describe the personnel of training organisation and department."><?php echo $trainingPersonnel; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show9">0</span><span> / 200]</span></div>
+                </div> 
+              </div>
             
-                <div class="viewInput">
-                  <span>Leave Till</span>
-                  <input type="date" name="toDate" id="toDate" value="<?php echo $leaveTill;?>" disabled>
+              <div class="subtitle">
+                <h2 class="sub-5">Chapter 2: Project Background and Responsibilities</h2>
+              </div>
+            
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <textarea type="text" name="projectBackground" id="projectBackground" oninput="countWord10()" onPaste="return false" placeholder="Describe the project background, job responsibilities, experiences, details of work undertaken, problems faced, technology exposure, whether you have become aware of business opportunities and gained entrepreneurial skills as well as describe how you plan practise entrepreneurship in the future."><?php echo $projectBackground; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show10">0</span><span> / 500]</span></div>
                 </div>
+              </div>
 
-                <div class="viewInput">
-                  <span>Number of Days Taken</span>
-                  <input type="text" name="leaveDays" id="leaveDays" value="<?php echo $leaveTaken; ?>" readonly>
-                </div>
+              <div class="subtitle">
+                <h2 class="sub-6">Chapter 3: Conclusions & Recommendations</h2>
+              </div>
 
-                <div class="viewInput">
-                  <span>Reasons for taking leave</span>
-                  <input type="text" name="leaveReason" id="leaveReason" value="<?php echo $leaveReason; ?>" disabled>
+              <div class="inputBox">
+                <div class="viewInput" style="width:100%;">
+                  <textarea type="text" name="conclusion" id="conclusion" oninput="countWord11()" onPaste="return false" placeholder="State your opinion and recommendations regarding experiences in the industry and future expectation, etc."><?php echo $conclusion; ?></textarea>
+                  <div class="wordCount"><span> [Word Count: </span><span id="show11">0</span><span> / 500]</span></div>
                 </div>
               </div>
 
@@ -253,44 +285,24 @@
 
   <?php
     if(isset($_POST['signatureedit'])){
-      $host = "sql444.main-hosting.eu";
-      $user = "u928796707_group34";
-      $password = "u1VF3KYO1r|";
-      $database = "u928796707_internshipWeb";
-                                    
-      $conn = mysqli_connect($host, $user, $password, $database); 
-    
-      $monthRptID = $monthlyReportID;
-      $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-      $run_month = mysqli_query($conn, $get_month);
-      $row_month = mysqli_fetch_array($run_month);
-      $cmpID = $row_month['companyID'];
-      $studName = $_POST['studName'];
-      $cmpName = $_POST['cmpName'];
-      $monthYear = $_POST['monthYear'];
-      $week1 = $_POST['week1'];
-      $week2 = $_POST['week2'];
-      $week3 = $_POST['week3'];
-      $week4 = $_POST['week4'];
-      $problem = $_POST['problem'];
-      $leaveTaken = $_POST['leaveTaken'];
-      $leaveFrom = $_POST['fromDate'];
-      $leaveTill = $_POST['toDate'];
-      $leaveTakens = $_POST['leaveDays'];
+      $acknowledgements = $_POST['acknowledgements'];
+      $abstract = $_POST['abstract'];
+      $trainingScheme = $_POST['trainingScheme'];
+      $trainingScope = $_POST['trainingScope'];
+      $cmpBackground = $_POST['cmpBackground'];
+      $businessOperation = $_POST['businessOperation'];
+      $projectStructure = $_POST['projectStructure'];
+      $trainingDept = $_POST['trainingDept'];
+      $trainingPersonnel = $_POST['trainingPersonnel'];
+      $projectBackground = $_POST['projectBackground'];
+      $conclusion = $_POST['conclusion'];
       $status = "Saved";
-      
-      if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-        $leaveReasons = "N/A";
-      }
-      else{
-        $leaveReasons = $_POST['leaveReason'];
-      }
     
-      $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+      $sql = "UPDATE finalReport SET acknowledgements='$acknowledgements', abstract='$abstract', trainingScheme='$trainingScheme', trainingScope='$trainingScope', cmpBackground='$cmpBackground', businessOperation='$businessOperation', projectStructure='$projectStructure', trainingDept='$trainingDept', trainingPersonnel='$trainingPersonnel', projectBackground='$projectBackground', recommendation='$conclusion' WHERE finalReportID='$finalReportID'";
     
       if (mysqli_query($conn, $sql)) {
         echo "<script>alert('The report have been saved into database.')</script>";     
-        echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+        echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
       }else{
         echo "Error: " . $sql . mysqli_error($conn);
       }
@@ -299,43 +311,31 @@
 
 <?php
   if(isset($_POST['submit'])){
-    $host = "sql444.main-hosting.eu";
-    $user = "u928796707_group34";
-    $password = "u1VF3KYO1r|";
-    $database = "u928796707_internshipWeb";
-                                    
-    $conn = mysqli_connect($host, $user, $password, $database); 
-    
-    $monthRptID = $monthlyReportID;
-    $get_month = "SELECT * FROM weeklyReport WHERE monthlyReportID = '$monthlyReportID'";
-    $run_month = mysqli_query($conn, $get_month);
-    $row_month = mysqli_fetch_array($run_month);
-    $cmpID = $row_month['companyID'];
+    $get_final = "SELECT * FROM finalReport WHERE finalReportID = '$finalReportID'";
+    $run_final = mysqli_query($conn, $get_final);
+    $row_final = mysqli_fetch_array($run_final);
+
     $studName = $_POST['studName'];
     $cmpName = $_POST['cmpName'];
-    $monthYear = $_POST['monthYear'];
-    $week1 = $_POST['week1'];
-    $week2 = $_POST['week2'];
-    $week3 = $_POST['week3'];
-    $week4 = $_POST['week4'];
-    $problem = $_POST['problem'];
-    $leaveTaken = $_POST['leaveTaken'];
-    $leaveFrom = $_POST['fromDate'];
-    $leaveTill = $_POST['toDate'];
-    $leaveTakens = $_POST['leaveDays'];
+    $internStartDate = $_POST['internStartDate'];
+    $internEndDate = $_POST['internEndDate'];
+    $acknowledgements = $_POST['acknowledgements'];
+    $abstract = $_POST['abstract'];
+    $trainingScheme = $_POST['trainingScheme'];
+    $trainingScope = $_POST['trainingScope'];
+    $cmpBackground = $_POST['cmpBackground'];
+    $businessOperation = $_POST['businessOperation'];
+    $projectStructure = $_POST['projectStructure'];
+    $trainingDept = $_POST['trainingDept'];
+    $trainingPersonnel = $_POST['trainingPersonnel'];
+    $projectBackground = $_POST['projectBackground'];
+    $conclusion = $_POST['conclusion'];
     $status = "Saved";
-      
-    if($leaveTaken == 'NO' || $leaveTaken == 'No'){
-      $leaveReasons = "N/A";
-    }
-    else{
-      $leaveReasons = $_POST['leaveReason'];
-    }
     
-    $sql = "UPDATE weeklyReport SET firstWeekDeliverables='$week1', secondWeekDeliverables='$week2', thirdWeekDeliverables='$week3', forthWeekDeliverables='$week4', issuesEncountered='$problem', leaveTaken='$leaveTakens', leaveFrom='$leaveFrom', leaveTill='$leaveTill', leaveReason='$leaveReasons' WHERE monthlyReportID='$monthRptID'";
+    $sql = "UPDATE finalReport SET acknowledgements='$acknowledgements', abstract='$abstract', trainingScheme='$trainingScheme', trainingScope='$trainingScope', cmpBackground='$cmpBackground', businessOperation='$businessOperation', projectStructure='$projectStructure', trainingDept='$trainingDept', trainingPersonnel='$trainingPersonnel', projectBackground='$projectBackground', recommendation='$conclusion' WHERE finalReportID='$finalReportID'";
     
     if (mysqli_query($conn, $sql)) {
-      echo "<script>window.open('xt-submitWorkProgress.php?monthlyReportID=$monthlyReportID','_self')</script>";
+      echo "<script>window.open('xt-submitFinalReport.php?finalReportID=$finalReportID','_self')</script>";
     }else{
       echo "Error: " . $sql . mysqli_error($conn);
     }
@@ -413,15 +413,17 @@
         clickX = [];
         clickY = [];
         clickDrag = [];
-        document.getElementById("week1").value = "";
-        document.getElementById("week2").value = "";
-        document.getElementById("week3").value = "";
-        document.getElementById("week4").value = "";
-        document.getElementById("problem").value = "";
-        document.getElementById("fromDate").value = "";
-        document.getElementById("toDate").value = "";
-        document.getElementById("leaveDays").value = "0";
-        document.getElementById("leaveReason").value = "";
+        document.getElementById("acknowledgements").value = "";
+        document.getElementById("abstract").value = "";
+        document.getElementById("trainingScheme").value = "";
+        document.getElementById("trainingScope").value = "";
+        document.getElementById("cmpBackground").value = "";
+        document.getElementById("businessOperation").value = "";
+        document.getElementById("projectStructure").value = "";
+        document.getElementById("trainingDept").value = "";
+        document.getElementById("trainingPersonnel").value = "";
+        document.getElementById("projectBackground").value = "";
+        document.getElementById("conclusion").value = "";
       });
 
       $(document).on('click', '#btn-save', function() {

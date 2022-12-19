@@ -38,6 +38,8 @@
   $rowInternApp = mysqli_fetch_array($runInternApp);
   $internAppID = $rowInternApp['internAppID'];
   $internJobID = $rowInternApp['internJobID'];
+  $appInternStartDate = $rowInternApp['appInternStartDate'];
+	$appInternEndDate = $rowInternApp['appInternEndDate'];
 
   $getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
   $runCmpInfo = mysqli_query($conn, $getCmpInfo);
@@ -79,7 +81,7 @@
     $conclusion = $_POST['conclusion'];
     $status = "Saved";
 
-    $sql = "INSERT INTO finalReport (finalReportID, internAppID, trainingScheme, trainingScope, cmpBackground, businessOperation, projectStructure, trainingDept, trainingPersonnel, projectBackground, recommendation, reportStatus) VALUES ('$finalReportID','$internAppID','$trainingScheme','$trainingScope','$cmpBackground','$businessOperation','$projectStructure','$trainingDept','$trainingPersonnel','$projectBackground','$conclusion', '$status')";
+    $sql = "INSERT INTO finalReport (finalReportID, internAppID, acknowledgements, abstract, trainingScheme, trainingScope, cmpBackground, businessOperation, projectStructure, trainingDept, trainingPersonnel, projectBackground, recommendation, reportStatus) VALUES ('$finalReportID','$internAppID','$acknowledgements','$abstract','$trainingScheme','$trainingScope','$cmpBackground','$businessOperation','$projectStructure','$trainingDept','$trainingPersonnel','$projectBackground','$conclusion', '$status')";
     if (mysqli_query($conn, $sql)) {
       echo "<script>alert('The report have been saved into database.')</script>";     
       echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
@@ -174,12 +176,12 @@
 
                 <div class="viewInput">
                   <span>Intern Start Date</span>
-                  <input type="date" name="internStartDate" id="internStartDate" readonly value="<?php echo date('F Y'); ?>">
+                  <input type="date" name="internStartDate" id="internStartDate" readonly value="<?php echo $appInternStartDate; ?>">
                 </div> 
 
                 <div class="viewInput">
                   <span>Intern End Date</span>
-                  <input type="date" name="internEndDate" id="internEndDate" readonly value="<?php echo date('F Y'); ?>">
+                  <input type="date" name="internEndDate" id="internEndDate" readonly value="<?php echo $appInternEndDate; ?>">
                 </div> 
               </div>
 
