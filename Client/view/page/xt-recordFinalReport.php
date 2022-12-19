@@ -24,7 +24,7 @@
 		$runStudApp = mysqli_query($conn, $getStudApp);
     if(!(mysqli_num_rows($runStudApp) > 0)){
 			echo "<script>alert('Access blocked! You have not found an internship company yet!')</script>";     
-      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+      echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
 		}
   }
 
@@ -50,45 +50,39 @@
 	$cmpName = $row_cmp['cmpName'];
   
   if(isset($_POST['signaturesave'])){
-    $query = "SELECT * FROM weeklyReport ORDER BY monthlyReportID DESC LIMIT 1";
+    $query = "SELECT * FROM finalReport ORDER BY finalReportID DESC LIMIT 1";
 	  $result = mysqli_query($conn, $query);
 	  $row = mysqli_fetch_array($result);
-	  $lastID = $row['monthlyReportID'];
+	  $lastID = $row['finalReportID'];
 	  if($lastID == "") {
-		  $monthlyReportID = "MRPT1001";
+		  $finalReportID = "FRPT1001";
 	  } else {
-		  $monthlyReportID = substr($lastID, 4);
-		  $monthlyReportID = intval($monthlyReportID);
-		  $monthlyReportID = "MRPT".($monthlyReportID + 1);
+		  $finalReportID = substr($lastID, 4);
+		  $finalReportID = intval($finalReportID);
+		  $finalReportID = "FRPT".($finalReportID + 1);
 	  }
 
     $studName = $_POST['studName'];
     $cmpName = $_POST['cmpName'];
-    $monthYear = $_POST['monthYear'];
-    $week1 = $_POST['week1'];
-    $week2 = $_POST['week2'];
-    $week3 = $_POST['week3'];
-    $week4 = $_POST['week4'];
-    $problem = $_POST['problem'];
-    $leaveTaken = $_POST['leaveTaken'];
-    $leaveTakens = $_POST['leaveDays'];
+    $internStartDate = $_POST['internStartDate'];
+    $internEndDate = $_POST['internEndDate'];
+    $acknowledgements = $_POST['acknowledgements'];
+    $abstract = $_POST['abstract'];
+    $trainingScheme = $_POST['trainingScheme'];
+    $trainingScope = $_POST['trainingScope'];
+    $cmpBackground = $_POST['cmpBackground'];
+    $businessOperation = $_POST['businessOperation'];
+    $projectStructure = $_POST['projectStructure'];
+    $trainingDept = $_POST['trainingDept'];
+    $trainingPersonnel = $_POST['trainingPersonnel'];
+    $projectBackground = $_POST['projectBackground'];
+    $conclusion = $_POST['conclusion'];
     $status = "Saved";
 
-    if($leaveTaken == 'NO'){
-      $fromDate = "NULL";
-      $toDate = "NULL";
-      $leaveReasons = "N/A";
-    }
-    else{
-      $fromDate = $_POST['fromDate'];
-      $toDate = $_POST['toDate'];
-      $leaveReasons = $_POST['leaveReason'];
-    }
-
-    $sql = "INSERT INTO weeklyReport (monthlyReportID, studentID, companyID, monthOfTraining, firstWeekDeliverables, secondWeekDeliverables, thirdWeekDeliverables, forthWeekDeliverables, issuesEncountered, leaveTaken, leaveFrom, leaveTill, leaveReason, reportStatus) VALUES ('$monthlyReportID','$studID','$cmpID','$monthYear','$week1','$week2','$week3','$week4','$problem','$leaveTakens','$fromDate','$toDate','$leaveReasons', '$status')";
+    $sql = "INSERT INTO finalReport (finalReportID, internAppID, trainingScheme, trainingScope, cmpBackground, businessOperation, projectStructure, trainingDept, trainingPersonnel, projectBackground, recommendation, reportStatus) VALUES ('$finalReportID','$internAppID','$trainingScheme','$trainingScope','$cmpBackground','$businessOperation','$projectStructure','$trainingDept','$trainingPersonnel','$projectBackground','$conclusion', '$status')";
     if (mysqli_query($conn, $sql)) {
       echo "<script>alert('The report have been saved into database.')</script>";     
-      echo "<script>window.open('xt-viewWorkProgress.php','_self')</script>";
+      echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
     } else {
       echo "Error: " . $sql . mysqli_error($conn);
     }   
@@ -161,7 +155,7 @@
 			<div class="main-page">
 				<div class="tablesr">
 					<h3 class="title1">Final Report</h3>
-          <form method="post" action="xt-recordWorkProgress.php" enctype="multipart/form-data" id="signatureform">
+          <form method="post" action="xt-recordFinalReport.php" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
