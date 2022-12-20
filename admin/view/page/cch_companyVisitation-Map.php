@@ -16,8 +16,8 @@ require_once('../../app/BLL/visitationMapBLL.php');
 require_once("../../app/DTO/visitationMapDTO.php");
 require_once("../../app/DAL/visitationMapDAL.php");
 
-$visitationListDALObj  = new visitationMapDAL();
-$visitationBllObj = new visitationMapBLL();
+$visitationMapListDALObj  = new visitationMapDAL();
+$visitationMapBllObj = new visitationMapBLL();
 
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor Company Mapping') {
     date_default_timezone_set("Asia/Kuala_Lumpur");
@@ -27,15 +27,15 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
-    $newcompanyvisitationMapList = new visitationListDTO($Visitation_CompanyID, $internshipBatchID, $CreateByID, $CreateDate);
+    $newcompanyvisitationMapList = new visitationMapDTO($Visitation_AppMapID, $Visitation_CompanyID, $CreateByID, $CreateDate);
     if (count($_POST['lecturerID']) == count($_POST['lecName'])) {
         $countRow = count($_POST['lecturerID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_CompanyID, $_POST['companyID'][$i], $_POST['cmpName'][$i]);
+            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_AppMapID, $_POST['lecturerID'][$i], $_POST['lecName'][$i]);
         }
     }
 
-    $visitationBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
+    $visitationMapBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
 }
 
 ?>
@@ -264,159 +264,157 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
         <?php include_once('../../includes/header.php'); ?>
         <div id="page-wrapper">
             <div class="main-page">
-                <div class="tables">
-                    <h3 class="page-title">Supervisor - Company mapping</h3>
+                <?php
+
+                if ($_GET['status'] == 'failed') {
+                    echo "<script> warning('List cant be added. Operation failed.');</script>";
+                } elseif ($_GET['status'] == 'success') {
+                    echo "<script> addSuccess('Add visitation List successful'); </script>";
+                } elseif ($rubricAssmtBllObj->errorMessage != '') {
+                    echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                }
+
+                ?>
+
+                <div class="forms ">
+                    <h3 class="title1">Supervisor - Company mapping</h3>
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-                        <!-- Tab Button -->
-                        <div class="tab">
-                            <button class="tablinks" id="activeTab" onclick="changeTab(event, 'SupervisorCmpMappingTab')">Assign supervisor<span class="arrow-icon">&#129050</span>company</button>
-
-                        </div>
-
-
                         <!-- Tab Content 1 SupervisorCmpMappingTab-->
                         <div id="SupervisorCmpMappingTab" class="tabcontent">
-                            <div class="row">
-                                <div class="table-title">
-                                    <h4>Supervisor & company Mapping</h4>
-                                </div>
-                            </div>
-                            <div class="search-group">
-                                <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationListDALObj->generateID() ?>" readonly="readonly"></div>
-                                <div class="form-group">
-                                    <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
-                                    <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
-                                        <option value="" selected disabled>Select Visitation List</option>
-                                        <?php
-                                        include('includes/db_connection.php');
-                                        $db_handle = new DBController();
-                                        $query = "SELECT * FROM VisitationCompany";
-                                        $results = $db_handle->runQuery($query);
-
-                                        for ($i = 0; $i < count($results); $i++) {
-                                            echo "<option value='" . $results[$i]['Visitation_CompanyID'] . "'>" . $results[$i]['Visitation_CompanyID'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
+                            <div class="form-title">
+                                <h4>Supervisor & company Mapping Add</h4>
                             </div>
 
-                            <div class="table-title">
-                                <h4>Result Table</h4>
-                            </div>
-                            <div>
-                                <table id="tab1-table">
-                                    <thead>
-                                        <th>#</th>
-                                        <th>Company Name</th>
-                                        <th>Company State</th>
-                                        <th>Company Address</th>
-                                        <th>Company Conctact No</th>
-                                        <th>Comapny Conctact Person</th>
-                                    </thead>
-                                    <tbody id="tab1-table2">
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-
-                            <div class="form-group col-md-12 checkbox-group">
-
-                                <fieldset>
-                                    <legend>Select Lecturer Field </legend>
-                                    <div>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Lecturer ID</th>
-                                                    <th>Lecturer Name</th>
-                                                    <th>Gender</th>
-                                                    <th>Conctact No</th>
-                                                    <th>Position</th>
-                                                    <th>CheckBox</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="tab3-small-table" id="lec-table">
+                            <div class="form-body">
+                                <form method="post">
+                                    <div class="search-group">
+                                        <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationMapListDALObj->generateID() ?>" readonly="readonly"></div>
+                                        <div class="form-group">
+                                            <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
+                                            <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
+                                                <option value="" selected disabled>Select Visitation List</option>
                                                 <?php
-                                                $db = new DBController();
-                                                $sql = "select * from Lecturer";
-                                                $result = $db->runQuery($sql);
+                                                include('includes/db_connection.php');
+                                                $db_handle = new DBController();
+                                                $query = "SELECT * FROM VisitationCompany";
+                                                $results = $db_handle->runQuery($query);
 
-                                                if (count($result) > 0) {
-                                                    foreach ($result as $company) {
-                                                        $lecturerID  = $company['lecturerID'];
-                                                        $lecName = $company['lecName'];
-                                                        $lecGender = $company['lecGender'];
-                                                        $lecContactNumber = $company['lecContactNumber'];
-                                                        $lecJobPosition = $company['lecJobPosition'];
-                                                        ?>
-                                                        <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
-                                                            <td><?php echo $lecturerID ?></td>
-                                                            <td><?php echo $lecName ?></td>
-                                                            <td><?php echo $lecGender ?></td>
-                                                            <td><?php echo $lecContactNumber ?></td>
-                                                            <td><?php echo $lecJobPosition ?></td>
-                                                            <td><input type="checkbox" name="<?php echo $lecturerID ?>" class="tab-3-checkbox"></td>
-                                                        </tr>
-                                                <?php
-                                                    }
+                                                for ($i = 0; $i < count($results); $i++) {
+                                                    echo "<option value='" . $results[$i]['Visitation_CompanyID'] . "'>" . $results[$i]['Visitation_CompanyID'] . "</option>";
                                                 }
-
                                                 ?>
-                                        </table>
+                                            </select>
+                                        </div>
                                     </div>
-                                </fieldset>
 
-
-                                <span class="arrow-icon">🠚</span>
-
-
-                                <fieldset>
-                                    <legend>Existing Selected Lecturer Field </legend>
-                                    <div class="table-responsive">
-                                        <table name="test">
+                                    <div class="table-title">
+                                        <h4>Result Table</h4>
+                                    </div>
+                                    <div>
+                                        <table id="tab1-table">
                                             <thead>
-                                                <tr>
-                                                    <th>Lecturer ID</th>
-                                                    <th>Lecturer Name</th>
-                                                    <th>Gender</th>
-                                                    <th>Conctact No</th>
-                                                    <th>Position</th>
-                                                    <th>Assign Company</th>
-                                                    <th>Action</th>
-                                                </tr>
+                                                <th>#</th>
+                                                <th>Company Name</th>
+                                                <th>Company State</th>
+                                                <th>Company Address</th>
+                                                <th>Company Conctact No</th>
+                                                <th>Comapny Conctact Person</th>
                                             </thead>
-                                            <tbody class="tab3-small-table" id="selected-visitation-Company-List-table">
+                                            <tbody id="tab1-table2">
 
                                             </tbody>
-                                            <tfoot id="test-table">
-                                            </tfoot>
                                         </table>
                                     </div>
-                                </fieldset>
 
 
+
+                                    <div class="form-group col-md-12 checkbox-group">
+
+                                        <fieldset>
+                                            <legend>Select Lecturer Field </legend>
+                                            <div>
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Lecturer ID</th>
+                                                            <th>Lecturer Name</th>
+                                                            <th>Gender</th>
+                                                            <th>Conctact No</th>
+                                                            <th>Position</th>
+                                                            <th>CheckBox</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="tab3-small-table" id="lec-table">
+                                                        <?php
+                                                        $db = new DBController();
+                                                        $sql = "select * from Lecturer";
+                                                        $result = $db->runQuery($sql);
+
+                                                        if (count($result) > 0) {
+                                                            foreach ($result as $company) {
+                                                                $lecturerID  = $company['lecturerID'];
+                                                                $lecName = $company['lecName'];
+                                                                $lecGender = $company['lecGender'];
+                                                                $lecContactNumber = $company['lecContactNumber'];
+                                                                $lecJobPosition = $company['lecJobPosition'];
+                                                                ?>
+                                                                <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
+                                                                    <td><?php echo $lecturerID ?></td>
+                                                                    <td><?php echo $lecName ?></td>
+                                                                    <td><?php echo $lecGender ?></td>
+                                                                    <td><?php echo $lecContactNumber ?></td>
+                                                                    <td><?php echo $lecJobPosition ?></td>
+                                                                    <td><input type="checkbox" name="<?php echo $lecturerID ?>" class="tab-3-checkbox"></td>
+                                                                </tr>
+                                                        <?php
+                                                            }
+                                                        }
+
+                                                        ?>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+
+
+                                        <span class="arrow-icon">🠚</span>
+
+
+                                        <fieldset>
+                                            <legend>Existing Selected Lecturer Field </legend>
+                                            <div class="table-responsive">
+                                                <table name="test">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Lecturer ID</th>
+                                                            <th>Lecturer Name</th>
+                                                            <th>Gender</th>
+                                                            <th>Conctact No</th>
+                                                            <th>Position</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="tab3-small-table" id="selected-visitation-Company-List-table">
+
+                                                    </tbody>
+                                                    <tfoot id="test-table">
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+
+
+                                    </div>
+                                    <div class="button-group">
+                                        <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
+                                        <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('lec-table'), document.getElementById('selected-visitation-Company-List-table'),document.getElementById('Visitation_CompanyID'))">
+
+                                    </div>
+
+
+                                    <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Supervisor Company Mapping" class="form-group btn btn-default">Save</button></div>
+                                
+                                </form>
                             </div>
-                            <div class="button-group">
-                                <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('lec-table'), document.getElementById('selected-visitation-Company-List-table'),document.getElementById('Visitation_CompanyID'))">
-                                <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Supervisor Company Mapping" readonly class="clickable-btn ">Save</button>
-                            </div>
-                        </div>
-
-
-
-
-                        <!-- Tab Content 2 automatedmap-->
-                        <div id="AutoSupervisorCmpMappingTab" class="tabcontent">
-                            <div class="row">
-                                <div class="table-title">
-                                    <h4>Automated Mapping</h4>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -507,36 +505,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     <td>${table.rows[i].getAttribute('data-gender')}</td>
                     <td>${table.rows[i].getAttribute('data-contactNo')}</td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>
-                    <td>
-                    <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
-                    <option value="" selected disabled>Select Visitation List</option>
-                    
-                    `
-
-                                // var data = dataTable.rows().data();
-                                // data.each(function(value, index) {
-                                //     console.log(`For index ${index}, data value is ${value}`);
-                                // });
-                                var table = $('#tab-table').DataTable();
-
-                                dataTable.rows().every(function() {
-
-                                    var Row = this.data(); //store every row data in a variable
-
-                                    console.log(Row[1]); //show Row + Cell index
-
-                                });
-
-                                `
-
-
-                        
-                                       
-                                       
-                                                               
-
-                    </select>
-                    </td>
                     <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
