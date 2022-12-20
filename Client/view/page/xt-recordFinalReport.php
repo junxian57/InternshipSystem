@@ -22,10 +22,19 @@
     $studID = $_SESSION['studentID'];
     $getStudApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
 		$runStudApp = mysqli_query($conn, $getStudApp);
+    $rowStudApp = mysqli_fetch_array($runStudApp);
     if(!(mysqli_num_rows($runStudApp) > 0)){
 			echo "<script>alert('Access blocked! You have not found an internship company yet!')</script>";     
       echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
-		}
+		}else{
+      $internAppID = $rowStudApp['internAppID'];
+      $getIntern = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus ='Submitted'";
+      $runIntern = mysqli_query($conn, $getIntern);
+      if(mysqli_num_rows($runIntern) > 0){
+        echo "<script>alert('Access blocked! You can only submit one final report!')</script>";     
+        echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
+      }
+    }
   }
 
   $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";

@@ -24,16 +24,20 @@
 
 	$getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
   $runInternApp = mysqli_query($conn, $getInternApp);
- 	$rowInternApp = mysqli_fetch_array($runInternApp);
-  $internAppID = $rowInternApp['internAppID'];
-  $internJobID = $rowInternApp['internJobID'];
-	$appInternStartDate = $rowInternApp['appInternStartDate'];
-	$appInternEndDate = $rowInternApp['appInternEndDate'];
+ 	if($rowInternApp = mysqli_fetch_array($runInternApp)){
+		$internAppID = $rowInternApp['internAppID'];
+  	$internJobID = $rowInternApp['internJobID'];
+		$appInternStartDate = $rowInternApp['appInternStartDate'];
+		$appInternEndDate = $rowInternApp['appInternEndDate'];
 
-	$getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
-  $runCmpInfo = mysqli_query($conn, $getCmpInfo);
-  $rowCmpInfo = mysqli_fetch_array($runCmpInfo);
-  $cmpID = $rowCmpInfo['companyID'];
+		$getCmpInfo = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+  	$runCmpInfo = mysqli_query($conn, $getCmpInfo);
+  	$rowCmpInfo = mysqli_fetch_array($runCmpInfo);
+  	$cmpID = $rowCmpInfo['companyID'];
+	}
+	else{
+		$internAppID = "";
+	}
 ?>
 
 <!DOCTYPE HTML>
