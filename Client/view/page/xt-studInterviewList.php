@@ -91,6 +91,11 @@
                       $run_cmp = mysqli_query($conn, $get_cmp);
 								      $row_cmp = mysqli_fetch_array($run_cmp);
 								      $cmpName = $row_cmp['cmpName'];
+
+                      $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
+                      $run_stud = mysqli_query($conn, $get_stud);
+				              $row_stud = mysqli_fetch_array($run_stud);
+				              $studAccountStatus = $row_stud['studAccountStatus'];
                   ?>
 
                   <div class='cmpL'>
@@ -114,7 +119,7 @@
                             <td><?php echo $appInterviewLocation; ?></td>
                           </tr>
                           <?php
-                            if(($appStudFeedback <> 'Accept Interview') && ($appStudFeedback <> 'Reject Interview')){
+                            if(($appStudFeedback <> 'Accept Interview') && ($appStudFeedback <> 'Reject Interview')&& ($studAccountStatus <> 'Intern')){
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
@@ -125,13 +130,19 @@
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='acceptInterview' style='background: #6af071;'>Accepted</a>
+                                <a class='cmpL-btn' id='acceptInterview' style='background: transparent; border: 2px dashed black; cursor: default; color: green; font-size: 14px;'>Accepted</a>
                               </div>";
-                            }else{
+                            }elseif ($appStudFeedback == 'Reject Interview'){
                               echo "</tbody>
                               </table>
                               <div class='cmpLFooter'>
-                                <a class='cmpL-btn' id='rejectedInterview' style='background: tomato;'>Rejected</a>
+                                <a class='cmpL-btn' id='rejectedInterview' style='background: transparent; border: 2px dashed black; cursor:default; color: red;'>Rejected</a>
+                              </div>";
+                            }elseif ($studAccountStatus == 'Intern'){
+                              echo "</tbody>
+                              </table>
+                              <div class='cmpLFooter'>
+                                <a class='cmpL-btn' id='rejectedInterview' style='background: transparent; border: 2px dashed black; cursor:default; color: blue; font-size: 14px;'>Unable to view. You have accept another internship company!</a>
                               </div>";
                             }
                           ?>
