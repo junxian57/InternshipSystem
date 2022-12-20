@@ -385,6 +385,7 @@ $pdf->MultiCell(123, 5, '
 ', 1, 1);
 $pdf->Ln(5);
 
-$pdf->Output('final-report.pdf', 'I');
+$pdf->Output(__DIR__ . '/finalRpt/'.$finalReportID.'_'.$studName.'.pdf', 'FI');
+
 unlink($sign);
 ?>
