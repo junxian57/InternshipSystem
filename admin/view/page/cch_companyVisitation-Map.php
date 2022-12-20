@@ -24,17 +24,19 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
     $Visitation_AppMapID = $_POST['Visitation_AppMapID'];
-    $Visitation_CompanyID = $_POST['Visitation_CompanyID'];
+    $Visitation_ListID = $_POST['Visitation_ListID'];
+    echo $_POST['Visitation_ListID'];
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
-    $newcompanyvisitationMapList = new visitationMapDTO($Visitation_AppMapID, $Visitation_CompanyID, $CreateByID, $CreateDate);
+    $newcompanyvisitationMapList = new visitationMapDTO($Visitation_AppMapID, $Visitation_ListID, $CreateByID, $CreateDate);
     if (count($_POST['lecID']) == count($_POST['lecName'])) {
         $countRow = count($_POST['lecID']);
         for ($i = 0; $i < $countRow; $i++) {
             $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_AppMapID, $_POST['lecID'][$i], $_POST['lecName'][$i]);
         }
     }
+    
     $visitationMapBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
 }
 
@@ -291,7 +293,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                         <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationMapListDALObj->generateID() ?>" readonly="readonly"></div>
                                         <div class="form-group">
                                             <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
-                                            <select name="Visitation_CompanyID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
+                                            <select name="Visitation_ListID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
                                                 <option value="" selected disabled>Select Visitation List</option>
                                                 <?php
                                                 include('includes/db_connection.php');
@@ -459,7 +461,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                     dataTable.clear().draw();
 
-                    $("#Visitation_CompanyID").attr("disabled", "disabled");
+                    //$("#Visitation_CompanyID").attr("disabled", "disabled");
                     document.getElementById('Visitation_CompanyID').style = "pointer-events: none;";
 
                     let count = 1;
@@ -583,7 +585,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     document.getElementById(tabName).style.display = "block";
                     evt.currentTarget.className += " active";
                 }
-                document.getElementById("activeTab").click();
+                //document.getElementById("activeTab").click();
             </script>
             <script src="../../js/classie.js"></script>
             <script src="../../js/bootstrap.js"> </script>
