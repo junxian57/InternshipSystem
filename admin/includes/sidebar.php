@@ -16,18 +16,7 @@ if(isset($_SESSION)){
   <div class="navbar-collapse">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
       <ul class="nav" id="side-menu">
-        <li>
-          <a href="#"><i class="fa fa-user nav_icon"></i>Users<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Users</a>
-            </li>
-            <li>
-              <a href="#">Manage Users</a>
-            </li>
-          </ul>
-        </li>
-
+        
         <?php if($adminID || $committeeID) { ?>
           <li>
           <a href="#"><i class="fa fa-wrench nav_icon"></i>Maintenance<span class="fa arrow"></span> </a>
@@ -85,36 +74,6 @@ if(isset($_SESSION)){
           </li>
         <?php } ?>
 
-        <li>
-          <a href="all-appointment.php"><i class="fa fa-check-square-o nav_icon"></i>Appointment<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="all-appointment.php">All Appointment</a>
-            </li>
-            <li>
-              <a href="new-appointment.php">New Appointment</a>
-            </li>
-            <li>
-              <a href="accepted-appointment.php">Accepted Appointment</a>
-            </li>
-            <li>
-              <a href="rejected-appointment.php">Rejected Appointment</a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="#"><i class="fa fa-sitemap nav_icon"></i>Internship Batch<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add New Internship Batch</a>
-            </li>
-            <li>
-              <a href="#">Manage Internship Batch</a>
-            </li>
-          </ul>
-        </li>
-
         <?php if($adminID || $committeeID) { ?>
         <li>
           <a href="../page/xt-companiesSelection.php"><i class="fa fa-book nav_icon"></i>Companies Selection<span class="fa arrow"></span></a>
@@ -138,18 +97,6 @@ if(isset($_SESSION)){
         <?php } ?>
 
         <li>
-          <a href="#"><i class="fa fa-users nav_icon"></i>Company Visitation<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">A</a>
-            </li>
-            <li>
-              <a href="#">B</a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
           <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
@@ -164,8 +111,6 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
-
-
         <li>
           <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Upload Document<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -178,7 +123,6 @@ if(isset($_SESSION)){
           </ul>
         </li>
 
-
         <li>
           <a href="all-communcation.php"><i class="fa fa-comments nav_icon"></i>Communication<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -190,21 +134,6 @@ if(isset($_SESSION)){
             </li>
           </ul>
         </li>
-
-        
-  
-        <li>
-          <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Alerts</a>
-            </li>
-            <li>
-              <a href="#">Manage Alerts</a>
-            </li>
-          </ul>
-        </li>
-
 
         <li>
           <a href="../../app/BLL/logoutBLL.php" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>Sign Out</a>

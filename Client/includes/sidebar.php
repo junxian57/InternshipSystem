@@ -88,18 +88,6 @@ if (isset($_SESSION)) {
           </ul>
         </li>
 
-        <li>
-          <a href="#"><i class="fa fa-sitemap nav_icon"></i>Internship Batch<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add New Internship Batch</a>
-            </li>
-            <li>
-              <a href="#">Manage Internship Batch</a>
-            </li>
-          </ul>
-        </li>
-
         <?php if ($studentID) { ?>
           <li>
             <a href="../page/xt-companiesList.php"><i class="fa fa-book nav_icon"></i>Companies<span class="fa arrow"></span></a>
@@ -142,6 +130,17 @@ if (isset($_SESSION)) {
           </li>
         <?php } ?>
 
+        <?php if ($companyID) { ?>
+          <li>
+            <a href="xt-viewProgressList-cmp.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-viewProgressList-cmp.php">All Work Progress</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
         <?php if ($studentID) { ?>
           <li>
             <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
@@ -167,22 +166,12 @@ if (isset($_SESSION)) {
           </li>
         <?php } ?>
 
-        <li>
-          <a href="#"><i class="fa fa-users nav_icon"></i>Company Visitation<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">A</a>
-            </li>
-            <li>
-              <a href="#">B</a>
-            </li>
-          </ul>
-        </li>
         <?php if ($studentID) { ?>
           <li>
             <a href="jx-displayEvaluationTemplate.php"><i class="fa fa-check-square-o nav_icon"></i>Assessment Rubrics<span class="fa arrow"></span></a>
           </li>
         <?php } ?>
+
         <li>
           <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Document<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
@@ -192,38 +181,12 @@ if (isset($_SESSION)) {
           </ul>
         </li>
 
-
         <li>
           <a href="all-communcation.php"><i class="fa fa-comments nav_icon"></i>Communication<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
               <a href="joel-messageList.php">View Available Message</a>
             </li>
-          </ul>
-        </li>
-
-
-
-        <li>
-          <a href="#"><i class="fa fa-bell-o nav_icon"></i>Alerts<span class="fa arrow"></span> </a>
-          <ul class="nav nav-second-level collapse">
-            <li>
-              <a href="#">Add Alerts</a>
-            </li>
-            <li>
-              <a href="#">Manage Alerts</a>
-            </li>
-          </ul>
-        </li>
-
-
-
-        <li>
-          <a href="#"><i class="fa fa-file nav_icon"></i>Reports<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level collapse">
-            <li><a href="#">A</a></li>
-
-            <li><a href="#">B</a></li>
           </ul>
         </li>
 

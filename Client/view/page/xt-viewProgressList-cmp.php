@@ -10,12 +10,12 @@ include('../../includes/db_connection.php');
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-if (!isset($_SESSION['lecturerID'])) {
+if (!isset($_SESSION['companyID'])) {
   echo "<script>
       window.location.href = 'clientLogin.php';
   </script>";
 } else {
-  $lecturerID = $_SESSION['lecturerID'];
+  $companyID = $_SESSION['companyID'];
 }
 ?>
 <!DOCTYPE HTML>
@@ -105,30 +105,34 @@ if (!isset($_SESSION['lecturerID'])) {
 							<tbody>
 							<?php
 								$i=0;
-                $getLec = "SELECT * FROM Student WHERE lecturerID = '$lecturerID'";
-                $runLec = mysqli_query($conn, $getLec);
-                while($rowLec = mysqli_fetch_array($runLec)){
-                  $studID = $rowLec['studentID'];
-                  $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND reportStatus = 'Submitted'";
-                  $run_month = mysqli_query($conn, $get_month);
-                  while($row_month = mysqli_fetch_array($run_month)){
-                    $monthlyRptID = $row_month['monthlyReportID'];
-                    $cmpID = $row_month['companyID'];
-                    $studentID = $row_month['studentID'];
-                    $monthOfTraining = $row_month['monthOfTraining'];
-                    $submitDateTime = $row_month['submitDateTime'];
-                    $status = $row_month['reportStatus'];
-                    
-                    $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
-                    $run_cmp = mysqli_query($conn, $get_cmp);
-                    $row_cmp = mysqli_fetch_array($run_cmp);
-                    $cmpName = $row_cmp['cmpName'];
+                  
+                $get_job = "SELECT * FROM InternJob WHERE companyID= '$companyID'";
+                $run_job = mysqli_query($conn, $get_job);
+                while($row_job = mysqli_fetch_array($run_job)){
+                  $internJobID = $row_job['internJobID'];
+                  $cmpID = $row_job['companyID'];
+
+                  $getInternApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStudentFeedback = 'Accept Offer'";
+                  $runInternApp = mysqli_query($conn, $getInternApp);
+                  if($rowInternApp = mysqli_fetch_array($runInternApp)){
+                    $internAppID = $rowInternApp['internAppID'];
+                    $studentID = $rowInternApp['studentID'];
+
+                    $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studentID' AND reportStatus = 'Submitted'";
+                    $run_month = mysqli_query($conn, $get_month);
+                    while($row_month = mysqli_fetch_array($run_month)){
+                      $monthlyRptID = $row_month['monthlyReportID'];
+                      $cmpID = $row_month['companyID'];
+                      $studentID = $row_month['studentID'];
+                      $monthOfTraining = $row_month['monthOfTraining'];
+                      $submitDateTime = $row_month['submitDateTime'];
+                      $status = $row_month['reportStatus'];
   
-                    $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
-                    $run_stud = mysqli_query($conn, $get_stud);
-                    $row_stud = mysqli_fetch_array($run_stud);
-                    $studName = $row_stud['studName'];
-                    $i++;  
+                      $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+                      $run_stud = mysqli_query($conn, $get_stud);
+                      $row_stud = mysqli_fetch_array($run_stud);
+                      $studName = $row_stud['studName'];
+                      $i++;    
               ?>
 							<tr>
 								<td><?php echo $i; ?></td>
@@ -140,7 +144,7 @@ if (!isset($_SESSION['lecturerID'])) {
 								<td><?php echo $submitDateTime; ?></td>
 								<td><?php echo '<a href="/InternshipSystem/Client/view/page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View & Print</a></td>
 							</tr>
-							<?php }} ?>
+							<?php }}} ?>
 							</tbody>
 						</table>
 					</div>
@@ -172,17 +176,20 @@ if (!isset($_SESSION['lecturerID'])) {
 							<tbody>
 							<?php
                 $i=0;
-                $getLec = "SELECT * FROM Student WHERE lecturerID = '$lecturerID'";
-                $runLec = mysqli_query($conn, $getLec);
-                while($rowLec = mysqli_fetch_array($runLec)){
-                  $studID = $rowLec['studentID'];
+                $i=0;
+                  
+                $get_job = "SELECT * FROM InternJob WHERE companyID= '$companyID'";
+                $run_job = mysqli_query($conn, $get_job);
+                while($row_job = mysqli_fetch_array($run_job)){
+                  $internJobID = $row_job['internJobID'];
+                  $cmpID = $row_job['companyID'];
 
-                  $getInternApp = "SELECT * FROM InternApplicationMap WHERE studentID = '$studID' AND appStudentFeedback = 'Accept Offer'";
-  								$runInternApp = mysqli_query($conn, $getInternApp);
- 									if ($rowInternApp = mysqli_fetch_array($runInternApp)){
+                  $getInternApp = "SELECT * FROM InternApplicationMap WHERE internJobID = '$internJobID' AND appStudentFeedback = 'Accept Offer'";
+                  $runInternApp = mysqli_query($conn, $getInternApp);
+                  if($rowInternApp = mysqli_fetch_array($runInternApp)){
                     $internAppID = $rowInternApp['internAppID'];
                     $studentID = $rowInternApp['studentID'];
-									  $appInternStartDate = $rowInternApp['appInternStartDate'];
+                    $appInternStartDate = $rowInternApp['appInternStartDate'];
 									  $appInternEndDate = $rowInternApp['appInternEndDate'];
 
                     $get_final = "SELECT * FROM finalReport WHERE internAppID = '$internAppID' AND reportStatus = 'Submitted'";
@@ -192,12 +199,12 @@ if (!isset($_SESSION['lecturerID'])) {
                       $internAppID = $row_final['internAppID'];
                       $submitDateTime = $row_final['submitDateTime'];
                       $status = $row_final['reportStatus'];
-
-                      $get_stud = "SELECT * FROM Student WHERE studentID = '$studID'";
-                	    $run_stud = mysqli_query($conn, $get_stud);
-									    $row_stud = mysqli_fetch_array($run_stud);
-									    $studName = $row_stud['studName'];
-                      $i++; 
+  
+                      $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+                      $run_stud = mysqli_query($conn, $get_stud);
+                      $row_stud = mysqli_fetch_array($run_stud);
+                      $studName = $row_stud['studName'];
+                      $i++;  
               ?>
 							<tr>
 								<td><?php echo $i; ?></td>
