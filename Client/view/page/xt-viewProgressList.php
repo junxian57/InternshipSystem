@@ -10,12 +10,12 @@ include('../../includes/db_connection.php');
 
 if(session_status() != PHP_SESSION_ACTIVE) session_start();
 
-if (!isset($_SESSION['adminID'])) {
-  if (!isset($_SESSION['committeeID'])) {
-    echo "<script>
-        window.location.href = 'adminLogin.php';
-    </script>";
-  }
+if (!isset($_SESSION['lecturerID'])) {
+  echo "<script>
+      window.location.href = 'clientLogin.php';
+  </script>";
+} else {
+  $lecturerID = $_SESSION['lecturerID'];
 }
 ?>
 <!DOCTYPE HTML>
@@ -25,7 +25,7 @@ if (!isset($_SESSION['adminID'])) {
 	<link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/style.css" rel='stylesheet' type='text/css' />
 	<link href="../../css/font-awesome.css" rel="stylesheet">
-	<link href="../../css/xt-workProgress.css" rel="stylesheet">
+	<link href="../../css/xt-progressList.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 	<link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="../../css/custom.css" rel="stylesheet">
@@ -90,26 +90,30 @@ if (!isset($_SESSION['adminID'])) {
 							<tbody>
 							<?php
 								$i=0;
-                $get_month = "SELECT * FROM weeklyReport WHERE reportStatus = 'Submitted'";
-                $run_month = mysqli_query($conn, $get_month);
-                while($row_month = mysqli_fetch_array($run_month)){
-                  $monthlyRptID = $row_month['monthlyReportID'];
-                  $cmpID = $row_month['companyID'];
-									$studentID = $row_month['studentID'];
-                  $monthOfTraining = $row_month['monthOfTraining'];
-									$submitDateTime = $row_month['submitDateTime'];
-									$status = $row_month['reportStatus'];
-									
-									$get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
-                	$run_cmp = mysqli_query($conn, $get_cmp);
-									$row_cmp = mysqli_fetch_array($run_cmp);
-									$cmpName = $row_cmp['cmpName'];
-
-									$get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
-                	$run_stud = mysqli_query($conn, $get_stud);
-									$row_stud = mysqli_fetch_array($run_stud);
-									$studName = $row_stud['studName'];
-									$i++;
+                $getLec = "SELECT * FROM Student WHERE lecturerID = '$lecturerID'";
+                $runLec = mysqli_query($conn, $getLec);
+                while($rowLec = mysqli_fetch_array($runLec)){
+                  $studID = $rowLec['studentID'];
+                  $get_month = "SELECT * FROM weeklyReport WHERE studentID = '$studID' AND stureportStatus = 'Submitted'";
+                  $run_month = mysqli_query($conn, $get_month);
+                  while($row_month = mysqli_fetch_array($run_month)){
+                    $monthlyRptID = $row_month['monthlyReportID'];
+                    $cmpID = $row_month['companyID'];
+                    $studentID = $row_month['studentID'];
+                    $monthOfTraining = $row_month['monthOfTraining'];
+                    $submitDateTime = $row_month['submitDateTime'];
+                    $status = $row_month['reportStatus'];
+                    
+                    $get_cmp = "SELECT * FROM Company WHERE companyID = '$cmpID'";
+                    $run_cmp = mysqli_query($conn, $get_cmp);
+                    $row_cmp = mysqli_fetch_array($run_cmp);
+                    $cmpName = $row_cmp['cmpName'];
+  
+                    $get_stud = "SELECT * FROM Student WHERE studentID = '$studentID'";
+                    $run_stud = mysqli_query($conn, $get_stud);
+                    $row_stud = mysqli_fetch_array($run_stud);
+                    $studName = $row_stud['studName'];
+                    $i++;  
               ?>
 							<tr>
 								<td><?php echo $i; ?></td>
@@ -121,7 +125,7 @@ if (!isset($_SESSION['adminID'])) {
 								<td><?php echo $submitDateTime; ?></td>
 								<td><?php echo '<a href="/InternshipSystem/Client/view/page/monthlyRpt/'.$monthlyRptID.'_'.$studName.'_'.$monthOfTraining.'.pdf" target="_blank">';?>View & Print</a></td>
 							</tr>
-							<?php } ?>
+							<?php }} ?>
 							</tbody>
 						</table>
 					</div>

@@ -131,6 +131,17 @@ if (isset($_SESSION)) {
           </li>
         <?php } ?>
 
+        <?php if ($lecturerID) { ?>
+          <li>
+            <a href="xt-viewProgressList.php"><i class="fa fa-book nav_icon"></i>Student Work Progress<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="../page/xt-viewProgressList.php">All Work Progress</a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+
         <?php if ($studentID) { ?>
           <li>
             <a href="xt-studentJobApp.php"><i class="fa fa-book nav_icon"></i>Student Job Application<span class="fa arrow"></span></a>
