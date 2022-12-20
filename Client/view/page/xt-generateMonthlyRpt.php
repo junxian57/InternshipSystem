@@ -122,9 +122,9 @@ $pdf = new PDF('p', 'mm', 'A4', true, 'UTF-8', false);
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('XT');
-$pdf->SetTitle('Progress Report Template');
-$pdf->SetSubject('Progress Report Template');
-$pdf->SetKeywords('Progress Report Template');
+$pdf->SetTitle('Progress Report');
+$pdf->SetSubject('Progress Report');
+$pdf->SetKeywords('Progress Report');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));

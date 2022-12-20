@@ -4,7 +4,7 @@
   $user = "u928796707_group34";
   $password = "u1VF3KYO1r|";
   $database = "u928796707_internshipWeb";
-                                              
+                                            
   $conn = mysqli_connect($host, $user, $password, $database); 
 
 	include('../../includes/db_connection.php');
@@ -75,7 +75,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-  <title>ITP System | Edit Final Report</title>
+  <title>ITP System | Submit Final Report</title>
   
   <script src="../../js/jquery-1.11.1.min.js"></script>
   <script src="../../js/toastr.min.js"></script>
@@ -119,6 +119,11 @@
       margin-left: 50px;
     }
 
+    .reminder{
+      margin-top: 20px;
+      margin-left: 50px;
+    }
+
     .container{
       margin-top: 30px;
       margin-bottom: 50px;
@@ -146,13 +151,14 @@
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tablesr">
-					<h3 class="title1">Edit Final Report</h3>
-          <form method="POST" enctype="multipart/form-data" id="signatureform">
+					<h3 class="title1">Submit Final Report</h3>
+          <h5 class="reminder" style="color: red;">*Please check your information before submit.</h5>
+          <form method="POST" action="xt-generateFinalRpt.php?finalRptID=<?php echo $finalReportID;?>" enctype="multipart/form-data" id="signatureform">
             <div class="container">
               <div class="subtitle">
                 <h2 class="sub-1">Student General Information</h2>
               </div>
-              
+
               <div class="inputBox">
                 <div class="viewInput">
                   <span>Name of Trainee</span>
@@ -181,8 +187,7 @@
             
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <textarea type="text" name="acknowledgements" id="acknowledgements" oninput="countWord()" onPaste="return false" placeholder="Expression of appreciation to the company, faculty, individuals, etc."><?php echo $acknowledgements; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
+                  <textarea type="text" name="acknowledgements" id="acknowledgements" oninput="countWord()" onPaste="return false" placeholder="Expression of appreciation to the company, faculty, individuals, etc." readonly><?php echo $acknowledgements; ?></textarea>
                 </div> 
               </div>
 
@@ -192,8 +197,7 @@
 
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <textarea type="text" name="abstract" id="abstract" oninput="countWord2()" onPaste="return false" placeholder="Summary of report with 200 to 300 words. It is to be written in the past tense. The abstract description should include the organisation and department with which the student was attached to, the assigned tasks, the achievements, and the learning experience gained during the training period."><?php echo $abstract; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
+                  <textarea type="text" name="abstract" id="abstract" oninput="countWord2()" onPaste="return false" placeholder="Summary of report with 200 to 300 words. It is to be written in the past tense. The abstract description should include the organisation and department with which the student was attached to, the assigned tasks, the achievements, and the learning experience gained during the training period." readonly><?php echo $abstract; ?></textarea>
                 </div> 
               </div>
 
@@ -204,44 +208,37 @@
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
                   <span>Industrial training scheme</span>
-                  <textarea type="text" name="trainingScheme" id="trainingScheme" oninput="countWord3()" onPaste="return false" placeholder="A brief description on the course objectives, duration, etc"><?php echo $trainingScheme; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="trainingScheme" id="trainingScheme" oninput="countWord3()" onPaste="return false" placeholder="A brief description on the course objectives, duration, etc" readonly><?php echo $trainingScheme; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Industrial training scopes</span>
-                  <textarea type="text" name="trainingScope" id="trainingScope" oninput="countWord4()" onPaste="return false" placeholder="A summary of trainee’s job roles and responsibilities, etc."><?php echo $trainingScope; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="trainingScope" id="trainingScope" oninput="countWord4()" onPaste="return false" placeholder="A summary of trainee’s job roles and responsibilities, etc." readonly><?php echo $trainingScope; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Company background</span>
-                  <textarea type="text" name="cmpBackground" id="cmpBackground" oninput="countWord5()" onPaste="return false" placeholder="Describe the background and details of the company."><?php echo $cmpBackground; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show5">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="cmpBackground" id="cmpBackground" oninput="countWord5()" onPaste="return false" placeholder="Describe the background and details of the company." readonly><?php echo $cmpBackground; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Business operation</span>
-                  <textarea type="text" name="businessOperation" id="businessOperation" oninput="countWord6()" onPaste="return false" placeholder="Describe the basic operation perform by the company."><?php echo $businessOperation; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show6">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="businessOperation" id="businessOperation" oninput="countWord6()" onPaste="return false" placeholder="Describe the basic operation perform by the company." readonly><?php echo $businessOperation; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Structures of project</span>
-                  <textarea type="text" name="projectStructure" id="projectStructure" oninput="countWord7()" onPaste="return false" placeholder="Describe the structures of organisation/project."><?php echo $projectStructure; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show7">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="projectStructure" id="projectStructure" oninput="countWord7()" onPaste="return false" placeholder="Describe the structures of organisation/project." readonly><?php echo $projectStructure; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Training department</span>
-                  <textarea type="text" name="trainingDept" id="trainingDept" oninput="countWord8()" onPaste="return false" placeholder="Explain the structure your training department."><?php echo $trainingDept; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show8">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="trainingDept" id="trainingDept" oninput="countWord8()" onPaste="return false" placeholder="Explain the structure your training department." readonly><?php echo $trainingDept; ?></textarea>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Training personnel</span>
-                  <textarea type="text" name="trainingPersonnel" id="trainingPersonnel" oninput="countWord9()" onPaste="return false" placeholder="Describe the personnel of training organisation and department."><?php echo $trainingPersonnel; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show9">0</span><span> / 200]</span></div>
+                  <textarea type="text" name="trainingPersonnel" id="trainingPersonnel" oninput="countWord9()" onPaste="return false" placeholder="Describe the personnel of training organisation and department." readonly><?php echo $trainingPersonnel; ?></textarea>
                 </div> 
               </div>
             
@@ -251,8 +248,7 @@
             
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <textarea type="text" name="projectBackground" id="projectBackground" oninput="countWord10()" onPaste="return false" placeholder="Describe the project background, job responsibilities, experiences, details of work undertaken, problems faced, technology exposure, whether you have become aware of business opportunities and gained entrepreneurial skills as well as describe how you plan practise entrepreneurship in the future."><?php echo $projectBackground; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show10">0</span><span> / 500]</span></div>
+                  <textarea type="text" name="projectBackground" id="projectBackground" oninput="countWord10()" onPaste="return false" placeholder="Describe the project background, job responsibilities, experiences, details of work undertaken, problems faced, technology exposure, whether you have become aware of business opportunities and gained entrepreneurial skills as well as describe how you plan practise entrepreneurship in the future." readonly><?php echo $projectBackground; ?></textarea>
                 </div>
               </div>
 
@@ -262,17 +258,19 @@
 
               <div class="inputBox">
                 <div class="viewInput" style="width:100%;">
-                  <textarea type="text" name="conclusion" id="conclusion" oninput="countWord11()" onPaste="return false" placeholder="State your opinion and recommendations regarding experiences in the industry and future expectation, etc."><?php echo $conclusion; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show11">0</span><span> / 500]</span></div>
+                  <textarea type="text" name="conclusion" id="conclusion" oninput="countWord11()" onPaste="return false" placeholder="State your opinion and recommendations regarding experiences in the industry and future expectation, etc." readonly><?php echo $conclusion; ?></textarea>
                 </div>
               </div>
 
+              <div class="subtitle">
+                <h2 class="sub-7">Digital Signature</h2>
+              </div>
+
               <div id="signature-pad">
-                  <div id="canvasDiv" style="display: none;"></div>
+                  <div id="canvasDiv"></div>
                   <br>
-                  <button type="button" class="btn btn-danger" id="reset-btn">Reset</button>
-                  <input type="submit" class="btn btn-success" id="btn-save" name="signatureedit" value="Save">
-                  <input type="submit" class="btn btn-success" id="btn-submit" name="submit" value="Submit">
+                  <a class="btn btn-danger" id="reset-btn" href="xt-editFinalReport.php?finalReportID=<?php echo $finalReportID; ?>">Edit</a>
+                  <input type="submit" class="btn btn-success" id="btn-save" name="submitRpt" value="Submit">
               </div>
 
               <input type="hidden" id="signature" name="signature">
@@ -283,72 +281,7 @@
     </div>
   </div>
 
-  <?php
-    if(isset($_POST['signatureedit'])){
-      $acknowledgements = $_POST['acknowledgements'];
-      $abstract = $_POST['abstract'];
-      $trainingScheme = $_POST['trainingScheme'];
-      $trainingScope = $_POST['trainingScope'];
-      $cmpBackground = $_POST['cmpBackground'];
-      $businessOperation = $_POST['businessOperation'];
-      $projectStructure = $_POST['projectStructure'];
-      $trainingDept = $_POST['trainingDept'];
-      $trainingPersonnel = $_POST['trainingPersonnel'];
-      $projectBackground = $_POST['projectBackground'];
-      $conclusion = $_POST['conclusion'];
-      $status = "Saved";
-    
-      $sql = "UPDATE finalReport SET acknowledgements='$acknowledgements', abstract='$abstract', trainingScheme='$trainingScheme', trainingScope='$trainingScope', cmpBackground='$cmpBackground', businessOperation='$businessOperation', projectStructure='$projectStructure', trainingDept='$trainingDept', trainingPersonnel='$trainingPersonnel', projectBackground='$projectBackground', recommendation='$conclusion' WHERE finalReportID='$finalReportID'";
-    
-      if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('The report have been saved into database.')</script>";     
-        echo "<script>window.open('xt-viewFinalReport.php','_self')</script>";
-      }else{
-        echo "Error: " . $sql . mysqli_error($conn);
-      }
-    }
-?>
-
-<?php
-  if(isset($_POST['submit'])){
-    $acknowledgements = $_POST['acknowledgements'];
-    $abstract = $_POST['abstract'];
-    $trainingScheme = $_POST['trainingScheme'];
-    $trainingScope = $_POST['trainingScope'];
-    $cmpBackground = $_POST['cmpBackground'];
-    $businessOperation = $_POST['businessOperation'];
-    $projectStructure = $_POST['projectStructure'];
-    $trainingDept = $_POST['trainingDept'];
-    $trainingPersonnel = $_POST['trainingPersonnel'];
-    $projectBackground = $_POST['projectBackground'];
-    $conclusion = $_POST['conclusion'];
-    $status = "Saved";
-    
-    $sql = "UPDATE finalReport SET acknowledgements='$acknowledgements', abstract='$abstract', trainingScheme='$trainingScheme', trainingScope='$trainingScope', cmpBackground='$cmpBackground', businessOperation='$businessOperation', projectStructure='$projectStructure', trainingDept='$trainingDept', trainingPersonnel='$trainingPersonnel', projectBackground='$projectBackground', recommendation='$conclusion' WHERE finalReportID='$finalReportID'";
-    
-    if (mysqli_query($conn, $sql)) {
-      echo "<script>window.open('xt-submitFinalReport.php?finalReportID=$finalReportID','_self')</script>";
-    }else{
-      echo "Error: " . $sql . mysqli_error($conn);
-    }
-  }
-?>
-
   <script>
-    $(document).ready(function(){
-      var form = $('#signatureform'),
-        original = form.serialize()
-      
-        form.submit(function(){
-        window.onbeforeunload = null
-      })
-
-      window.onbeforeunload = function(){
-        if (form.serialize() != original)
-          return 'Are you sure you want to leave?'
-      }
-    })
-
     $(document).ready(() => {
       var canvasDiv = document.getElementById('canvasDiv');
       var canvas = document.createElement('canvas');
@@ -400,24 +333,6 @@
         clickDrag.push(dragging);
       }
       
-      $("#reset-btn").click(function() {
-        context.clearRect(0, 0, window.innerWidth, window.innerWidth);
-        clickX = [];
-        clickY = [];
-        clickDrag = [];
-        document.getElementById("acknowledgements").value = "";
-        document.getElementById("abstract").value = "";
-        document.getElementById("trainingScheme").value = "";
-        document.getElementById("trainingScope").value = "";
-        document.getElementById("cmpBackground").value = "";
-        document.getElementById("businessOperation").value = "";
-        document.getElementById("projectStructure").value = "";
-        document.getElementById("trainingDept").value = "";
-        document.getElementById("trainingPersonnel").value = "";
-        document.getElementById("projectBackground").value = "";
-        document.getElementById("conclusion").value = "";
-      });
-
       $(document).on('click', '#btn-save', function() {
         var mycanvas = document.getElementById('canvas');
         var img = mycanvas.toDataURL("image/png");
@@ -491,23 +406,6 @@
             }
           }
         })
-
-        /*$("#btn-submit").click(function() {
-          let week1 = document.getElementById('week1').value;
-          let week2 = document.getElementById('week2').value;
-          let week3 = document.getElementById('week3').value;
-          let week4 = document.getElementById('week4').value;
-          let problem = document.getElementById('problem').value;
-          var minLength = 100;
-
-            if (week1 == '' || week2 == '' || week3 == '' || week4 == '' || problem == '') {
-              warning("Please fill in all fields");
-            }else if(week1.length < minLength || week2.length < minLength || week3.length < minLength || week4.length < minLength || problem.length < minLength) {
-              info("Please write a summary of your work in at least 100 words.");
-            }else{
-              window.location.href = '../../view/page/xt-submitWorkProgress.php?monthlyReportID=<?php echo $monthlyReportID; ?>';
-            }
-        })*/
   </script>
 
   <script>
@@ -560,39 +458,20 @@
         }
       });
     });*/
-    function dateStrToObj(dateStr) {
-      const [year, month, date] = dateStr.split('-').map(Number)
-      return new Date(year, month - 1, date)
-    }
-    
-    function onChange() {
-      let output = document.getElementById("leaveDays");
+    let submit = document.getElementById("toDate");
+    let output = document.getElementById("leaveDays");
+
+    submit.addEventListener("change", () => {
       let fromDate = new Date(document.getElementById("fromDate").value);
       let toDate = new Date(document.getElementById("toDate").value);
-      const startDateStr = document.querySelector('#fromDate').value
-      const endDateStr = document.querySelector('#toDate').value
-      
-      if (!startDateStr || !endDateStr) return
-      const startDate = dateStrToObj(startDateStr)
-      const endDate = dateStrToObj(endDateStr)
-      
-      if (endDate.valueOf() < startDate.valueOf()) {
-        warning('End date is before start date!');
-        document.getElementById("toDate").value = document.getElementById("fromDate").value
-      }
-      else{
-        if(fromDate.getTime() && toDate.getTime()){
-          let timeDifference = toDate.getTime() - fromDate.getTime();
 
-          let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
-          output.value = dayDifference;
-        }
+      if(fromDate.getTime() && toDate.getTime()){
+        let timeDifference = toDate.getTime() - fromDate.getTime();
+
+        let dayDifference = Math.abs(timeDifference / (1000 * 3600 *24));
+        output.value = dayDifference;
       }
-    }
-    
-    for (const dateInput of document.querySelectorAll('input[type=date]')) {
-      dateInput.addEventListener('change', onChange)
-    }
+    });
   </script>
 
 <script>
@@ -861,29 +740,12 @@
         document.getElementById("toDate").value = "";
         document.getElementById("leaveDays").value = "0";
         document.getElementById("leaveReason").disabled = true;
-      }else if(selected == "Yes" || selected == "YES"){
+      }else{
         document.getElementById("fromDate").disabled = false;
         document.getElementById("toDate").disabled = false;
         document.getElementById("leaveReason").disabled = false;
       }
     });
-
-    window.onload = function() {
-      
-      var selected = select_element.options[select_element.selectedIndex ].value
-        if(selected == "No" || selected == "NO"){
-          document.getElementById("fromDate").disabled = true;
-          document.getElementById("fromDate").value = "";
-          document.getElementById("toDate").disabled = true;
-          document.getElementById("toDate").value = "";
-          document.getElementById("leaveDays").value = "0";
-          document.getElementById("leaveReason").disabled = true;
-        }else if(selected == "Yes" || selected == "YES"){
-          document.getElementById("fromDate").disabled = false;
-          document.getElementById("toDate").disabled = false;
-          document.getElementById("leaveReason").disabled = false;
-        }
-      };
   </script>
 
   <script>

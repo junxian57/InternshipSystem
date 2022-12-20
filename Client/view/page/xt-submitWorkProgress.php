@@ -175,25 +175,21 @@
                 <div class="viewInput" style="width:100%;">
                   <span>Week 1</span>
                   <textarea type="text" name="week1" id="week1" oninput="countWord()" placeholder="Summarize Week 1 projects and activities within 300 words." readonly><?php echo $firstWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 2</span>
                   <textarea type="text" name="week2" id="week2" oninput="countWord2()" placeholder="Summarize Week 2 projects and activities within 300 words." readonly><?php echo $secondWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show2">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 3</span>
                   <textarea type="text" name="week3" id="week3" oninput="countWord3()" placeholder="Summarize Week 3 projects and activities within 300 words." readonly><?php echo $thirdWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show3">0</span><span> / 300]</span></div>
                 </div> 
 
                 <div class="viewInput" style="width:100%;">
                   <span>Week 4</span>
                   <textarea type="text" name="week4" id="week4" oninput="countWord4()" placeholder="Summarize Week 4 projects and activities within 300 words." readonly><?php echo $forthWeekDeliverables; ?></textarea>
-                  <div class="wordCount"><span> [Word Count: </span><span id="show4">0</span><span> / 300]</span></div>
                 </div> 
               </div>
             
