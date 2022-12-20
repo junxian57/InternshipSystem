@@ -14,6 +14,7 @@ if (!isset($_SESSION['adminID'])) {
 
 require_once('../../app/BLL/visitationMapBLL.php');
 require_once("../../app/DTO/visitationMapDTO.php");
+require_once("../../app/DTO/visitationCompanyListDTO.php");
 require_once("../../app/DAL/visitationMapDAL.php");
 
 $visitationMapListDALObj  = new visitationMapDAL();
@@ -22,19 +23,18 @@ $visitationMapBllObj = new visitationMapBLL();
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor Company Mapping') {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
-    $Visitation_CompanyID = $_POST['Visitation_AppMapID'];
-    $Visitation_CriteriaID = $_POST['Visitation_CompanyID'];
+    $Visitation_AppMapID = $_POST['Visitation_AppMapID'];
+    $Visitation_CompanyID = $_POST['Visitation_CompanyID'];
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
     $newcompanyvisitationMapList = new visitationMapDTO($Visitation_AppMapID, $Visitation_CompanyID, $CreateByID, $CreateDate);
-    if (count($_POST['lecturerID']) == count($_POST['lecName'])) {
-        $countRow = count($_POST['lecturerID']);
+    if (count($_POST['lecID']) == count($_POST['lecName'])) {
+        $countRow = count($_POST['lecID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_AppMapID, $_POST['lecturerID'][$i], $_POST['lecName'][$i]);
+            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_AppMapID, $_POST['lecID'][$i], $_POST['lecName'][$i]);
         }
     }
-
     $visitationMapBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
 }
 
@@ -412,7 +412,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
 
                                     <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Supervisor Company Mapping" class="form-group btn btn-default">Save</button></div>
-                                
+
                                 </form>
                             </div>
                         </div>
@@ -501,7 +501,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                 trRight.setAttribute("data-position", table.rows[i].getAttribute('data-genpositionder'));
                                 trRight.innerHTML = `
                     <td>${table.rows[i].getAttribute('data-lecturerID')}<input hidden name="lecID[]" value="${table.rows[i].getAttribute('data-lecturerID')}"></input></td>
-                    <td>${table.rows[i].getAttribute('data-lecName')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecName')}<input hidden name="lecName[]" value="${table.rows[i].getAttribute('data-lecName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-gender')}</td>
                     <td>${table.rows[i].getAttribute('data-contactNo')}</td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>

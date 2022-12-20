@@ -110,20 +110,18 @@ class visitationMapDAL
         foreach ($visitationMapListDTO as $visitationMapListDTO1) {
             $sql1 = "INSERT INTO VisitationApplicationMapList (`Visitation_AppMapID`,`lecturerID`,`lecName`)
                     VALUES (
-                      '" . $visitationMapListDTO1->getVisitation_AppMapID() . "',
-                      '" . $visitationMapListDTO1->getlecturerID() . "',
-                      '" . $visitationMapListDTO1->getlecName() . "',
-                      '" . $visitationMapListDTO1->getVisitation_AssignedCmpID() . "'
+                      '" . $visitationMapListDTO1->getVisitation_CompanyID() . "',
+                      '" . $visitationMapListDTO1->getCompanyID() . "',
+                      '" . $visitationMapListDTO1->getcmpname() . "'
                     )";
-            echo $sql1;
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
         }
         if ($result && $result2) {
 
-            header("Location: ../../view/page/cch_AddVisitationList.php?status=success");
+            header("Location: ../../view/page/cch_companyVisitation-Map.php?status=success");
             exit();
         } else {
-            header("Location: ../../view/page/cch_AddVisitationList.php?status=failed");
+            header("Location: ../../view/page/cch_companyVisitation-Map.php?status=failed");
             exit();
         }
     }

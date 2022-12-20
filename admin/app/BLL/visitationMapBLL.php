@@ -81,11 +81,6 @@ class visitationMapBLL
     public function AddvisitationMapList($visitationMapDTO, $visitationMapListDTO)
     {
 
-        if ($visitationMapDTO->getVisitation_CompanyID() == '') {
-            $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
-            return false;
-        }
-
         if ($this->IsValidvisitationList($visitationMapDTO)) {
             $this->visitationMapDAL->AddvisitationMapList($visitationMapDTO, $visitationMapListDTO);
             return true;
@@ -109,7 +104,7 @@ class visitationMapBLL
     }
     public function IsValidvisitationList($visitationMapDTO)
     {
-        if ($this->IsCompanySelectionExists($visitationMapDTO->getVisitation_AppMapID(),$visitationMapDTO->getVisitation_CompanyID())) {
+        if ($this->IsCompanySelectionExists($visitationMapDTO->getVisitation_AppMapID(), $visitationMapDTO->getVisitation_CompanyID())) {
             $this->errorMessage = ' already exists in this session. Try a different one.';
             return false;
         } else {
