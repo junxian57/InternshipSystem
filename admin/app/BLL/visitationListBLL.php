@@ -15,9 +15,9 @@ class visitationListBLL
         return $this->visitationListDAL->GetAllVisitationList();
     }
 
-    public function GetvisitationList($assessmentID)
+    public function GetvisitationList($visitationID)
     {
-        return $this->visitationListDAL->GetvisitationList($assessmentID);
+        return $this->visitationListDAL->GetvisitationList($visitationID);
     }
     public function GenerateHtmlForAllvisitationList()
     {
@@ -28,7 +28,7 @@ class visitationListBLL
         $all_visitationList = $this->GetAllVisitationList();
         $i = 1;
         if (count($all_visitationList) > 0) {
-            $all_visitationList_html .= '<table id="visitationListTbl" class="table-view">';
+            $all_visitationList_html .= '<table id="visitationListTBL" class="table-view">';
             $all_visitationList_html .= '<thead>';
             $all_visitationList_html .= '<tr>';
             $all_visitationList_html .= '<th id="test1">#</th>';
@@ -50,7 +50,7 @@ class visitationListBLL
                     </td>';
                 } else {
                     $all_visitationList_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?Visitation_CompanyID=' . $visitationList->getVisitation_CompanyID() . '"></a>
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/cch_EditVisitationList.php?id=' . $visitationList->getVisitation_CompanyID() . '"></a>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/cch_VisitationListMaintain.php?act=edit&id=' . $visitationList->getVisitation_CompanyID() . '"></a>
 				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationList->getVisitation_CompanyID() . '"aria-hidden="true" onClick="terminateVisitationList(this.id)"></a>
 			    </td>';
