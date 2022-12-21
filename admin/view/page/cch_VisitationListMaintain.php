@@ -79,7 +79,6 @@ $all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'visitationListTbl')">Visitation Company list</button>
                             <button class="tablinks" onclick="changeTab(event, 'supervisorCompanyMapListTbl')">Visitation Maping list</button>
                         </div>
-
                         <div id="visitationListTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
@@ -189,26 +188,26 @@ $all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
                         },
                     });
                     $('#supervisorCompanyMapListTbl').DataTable({
-                             //custom search bar 
-                             "language": {
-                                 searchPlaceholder: "Search records"
-                             },
-                             "searchBox": {
-                                 "addClass": 'form-control input-lg col-xs-12'
-                             },
+                        //custom search bar 
+                        "language": {
+                            searchPlaceholder: "Search records"
+                        },
+                        "searchBox": {
+                            "addClass": 'form-control input-lg col-xs-12'
+                        },
 
-                             "fnDrawCallback": function() {
-                                 $("input[type='search']").attr("id", "searchBox");
-                                 $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-                                 $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-                                 $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
-                                 //$('#searchBox').css("width", "250px");
-                                 $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+                        "fnDrawCallback": function() {
+                            $("input[type='search']").attr("id", "searchBox");
+                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                            //$('#searchBox').css("width", "250px");
+                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
 
-                                 $('.sorting').css("width", "");
-                                 //$('#test1').style.remove('width');
-                             },
-                         });
+                            $('.sorting').css("width", "");
+                            //$('#test1').style.remove('width');
+                        },
+                    });
                 });
             </script>
 
