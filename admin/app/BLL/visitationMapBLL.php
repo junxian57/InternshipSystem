@@ -19,7 +19,7 @@ class visitationMapBLL
     {
         return $this->visitationMapDAL->GetvisitationMapList($Visitation_AppMapID);
     }
-    public function GenerateHtmlForAllvisitationList()
+    public function GenerateHtmlForAllvisitationMap()
     {
 
         //$visitationMapDAL = new visitationMapDAL();
@@ -28,7 +28,7 @@ class visitationMapBLL
         $all_visitationMapList = $this->GetAllVisitationMapList();
         $i = 1;
         if (count($all_visitationMapList) > 0) {
-            $all_visitationMapList_html .= '<table id="visitationMapTbl" class="table-view">';
+            $all_visitationMapList_html .= '<table id="supervisorCompanyMapListTbl" class="table-view">';
             $all_visitationMapList_html .= '<thead>';
             $all_visitationMapList_html .= '<tr>';
             $all_visitationMapList_html .= '<th id="test1">#</th>';
@@ -41,7 +41,7 @@ class visitationMapBLL
             foreach ($all_visitationMapList as $visitationMapList) {
                 $all_visitationMapList_html .= '<tr>';
                 $all_visitationMapList_html .= '<td>' . $i++ . '</td>';
-                $all_visitationMapList_html .= '<td>' . $visitationMapList->getVisitation_CompanyID() . '</td>';
+                $all_visitationMapList_html .= '<td>' . $visitationMapList->getVisitation_AppMapID() . '</td>';
                 $all_visitationMapList_html .= '<td>' . $visitationMapList->getstatus() . '</td>';
                 if ($visitationMapList->getstatus() == "terminate") {
                     $all_visitationMapList_html .= '<td>
@@ -62,7 +62,7 @@ class visitationMapBLL
             $all_visitationMapList_html .= '</tbody>';
             $all_visitationMapList_html .= '</table>';
         } else {
-            $all_visitationMapList_html .= '<table id="rubricCmpTbl" class="table-view">';
+            $all_visitationMapList_html .= '<table id="supervisorCompanyMapListTbl" class="table-view">';
             $all_visitationMapList_html .= '<thead>';
             $all_visitationMapList_html .= '<tr>';
             $all_visitationMapList_html .= '<th id="test1">#</th>';

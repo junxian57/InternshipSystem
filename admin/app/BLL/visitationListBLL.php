@@ -62,7 +62,7 @@ class visitationListBLL
             $all_visitationList_html .= '</tbody>';
             $all_visitationList_html .= '</table>';
         } else {
-            $all_visitationList_html .= '<table id="rubricCmpTbl" class="table-view">';
+            $all_visitationList_html .= '<table id="visitationListTBL" class="table-view">';
             $all_visitationList_html .= '<thead>';
             $all_visitationList_html .= '<tr>';
             $all_visitationList_html .= '<th id="test1">#</th>';

@@ -15,12 +15,20 @@ require_once('../../app/BLL/visitationListBLL.php');
 require_once("../../app/DTO/visitationListDTO.php");
 require_once("../../app/DAL/visitationListDAL.php");
 
+require_once('../../app/BLL/visitationMapBLL.php');
+require_once("../../app/DTO/visitationMapDTO.php");
+require_once("../../app/DTO/visitationCompanyListDTO.php");
+require_once("../../app/DAL/visitationMapDAL.php");
+
 /*if (strlen($_SESSION['bpmsaid'] == 0)) {
 	//header('location:logout.php');
 } else {*/
 
 $visitationListBLLObj  = new visitationListBLL();
-$visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
+$all_visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
+
+$visitationMapBLLObj  = new visitationMapBLL();
+$all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
 
 ?>
 <!DOCTYPE HTML>
@@ -69,8 +77,9 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                         <div class="tab">
                             <button class="tablinks" id="activeTab" onclick="changeTab(event, 'visitationListTbl')">Visitation Company list</button>
-                            <button class="tablinks" onclick="changeTab(event, 'supervisorCompanyMapListTbl')">Maping list</button>
+                            <button class="tablinks" onclick="changeTab(event, 'supervisorCompanyMapListTbl')">Visitation Maping list</button>
                         </div>
+
                         <div id="visitationListTbl" class="tabcontent" style="display:block">
                             <div class="row">
                                 <div class="table-title">
@@ -79,7 +88,7 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                             </div>
 
                             <?php
-                            echo $visitationList;
+                            echo $all_visitationList;
                             ?>
                         </div>
                         <div id="supervisorCompanyMapListTbl" class="tabcontent">
@@ -87,13 +96,10 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                                 <div class="table-title">
                                     <h4>Preview Maping Table</h4>
                                 </div>
-                                <div class="text-right col-sm-12">
-                                    <button type="button" class="btn btn-primary" onclick="location.href='cch_AddVisitationList.php'">Add New Company List/Batch</button>
-                                </div>
                             </div>
 
                             <?php
-                            //echo $all_supervisorCompanyMapList;
+                            echo $all_visitationMap;
                             ?>
                         </div>
                     </div>
@@ -116,63 +122,12 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                         classie.toggle(showLeftPush, 'disabled');
                     }
                 }
-
-                async function activateRubricAssmt(rubricAssmtID) {
-                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
-
-                    if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxReactivateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
-                        let response = await fetch(url);
-                        let data = await response.json();
-
-                        if (data == "Success") {
-                            location.reload();
-                            alert("Update Successfully");
-                        } else {
-                            alert("Update Failed");
-                        }
-                    }
-                }
-
-                async function terminateRubricAssmt(rubricAssmtID) {
-                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
+                async function terminateVisitationList(Visitation_ID) {
+                    let text = "Do you want to delete the message?\nChoose OK or Cancel.";
 
                     if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxTerminateRubric.php?assessmentID=${rubricAssmtID}&rubricAssessment=rubricAssessment`;
-                        let response = await fetch(url);
-                        let data = await response.json();
-
-                        if (data == "Success") {
-                            location.reload();
-                            alert("Update Successfully");
-                        } else {
-                            alert("Update Failed");
-                        }
-                    }
-                }
-
-                async function activateRubricCriteria(RubricCriteriaID) {
-                    let text = "Are Your want to reactivate the Rubric Assessment?\nEither OK or Cancel.";
-
-                    if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxReactivateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
-                        let response = await fetch(url);
-                        let data = await response.json();
-
-                        if (data == "Success") {
-                            location.reload();
-                            alert("Update Successfully");
-                        } else {
-                            alert("Update Failed");
-                        }
-                    }
-                }
-
-                async function terminateRubricCriteria(RubricCriteriaID) {
-                    let text = "Are Your want to terminate the Rubric Assessment?\nEither OK or Cancel.";
-
-                    if (confirm(text)) {
-                        let url = `../../app/DAL/ajaxTerminateRubric.php?RubricCriteriaID=${RubricCriteriaID}&rubricCriteria=rubricCriteria`;
+                        let url = `../../app/DAL/ajaxTerminateVisitationList.php?Visitation_ID=${Visitation_ID}`;
+                        console.log(url);
                         let response = await fetch(url);
                         let data = await response.json();
 
@@ -185,47 +140,8 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                     }
                 }
             </script>
-        </div>
-
-        <script>
-            let menuLeft = document.getElementById('cbp-spmenu-s1'),
-                showLeftPush = document.getElementById('showLeftPush'),
-                body = document.body;
-
-            showLeftPush.onclick = function() {
-                classie.toggle(this, 'active');
-                classie.toggle(body, 'cbp-spmenu-push-toright');
-                classie.toggle(menuLeft, 'cbp-spmenu-open');
-                disableOther('showLeftPush');
-            };
-
-            function disableOther(button) {
-                if (button !== 'showLeftPush') {
-                    classie.toggle(showLeftPush, 'disabled');
-                }
-            }
-            async function terminateVisitationList(Visitation_ID) {
-                let text = "Do you want to delete the message?\nChoose OK or Cancel.";
-
-                if (confirm(text)) {
-                    let url = `../../app/DAL/ajaxTerminateVisitationList.php?Visitation_ID=${Visitation_ID}`;
-                    console.log(url);
-                    let response = await fetch(url);
-                    let data = await response.json();
-
-                    if (data == "Success") {
-                        location.reload();
-                        alert("Update Successfully");
-                    } else {
-                        alert("Update Failed");
-                    }
-                }
-            }
-            
-            
-        </script>
-        <!--change tab-->
-        <script>
+            <!--change tab-->
+            <script>
                 function changeTab(evt, tabName) {
                     let i, tabcontent, tablinks;
 
@@ -248,59 +164,61 @@ $visitationList = $visitationListBLLObj->GenerateHtmlForAllvisitationList();
                 document.getElementById("activeTab").click();
             </script>
 
-        <!--Table JS sorting,searchinh,pagination-->
-        <script>
-            $(document).ready(function() {
-                $('#visitationListTBL').DataTable({
-                    //custom search bar 
-                    "language": {
-                        searchPlaceholder: "Search Document"
-                    },
-                    "searchBox": {
-                        "addClass": 'form-control input-lg col-xs-12'
-                    },
+            <!--Table JS sorting,searchinh,pagination-->
+            <script>
+                $(document).ready(function() {
+                    $('#visitationListTBL').DataTable({
+                        //custom search bar 
+                        "language": {
+                            searchPlaceholder: "Search Document"
+                        },
+                        "searchBox": {
+                            "addClass": 'form-control input-lg col-xs-12'
+                        },
 
-                    "fnDrawCallback": function() {
-                        $("input[type='search']").attr("id", "searchBox");
-                        $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-                        $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-                        $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
-                        //$('#searchBox').css("width", "250px");
-                        $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+                        "fnDrawCallback": function() {
+                            $("input[type='search']").attr("id", "searchBox");
+                            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                            $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                            //$('#searchBox').css("width", "250px");
+                            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
 
-                        $('.sorting').css("width", "");
-                        //$('#test1').style.remove('width');
-                    },
+                            $('.sorting').css("width", "");
+                            //$('#test1').style.remove('width');
+                        },
+                    });
+                    $('#supervisorCompanyMapListTbl').DataTable({
+                             //custom search bar 
+                             "language": {
+                                 searchPlaceholder: "Search records"
+                             },
+                             "searchBox": {
+                                 "addClass": 'form-control input-lg col-xs-12'
+                             },
+
+                             "fnDrawCallback": function() {
+                                 $("input[type='search']").attr("id", "searchBox");
+                                 $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
+                                 $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
+                                 $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
+                                 //$('#searchBox').css("width", "250px");
+                                 $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+
+                                 $('.sorting').css("width", "");
+                                 //$('#test1').style.remove('width');
+                             },
+                         });
                 });
-                // $('#supervisorCompanyMapListTbl').DataTable({
-                //         //custom search bar 
-                //         "language": {
-                //             searchPlaceholder: "Search records"
-                //         },
-                //         "searchBox": {
-                //             "addClass": 'form-control input-lg col-xs-12'
-                //         },
+            </script>
 
-                //         "fnDrawCallback": function() {
-                //             $("input[type='search']").attr("id", "searchBox");
-                //             $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-                //             $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-                //             $("select[name='dialPlanListTable_length'], #searchBox").addClass("input-md");
-                //             //$('#searchBox').css("width", "250px");
-                //             $('#dialPlanListTable_filter').removeClass('dataTables_filter');
+            <script src="../../js/classie.js"></script>
+            <script src="../../js/bootstrap.js"> </script>
 
-                //             $('.sorting').css("width", "");
-                //             //$('#test1').style.remove('width');
-                //         },
-                //     });
-            });
-        </script>
-        
-        <script src="../../js/classie.js"></script>
-        <script src="../../js/bootstrap.js"> </script>
-
-        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+            <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="../../js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedheader/3.3.1/js/dataTables.fixedHeader.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 </body>
 <footer><?php include_once('includes/footer.php'); ?></footer>
 
