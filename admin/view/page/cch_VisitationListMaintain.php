@@ -122,7 +122,7 @@ $all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
                     }
                 }
                 async function terminateVisitationList(Visitation_ID) {
-                    let text = "Do you want to delete the message?\nChoose OK or Cancel.";
+                    let text = "Do you want to delete the visitation list?\nChoose OK or Cancel.";
 
                     if (confirm(text)) {
                         let url = `../../app/DAL/ajaxTerminateVisitationList.php?Visitation_ID=${Visitation_ID}`;
@@ -132,9 +132,26 @@ $all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
 
                         if (data == "Success") {
                             location.reload();
-                            alert("Update Successfully");
+                            alert("terminate Successfully");
                         } else {
-                            alert("Update Failed");
+                            alert("terminate Failed");
+                        }
+                    }
+                }
+                async function terminateVisitationMapList(Visitation_AppMapID) {
+                    let text = "Do you want to delete the visitation map?\nChoose OK or Cancel.";
+
+                    if (confirm(text)) {
+                        let url = `../../app/DAL/ajaxterminateVisitationMapList.php?Visitation_AppMapID=${Visitation_AppMapID}`;
+                        console.log(url);
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            location.reload();
+                            alert("terminate Successfully");
+                        } else {
+                            alert("terminate Failed");
                         }
                     }
                 }

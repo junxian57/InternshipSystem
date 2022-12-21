@@ -45,13 +45,11 @@ class visitationListBLL
                 $all_visitationList_html .= '<td>' . $visitationList->getstatus() . '</td>';
                 if ($visitationList->getstatus() == "terminate") {
                     $all_visitationList_html .= '<td>
-                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?Visitation_CompanyID=' . $visitationList->getVisitation_CompanyID() . '"></a>
                     <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-ok"aria-hidden="true" id="' . $visitationList->getVisitation_CompanyID() . '"aria-hidden="true" onClick="activateVisitationList(this.id)"></a>
                     </td>';
                 } else {
                     $all_visitationList_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/cch_EditVisitationList.php?id=' . $visitationList->getVisitation_CompanyID() . '"></a>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/cch_VisitationListMaintain.php?act=edit&id=' . $visitationList->getVisitation_CompanyID() . '"></a>
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/cch_EditVisitationList.php?id=' . $visitationList->getVisitation_CompanyID() . '"></a>
 				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationList->getVisitation_CompanyID() . '"aria-hidden="true" onClick="terminateVisitationList(this.id)"></a>
 			    </td>';
                 }

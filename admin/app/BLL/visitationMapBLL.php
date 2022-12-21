@@ -45,14 +45,12 @@ class visitationMapBLL
                 $all_visitationMapList_html .= '<td>' . $visitationMapList->getstatus() . '</td>';
                 if ($visitationMapList->getstatus() == "terminate") {
                     $all_visitationMapList_html .= '<td>
-                    <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?assessmentID=' . $visitationMapList->getVisitation_AppMapID() . '"></a>
                     <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-ok"aria-hidden="true" id="' . $visitationMapList->getVisitation_AppMapID() . '"aria-hidden="true" onClick="activateRubricAssmt(this.id)"></a>
                     </td>';
                 } else {
                     $all_visitationMapList_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-eye-open"aria-hidden="true" href="../../view/page/declareEvaluation.php?assessmentID=' . $visitationMapList->getVisitation_AppMapID() . '"></a>
                 <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/RubricAssessment-Maintain.php?act=edit&id=' . $visitationMapList->getVisitation_AppMapID() . '"></a>
-				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationMapList->getVisitation_AppMapID() . '"aria-hidden="true" onClick="terminateVisitationList(this.id)"></a>
+				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationMapList->getVisitation_AppMapID() . '"aria-hidden="true" onClick="terminateVisitationMapList(this.id)"></a>
 			    </td>';
                 }
 
