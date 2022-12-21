@@ -44,7 +44,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 }
 
 ?>
-?>
+
 <!DOCTYPE HTML>
 <html>
 <style>
@@ -226,34 +226,27 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
             window.scrollTo(0, 1);
         }
     </script>
-    <!-- Bootstrap Core CSS -->
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css" />
     <link href="../../css/bootstrap.css" rel='stylesheet' type='text/css' />
-    <!-- Custom CSS -->
     <link href="../../css/style.css" rel='stylesheet' type='text/css' />
-    <!-- font CSS -->
-    <!-- font-awesome icons -->
     <link href="../../css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome icons -->
-    <!-- js-->
     <script src="../../js/jquery-1.11.1.min.js"></script>
     <script src="../../js/modernizr.custom.js"></script>
-    <!--webfonts-->
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <!--//webfonts-->
-    <!--animate-->
     <link href="../../css/animate.css" rel="stylesheet" type="text/css" media="all">
     <script src="../../js/wow.min.js"></script>
     <script>
         new WOW().init();
     </script>
-    <!--//end-animate-->
-    <!-- Metis Menu -->
     <script src="../../js/metisMenu.min.js"></script>
     <script src="../../js/custom.js"></script>
     <link href="../../css/custom.css" rel="stylesheet">
     <script src="../../js/toastr.min.js"></script>
     <link href="../../css/toastr.min.css" rel="stylesheet">
     <script src="../../js/customToastr.js"></script>
+    <link rel="stylesheet" href="../../scss/navtab.css">
     <!--//Metis Menu -->
 </head>
 <!--left-fixed -navigation-->
@@ -425,6 +418,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     if (button !== 'showLeftPush') {
                         classie.toggle(showLeftPush, 'disabled');
                     }
+                }
+
+                window.onload = function() {
+                    getVisitationCompany();
                 }
 
                 async function fetchVisitCmpResult() {
