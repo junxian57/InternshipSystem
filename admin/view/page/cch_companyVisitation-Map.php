@@ -347,32 +347,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                         </tr>
                                                     </thead>
                                                     <tbody class="tab3-small-table" id="lec-table">
-                                                        <?php
-                                                        $db = new DBController();
-                                                        $sql = "select * from Lecturer";
-                                                        $result = $db->runQuery($sql);
-
-                                                        if (count($result) > 0) {
-                                                            foreach ($result as $company) {
-                                                                $lecturerID  = $company['lecturerID'];
-                                                                $lecName = $company['lecName'];
-                                                                $lecGender = $company['lecGender'];
-                                                                $lecEmail = $company['lecEmail'];
-                                                                $lecJobPosition = $company['lecJobPosition'];
-                                                                ?>
-                                                                <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
-                                                                    <td><?php echo $lecturerID ?></td>
-                                                                    <td><?php echo $lecName ?></td>
-                                                                    <td><?php echo $lecGender ?></td>
-                                                                    <td><?php echo $lecEmail ?></td>
-                                                                    <td><?php echo $lecJobPosition ?></td>
-                                                                    <td><input type="checkbox" name="<?php echo $lecturerID ?>" class="tab-3-checkbox"></td>
-                                                                </tr>
-                                                        <?php
-                                                            }
-                                                        }
-
-                                                        ?>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </fieldset>
@@ -499,13 +474,13 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                 trRight.setAttribute("data-lecturerID", table.rows[i].getAttribute('data-lecturerID'));
                                 trRight.setAttribute("data-lecName", table.rows[i].getAttribute('data-lecName'));
                                 trRight.setAttribute("data-gender", table.rows[i].getAttribute('data-gender'));
-                                trRight.setAttribute("data-Email", table.rows[i].getAttribute('data-Email'));
+                                trRight.setAttribute("data-lecEmail", table.rows[i].getAttribute('data-lecEmail'));
                                 trRight.setAttribute("data-position", table.rows[i].getAttribute('data-genpositionder'));
                                 trRight.innerHTML = `
                     <td>${table.rows[i].getAttribute('data-lecturerID')}<input hidden name="lecID[]" value="${table.rows[i].getAttribute('data-lecturerID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-lecName')}<input hidden name="lecName[]" value="${table.rows[i].getAttribute('data-lecName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-gender')}</td>
-                    <td>${table.rows[i].getAttribute('data-Email')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecEmail')}</td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>
                     <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
