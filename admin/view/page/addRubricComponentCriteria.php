@@ -210,7 +210,15 @@ function generateRubricCmptID($componentId)
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-12"> <label for="exampleInputPassword1">Assessment Criteria Session</label> <input type="text" id="assessmentCriteriaSession" name="assessmentCriteriaSession" class="form-control" placeholder="Section A. Progress Reports" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() : "" ?>" required="true"> </div>
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputPassword1">Assessment Criteria Session</label>
+                                    <select type="text" id="assessmentCriteriaSession" name="assessmentCriteriaSession" class="form-control" placeholder="Section A. Progress Reports" value="<?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() : "" ?>" required="true">
+
+                                        <option value="Section A. Progress Reports" <?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() == 'Section A. Progress Reports' ? 'selected' : '' : "" ?>>Section A. Progress Reports</option>
+                                        <option value="Section B. Final Reports" <?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() == 'Section B. Final Reports' ? 'selected' : '' : "" ?>>Section B. Final Reports</option>
+                                        <option value="N/A" <?php echo isset($_GET['act']) && $_GET['act'] == "edit" ? $aRubricAssmtCmptCriteria->getCriteriaSession() == 'N/A' ? 'selected' : '' : "" ?>>N/A</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputState">Selected Faculty</label>
                                     <select id="facultyID" name="facultyID" class="form-control" required>
