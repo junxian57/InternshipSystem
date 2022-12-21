@@ -22,7 +22,7 @@ class visitationMapDAL
     {
         //$db = new DBController();
         $listOfVisitationMapDto = array();
-        $sql = "SELECT * from VisitationApplicationApp";
+        $sql = "SELECT * from VisitationApplicationMap";
         $result = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($result)) {
             for ($i = 0; $i < count($result); $i++) {

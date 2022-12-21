@@ -187,14 +187,14 @@ $all_visitationMap = $visitationMapBLLObj->GenerateHtmlForAllvisitationMap();
                             //$('#test1').style.remove('width');
                         },
                     });
-                    $('#supervisorCompanyMapListTbl').DataTable({
-                        //custom search bar 
-                        "language": {
-                            searchPlaceholder: "Search records"
-                        },
-                        "searchBox": {
-                            "addClass": 'form-control input-lg col-xs-12'
-                        },
+                    $('#supervisorCompanyMapListTBL').DataTable({
+                             //custom search bar 
+                             "language": {
+                                 searchPlaceholder: "Search records"
+                             },
+                             "searchBox": {
+                                 "addClass": 'form-control input-lg col-xs-12'
+                             },
 
                         "fnDrawCallback": function() {
                             $("input[type='search']").attr("id", "searchBox");

@@ -28,7 +28,7 @@ class visitationMapBLL
         $all_visitationMapList = $this->GetAllVisitationMapList();
         $i = 1;
         if (count($all_visitationMapList) > 0) {
-            $all_visitationMapList_html .= '<table id="supervisorCompanyMapListTbl" class="table-view">';
+            $all_visitationMapList_html .= '<table id="supervisorCompanyMapListTBL" class="table-view">';
             $all_visitationMapList_html .= '<thead>';
             $all_visitationMapList_html .= '<tr>';
             $all_visitationMapList_html .= '<th id="test1">#</th>';
