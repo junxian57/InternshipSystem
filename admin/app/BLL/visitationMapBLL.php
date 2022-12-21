@@ -49,7 +49,7 @@ class visitationMapBLL
                     </td>';
                 } else {
                     $all_visitationMapList_html .= '<td>
-                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/RubricAssessment-Maintain.php?act=edit&id=' . $visitationMapList->getVisitation_AppMapID() . '"></a>
+                <a type="button" class="btn btn-primary btn-xs dt-edit glyphicon glyphicon-pencil"aria-hidden="true" href="../../view/page/cch_EditVisitationMapList.php?act=edit&id=' . $visitationMapList->getVisitation_AppMapID() . '"></a>
 				<a type="button" class="btn btn-danger btn-xs dt-delete glyphicon glyphicon-remove" id="' . $visitationMapList->getVisitation_AppMapID() . '"aria-hidden="true" onClick="terminateVisitationMapList(this.id)"></a>
 			    </td>';
                 }

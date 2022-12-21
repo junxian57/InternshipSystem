@@ -289,7 +289,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();insertvisitationCmpName();" required>
-                                        <option selected disabled value="">Choose...</option>
+                                        <option disabled value="">Choose...</option>
                                         <?php
                                         include('includes/db_connection.php');
                                         $db_handle = new DBController();
@@ -366,9 +366,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                     <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
                                     <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('visitation-Company-List-table'), document.getElementById('selected-visitation-Company-List-table'))">
                                 </div>
-
-                                <div class="form-group col-md-12 text-right"> <button type="submit" name="SubmitButton" id="SubmitButton" value="Add Visitation List" class="form-group btn btn-default">Save</button></div>
-
                             </form>
                         </div>
                     </div>
