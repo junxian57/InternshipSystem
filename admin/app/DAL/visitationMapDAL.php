@@ -107,11 +107,12 @@ class visitationMapDAL
                 )";
         $result = $this->databaseConnectionObj->executeQuery($sql);
         foreach ($visitationMapListDTO as $visitationMapListDTO1) {
-            $sql1 = "INSERT INTO VisitationApplicationMapList (`Visitation_AppMapID`,`lecturerID`,`lecName`)
+            $sql1 = "INSERT INTO VisitationApplicationMapList (`Visitation_AppMapID`,`lecturerID`,`lecName`,`lecEmail`)
                     VALUES (
-                      '" . $visitationMapListDTO1->getVisitation_CompanyID() . "',
-                      '" . $visitationMapListDTO1->getCompanyID() . "',
-                      '" . $visitationMapListDTO1->getcmpname() . "'
+                      '" . $visitationMapListDTO1->getVisitation_AppMapID() . "',
+                      '" . $visitationMapListDTO1->getlecturerID() . "',
+                      '" . $visitationMapListDTO1->getlecName() . "',
+                      '" . $visitationMapListDTO1->getlecEmail() . "'
                     )";
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
         }

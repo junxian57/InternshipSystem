@@ -341,7 +341,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                             <th>Lecturer ID</th>
                                                             <th>Lecturer Name</th>
                                                             <th>Gender</th>
-                                                            <th>Conctact No</th>
+                                                            <th>Email</th>
                                                             <th>Position</th>
                                                             <th>CheckBox</th>
                                                         </tr>
@@ -357,14 +357,14 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                                 $lecturerID  = $company['lecturerID'];
                                                                 $lecName = $company['lecName'];
                                                                 $lecGender = $company['lecGender'];
-                                                                $lecContactNumber = $company['lecContactNumber'];
+                                                                $lecEmail = $company['lecEmail'];
                                                                 $lecJobPosition = $company['lecJobPosition'];
                                                                 ?>
                                                                 <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
                                                                     <td><?php echo $lecturerID ?></td>
                                                                     <td><?php echo $lecName ?></td>
                                                                     <td><?php echo $lecGender ?></td>
-                                                                    <td><?php echo $lecContactNumber ?></td>
+                                                                    <td><?php echo $lecEmail ?></td>
                                                                     <td><?php echo $lecJobPosition ?></td>
                                                                     <td><input type="checkbox" name="<?php echo $lecturerID ?>" class="tab-3-checkbox"></td>
                                                                 </tr>
@@ -390,7 +390,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                             <th>Lecturer ID</th>
                                                             <th>Lecturer Name</th>
                                                             <th>Gender</th>
-                                                            <th>Conctact No</th>
+                                                            <th>Email</th>
                                                             <th>Position</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -499,13 +499,13 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                 trRight.setAttribute("data-lecturerID", table.rows[i].getAttribute('data-lecturerID'));
                                 trRight.setAttribute("data-lecName", table.rows[i].getAttribute('data-lecName'));
                                 trRight.setAttribute("data-gender", table.rows[i].getAttribute('data-gender'));
-                                trRight.setAttribute("data-contactNo", table.rows[i].getAttribute('data-contactNo'));
+                                trRight.setAttribute("data-Email", table.rows[i].getAttribute('data-Email'));
                                 trRight.setAttribute("data-position", table.rows[i].getAttribute('data-genpositionder'));
                                 trRight.innerHTML = `
                     <td>${table.rows[i].getAttribute('data-lecturerID')}<input hidden name="lecID[]" value="${table.rows[i].getAttribute('data-lecturerID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-lecName')}<input hidden name="lecName[]" value="${table.rows[i].getAttribute('data-lecName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-gender')}</td>
-                    <td>${table.rows[i].getAttribute('data-contactNo')}</td>
+                    <td>${table.rows[i].getAttribute('data-Email')}</td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>
                     <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

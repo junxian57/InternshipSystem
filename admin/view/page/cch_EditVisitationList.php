@@ -289,7 +289,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
 
                                     <label for="inputState">Intern Start Day</label>
                                     <select id="InternStartDate" name="internshipBatchID" class="form-control" onchange="insertDate();insertvisitationCmpName();" required>
-                                        <option disabled value="">Choose...</option>
+                                        <option selected disabled value="">Choose...</option>
                                         <?php
                                         include('includes/db_connection.php');
                                         $db_handle = new DBController();
