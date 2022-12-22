@@ -291,7 +291,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                         <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationMapListDALObj->generateID() ?>" readonly="readonly"></div>
                                         <div class="form-group">
                                             <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
-                                            <select name="Visitation_ListID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();insertvisitationlecName();">
+                                            <select name="Visitation_ListID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();">
                                                 <option value="" selected disabled>Select Visitation List</option>
                                                 <?php
                                                 include('includes/db_connection.php');
@@ -306,7 +306,31 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputState">Intern Start Day</label>
+                                        <select id="internshipBatchID" name="internshipBatchID" class="form-control" onchange="insertvisitationlecName();" required>
+                                            <option selected disabled value="">Choose...</option>
+                                            <?php
+                                            include('includes/db_connection.php');
+                                            $db_handle = new DBController();
+                                            $query = "SELECT * FROM InternshipBatch";
+                                            $results = $db_handle->runQuery($query);
 
+                                            for ($i = 0; $i < count($results); $i++) {
+
+                                                if ($_GET['act'] == "edit") {
+                                                    if ($aRubricAssmt->getInternshipBatchID() == $results[$i]['internshipBatchID']) {
+                                                        echo "<option selected='selected' value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                    } else {
+                                                        echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
                                     <div class="table-title">
                                         <h4>Result Table</h4>
                                     </div>
@@ -459,8 +483,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 }
 
                 async function fetchVisitlectureResult() {
-                    const Visitation_CompanyID = document.getElementById("Visitation_CompanyID").value;
-                    const getlecPhp = '../../app/DAL/ajaxGetlecturerList.php?Visitation_CompanyID=' + Visitation_CompanyID;
+                    const internshipBatchID = document.getElementById("internshipBatchID").value;
+                    console.log(internshipBatchID);
+                    const getlecPhp = '../../app/DAL/ajaxGetlecturerList.php?internshipBatchID=' + internshipBatchID;
                     let getlecRespond = await fetch(getlecPhp);
                     let lecObj = await getlecRespond.json();
                     return lecObj;
