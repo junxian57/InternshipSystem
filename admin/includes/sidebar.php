@@ -112,6 +112,24 @@ if(isset($_SESSION)){
         </li>
 
         <li>
+          <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Visitation Map<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+            <li>
+              <a href="../page/cch_VisitationListMaintain.php">Visitation Map Maintainance</a>
+            </li>
+            <li>
+              <a href="../page/cch_AddVisitationList.php">Add Company Visitation List</a>
+            </li>
+            <li>
+              <a href="../page/cch_companyVisitation-Map.php">Add Company Supervisor map</a>
+            </li>
+            <li>
+              <a href="../page/cch_supervisorindividual-Map.php">Supervisor individual map</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
           <a href="all-document.php"><i class="fa fa-file-text nav_icon"></i>Upload Document<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level collapse">
             <li>
