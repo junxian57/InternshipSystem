@@ -120,7 +120,7 @@ class visitationMapDAL
             $emailConfig->singleEmail(
                 $visitationMapListDTO1->getlecEmail(),
                 "Visitation List",
-                $this->createHTMLEmail($visitationMapDTO->getVisitation_AppMapID(), $visitationMapDTO->getVisitation_CompanyID())
+                $this->createHTMLEmail($visitationMapDTO->getVisitation_CompanyID())
             );
 
             $result2 = $this->databaseConnectionObj->executeQuery($sql1);
@@ -135,20 +135,18 @@ class visitationMapDAL
         }
     }
 
-    function createHTMLEmail($companyName, $companyAccount)
+    function createHTMLEmail($companyVisitationListID)
     {
         echo ("diu");
         $html = "
         <html>
         <head>
-            <title>Company Visitation List</title>
+            <title>Selected Company Visitation</title>
         </head>
         <body>
             <p>Dear Sir/Madam,</p>
-            <p>Welcome To TARUMT Internship System.</p>
             <br>
-            <p>Your company  <span style='font-weight: bold;'>($companyName)</span> application as our internship partner has been <span style='color:#44ab15; font-weight: bold; text-decoration:underline;'>Approved</span>.</p> 
-            <p>Company Account: <span style='color:#ff4500; font-weight: bold;'>$companyAccount</span></p>
+            <p>You have been selected to visit the company in the visitation list ID<span style='font-weight: bold;'>($companyVisitationListID)</span>,Future mapping details will be informed via email.</p> 
             <br>
             <p>Thank you.</p>
         </body>

@@ -366,6 +366,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                     <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
                                     <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('visitation-Company-List-table'), document.getElementById('selected-visitation-Company-List-table'))">
                                 </div>
+
+                                <div class="form-group col-md-12 text-right" > <button type="button" class="form-group btn btn-default" href="../cch_VisitationListMaintain.php">Save</button></div>
                             </form>
                         </div>
                     </div>
@@ -542,6 +544,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                     <td>${table.rows[i].getAttribute('data-companyID')}<input hidden name="companyID[]" value="${table.rows[i].getAttribute('data-companyID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-cmpName')}<input hidden name="cmpName[]" value="${table.rows[i].getAttribute('data-cmpName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-Title')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-score')}<input hidden name="score[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
                     <td>
                     <button type="button" onClick="removeChildNode(this);">
@@ -606,7 +609,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
         }
         //when edit click remove selected will ask confirm if confirm will direct delete the selected database
         async function deleteFrmdb(currentRow, cmpID) {
-            let text = "This will direct delete your selected Rubric Criteria!\nEither OK or Cancel.";
+            let text = "This will direct delete your selected company!\nEither OK or Cancel.";
             Visitation_CompanyID = document.getElementById('Visitation_CompanyID').value;
             if (confirm(text) == true) {
                 removeChildNode(currentRow);

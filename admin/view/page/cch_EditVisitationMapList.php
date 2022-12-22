@@ -319,38 +319,13 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                             <th>Lecturer ID</th>
                                                             <th>Lecturer Name</th>
                                                             <th>Gender</th>
-                                                            <th>Conctact No</th>
+                                                            <th>Email</th>
                                                             <th>Position</th>
                                                             <th>CheckBox</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="tab3-small-table" id="lec-table">
-                                                        <?php
-                                                        $db = new DBController();
-                                                        $sql = "select * from Lecturer";
-                                                        $result = $db->runQuery($sql);
-
-                                                        if (count($result) > 0) {
-                                                            foreach ($result as $lecturer) {
-                                                                $lecturerID  = $lecturer['lecturerID'];
-                                                                $lecName = $lecturer['lecName'];
-                                                                $lecGender = $lecturer['lecGender'];
-                                                                $lecContactNumber = $lecturer['lecContactNumber'];
-                                                                $lecJobPosition = $lecturer['lecJobPosition'];
-                                                                ?>
-                                                                <tr data-lecturerID='<?php echo $lecturerID ?>' data-lecName='<?php echo $lecName ?>' data-gender='<?php echo $lecGender ?>' data-contactNo='<?php echo $lecContactNumber ?>' data-position='<?php echo $lecJobPosition ?>'>
-                                                                    <td><?php echo $lecturerID ?></td>
-                                                                    <td><?php echo $lecName ?></td>
-                                                                    <td><?php echo $lecGender ?></td>
-                                                                    <td><?php echo $lecContactNumber ?></td>
-                                                                    <td><?php echo $lecJobPosition ?></td>
-                                                                    <td><input type="checkbox" name="<?php echo $lecturerID ?>" class="tab-3-checkbox"></td>
-                                                                </tr>
-                                                        <?php
-                                                            }
-                                                        }
-
-                                                        ?>
+                                                    <tbody class="tab3-small-table" id="visitation-lecture-List-table">
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </fieldset>
@@ -368,12 +343,12 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                                             <th>Lecturer ID</th>
                                                             <th>Lecturer Name</th>
                                                             <th>Gender</th>
-                                                            <th>Conctact No</th>
+                                                            <th>Email</th>
                                                             <th>Position</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="tab3-small-table" id="selected-visitation-Company-List-table">
+                                                    <tbody class="tab3-small-table" id="selected-visitation-lecture-List-table">
 
                                                     </tbody>
                                                     <tfoot id="test-table">
@@ -422,6 +397,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                 window.onload = function() {
                     getVisitationCompany();
+                    insertvisitationlecName();
+                    InsertSelectedVisitationTable();
                 }
 
                 async function fetchVisitCmpResult() {
@@ -436,7 +413,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     const lecturerID = document.getElementById("lecturerID").value;
                     const getVisitationMapListPhp = '../../app/DAL/ajaxGetSelectedlecturerList.php?lecturerID=' + lecturerID;
                     let getVisitationMapListPhpRespond = await fetch(getVisitationMapListPhp);
-                    let VisitationMapListObj = await getVisitationListPhpRespond.json();
+                    let VisitationMapListObj = await getVisitationMapListPhpRespond.json();
                     return VisitationMapListObj;
                 }
 
@@ -468,6 +445,68 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         return;
                     }
 
+                }
+
+                async function fetchVisitlectureResult() {
+                    const Visitation_CompanyID = document.getElementById("Visitation_CompanyID").value;
+                    const getlecPhp = '../../app/DAL/ajaxGetlecturerList.php?Visitation_CompanyID=' + Visitation_CompanyID;
+                    let getlecRespond = await fetch(getlecPhp);
+                    let lecObj = await getlecRespond.json();
+                    return lecObj;
+                }
+
+                let countScore = 0;
+
+                async function insertvisitationlecName() {
+                    InsertVisitationlectureTable();
+                    const selectedvisitationlectureListtable = document.getElementById("selected-visitation-lecture-List-table");
+                    if (selectedvisitationlectureListtable.hasChildNodes()) {
+                        removeAllChildNodes(selectedvisitationlectureListtable);
+                        countScore = 0;
+                        const testTable = document.getElementById("test-table");
+                        if (testTable.hasChildNodes()) {
+                            removeAllChildNodes(testTable);
+                        }
+                    }
+
+                }
+
+                async function InsertVisitationlectureTable() {
+                    const lecResult = await fetchVisitlectureResult();
+                    const lecSelectedResult = await fetchSelectedlecMapList();
+                    const supervisorTable = document.getElementById("visitation-lecture-List-table");
+
+
+                    if (supervisorTable.hasChildNodes()) {
+                        removeAllChildNodes(supervisorTable);
+                    }
+
+                    if (lecResult !== "No Data Found") {
+
+                        for (let i = 0; i < lecResult.length; i++) {
+                            let trLeft = document.createElement("tr");
+                            trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                            trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                            trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                            trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                            trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+
+                            trLeft.innerHTML = `
+                    <td>${lecResult[i].lecturerID}</td>
+                    <td>${lecResult[i].lecName}</td>
+                    <td>${lecResult[i].lecGender}</td>
+                    <td>${lecResult[i].lecEmail}</td>
+                    <td>${lecResult[i].lecJobPosition}</td>
+                    <td>
+                        <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox">
+                    </td>
+                    `;
+                            supervisorTable.appendChild(trLeft);
+                        }
+                    } else {
+                        //alert("No Data Found");
+                        return;
+                    }
                 }
 
                 function assign() {
@@ -506,6 +545,69 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                     }
                 }
+
+                async function InsertSelectedVisitationTable() {
+
+                    const lecSelectedResult = await fetchSelectedlecMapList();
+                    const supervisorTable = document.getElementById("visitation-lecture-List-table");
+                    const Visitation_AppMapID = document.getElementById("Visitation_AppMapID ").value;
+
+                    if (supervisorTable.hasChildNodes()) {
+                        removeAllChildNodes(supervisorTable);
+                    }
+
+
+                    if (lecSelectedResult !== "No Data Found") {
+
+                        for (let i = 0; i < lecSelectedResult.length; i++) {
+                            let trLeft = document.createElement("tr");
+                            trLeft.setAttribute("data-lecturerID", lecSelectedResult[i].lecturerID);
+                            trLeft.setAttribute("data-lecName", lecSelectedResult[i].lecName);
+                            trLeft.setAttribute("data-lecGender", lecSelectedResult[i].lecGender);
+                            trLeft.setAttribute("data-lecEmail", lecSelectedResult[i].lecEmail);
+                            trLeft.setAttribute("data-lecJobPosition", lecSelectedResult[i].lecJobPosition);
+
+                            trLeft.innerHTML = `
+                            <td>${lecSelectedResult[i].lecturerID}</td>
+                            <td>${lecSelectedResult[i].lecName}</td>
+                            <td>${lecSelectedResult[i].lecGender}</td>
+                            <td>${lecSelectedResult[i].lecEmail}</td>
+                            <td>${lecSelectedResult[i].lecJobPosition}</td>
+                            <td>
+                            <button type="button" onClick="deleteFrlecture(this,${lecSelectedResult[i].lecturerID});">
+					        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </td>
+                        `;
+
+                            supervisorTable.appendChild(trLeft);
+                        }
+                    } else {
+                        //alert("No Data Found");
+                        return;
+                    }
+                }
+
+                async function deleteFrlecture(currentRow, cmpID) {
+                    let text = "This will direct delete your selected lecturer!\nEither OK or Cancel.";
+                    Visitation_CompanyID = document.getElementById('Visitation_AppMapID ').value;
+                    if (confirm(text) == true) {
+                        removeChildNode(currentRow);
+                        let url = `../../app/DAL/ajaxDelSelectedVisitationLecMap.php?Visitation_AppMapID =${Visitation_AppMapID}&cmpID=${lecturerID.name}`;
+                        console.log(url);
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data == "Success") {
+                            alert("Update Successfully");
+                        } else {
+                            alert("Update Failed");
+                        }
+                    } else {
+
+                    }
+                }
+
+
 
                 function removeChildNode(currentRow) {
                     $(currentRow).closest('tr').remove();

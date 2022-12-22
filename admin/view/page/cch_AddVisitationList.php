@@ -507,6 +507,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                     <td>${table.rows[i].getAttribute('data-companyID')}<input hidden name="companyID[]" value="${table.rows[i].getAttribute('data-companyID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-cmpName')}<input hidden name="cmpName[]" value="${table.rows[i].getAttribute('data-cmpName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-Title')}<input hidden name="criteriaTitle[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
+                    <td>${table.rows[i].getAttribute('data-score')}<input hidden name="score[]" value="${table.rows[i].getAttribute('data-Title')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-maxScore')}<input hidden name="maxScore[]" value="${table.rows[i].getAttribute('data-maxScore')}"></input></td>
                     <td>
                     <button type="button" onClick="removeChildNode(this);">
