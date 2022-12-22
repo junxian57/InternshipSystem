@@ -14,7 +14,7 @@ if (!isset($_SESSION['adminID'])) {
 
 require_once('../../app/BLL/visitationMapBLL.php');
 require_once("../../app/DTO/visitationMapDTO.php");
-require_once("../../app/DTO/visitationCompanyListDTO.php");
+require_once("../../app/DTO/visitationMapListDTO.php");
 require_once("../../app/DAL/visitationMapDAL.php");
 
 $visitationMapListDALObj  = new visitationMapDAL();
@@ -25,7 +25,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
     $date = date('Y-m-d');
     $Visitation_AppMapID = $_POST['Visitation_AppMapID'];
     $Visitation_ListID = $_POST['Visitation_ListID'];
-    echo $_POST['Visitation_ListID'];
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
@@ -33,10 +32,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
     if (count($_POST['lecID']) == count($_POST['lecName'])) {
         $countRow = count($_POST['lecID']);
         for ($i = 0; $i < $countRow; $i++) {
-            $newOfcompanyvisitationMapDto[] = new visitationCompanyListDTO($Visitation_AppMapID, $_POST['lecID'][$i], $_POST['lecName'][$i]);
+            $newOfcompanyvisitationMapDto[] = new visitationMapListDTO($Visitation_AppMapID, $_POST['lecID'][$i], $_POST['lecName'][$i], $_POST['lecEmail'][$i]);
         }
     }
-    
     $visitationMapBllObj->AddvisitationMapList($newcompanyvisitationMapList, $newOfcompanyvisitationMapDto);
 }
 
@@ -480,7 +478,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     <td>${table.rows[i].getAttribute('data-lecturerID')}<input hidden name="lecID[]" value="${table.rows[i].getAttribute('data-lecturerID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-lecName')}<input hidden name="lecName[]" value="${table.rows[i].getAttribute('data-lecName')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-gender')}</td>
-                    <td>${table.rows[i].getAttribute('data-lecEmail')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecemail')}<input hidden name="lecEmail[]" value="${table.rows[i].getAttribute('data-lecemail')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-position')}</td>
                     <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
