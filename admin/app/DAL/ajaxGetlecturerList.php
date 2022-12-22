@@ -1,10 +1,11 @@
 <?php
 include_once("../../includes/db_connection.php");
 if (isset($_GET['Visitation_CompanyID'])) {
-    $internshipBatchID = $_GET['internshipBatchID'];
+    //$internshipBatchID = $_GET['internshipBatchID'];
     $db_handle1 = new DBController();
 
-    $query = "SELECT DISTINCT(L.lecturerID),L.lecName FROM Lecturer L JOIN Student S on S.lecturerID=L.lecturerID 
+    $query = "SELECT DISTINCT(L.lecturerID),L.lecName,L.lecGender,L.lecEmail,L.lecJobPosition 
+    FROM Lecturer L JOIN Student S on S.lecturerID=L.lecturerID 
     JOIN VisitationCompany VC on VC.internshipBatchID=S.internshipBatchID 
     WHERE S.internshipBatchID= '230213' 
     ORDER BY L.lecturerID";

@@ -291,7 +291,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                         <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $visitationMapListDALObj->generateID() ?>" readonly="readonly"></div>
                                         <div class="form-group">
                                             <label for="internBatch-group">Company Visitation List <span class="required-star">*</span></label>
-                                            <select name="Visitation_ListID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();insertvisitationlecName();"readonly="readonly">
+                                            <select name="Visitation_ListID" id="Visitation_CompanyID" class="form-control" required="true" onchange="getVisitationCompany();insertvisitationlecName();">
                                                 <option value="" selected disabled>Select Visitation List</option>
                                                 <?php
                                                 include('includes/db_connection.php');
