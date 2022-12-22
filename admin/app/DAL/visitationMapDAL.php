@@ -48,13 +48,13 @@ class visitationMapDAL
      */
     public function GetvisitationMapList($Visitation_AppMapID)
     {
-        $sql = "SELECT * FROM VisitationApplicationMap WHERE Visitation_AppMapID= '$Visitation_AppMapID'";
+        $sql = "SELECT * FROM VisitationApplicationMap VA, VisitationCompany VC WHERE Visitation_AppMapID= '$Visitation_AppMapID' AND VC.Visitation_CompanyID=VA.Visitation_CompanyID";
         $avisitList = $this->databaseConnectionObj->runQuery($sql);
         if (!empty($avisitList)) {
             $listOfVisitationMapObj = new visitationMapDTO(
                 $avisitList[0]['Visitation_AppMapID'],
                 $avisitList[0]['Visitation_CompanyID'],
-                $avisitList[0]['CreateByID'],
+                $avisitList[0]['internshipBatchID'],
                 $avisitList[0]['CreateDate']
             );
             return $listOfVisitationMapObj;

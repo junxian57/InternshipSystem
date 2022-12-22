@@ -22,13 +22,11 @@ require_once("../../app/DAL/visitationMapDAL.php");
 $visitationMapListDALObj  = new visitationMapDAL();
 $visitationMapBllObj = new visitationMapBLL();
 $aVisitationMapList = $visitationMapBllObj->GetvisitationMapList($_GET['id']);
-
 if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor Company Mapping') {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $date = date('Y-m-d');
     $Visitation_AppMapID = $_POST['Visitation_AppMapID'];
     $Visitation_ListID = $_POST['Visitation_ListID'];
-    echo $_POST['Visitation_ListID'];
     $CreateByID = $_SESSION['adminID'];
     $CreateByID = $_SESSION['committeeID'];
     $CreateDate = $date;
@@ -286,7 +284,31 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                         <div class="form-group col-md-3"> <label for="exampleInput">Visitation ID</label><input type="text" id="Visitation_AppMapID" name="Visitation_AppMapID" class="form-control" value="<?php echo $aVisitationMapList->getVisitation_AppMapID() ?>" readonly="readonly"></div>
                                         <div class="form-group col-md-3"> <label for="exampleInput">Visitation Company List</label><input type="text" id="Visitation_CompanyID" name="Visitation_CompanyID" class="form-control" value="<?php echo $aVisitationMapList->getVisitation_CompanyID() ?>" readonly="readonly"></div>
                                     </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputState">Intern Start Day</label>
+                                        <select id="internshipBatchID" name="internshipBatchID" class="form-control" onchange="insertvisitationlecName();" required>
+                                            <option selected disabled value="">Choose...</option>
+                                            <?php
+                                            include('includes/db_connection.php');
+                                            $db_handle = new DBController();
+                                            $query = "SELECT * FROM InternshipBatch";
+                                            $results = $db_handle->runQuery($query);
 
+                                            for ($i = 0; $i < count($results); $i++) {
+
+                                                if ($_GET['act'] == "edit") {
+                                                    if ($aVisitationMapList->getCreateByID() == $results[$i]['internshipBatchID']) {
+                                                        echo "<option selected='selected' value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                    } else {
+                                                        echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option value='" . $results[$i]['internshipBatchID'] . "'>" . $results[$i]['officialStartDate'] . "</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
                                     <div class="table-title">
                                         <h4>Result Table</h4>
                                     </div>
@@ -410,8 +432,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 }
 
                 async function fetchSelectedlecMapList() {
-                    const lecturerID = document.getElementById("lecturerID").value;
-                    const getVisitationMapListPhp = '../../app/DAL/ajaxGetSelectedlecturerList.php?lecturerID=' + lecturerID;
+                    const id = document.getElementById("Visitation_AppMapID").value;
+                    const getVisitationMapListPhp = '../../app/DAL/ajaxGetSelectedlecturerList.php?id=' + id;
                     let getVisitationMapListPhpRespond = await fetch(getVisitationMapListPhp);
                     let VisitationMapListObj = await getVisitationMapListPhpRespond.json();
                     return VisitationMapListObj;
@@ -448,8 +470,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 }
 
                 async function fetchVisitlectureResult() {
-                    const Visitation_CompanyID = document.getElementById("Visitation_CompanyID").value;
-                    const getlecPhp = '../../app/DAL/ajaxGetlecturerList.php?Visitation_CompanyID=' + Visitation_CompanyID;
+                    const internshipBatchID = document.getElementById("internshipBatchID").value;
+                    const getlecPhp = '../../app/DAL/ajaxGetlecturerList.php?internshipBatchID=' + internshipBatchID;
                     let getlecRespond = await fetch(getlecPhp);
                     let lecObj = await getlecRespond.json();
                     return lecObj;
@@ -549,8 +571,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 async function InsertSelectedVisitationTable() {
 
                     const lecSelectedResult = await fetchSelectedlecMapList();
-                    const supervisorTable = document.getElementById("visitation-lecture-List-table");
-                    const Visitation_AppMapID = document.getElementById("Visitation_AppMapID ").value;
+                    const supervisorTable = document.getElementById("selected-visitation-lecture-List-table");
+
 
                     if (supervisorTable.hasChildNodes()) {
                         removeAllChildNodes(supervisorTable);
