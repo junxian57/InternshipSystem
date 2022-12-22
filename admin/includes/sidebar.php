@@ -123,8 +123,6 @@ if(isset($_SESSION)){
             <li>
               <a href="../page/cch_companyVisitation-Map.php">Add Company Supervisor map</a>
             </li>
-            <li>
-              <a href="../page/cch_supervisorindividual-Map.php">Supervisor individual map</a>
             </li>
           </ul>
         </li>
