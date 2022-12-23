@@ -100,7 +100,6 @@ function numberTowords($num){
 extract($_POST);
 
 if(isset($_POST['create'])){
-  $studName = $_POST['studName'];
   $studID = $_POST['studID'];
   $allowance = $_POST['allowance'];
   $location = $_POST['location'];
@@ -142,17 +141,27 @@ if(isset($_POST['create'])){
 	$runStud = mysqli_query($conn, $getStud);
 	$rowStud = mysqli_fetch_array($runStud);
   $studEmail = $rowStud['studEmail'];
+  $studAccountStatus = $rowStud['studAccountStatus'];
 
-  $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
-	$run_intern = mysqli_query($conn, $get_intern);
-	$row_intern = mysqli_fetch_array($run_intern);
-  $companyID = $row_intern['companyID'];
-  $jobMaxNumberQuota = $row_intern['jobMaxNumberQuota'];
+  if($studAccountStatus != "Intern"){
+    $get_intern = "SELECT * FROM InternJob WHERE internJobID = '$internJobID'";
+	  $run_intern = mysqli_query($conn, $get_intern);
+	  $row_intern = mysqli_fetch_array($run_intern);
+    $companyID = $row_intern['companyID'];
+    $jobMaxNumberQuota = $row_intern['jobMaxNumberQuota'];
 
-  $get_cmp = "SELECT * FROM Company WHERE companyID = '$companyID'";
-	$run_cmp = mysqli_query($conn, $get_cmp);
-	$row_cmp = mysqli_fetch_array($run_cmp);
-  $cmpNumberOfInternshipPlacements = $row_cmp['cmpNumberOfInternshipPlacements'];
+    $get_cmp = "SELECT * FROM Company WHERE companyID = '$companyID'";
+	  $run_cmp = mysqli_query($conn, $get_cmp);
+	  $row_cmp = mysqli_fetch_array($run_cmp);
+    $cmpNumberOfInternshipPlacements = $row_cmp['cmpNumberOfInternshipPlacements'];
+  }else{
+    $sql = "UPDATE InternApplicationMap SET appStatus='Rejected' WHERE internAppID='$internAppID'";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+      echo "<script>alert('Action failed! The student have accepted internship offer from other company.')</script>";
+      echo "<script>window.open('xt-companyResponse.php','_self')</script>";
+    }
+  }
 }
 
 class PDF extends TCPDF{
