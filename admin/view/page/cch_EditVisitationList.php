@@ -367,7 +367,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                     <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('visitation-Company-List-table'), document.getElementById('selected-visitation-Company-List-table'))">
                                 </div>
 
-                                <div class="form-group col-md-12 text-right" > <button type="button" class="form-group btn btn-default" href="../cch_VisitationListMaintain.php">Save</button></div>
+                                <div class="form-group col-md-12 text-right">
+                                    <a type="button" class="form-group btn btn-default" aria-hidden="true" href="../../view/page/cch_VisitationListMaintain.php">Back</a>
+
+                                </div>
                             </form>
                         </div>
                     </div>
