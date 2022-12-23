@@ -383,7 +383,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                     </div>
                                     <div class="button-group">
                                         <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                        <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('lec-table'), document.getElementById('selected-visitation-Company-List-table'),document.getElementById('Visitation_CompanyID'))">
+                            
+                                    </div>
+
+                                    <div class="form-group col-md-12 text-right">
+                                        <a type="clickable-btn" class="form-group btn btn-default" aria-hidden="true" href="../../view/page/cch_VisitationListMaintain.php">Back</a>
 
                                     </div>
                                 </form>

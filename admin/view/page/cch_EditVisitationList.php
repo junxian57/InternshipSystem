@@ -364,7 +364,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Visitation L
                                 </div>
                                 <div class="button-group">
                                     <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                                    <input type="text" readonly class="clickable-btn" href="#" value="Reset All Selected" onclick="resetSelect(document.getElementById('visitation-Company-List-table'), document.getElementById('selected-visitation-Company-List-table'))">
                                 </div>
 
                                 <div class="form-group col-md-12 text-right">
