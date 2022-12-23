@@ -202,6 +202,7 @@
             );
             if($success){
               echo "<script>alert('You have accepted the interview session.')</script>";
+              echo "<script>window.open('xt-studInterviewList.php','_self')</script>";
             }
         }
       }
