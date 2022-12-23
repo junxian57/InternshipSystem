@@ -497,7 +497,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     const lecResult = await fetchVisitlectureResult();
                     const lecSelectedResult = await fetchSelectedlecMapList();
                     const supervisorTable = document.getElementById("visitation-lecture-List-table");
-
+                    let count = 0;
 
                     if (supervisorTable.hasChildNodes()) {
                         removeAllChildNodes(supervisorTable);
@@ -507,13 +507,32 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                         for (let i = 0; i < lecResult.length; i++) {
                             let trLeft = document.createElement("tr");
-                            trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
-                            trLeft.setAttribute("data-lecName", lecResult[i].lecName);
-                            trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
-                            trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
-                            trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+                            if (lecSelectedResult.length > count) {
+                                trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                                trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                                trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                                trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                                trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
 
-                            trLeft.innerHTML = `
+                                trLeft.innerHTML = `
+                    <td>${lecResult[i].lecturerID}</td>
+                    <td>${lecResult[i].lecName}</td>
+                    <td>${lecResult[i].lecGender}</td>
+                    <td>${lecResult[i].lecEmail}</td>
+                    <td>${lecResult[i].lecJobPosition}</td>
+                    <td>
+                        <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox" checked>
+                    </td>
+                    `;
+                                count++;
+                            } else {
+                                trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                                trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                                trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                                trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                                trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+
+                                trLeft.innerHTML = `
                     <td>${lecResult[i].lecturerID}</td>
                     <td>${lecResult[i].lecName}</td>
                     <td>${lecResult[i].lecGender}</td>
@@ -523,6 +542,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox">
                     </td>
                     `;
+                            }
                             supervisorTable.appendChild(trLeft);
                         }
                     } else {
@@ -531,10 +551,11 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     }
                 }
 
-                function assign() {
-                    var table = document.getElementById("lec-table");
+                async function assign() {
+                    Visitation_AppMapID = document.getElementById('Visitation_AppMapID').value;
+                    var table = document.getElementById("visitation-lecture-List-table");
 
-                    const lecSelectedTable = document.getElementById("selected-visitation-Company-List-table");
+                    const lecSelectedTable = document.getElementById("selected-visitation-lecture-List-table");
                     const rCount = table.rows.length;
                     // var cmpvisittable = document.querySelectorAll("#tab-table2");
                     let dataTable = $(`#tab1-table`).DataTable();
@@ -544,21 +565,23 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                 let trRight = document.createElement("tr");
                                 trRight.setAttribute("data-lecturerID", table.rows[i].getAttribute('data-lecturerID'));
                                 trRight.setAttribute("data-lecName", table.rows[i].getAttribute('data-lecName'));
-                                trRight.setAttribute("data-gender", table.rows[i].getAttribute('data-gender'));
-                                trRight.setAttribute("data-contactNo", table.rows[i].getAttribute('data-contactNo'));
-                                trRight.setAttribute("data-position", table.rows[i].getAttribute('data-genpositionder'));
+                                trRight.setAttribute("data-lecGender", table.rows[i].getAttribute('data-lecGender'));
+                                trRight.setAttribute("data-lecEmail", table.rows[i].getAttribute('data-lecEmail'));
+                                trRight.setAttribute("data-lecJobPosition", table.rows[i].getAttribute('data-lecJobPosition'));
                                 trRight.innerHTML = `
                     <td>${table.rows[i].getAttribute('data-lecturerID')}<input hidden name="lecID[]" value="${table.rows[i].getAttribute('data-lecturerID')}"></input></td>
                     <td>${table.rows[i].getAttribute('data-lecName')}<input hidden name="lecName[]" value="${table.rows[i].getAttribute('data-lecName')}"></input></td>
-                    <td>${table.rows[i].getAttribute('data-gender')}</td>
-                    <td>${table.rows[i].getAttribute('data-contactNo')}</td>
-                    <td>${table.rows[i].getAttribute('data-position')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecGender')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecEmail')}</td>
+                    <td>${table.rows[i].getAttribute('data-lecJobPosition')}</td>
                     <td><button type="button" onClick="removeChildNode(this);">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				    </button>
                     
                     </td>
                 `;
+                                let url = `../../app/DAL/ajaxInsertSelectedLecturer.php?Visitation_AppMapID=${Visitation_AppMapID}&lecturerID=${table.rows[i].getAttribute('data-lecturerID')}&lecName=${table.rows[i].getAttribute('data-lecName')}$lecEmail=${table.rows[i].getAttribute('data-lecEmail')}`;
+                                await fetch(url);
                                 lecSelectedTable.appendChild(trRight);
 
 
@@ -572,7 +595,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                     const lecSelectedResult = await fetchSelectedlecMapList();
                     const supervisorTable = document.getElementById("selected-visitation-lecture-List-table");
-
 
                     if (supervisorTable.hasChildNodes()) {
                         removeAllChildNodes(supervisorTable);
@@ -596,11 +618,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                             <td>${lecSelectedResult[i].lecEmail}</td>
                             <td>${lecSelectedResult[i].lecJobPosition}</td>
                             <td>
-                            <button type="button" onClick="deleteFrlecture(this,${lecSelectedResult[i].lecturerID});">
+                            <button type="button" onClick="deleteFrlecture(this,'${lecSelectedResult[i].lecturerID}');">
 					        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </td>
                         `;
-
                             supervisorTable.appendChild(trLeft);
                         }
                     } else {
@@ -609,12 +630,12 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     }
                 }
 
-                async function deleteFrlecture(currentRow, cmpID) {
+                async function deleteFrlecture(currentRow, lecturerID) {
                     let text = "This will direct delete your selected lecturer!\nEither OK or Cancel.";
-                    Visitation_CompanyID = document.getElementById('Visitation_AppMapID ').value;
+                    Visitation_AppMapID = document.getElementById('Visitation_AppMapID').value;
                     if (confirm(text) == true) {
                         removeChildNode(currentRow);
-                        let url = `../../app/DAL/ajaxDelSelectedVisitationLecMap.php?Visitation_AppMapID =${Visitation_AppMapID}&cmpID=${lecturerID.name}`;
+                        let url = `../../app/DAL/ajaxDelSelectedVisitationLecMap.php?Visitation_AppMapID=${Visitation_AppMapID}&lecturerID=${lecturerID}`;
                         console.log(url);
                         let response = await fetch(url);
                         let data = await response.json();
@@ -637,6 +658,10 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                 function isExistingAssign(lecID) {
                     var table = document.getElementById("selected-visitation-Company-List-table");
+                    if (table == null) {
+                        return true;
+                    }
+
                     var rCount = table.rows.length;
                     //console.log(table.rows[0].cells[1].getAttribute('data-lecName'));
                     var value_check = "";

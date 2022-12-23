@@ -3,23 +3,31 @@ require '../../includes/db_connection.php';
 
 $db = new DBController();
 
-if (isset($_GET['Visitation_AppMapID']) && isset($_GET['lecturerID'])) {
+if (isset($_GET['Visitation_AppMapID'])) {
     //Visitation_AppMapID
     $Visitation_AppMapID = $_GET['Visitation_AppMapID'];
     //lecturerID
     $lecturerID = $_GET['lecturerID'];
 
+    $lecName = $_GET['lecName'];
+
+    $lecEmail = $_GET['lecEmail'];
 
     $result = false;
 
-    $sql = "DELETE FROM VisitationApplicationMapList WHERE Visitation_AppMapID = '$Visitation_AppMapID' AND lecturerID  = '$lecturerID'";
+    $sql = "INSERT INTO VisitationApplicationMapList (`Visitation_AppMapID`,`lecturerID`,`lecName`,`lecEmail`)
+    VALUES (
+      '" . $Visitation_AppMapID . "',
+      '" . $lecturerID . "',
+      '" . $lecEmail . "',
+      '" . $lecEmail . "'
+    )";
     try {
         $result = $db->executeQuery($sql);
     } catch (Exception $e) {
         echo json_encode($e);
         exit(0);
     }
-
     if ($result) {
         echo json_encode("Success");
         exit(0);
