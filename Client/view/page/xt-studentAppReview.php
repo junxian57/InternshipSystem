@@ -288,15 +288,28 @@
       $things = $_POST['things'];
       $subject = "Invitation to Interview at $cmpName";
 
-      $sql = "UPDATE InternApplicationMap SET appInterviewDateTime='$start', appInterviewDuration='$duration', appInterviewLocation='$address', appStatus='Shortlisted' WHERE internAppID='$internAppID'";
-      $result = mysqli_query($conn, $sql);
+      $getStudStatus = "SELECT * FROM Student WHERE studentID = '$studentID'";
+      $runStudStatus = mysqli_query($conn, $getStudStatus);
+      $rowStudStatus = mysqli_fetch_array($runStudStatus);
+      $studAccountStatus = $rowStudStatus['studAccountStatus'];
+      if($studAccountStatus != "Intern"){
+        $sql = "UPDATE InternApplicationMap SET appInterviewDateTime='$start', appInterviewDuration='$duration', appInterviewLocation='$address', appStatus='Shortlisted' WHERE internAppID='$internAppID'";
+        $result = mysqli_query($conn, $sql);
 
-      if($result){
-        $success = $mailConfig->singleEmail(
-          'wongxt-wm19@student.tarc.edu.my', 
-          $subject, 
-          shortlistedApp($cmpName, $studName, $internAppID, $start, $duration, $address, $things)
-        );
+        if($result){
+          $success = $mailConfig->singleEmail(
+            'wongxt-wm19@student.tarc.edu.my', 
+            $subject, 
+            shortlistedApp($cmpName, $studName, $internAppID, $start, $duration, $address, $things)
+          );
+        }
+      }else{
+        $sql = "UPDATE InternApplicationMap SET appStatus='Rejected' WHERE internAppID='$internAppID'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+          echo "<script>alert('Action failed! The student have accepted internship offer from other company.')</script>";
+          echo "<script>window.open('xt-companyResponse.php','_self')</script>";
+        }
       }
     }
 
