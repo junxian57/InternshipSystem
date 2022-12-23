@@ -9,9 +9,9 @@ if (isset($_GET['Visitation_AppMapID'])) {
     //lecturerID
     $lecturerID = $_GET['lecturerID'];
 
-    $lecName = $_GET['lecName'];
+    $lecName = trim($_GET['lecName']);
 
-    $lecEmail = $_GET['lecEmail'];
+    $lecEmail = trim($_GET['lecEmail']);
 
     $result = false;
 
@@ -19,7 +19,7 @@ if (isset($_GET['Visitation_AppMapID'])) {
     VALUES (
       '" . $Visitation_AppMapID . "',
       '" . $lecturerID . "',
-      '" . $lecEmail . "',
+      '" . $lecName . "',
       '" . $lecEmail . "'
     )";
     try {

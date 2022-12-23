@@ -498,7 +498,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     const lecSelectedResult = await fetchSelectedlecMapList();
                     const supervisorTable = document.getElementById("visitation-lecture-List-table");
                     let count = 0;
-
+                    console.log(lecSelectedResult.length);
                     if (supervisorTable.hasChildNodes()) {
                         removeAllChildNodes(supervisorTable);
                     }
@@ -508,13 +508,14 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         for (let i = 0; i < lecResult.length; i++) {
                             let trLeft = document.createElement("tr");
                             if (lecSelectedResult.length > count) {
-                                trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
-                                trLeft.setAttribute("data-lecName", lecResult[i].lecName);
-                                trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
-                                trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
-                                trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+                                if (lecSelectedResult[count].lecturerID == lecResult[i].lecturerID) {
+                                    trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                                    trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                                    trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                                    trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                                    trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
 
-                                trLeft.innerHTML = `
+                                    trLeft.innerHTML = `
                     <td>${lecResult[i].lecturerID}</td>
                     <td>${lecResult[i].lecName}</td>
                     <td>${lecResult[i].lecGender}</td>
@@ -524,15 +525,15 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox" checked>
                     </td>
                     `;
-                                count++;
-                            } else {
-                                trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
-                                trLeft.setAttribute("data-lecName", lecResult[i].lecName);
-                                trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
-                                trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
-                                trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+                                    count++;
+                                } else {
+                                    trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                                    trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                                    trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                                    trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                                    trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
 
-                                trLeft.innerHTML = `
+                                    trLeft.innerHTML = `
                     <td>${lecResult[i].lecturerID}</td>
                     <td>${lecResult[i].lecName}</td>
                     <td>${lecResult[i].lecGender}</td>
@@ -542,6 +543,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                         <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox">
                     </td>
                     `;
+                                }
+
                             }
                             supervisorTable.appendChild(trLeft);
                         }
@@ -580,7 +583,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     
                     </td>
                 `;
-                                let url = `../../app/DAL/ajaxInsertSelectedLecturer.php?Visitation_AppMapID=${Visitation_AppMapID}&lecturerID=${table.rows[i].getAttribute('data-lecturerID')}&lecName=${table.rows[i].getAttribute('data-lecName')}$lecEmail=${table.rows[i].getAttribute('data-lecEmail')}`;
+                                let url = `../../app/DAL/ajaxInsertSelectedLecturer.php?Visitation_AppMapID=${Visitation_AppMapID}&lecturerID=${table.rows[i].getAttribute('data-lecturerID')}
+                                &lecName=${table.rows[i].getAttribute('data-lecName')}&lecEmail=${table.rows[i].getAttribute('data-lecEmail')}`;
                                 await fetch(url);
                                 lecSelectedTable.appendChild(trRight);
 
@@ -636,7 +640,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     if (confirm(text) == true) {
                         removeChildNode(currentRow);
                         let url = `../../app/DAL/ajaxDelSelectedVisitationLecMap.php?Visitation_AppMapID=${Visitation_AppMapID}&lecturerID=${lecturerID}`;
-                        console.log(url);
                         let response = await fetch(url);
                         let data = await response.json();
 
@@ -657,12 +660,9 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                 }
 
                 function isExistingAssign(lecID) {
-                    var table = document.getElementById("selected-visitation-Company-List-table");
-                    if (table == null) {
-                        return true;
-                    }
+                    var table = document.getElementById("selected-visitation-lecture-List-table");
 
-                    var rCount = table.rows.length;
+
                     //console.log(table.rows[0].cells[1].getAttribute('data-lecName'));
                     var value_check = "";
                     for (var i = 0; i < table.rows.length; i++) {
