@@ -225,6 +225,11 @@
   padding: 0 4px;
   margin: 0;
 }
+@media only screen and (max-width: 1260px) {
+  .tabcontent .checkbox-group fieldset legend {
+    font-size: calc(1vw + 0.4em);
+  }
+}
 .tabcontent .checkbox-group fieldset legend span {
   color: #f2891f;
 }
@@ -395,4 +400,9 @@
 .tabcontent table tbody button:hover {
   background-color: transparent;
   color: #fe6932;
+}
+.tabcontent #tab1-top-table,
+.tabcontent #tab2-top-table,
+.tabcontent #tab3-top-table {
+  word-break: break-all;
 }/*# sourceMappingURL=br-studentSupervisorMap.css.map */

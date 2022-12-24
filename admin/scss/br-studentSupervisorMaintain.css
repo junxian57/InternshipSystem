@@ -28,6 +28,11 @@
   transition: 0.3s;
   font-size: 1vw;
 }
+@media only screen and (max-width: 1260px) {
+  .tab button {
+    font-size: calc(1vw + 0.4em);
+  }
+}
 .tab button span {
   font-size: 1vw;
 }
@@ -90,6 +95,11 @@
 .tabcontent .search-group .arrow-icon {
   font-size: 2vw;
   color: #f2891f;
+}
+@media only screen and (max-width: 1260px) {
+  .tabcontent .search-group .arrow-icon {
+    font-size: 1.7em;
+  }
 }
 .tabcontent :is(#result-box-1, #result-box-2) {
   min-height: 200px;
@@ -265,4 +275,8 @@
 .tabcontent table tbody .remove:hover {
   background-color: #f5891d;
   color: #fff;
+}
+.tabcontent #tab1-table,
+.tabcontent #tab2-table {
+  word-break: break-all;
 }/*# sourceMappingURL=br-studentSupervisorMaintain.css.map */

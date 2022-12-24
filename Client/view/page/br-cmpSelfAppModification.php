@@ -103,7 +103,7 @@ if(isset($_GET['companyID']) && isset($_GET['amend']) && isset($_GET['rejected']
       <div class="wrapper">
         <form action="../../app/BLL/cmpSelfAppModifyBLL.php" method="POST" onsubmit="return formTaskArray()" enctype="multipart/form-data">
         <input type="hidden" name="companyID" value="<?php echo $companyID;?>">
-          <h3 class="form-title">Company Registration Form</h3>
+          <h3 class="form-title">Company Registration Amendment</h3>
           <div class="title">
             <h2 class="title-1">Company Name & Contact</h2>
           </div>

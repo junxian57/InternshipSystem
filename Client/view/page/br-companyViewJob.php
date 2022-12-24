@@ -123,7 +123,7 @@ if(!isset($_SESSION['companyID'])){
         <div id="page-wrapper">
             <div class="main-page">
                 <div class="forms">
-                <h3 class="page-title">Job Posting</h3>
+                <h3 class="page-title">Job Details</h3>
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
 
                 <div class="wrapper">

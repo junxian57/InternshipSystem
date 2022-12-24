@@ -830,6 +830,9 @@ try {
         } else {
             info("No Data Found");
             document.getElementById('tab3-programme').value = "";
+            document.getElementById('tab3-assign-btn').disabled = true;
+            document.getElementById('tab3-assign-btn').classList.remove('clickable-btn');
+            document.getElementById('tab3-assign-btn').classList.add('grey-btn');
             return;
         }
     }
@@ -1053,7 +1056,7 @@ try {
 
         //If lecture selection has no items
         if (!lectureOption.hasChildNodes()) {
-            info("No Lecture Selected");
+            info("No Supervisor Selected");
             return;
         }
 
@@ -1174,14 +1177,14 @@ try {
         dataTableClear("#tab3-top-table");
 
         if (lectureGroup.length == 0) {
-            info("No Lecture Selected");
+            info("No Supervisor Selected");
             return;
         }
 
         if (checkedTutorialGroup.length != 0) {
             studentMap = await tab3FetchStudentForPreview();
         } else {
-            info("No Student Selected");
+            info("No Student Group Selected");
             return;
         }
 
