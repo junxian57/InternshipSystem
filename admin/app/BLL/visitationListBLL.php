@@ -79,11 +79,6 @@ class visitationListBLL
     public function AddvisitationList($visitationListDTO, $visitationCompanyListDTO)
     {
 
-        if ($visitationListDTO->getInternshipBatchID() == '') {
-            $this->errorMessage = 'Rubric Title, Instructions and Total Weight is required.';
-            return false;
-        }
-
         if ($this->IsValidvisitationList($visitationListDTO)) {
             $this->visitationListDAL->AddvisitationCompanyList($visitationListDTO, $visitationCompanyListDTO);
             return true;

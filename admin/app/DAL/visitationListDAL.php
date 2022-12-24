@@ -163,9 +163,9 @@ class visitationListDAL
         $result = $this->databaseConnectionObj->runQuery($sql);
 
         if (!empty($result)) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 }

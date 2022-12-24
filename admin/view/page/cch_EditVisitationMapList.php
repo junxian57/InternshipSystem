@@ -383,7 +383,7 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                                     </div>
                                     <div class="button-group">
                                         <a class="clickable-btn" id="assign-btn" onclick="assign()">Assign</a>
-                            
+
                                     </div>
 
                                     <div class="form-group col-md-12 text-right">
@@ -511,6 +511,22 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
 
                         for (let i = 0; i < lecResult.length; i++) {
                             let trLeft = document.createElement("tr");
+                            trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
+                            trLeft.setAttribute("data-lecName", lecResult[i].lecName);
+                            trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
+                            trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
+                            trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
+
+                            trLeft.innerHTML = `
+                    <td>${lecResult[i].lecturerID}</td>
+                    <td>${lecResult[i].lecName}</td>
+                    <td>${lecResult[i].lecGender}</td>
+                    <td>${lecResult[i].lecEmail}</td>
+                    <td>${lecResult[i].lecJobPosition}</td>
+                    <td>
+                        <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox">
+                    </td>
+                    `;
                             if (lecSelectedResult.length > count) {
                                 if (lecSelectedResult[count].lecturerID == lecResult[i].lecturerID) {
                                     trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
@@ -530,23 +546,6 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     </td>
                     `;
                                     count++;
-                                } else {
-                                    trLeft.setAttribute("data-lecturerID", lecResult[i].lecturerID);
-                                    trLeft.setAttribute("data-lecName", lecResult[i].lecName);
-                                    trLeft.setAttribute("data-lecGender", lecResult[i].lecGender);
-                                    trLeft.setAttribute("data-lecEmail", lecResult[i].lecEmail);
-                                    trLeft.setAttribute("data-lecJobPosition", lecResult[i].lecJobPosition);
-
-                                    trLeft.innerHTML = `
-                    <td>${lecResult[i].lecturerID}</td>
-                    <td>${lecResult[i].lecName}</td>
-                    <td>${lecResult[i].lecGender}</td>
-                    <td>${lecResult[i].lecEmail}</td>
-                    <td>${lecResult[i].lecJobPosition}</td>
-                    <td>
-                        <input type="checkbox" data-lecturerID="${lecResult[i].lecturerID}" name="${lecResult[i].lecturerID}" class="tab-3-checkbox">
-                    </td>
-                    `;
                                 }
 
                             }

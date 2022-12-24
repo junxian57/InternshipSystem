@@ -270,8 +270,8 @@ if (isset($_POST['SubmitButton']) && $_POST['SubmitButton'] == 'Add Supervisor C
                     echo "<script> warning('List cant be added. Operation failed.');</script>";
                 } elseif ($_GET['status'] == 'success') {
                     echo "<script> addSuccess('Add visitation List successful'); </script>";
-                } elseif ($rubricAssmtBllObj->errorMessage != '') {
-                    echo "<script> warning('$rubricAssmtBllObj->errorMessage'); </script>";
+                } elseif ($visitationMapBllObj->errorMessage != '') {
+                    echo "<script> warning('$visitationMapBllObj->errorMessage'); </script>";
                 }
 
                 ?>
