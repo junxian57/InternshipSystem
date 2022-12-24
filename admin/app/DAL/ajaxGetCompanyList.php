@@ -4,8 +4,8 @@ if (isset($_GET['getCompany']) == "Yes") {
     $db_handle1 = new DBController();
     //add faculty ID
     $query = "SELECT DISTINCT(cmp.companyID), cmp.cmpName, cmp.cmpContactPerson,cmp.cmpCompanySize ,cmp.cmpAddress
-    FROM Company cmp, InternJob ij
-    WHERE cmp.companyID=ij.companyID
+    FROM Company cmp, InternJob ij,InternApplicationMap iam
+    WHERE cmp.companyID=ij.companyID AND ij.internjobID=iam.internjobID AND iam.appStatus='Accepted'
     order BY cmp.companyID";
     $results = $db_handle1->runQuery($query);
     $array = array();
