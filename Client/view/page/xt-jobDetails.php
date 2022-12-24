@@ -159,7 +159,7 @@ function  confirmationMsgBox(){
 						
 						<div class="details-row">
 							<div class="details-content">
-                <h1 class="heading" >Guidewire Software Sdn. Bhd.</h1>
+                <h1 class="heading" ><?php echo $cmpName;?></h1>
             	</div>
         		</div>
 					</section>
