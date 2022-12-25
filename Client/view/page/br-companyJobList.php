@@ -193,7 +193,7 @@ try{
             let response = await fetch(url).then(response => response.json());
     
             if(response == "Success"){
-                addSuccess("Delete Success");
+                setTimeout(() => addSuccess("Delete Success"), 2000);
                 location.reload();
             }else if(response == 'Failed'){
                 info("Delete Failed, Please Try Again");

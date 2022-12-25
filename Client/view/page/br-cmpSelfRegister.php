@@ -220,6 +220,8 @@ if(isset($_GET['success']) && isset($_GET['status']) && $_GET['status'] == "pend
 
       let taskRow = document.getElementById('fields-row');
       taskRow.innerHTML = '';
+
+      document.getElementById('fileName').innerHTML = '';
     }
 
     function addNewRow(taskGroup, newTaskValue){

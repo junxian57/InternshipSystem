@@ -144,7 +144,7 @@ try {
                                 <div class="vertical-wrap">
                                     <div class="input-style width-100 name-address-group">
                                         <label for="jobDesc">Job Description</label>
-                                        <input type="text" name="jobDesc" id="jobDesc" pattern="[a-zA-Z ]{1,}" title="Only Alphabets Is Allowed" onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" required />
+                                        <input type="text" name="jobDesc" id="jobDesc" pattern="[a-zA-Z0-9,.-~()?!;' ]{1,}" title="Only a-z, A-Z, 0-9 and .-()~?!;' Are Allowed" onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" required />
                                         <p class="charCountHint">
                                             <span>* </span>Maximum 250 Characters (<span id="maxCharsDesc">0</span>/250)
                                         </p>
