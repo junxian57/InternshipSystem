@@ -184,9 +184,8 @@ class visitationMapDAL
      */
     public function IsCompanyVisitationMapExists($Visitation_AppMapID, $Visitation_CompanyID)
     {
-        $sql = "SELECT * FROM VisitationApplicationMap WHERE Visitation_AppMapID = '$Visitation_AppMapID' AND Visitation_CompanyID = '$Visitation_CompanyID' ";
+        $sql = "SELECT * FROM VisitationApplicationMap WHERE Visitation_CompanyID = '$Visitation_CompanyID' ";
         $result = $this->databaseConnectionObj->runQuery($sql);
-
         if (!empty($result)) {
             return true;
         } else {
