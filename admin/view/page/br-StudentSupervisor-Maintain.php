@@ -512,6 +512,7 @@ try{
             let newSupervisorSlot = document.getElementById("tab1-new-supervisor");
 
             newSupervisorSlot.textContent = `${currNo} / ${maxNo}`;
+            document.getElementById('tab1-new-supervisor-select').disabled = false;
 
             tab1NewLecturer = {
                 lecturerID: newSupervisorSelect.childNodes[0].value,
