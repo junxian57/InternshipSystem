@@ -85,9 +85,6 @@ if(!isset($_SESSION['companyID'])){
             
             if($_GET['view'] == 1){
                 $editable = false;
-                echo "<script> 
-                        info('You are able to view this Internship Job Details only.\\nSince this job has accepted at least 1 student, you are NOT allowed to edit this job.'); 
-                    </script>";
             }elseif($_GET['edit'] == 1){
                 $editable = true;
                 echo "<script> 
@@ -95,18 +92,19 @@ if(!isset($_SESSION['companyID'])){
                     </script>";
             }
 
-            $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
-            $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
-            
-            if($currQuota == '' || $currQuota == null || $cmpMaxQuota == '' || $cmpMaxQuota == null ){
-                echo "<script> 
-                alert('Something went wrong.\\nPlease Try Again.');
-                window.location.href = 'br-companyInfo.php';
-                /script>"; 
-                
+            //If Deleted, hide the Max Number of Quota
+            $hideMaxNo = false;
+
+            if($getCmpRemainingQuota == null){
+                $currQuota = 0;
+                $cmpMaxQuota = 0;
+                $hideMaxNo = true;
             }else{
-                $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
+                $currQuota = $getCmpRemainingQuota[0]['TotalQuota'];
+                $cmpMaxQuota = $getCmpRemainingQuota[0]['cmpNumberOfInternshipPlacements'];
             }
+
+            $quotaLeft =  (int)$cmpMaxQuota - (int)$currQuota;
         }
 
     }catch(PDOException $e){
@@ -153,9 +151,16 @@ if(!isset($_SESSION['companyID'])){
                                 TODO: Check maximum number job placement allowed
                             -->
                             <label for="jobNumberPlacement"
-                                >Number of Placement Needed (Max:
-                                <span id="maxNoOfQuota"><?php echo $quotaLeft; ?></span>
-                                )
+                                >Number of Placement Needed
+                                <?php
+                                    if($hideMaxNo == true){
+                                        echo "";
+                                    }else{
+                                ?>
+                                    (Max:<span id="maxNoOfQuota"><?php echo $quotaLeft; ?></span>)
+                                <?php
+                                    }
+                                ?>
                             </label>
                             <input
                                 type="number"
@@ -181,8 +186,8 @@ if(!isset($_SESSION['companyID'])){
                                 type="text" 
                                 name="jobDesc" 
                                 id="jobDesc" 
-                                pattern="[a-zA-Z ]{1,}"
-                                title="Only Alphabets Is Allowed"
+                                pattern="[a-zA-Z0-9,.-~()?!;'- ]{1,}" 
+                                title="Only a-z, A-Z, 0-9 and .-()~?!;'- Are Allowed"
                                 onkeyup="countCharacter(this, document.getElementById('maxCharsDesc'))" maxlength="250" 
                                 value="<?php echo $jobDescription; ?>"
                                 required />
