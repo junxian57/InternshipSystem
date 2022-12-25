@@ -14,7 +14,7 @@ if(isset($_GET['lecturerID']) && isset($_GET['insertTable']) && isset($_GET['tab
             WHERE S.programmeID = P.programmeID AND
             S.internshipBatchID = I.internshipBatchID AND
             S.lecturerID = '$lecturerID' AND
-            S.studAccountStatus = 'Active'
+            S.studAccountStatus IN ('Active', 'Intern')
             ORDER BY S.studentID ASC;";
 
     $result = $db->runQuery($sql);
